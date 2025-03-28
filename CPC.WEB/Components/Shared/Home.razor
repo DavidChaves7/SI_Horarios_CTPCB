@@ -1,0 +1,109 @@
+﻿@page "/"
+@page "/Login"
+@layout CleanLayout
+
+<HeadContent>
+    <link rel="stylesheet" href="css/Styles/Style-Login.css" />
+</HeadContent>
+<PageTitle>Iniciar Sesión - CoopeMep CPC</PageTitle>
+
+<Div Class="container-fluid vh-100 d-flex flex-column justify-content-center align-items-center">
+    <Div Class="login-container row w-75 h-75 rounded">
+        <Div Class="col-lg-8 col-12 d-flex justify-content-center align-items-center login-left">
+            <Div Class="text-center">
+                <h1 class="text-bold scoring-title">CPC</h1>
+            </Div>
+        </Div>
+
+        <Div class="col-lg-4 col-12 d-flex flex-column align-items-center justify-content-center login-right">
+            <Image Source="Img/Logos/Coopemep_Horizontal.png" alt="Logo" class="logo my-4" />
+            <h2 class="mb-4">Iniciar Sesión</h2>
+            <form data-enhance method="post" @onsubmit="Submit" @formname="formLogin" class="login">
+                <AntiforgeryToken />
+                <Div Class="mb-4">
+                    <TextEdit @bind-Text="@userName" name="userName" Class="form-control border-bottom user-input" Placeholder="Nombre de Usuario" required></TextEdit>
+                </Div>
+                <Div Class="mb-4">
+                    <TextEdit @bind-Text="@password" name="password" Class="form-control border-bottom password-input" Placeholder="Contraseña" Role="TextRole.Password" required></TextEdit>
+                </Div>
+                @*  @if (!string.IsNullOrEmpty(Model._Error))
+                {
+                <div class="alert alert-danger" role="alert" id="divAlerta">
+                @Model._Error
+                </div>
+                } *@
+                <Button Type="ButtonType.Submit" Class="btn btn-degradado w-100 mt-4">Login</Button>
+            </form>
+        </Div>
+
+    </Div>
+</Div>
+
+@code {
+
+    [Inject] INotificationService NotificationService { get; set; } = null!;
+    [Inject] NavigationManager nav { get; set; } = null!;
+    [Inject] AuthenticationStateProvider authService { get; set; } = null!;
+    // [Inject] UserService userService { get; set; } = null!;
+    [CascadingParameter]
+    public HttpContext httpContext { get; set; } = default!;
+
+    [SupplyParameterFromQuery]
+    public string? returnUrl { get; set; }
+
+    [SupplyParameterFromForm]
+    string? userName { get; set; }
+    [SupplyParameterFromForm]
+    string? password { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        // await storage.DeleteAsync("authUser");
+    }
+
+    async Task Submit()
+    {
+        var res = await api.Seguridad_AuthenticateUserAsync(new LoginRequest
+            {
+                CodUsuario = userName?.ToUpper(),
+                Password = password
+            });
+        if (res.Authenticated)
+        {
+            var currentUser = await authService.GetAuthenticationStateAsync();
+            var identity = new ClaimsIdentity(
+                new[]
+                {
+                new Claim(ClaimTypes.NameIdentifier, userName?.ToUpper()),
+                new Claim(ClaimTypes.Authentication, res.Token),
+                                },
+                CookieAuthenticationDefaults.AuthenticationScheme);
+            var newUser = new ClaimsPrincipal(identity);
+            // // nav.Refresh(true);
+            // if (!string.IsNullOrEmpty(returnUrl))
+            // {
+            //     nav.ToAbsoluteUri(returnUrl);
+            // }
+
+            //userService.SetUser(newUser);
+            await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, newUser, new AuthenticationProperties
+                {
+                    AllowRefresh = true,
+                    IsPersistent = true,
+
+                });
+            currentUser.User.AddIdentity(identity);
+            nav.NavigateTo("MenuPrincipal", true);
+        }
+        else
+        {
+            //await snackbarPrimary!.Show();
+            await NotificationService.Info("Credenciales Incorrectas", "No se pudo iniciar sesión", opt =>
+            {
+                opt.IntervalBeforeClose = 3000;
+            });
+        }
+    }
+
+}

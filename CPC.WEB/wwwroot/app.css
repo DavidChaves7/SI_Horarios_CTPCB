@@ -1,0 +1,109 @@
+@font-face {
+    font-family: BentonSans-Bold;
+    src: url('Font/BentonSans Bold.otf');
+}
+
+@font-face {
+    font-family: Poppins-Regular;
+    src: url('Font/Poppins-Regular.ttf');
+}
+
+.BentonSans-Bold {
+    font-family: BentonSans-Bold !important;
+}
+
+.Poppins-Regular {
+    font-family: Poppins-Regular !important;
+}
+
+:root {
+    --color-azul: #002D91;
+    --color-celeste: #00AFC8;
+    --color-verde: #B2CD00;
+    --color-amarillo: #EDE400;
+}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: BentonSans-Bold !important;
+    color: var(--color-azul) !important;
+}
+
+body {
+    margin: 0;
+    font-family: Poppins-Regular !important;
+    /*background-image: url("../../Assets/Img/Fondos/Fondo.png");*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    overflow-x: hidden;
+    /*padding-top: 50px;
+    padding-bottom: 20px;
+    height: 100%;*/
+}
+
+    body::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: var(--color-azul);
+        border-radius: 10px;
+    }
+
+    body::-webkit-scrollbar-track {
+        background-color: var(--color-verde);
+        border-radius: 10px;
+    }
+
+hr {
+    border: solid 1.5px;
+    border-color: var(--color-verde) !important;
+    width: 100%;
+}
+
+html {
+    font-size: 14px;
+}
+
+.container {
+    max-width: 100% !important;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.align-center {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.align-right {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+
+.align-left {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+
+.container-main {
+    padding: 20px !important;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    border-radius: 20px !important;
+    margin-top: 30px !important;
+    transition-duration: 1s;
+}
+
+    .container-main:hover {
+        background-color: rgba(255, 255, 255, 0) !important;
+        transition-duration: 1s;
+    }

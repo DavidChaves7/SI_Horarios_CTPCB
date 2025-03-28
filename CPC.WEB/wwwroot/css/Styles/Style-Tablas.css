@@ -1,0 +1,112 @@
+﻿body {
+    background-image: url("../../Img/Fondos/Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 3.png");
+}
+
+thead {
+    background-color: var(--color-azul) !important;
+    color: white !important;
+    border-top: 1px solid white !important;
+}
+
+table {
+    text-align: center;
+}
+
+td {
+    width: 100px !important;
+}
+
+.container {
+    padding-left: 65px !important;
+    padding-right: 65px !important;
+}
+
+.pagination {
+    --bs-pagination-disabled-bg: var(--color-azul) !important;
+    --bs-pagination-disabled-color: white !important;
+    --bs-pagination-border-width: 0px;
+    --bs-pagination-color: white !important;
+    --bs-pagination-hover-color: white !important;
+}
+
+.custom-file-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 300px;
+    background-color: #fff;
+}
+
+.file-upload-button {
+    background-color: var(--color-azul);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.file-name {
+    font-size: 0.9em;
+    color: black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 1;
+}
+
+.input-file-hidden {
+    display: none;
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: white !important;
+}
+
+.header-azul{
+    background-color: var(--color-azul) !important;
+    color:white !important;
+}
+    .header-azul::after {
+        color: white !important;
+        filter: invert(1); 
+    }
+
+.header-celeste {
+    background-color: var(--color-celeste) !important;
+    color: white !important;
+}
+    .header-celeste::after {
+        color: white !important;
+        filter: invert(1);
+    }
+
+.header-verde {
+    background-color: var(--color-verde) !important;
+    color: white !important;
+}
+    .header-verde::after {
+        color: white !important;
+        filter: invert(1);
+    }
+
+.header-amarillo {
+    background-color: var(--color-amarillo) !important;
+    color: white !important;
+}
+    /*.header-amarillo::after {
+        color: white !important;
+        filter: invert(1);
+    }*/
+
+.alert-info {
+    /*background-color: var(--color-celeste);*/
+    background: linear-gradient(to right,var(--color-azul), var(--color-celeste));
+    color: white !important;
+    justify-content: center;
+    border: 0px
+}

@@ -1,0 +1,143 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Platforms>AnyCPU;x64</Platforms>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Components\Dashboard\Shared\**" />
+	  <Content Remove="Components\Dashboard\Shared\**" />
+	  <EmbeddedResource Remove="Components\Dashboard\Shared\**" />
+	  <None Remove="Components\Dashboard\Shared\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="Components\Cartera\Shared\Grids\CarteraEntidadBalanceDetailsGrid.razor" />
+	  <Content Remove="Components\Cartera\Shared\Grids\CarteraEntidadBalanceGrid.razor" />
+	  <Content Remove="Components\Cotizador\Consultas\Pages\SolicitudesApi.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Components\Scoring\Shared\Grids\TiposVariableGrid.razor~RF114232d6.TMP" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Ardalis.GuardClauses" Version="4.6.0" />
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="Azure.Identity" Version="1.12.0" />
+		<PackageReference Include="Blazorise" Version="1.5.3" />
+		<PackageReference Include="Blazorise.Animate" Version="1.5.3" />
+		<PackageReference Include="Blazorise.Bootstrap5" Version="1.5.3" />
+		<PackageReference Include="Blazorise.Charts" Version="1.5.3" />
+		<PackageReference Include="Blazorise.Components" Version="1.5.3" />
+		<PackageReference Include="Blazorise.DataGrid" Version="1.5.3" />
+		<PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.5.3" />
+		<PackageReference Include="Blazorise.LoadingIndicator" Version="1.5.3" />
+		<PackageReference Include="Blazorise.Snackbar" Version="1.5.3" />
+		<PackageReference Include="Blazorise.TreeView" Version="1.5.3" />
+		<PackageReference Include="CsvHelper" Version="33.0.1" />
+		<PackageReference Include="EPPlus" Version="7.2.1" />
+
+
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
+		<PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.4.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="NJsonSchema" Version="11.0.1" />
+		<PackageReference Include="NSwag.AspNetCore" Version="14.0.8" />
+
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.7" />
+		<PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+
+		<PackageReference Include="NSwag.MSBuild" Version="14.0.8">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Select.HtmlToPdf.NetCore" Version="24.1.0" />
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Components\Cartera\ReporteXML\" />
+		<Folder Include="Components\Equifax\Pages\" />
+		<Folder Include="Components\Equifax\Shared\Grid\" />
+		<Folder Include="Infrastructure\Middleware\" />
+		<Folder Include="Infrastructure\Models\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="Components\Consultas\Pages\BitacoraBCCR.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Cotizador\Mantenimientos\Pages\ParametrosPrestApi.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Mantenimientos\Pages\Parametros.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Mantenimientos\Pages\TiposGastos.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Components\Reportes\Html\CPC_CONSULTAS_CIC.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Components\Reportes\Html\CPC_ENTIDADES.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Components\Reportes\Html\CPC_ESTUDIO_CLIENTE.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Components\Reportes\Html\CPC_ESTUDIO_STRESS.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Components\Reportes\Html\CPC_PRE_ESTUDIO_EQFX.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Components\Reportes\Html\CPC_RANALISIS.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Components\Reportes\Html\CPC_ROFERTA.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Components\Reportes\Html\CPC_RREGLAS_ESTUDIO.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	<Target Name="GenerateClient" BeforeTargets="BeforeBuild" Condition=" '$(Configuration)' == 'Debug' ">
+		<Exec Command="$(NSwagExe_Net80) openapi2csclient /input:..\API\swagger.json /operationGenerationMode:SingleClientFromOperationId /dateType:System.DateTime /dateTimeType:System.DateTime /injectHttpClient:true /classname:CPCAPI /useHttpRequestMessageCreationMethod:true /clientBaseClass:BaseCPCAPI /output:Infrastructure\ApiClient\CPCAPI.cs /namespace:CPC.WEB.Infrastructure.ApiClient">
+			<Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput" />
+		</Exec>
+	</Target>
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Components\Cartera\Shared\Grids\CarteraEntidadBalanceDetailsGrid.razor" />
+	  <_ContentIncludedByDefault Remove="Components\Cartera\Shared\Grids\CarteraEntidadBalanceGrid.razor" />
+	  <_ContentIncludedByDefault Remove="Components\Cotizador\Consultas\Pages\SolicitudesApi.razor" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="Components\Cartera\Shared\Grids\CarteraEntidadBalanceDetailsGrid.razor" />
+	  <None Include="Components\Cartera\Shared\Grids\CarteraEntidadBalanceGrid.razor" />
+	  <None Include="Components\Cotizador\Consultas\Pages\SolicitudesApi.razor" />
+	</ItemGroup>
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Components\Cartera\Shared\Grids\CarteraEntidadBalanceGrid.razor" />
+	</ItemGroup>
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Components\Cartera\Shared\Grids\CarteraEntidadBalanceDetailsGrid.razor" />
+	</ItemGroup>
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Components\Cotizador\Consultas\Pages\SolicitudesApi.razor" />
+	</ItemGroup>
+</Project>

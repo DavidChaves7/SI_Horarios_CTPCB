@@ -1,0 +1,82 @@
+﻿header {
+    max-height: 100px !important;
+   
+}
+nav {
+    background: linear-gradient(to right, var(--color-azul) 0%, var(--color-celeste) 40%, var(--color-verde) 100%);
+}
+
+    nav button, nav h5, nav a {
+        color: white !important;
+        font-family: BentonSans-Bold !important;
+        font-size: 1.2rem;
+    }
+
+.bar {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--color-beige);
+    background-color: white;
+}
+
+.bar-menu {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    width: 350px;
+    background-color: #f8f9fa;
+    max-height: 500px;
+    width: auto !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+    .dropdown-item img {
+        height: 40px;
+        width: 40px;
+        object-fit: contain;
+    }
+
+.dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: var(--color-azul);
+    border-radius: 10px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+    background-color: var(--color-verde);
+    border-radius: 10px;
+}
+
+.bar-brand img {
+    max-height: 70px;
+}
+
+.bar h5 {
+    margin: 0;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    color: #555;
+}
+
+

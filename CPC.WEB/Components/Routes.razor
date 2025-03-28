@@ -1,0 +1,65 @@
+﻿@inject NavigationManager Navigation
+
+<ErrorBoundary @ref="errorBoundary">
+    <ChildContent>
+        <Router AppAssembly="@typeof(Program).Assembly">
+            <Found Context="routeData">
+                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.MainLayout)">
+                    <NotAuthorized>
+                        <LoginRedirect />
+                    </NotAuthorized>
+                </AuthorizeRouteView>
+                <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+            </Found>
+        </Router>
+    </ChildContent>
+    <ErrorContent>
+        @{
+            LogError(context);
+        }
+        <Container Flex="Flex.Column.JustifyContent.Center.Grow.Is1" Width="Width.Is100.Viewport" Height="Height.Is100.Viewport">
+            <Alert Color="Color.Info" Visible>
+                <AlertMessage>
+                    Oops algo salió mal!
+                </AlertMessage>
+                <AlertDescription>
+                    La aplicación de CPC-CPC parece estar teniendo problemas, el equipo técnico ya fue notificado, esperamos estar de vuelta pronto!
+                </AlertDescription>
+            </Alert>
+            <Div Flex="Flex.Row.Grow.Is0.JustifyContent.Center">
+                <Button Margin="Margin.Is2.FromEnd" Width="Width.Is25" Color="Color.Primary">
+                    <Icon Name="IconName.Backward" Margin="Margin.Is3.FromEnd"></Icon>
+                    Ir al inicio de sesión
+                </Button>
+                <Button Clicked="RedirectNotFound" Margin="Margin.Is2.FromStart" Width="Width.Is25" Color="Color.Primary">
+                    <Icon Name="IconName.Home" Margin="Margin.Is3.FromEnd"></Icon>
+                    Ir a la página principal
+                </Button>
+            </Div>
+        </Container>
+    </ErrorContent>
+</ErrorBoundary>
+<NotificationProvider />
+<MessageProvider />
+<ToastProvider Placement="ToasterPlacement.TopEnd" />
+<PageProgressProvider />
+
+@code {
+
+    private ErrorBoundary? errorBoundary;
+
+
+    Task LogError(Exception ex)
+    {
+        Console.WriteLine(ex.ToString());
+        return Task.CompletedTask;
+    }
+
+    Task RedirectNotFound()
+    {
+        errorBoundary?.Recover();
+        Navigation.NavigateTo("MenuPrincipal");
+        return Task.CompletedTask;
+    }
+
+}

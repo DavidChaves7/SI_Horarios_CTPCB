@@ -1,0 +1,41 @@
+wwwroot\app.css
+wwwroot\bootstrap\css\bootstrap.min.css
+wwwroot\css\Styles\Style-Buttons.css
+wwwroot\css\Styles\Style-Loader.css
+wwwroot\css\Styles\Style-Login.css
+wwwroot\css\Styles\Style-Menu.css
+wwwroot\css\Styles\Style-MenuPrincipal.css
+wwwroot\css\Styles\Style-Modals.css
+wwwroot\css\Styles\Style-Nav.css
+wwwroot\css\Styles\Style-Tablas.css
+wwwroot\favicon.ico
+wwwroot\Font\BentonSans Black.otf
+wwwroot\Font\BentonSans Bold.otf
+wwwroot\Font\BentonSans Book.otf
+wwwroot\Font\BentonSans Medium.otf
+wwwroot\Font\Poppins-Regular.ttf
+wwwroot\fontawesome\css\brands.css
+wwwroot\fontawesome\css\brands.min.css
+wwwroot\fontawesome\css\fontawesome.css
+wwwroot\fontawesome\css\fontawesome.min.css
+wwwroot\fontawesome\css\solid.css
+wwwroot\fontawesome\css\solid.min.css
+wwwroot\fontawesome\webfonts\fa-brands-400.ttf
+wwwroot\fontawesome\webfonts\fa-brands-400.woff2
+wwwroot\fontawesome\webfonts\fa-solid-900.ttf
+wwwroot\fontawesome\webfonts\fa-solid-900.woff2
+wwwroot\Img\favicon.png
+wwwroot\Img\Fondos\Fondo.png
+wwwroot\Img\Fondos\Proyecto Onboarding Coopemep nov24 editable adicionales_imagen fondo.png
+wwwroot\Img\Fondos\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 1.png
+wwwroot\Img\Fondos\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 2.png
+wwwroot\Img\Fondos\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 3.png
+wwwroot\Img\Icon\Blanco\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion blanco.svg
+wwwroot\Img\Icon\Color\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg
+wwwroot\Img\Icon\Proyecto Onboarding Coopemep nov24 editable adicionales_calculadora.svg
+wwwroot\Img\Icon\Proyecto Onboarding Coopemep nov24 editable adicionales_computadora.svg
+wwwroot\Img\Icon\Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg
+wwwroot\Img\Logos\Coopemep_Azul_Horizontal.png
+wwwroot\Img\Logos\Coopemep_Blanco_Horizontal.png
+wwwroot\Img\Logos\Coopemep_Horizontal.png
+wwwroot\js\site.js

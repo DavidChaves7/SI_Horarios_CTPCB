@@ -1,0 +1,68 @@
+﻿@inject IHostEnvironment Env
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy"
+          content="upgrade-insecure-requests" />
+
+    @if (Env.IsProduction())
+    {
+        <base href="/WebMep/" />
+    }
+    else
+    {
+        <base href="/" />
+    }
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link href="fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="fontawesome/css/brands.css" rel="stylesheet">
+    <link href="fontawesome/css/solid.css" rel="stylesheet">
+    <link href="_content/Blazorise/blazorise.css" rel="stylesheet" />
+    <link href="_content/Blazorise.Bootstrap5/blazorise.bootstrap5.css" rel="stylesheet" />
+    <link href="_content/Blazorise.Snackbar/blazorise.snackbar.css" rel="stylesheet" />
+    <link href="_content/Blazorise.LoadingIndicator/blazorise.loadingindicator.css" rel="stylesheet" />
+    <link href="_content/Blazorise.TreeView/blazorise.treeview.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="Img/favicon.png" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="css/Styles/Style-Buttons.css" />
+    <link rel="stylesheet" href="css/Styles/Style-Modals.css" />
+    <link rel="stylesheet" href="css/Styles/Style-Nav.css" />
+    <link rel="stylesheet" href="css/Styles/Style-Tablas.css" />
+    
+    <HeadOutlet @rendermode="RenderModeForPage" />
+</head>
+
+<body>
+    <Routes @rendermode="RenderModeForPage" />
+    <script src="_framework/blazor.web.js"></script>
+    <script src="js/site.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <script src="_content/Blazorise.Animate/blazorise.animate.js?v=1.4.2.0"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+    <script>
+        function saveAsFile(fileName, byteBase64) {
+            const link = document.createElement('a');
+            link.download = fileName;
+            link.href = "data:application/octet-stream;base64," + byteBase64;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+
+</html>
+
+@code{
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    private IComponentRenderMode? RenderModeForPage => HttpContext.Request.Path.StartsWithSegments("/Login")
+        ? null
+        : InteractiveServer;
+}

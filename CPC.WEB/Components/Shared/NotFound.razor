@@ -1,0 +1,15 @@
+﻿@page "/NotFound"
+@inject NavigationManager UriHelper
+@code {
+    protected override void OnInitialized()
+    {
+        try
+        {
+            UriHelper.NavigateTo($"MenuPrincipal", forceLoad: true);
+        }
+        catch (Exception)
+        {
+            
+        }
+    }
+}

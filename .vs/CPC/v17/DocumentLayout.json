@@ -1,0 +1,393 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|solutionrelative:api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\api\\infrastructure\\services\\mantenimientosrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|solutionrelative:api\\infrastructure\\services\\mantenimientosrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5846E9D9-3907-4F39-BAAD-BAAD9F7A122E}|Infrastructure\\Infrastructure.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\infrastructure\\common\\mappings\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5846E9D9-3907-4F39-BAAD-BAAD9F7A122E}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\common\\mappings\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DE5DFB2-57A8-40C9-8E9F-EE6CF8B65401}|Application\\Application.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\application\\contexts\\basecustomizeddbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DE5DFB2-57A8-40C9-8E9F-EE6CF8B65401}|Application\\Application.csproj|solutionrelative:application\\contexts\\basecustomizeddbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\api\\controllers\\cpc\\mantenimientoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|solutionrelative:api\\controllers\\cpc\\mantenimientoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5846E9D9-3907-4F39-BAAD-BAAD9F7A122E}|Infrastructure\\Infrastructure.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\infrastructure\\interfaces\\imantenimientosrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5846E9D9-3907-4F39-BAAD-BAAD9F7A122E}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\interfaces\\imantenimientosrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|solutionrelative:api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\cpc.web\\infrastructure\\apiclient\\sihapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\infrastructure\\apiclient\\sihapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\cpc.web\\components\\mantenimientos\\shared\\grids\\catalogoccssgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\mantenimientos\\shared\\grids\\catalogoccssgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\cpc.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\api\\api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|solutionrelative:api\\api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\cpc.web\\components\\shared\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\cpc.web\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\cpc.web\\components\\layout\\cleanlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\layout\\cleanlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|c:\\users\\dchav\\documents\\github\\si_horarios_ctpcb\\api\\infrastructure\\middlewares\\jwtmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|solutionrelative:api\\infrastructure\\middlewares\\jwtmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 36,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{809f6ff3-8092-454a-8003-6d4091f9b5bb}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{809f6ff3-8092-454a-8003-6d4091f9b5bb}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:15:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:18:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:19:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:20:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:21:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:22:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:23:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:24:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:25:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:26:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:27:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:28:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:13:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:16:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:17:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:14:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:12:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MappingProfile.cs",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\Infrastructure\\Common\\Mappings\\MappingProfile.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Common\\Mappings\\MappingProfile.cs",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\Infrastructure\\Common\\Mappings\\MappingProfile.cs",
+              "RelativeToolTip": "Infrastructure\\Common\\Mappings\\MappingProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T01:25:37.641Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IMantenimientosRepository.cs",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\Infrastructure\\Interfaces\\IMantenimientosRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Interfaces\\IMantenimientosRepository.cs",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\Infrastructure\\Interfaces\\IMantenimientosRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Interfaces\\IMantenimientosRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T01:25:10.435Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MantenimientosController.cs",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\Controllers\\CPC\\MantenimientosController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\CPC\\MantenimientosController.cs",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\Controllers\\CPC\\MantenimientosController.cs",
+              "RelativeToolTip": "API\\Controllers\\CPC\\MantenimientosController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAB8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T01:24:47.262Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BaseCustomizedDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\Application\\Contexts\\BaseCustomizedDbContext.cs",
+              "RelativeDocumentMoniker": "Application\\Contexts\\BaseCustomizedDbContext.cs",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\Application\\Contexts\\BaseCustomizedDbContext.cs",
+              "RelativeToolTip": "Application\\Contexts\\BaseCustomizedDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T01:21:23.857Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\appsettings.json",
+              "RelativeDocumentMoniker": "API\\appsettings.json",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\appsettings.json",
+              "RelativeToolTip": "API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAoAQAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-28T01:18:32.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MantenimientosRepository.cs",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\Infrastructure\\Services\\MantenimientosRepository.cs",
+              "RelativeDocumentMoniker": "API\\Infrastructure\\Services\\MantenimientosRepository.cs",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\Infrastructure\\Services\\MantenimientosRepository.cs",
+              "RelativeToolTip": "API\\Infrastructure\\Services\\MantenimientosRepository.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAIwAMAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T01:17:18.098Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CatalogoCCSSGrid.razor",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\CatalogoCCSSGrid.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\CatalogoCCSSGrid.razor",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\CatalogoCCSSGrid.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\CatalogoCCSSGrid.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-28T01:14:30.471Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SIHAPI.cs",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Infrastructure\\ApiClient\\SIHAPI.cs",
+              "RelativeDocumentMoniker": "CPC.WEB\\Infrastructure\\ApiClient\\SIHAPI.cs",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Infrastructure\\ApiClient\\SIHAPI.cs",
+              "RelativeToolTip": "CPC.WEB\\Infrastructure\\ApiClient\\SIHAPI.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T01:11:35.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "API",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\API.csproj",
+              "RelativeDocumentMoniker": "API\\API.csproj",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\API.csproj",
+              "RelativeToolTip": "API\\API.csproj",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAgwCwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-28T01:11:32.729Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\Program.cs",
+              "RelativeDocumentMoniker": "API\\Program.cs",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\Program.cs",
+              "RelativeToolTip": "API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T01:08:13.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "JwtMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\Infrastructure\\Middlewares\\JwtMiddleware.cs",
+              "RelativeDocumentMoniker": "API\\Infrastructure\\Middlewares\\JwtMiddleware.cs",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\API\\Infrastructure\\Middlewares\\JwtMiddleware.cs",
+              "RelativeToolTip": "API\\Infrastructure\\Middlewares\\JwtMiddleware.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA1wDAAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T01:06:49.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\Home.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Shared\\Home.razor",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\Home.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Shared\\Home.razor",
+              "ViewState": "AgIAABMAAAAAAAAAAAD4vy0AAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-28T01:04:23.119Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CleanLayout.razor",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\CleanLayout.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Layout\\CleanLayout.razor",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\CleanLayout.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Layout\\CleanLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-28T01:04:01.236Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Program.cs",
+              "RelativeDocumentMoniker": "CPC.WEB\\Program.cs",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Program.cs",
+              "RelativeToolTip": "CPC.WEB\\Program.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAAwEAAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T01:03:44.967Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "_Imports.razor",
+              "DocumentMoniker": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\_Imports.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\_Imports.razor",
+              "ToolTip": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\_Imports.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\_Imports.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-28T01:03:06.561Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

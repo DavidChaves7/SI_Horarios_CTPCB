@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Nuevo perfil",
+    "Projects": [
+      {
+        "Path": "CPC.WEB\\SI_Horarios_CTPCB.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "API\\API.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

@@ -1,0 +1,102 @@
+﻿body {
+    background-image: url("../../Img/Fondos/Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 2.png");
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+    .user-info h2 {
+        margin-left: 10px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+.logo {
+    height: 70px;
+    width: 300px;
+}
+
+.welcome-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.welcome-text {
+    font-size: 40px;
+    font-family: 'BentonSans-Bold', sans-serif;
+    color: var(--color-azul) !important;
+    border: 3px solid var(--color-azul) !important;
+    padding: 10px;
+    border-radius: 50px;
+    display: inline-block;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin-top: 5%;
+}
+
+i {
+    color: var(--color-azul);
+    font-size: 25px;
+    margin-bottom: 5px !important;
+}
+
+.menu-card {
+    width: 350px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+    .menu-card:hover {
+        transform: scale(1.05);
+    }
+
+    .menu-card img {
+        width: 80%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .menu-card h3 {
+        margin-top: 10px;
+    }
+
+.cpc {
+    background: linear-gradient(to right, var(--color-azul), var(--color-celeste));
+}
+
+.cotizador {
+    background: linear-gradient(to right, var(--color-celeste), var(--color-verde));
+}
+
+.scoring {
+    background: linear-gradient(to right,var(--color-verde), var(--color-amarillo));
+}
+
+.card-title{
+    color: white !important
+}

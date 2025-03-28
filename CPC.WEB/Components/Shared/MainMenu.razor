@@ -1,0 +1,60 @@
+﻿@page "/MenuPrincipal"
+@layout CleanLayout
+
+<HeadContent>
+    <link rel="stylesheet" href="css/Styles/Style-MenuPrincipal.css" />
+</HeadContent>
+<PageTitle>Menú Principal - CoopeMep CPC</PageTitle>
+
+<AuthorizeView>
+    <NotAuthorized>
+        <LoginRedirect></LoginRedirect>
+    </NotAuthorized>
+    <Authorized>
+        <Div Class="menu-header">
+            <Div Class="user-info">
+                <Icon Name="IconName.User" Class="px-2" />
+                <h1>@userName</h1>
+            </Div>
+            <Image Source="Img/Logos/Coopemep_Horizontal.png" alt="Logo" Class="logo" />
+        </Div>
+
+        <Div Class="welcome-container">
+            <h1 class="welcome-text">BIENVENIDO</h1>
+        </Div>
+
+        <Div Class="card-container">
+            <Link To="MenuPrincipalCPC" Class="menu-card cpc">
+            <Image Source="Img/Icon/Proyecto Onboarding Coopemep nov24 editable adicionales_computadora.svg" alt="CPC" Class="card-image" />
+                <h3 class="card-title">CPC</h3>
+            </Link>
+
+            <Link To="http://172.17.62.15/CotizadorAdm" Class="menu-card cotizador">
+            <Image Source="Img/Icon/Proyecto Onboarding Coopemep nov24 editable adicionales_calculadora.svg" alt="Cotizador" Class="card-image" />
+                <h3 class="card-title">Cotizador</h3>
+            </Link>
+
+            <Link To="http://172.17.62.15/ScoringMep" Class="menu-card scoring">
+            <Image Source="Img/Icon/Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg" alt="Scoring" Class="card-image" />
+                <h3 class="card-title">Scoring</h3>
+            </Link>
+        </Div>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    private string userName;
+
+    [Inject]
+    private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        userName = user.Identity?.IsAuthenticated == true
+            ? user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "Usuario desconocido"
+            : "Invitado";
+    }
+}

@@ -1,0 +1,37 @@
+﻿@* <LoadingIndicator Visible="@(_data is null)">
+    <ChildContent>
+        @if (_accessCategory.Equals("CT") || _accessCategory.Equals("SS"))
+        {
+            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@_selectedItem" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="CatalogCCSSDto" Data="_data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+                      Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
+                      UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
+                <DataGridColumns>
+                    <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
+                        <EditTemplate>
+                            <TextEdit Text="@((string)context.CellValue)" TextChanged="@( v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.CoD_RUBRO))">
+                                <Feedback>
+                                    <ValidationError />
+                                    <ValidationNone />
+                                </Feedback>
+                            </TextEdit>
+                        </EditTemplate>
+                    </DataGridColumn>
+                    <DataGridColumn Field="@nameof(CatalogCCSSDto.DesC_RUBRO)" Editable Caption="Descripción"></DataGridColumn>
+                    <DataGridColumn Field="@nameof(CatalogCCSSDto.PorC_RUBRO)" Editable Caption="Porcentaje">
+                        <DisplayTemplate>
+                            <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
+                        </DisplayTemplate>
+                    </DataGridColumn>
+                </DataGridColumns>
+                <ButtonRowTemplate>
+                    @if (_accessCategory.Equals("CT"))
+                    {
+                        <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
+                        <Button Class="btn btn-edit" Disabled="(_selectedItem is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
+                        <Button Class="btn btn-delete" Disabled="(_selectedItem is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+                    }
+                </ButtonRowTemplate>
+            </DataGrid>
+        }
+    </ChildContent>
+</LoadingIndicator> *@

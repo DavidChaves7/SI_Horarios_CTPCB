@@ -1,0 +1,14 @@
+﻿@inject NavigationManager UriHelper
+@code {
+    protected override void OnInitialized()
+    {
+        try
+        {
+            UriHelper.NavigateTo($"Login?returnUrl={Uri.EscapeDataString(UriHelper.Uri)}");
+        }
+        catch (Exception)
+        {
+            
+        }
+    }
+}
