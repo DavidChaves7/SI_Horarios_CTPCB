@@ -76,11 +76,11 @@ namespace SI_Horarios_CTPCB.Infrastructure.Authentication
 
                 if (userId != null)
                 {
-                    _state.PersistAsJson(nameof(UsersDto), new UsersDto
-                    {
-                        CoD_USUARIO = userId,
-                        NoM_USUARIO = name
-                    });
+                    //_state.PersistAsJson(nameof(UsersDto), new UsersDto
+                    //{
+                    //    CoD_USUARIO = userId,
+                    //    NoM_USUARIO = name
+                    //});
                 }
             }
         }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+
 namespace Application
 {
     public static class DependencyInjection
@@ -24,7 +25,7 @@ namespace Application
                             //});
                         });
                     }
-                    break;                
+                    break;
             }
 
             var assembly = typeof(DependencyInjection).Assembly;

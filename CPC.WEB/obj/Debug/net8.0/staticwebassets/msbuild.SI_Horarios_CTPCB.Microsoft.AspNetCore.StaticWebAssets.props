@@ -624,8 +624,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>u6hhobarqq</Fingerprint>
-      <Integrity>RvXxImlnhANy3YTN14ipuWeRJis1HdyIp9l20Wcsszs=</Integrity>
+      <Fingerprint>ofzfh11itf</Fingerprint>
+      <Integrity>3LkNWYE+FmnBQs0rU8bp0Xz7aGp5SMFHuYjlihX13Ew=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\Icon\Proyecto Onboarding Coopemep nov24 editable adicionales_calculadora.svg'))</OriginalItemSpec>
@@ -642,8 +642,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>36i87n1ss4</Fingerprint>
-      <Integrity>Bb938anPPT7IXoZ7feoKX/PvvBZuKRbH0Gnrn/Y+eqU=</Integrity>
+      <Fingerprint>atecuk5ro1</Fingerprint>
+      <Integrity>AmyJHFLDkLqKFwH1f8Q3krCViezCsHXWJru3deZu3Hc=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\Icon\Proyecto Onboarding Coopemep nov24 editable adicionales_computadora.svg'))</OriginalItemSpec>
@@ -660,8 +660,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>01gfm2d3xf</Fingerprint>
-      <Integrity>HFNgRpW1c8foh0QmB7VEjuIbnh/GvA3do5C76XPQ2ls=</Integrity>
+      <Fingerprint>xxqbmx9tp1</Fingerprint>
+      <Integrity>29jywQINPd361E6LQWnyiYmOk3wJRqwENDEgoRIt4wg=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\Icon\Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg'))</OriginalItemSpec>

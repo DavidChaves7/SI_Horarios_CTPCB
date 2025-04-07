@@ -64,46 +64,46 @@
 
     async Task Submit()
     {
-        var res = await api.Seguridad_AuthenticateUserAsync(new LoginRequest
-            {
-                CodUsuario = userName?.ToUpper(),
-                Password = password
-            });
-        if (res.Authenticated)
-        {
-            var currentUser = await authService.GetAuthenticationStateAsync();
-            var identity = new ClaimsIdentity(
-                new[]
-                {
-                new Claim(ClaimTypes.NameIdentifier, userName?.ToUpper()),
-                new Claim(ClaimTypes.Authentication, res.Token),
-                                },
-                CookieAuthenticationDefaults.AuthenticationScheme);
-            var newUser = new ClaimsPrincipal(identity);
-            // // nav.Refresh(true);
-            // if (!string.IsNullOrEmpty(returnUrl))
-            // {
-            //     nav.ToAbsoluteUri(returnUrl);
-            // }
+        // var res = await api.Seguridad_AuthenticateUserAsync(new LoginRequest
+        //     {
+        //         CodUsuario = userName?.ToUpper(),
+        //         Password = password
+        //     });
+        // if (res.Authenticated)
+        // {
+        //     var currentUser = await authService.GetAuthenticationStateAsync();
+        //     var identity = new ClaimsIdentity(
+        //         new[]
+        //         {
+        //         new Claim(ClaimTypes.NameIdentifier, userName?.ToUpper()),
+        //         new Claim(ClaimTypes.Authentication, res.Token),
+        //                         },
+        //         CookieAuthenticationDefaults.AuthenticationScheme);
+        //     var newUser = new ClaimsPrincipal(identity);
+        //     // // nav.Refresh(true);
+        //     // if (!string.IsNullOrEmpty(returnUrl))
+        //     // {
+        //     //     nav.ToAbsoluteUri(returnUrl);
+        //     // }
 
-            //userService.SetUser(newUser);
-            await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, newUser, new AuthenticationProperties
-                {
-                    AllowRefresh = true,
-                    IsPersistent = true,
+        //     //userService.SetUser(newUser);
+        //     await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, newUser, new AuthenticationProperties
+        //         {
+        //             AllowRefresh = true,
+        //             IsPersistent = true,
 
-                });
-            currentUser.User.AddIdentity(identity);
-            nav.NavigateTo("MenuPrincipal", true);
-        }
-        else
-        {
-            //await snackbarPrimary!.Show();
-            await NotificationService.Info("Credenciales Incorrectas", "No se pudo iniciar sesión", opt =>
-            {
-                opt.IntervalBeforeClose = 3000;
-            });
-        }
+        //         });
+        //     currentUser.User.AddIdentity(identity);
+        //     nav.NavigateTo("MenuPrincipal", true);
+        // }
+        // else
+        // {
+        //     //await snackbarPrimary!.Show();
+        //     await NotificationService.Info("Credenciales Incorrectas", "No se pudo iniciar sesión", opt =>
+        //     {
+        //         opt.IntervalBeforeClose = 3000;
+        //     });
+        // }
     }
 
 }

@@ -1,167 +1,167 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Font\\BentonSans Black.otf",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Font\\BentonSans Black.otf",
       "PackagePath": "staticwebassets\\Font\\BentonSans Black.otf"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Font\\BentonSans Bold.otf",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Font\\BentonSans Bold.otf",
       "PackagePath": "staticwebassets\\Font\\BentonSans Bold.otf"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Font\\BentonSans Book.otf",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Font\\BentonSans Book.otf",
       "PackagePath": "staticwebassets\\Font\\BentonSans Book.otf"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Font\\BentonSans Medium.otf",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Font\\BentonSans Medium.otf",
       "PackagePath": "staticwebassets\\Font\\BentonSans Medium.otf"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Font\\Poppins-Regular.ttf",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Font\\Poppins-Regular.ttf",
       "PackagePath": "staticwebassets\\Font\\Poppins-Regular.ttf"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Fondos\\Fondo.png",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Fondos\\Fondo.png",
       "PackagePath": "staticwebassets\\Img\\Fondos\\Fondo.png"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 1.png",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 1.png",
       "PackagePath": "staticwebassets\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 1.png"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 2.png",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 2.png",
       "PackagePath": "staticwebassets\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 2.png"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 3.png",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 3.png",
       "PackagePath": "staticwebassets\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 3.png"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_imagen fondo.png",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_imagen fondo.png",
       "PackagePath": "staticwebassets\\Img\\Fondos\\Proyecto Onboarding Coopemep nov24 editable adicionales_imagen fondo.png"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Blanco\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion blanco.svg",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Blanco\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion blanco.svg",
       "PackagePath": "staticwebassets\\Img\\Icon\\Blanco\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion blanco.svg"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Color\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Color\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg",
       "PackagePath": "staticwebassets\\Img\\Icon\\Color\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_calculadora.svg",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_calculadora.svg",
       "PackagePath": "staticwebassets\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_calculadora.svg"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_computadora.svg",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_computadora.svg",
       "PackagePath": "staticwebassets\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_computadora.svg"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg",
       "PackagePath": "staticwebassets\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Logos\\Coopemep_Azul_Horizontal.png",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Logos\\Coopemep_Azul_Horizontal.png",
       "PackagePath": "staticwebassets\\Img\\Logos\\Coopemep_Azul_Horizontal.png"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Logos\\Coopemep_Blanco_Horizontal.png",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Logos\\Coopemep_Blanco_Horizontal.png",
       "PackagePath": "staticwebassets\\Img\\Logos\\Coopemep_Blanco_Horizontal.png"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Logos\\Coopemep_Horizontal.png",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Logos\\Coopemep_Horizontal.png",
       "PackagePath": "staticwebassets\\Img\\Logos\\Coopemep_Horizontal.png"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\favicon.png",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\favicon.png",
       "PackagePath": "staticwebassets\\Img\\favicon.png"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\app.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\bootstrap\\css\\bootstrap.min.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\bootstrap\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Buttons.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Buttons.css",
       "PackagePath": "staticwebassets\\css\\Styles\\Style-Buttons.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Loader.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Loader.css",
       "PackagePath": "staticwebassets\\css\\Styles\\Style-Loader.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Login.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Login.css",
       "PackagePath": "staticwebassets\\css\\Styles\\Style-Login.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Menu.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Menu.css",
       "PackagePath": "staticwebassets\\css\\Styles\\Style-Menu.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-MenuPrincipal.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-MenuPrincipal.css",
       "PackagePath": "staticwebassets\\css\\Styles\\Style-MenuPrincipal.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Modals.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Modals.css",
       "PackagePath": "staticwebassets\\css\\Styles\\Style-Modals.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Nav.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Nav.css",
       "PackagePath": "staticwebassets\\css\\Styles\\Style-Nav.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Tablas.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Tablas.css",
       "PackagePath": "staticwebassets\\css\\Styles\\Style-Tablas.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\favicon.ico",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\brands.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\brands.css",
       "PackagePath": "staticwebassets\\fontawesome\\css\\brands.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\brands.min.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\brands.min.css",
       "PackagePath": "staticwebassets\\fontawesome\\css\\brands.min.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\fontawesome.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\fontawesome.css",
       "PackagePath": "staticwebassets\\fontawesome\\css\\fontawesome.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\fontawesome.min.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\fontawesome.min.css",
       "PackagePath": "staticwebassets\\fontawesome\\css\\fontawesome.min.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\solid.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\solid.css",
       "PackagePath": "staticwebassets\\fontawesome\\css\\solid.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\solid.min.css",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\css\\solid.min.css",
       "PackagePath": "staticwebassets\\fontawesome\\css\\solid.min.css"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.ttf",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.ttf",
       "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-brands-400.ttf"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.woff2",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.woff2",
       "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-brands-400.woff2"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.ttf",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.ttf",
       "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-solid-900.ttf"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.woff2",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.woff2",
       "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-solid-900.woff2"
     },
     {
-      "Id": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\js\\site.js",
+      "Id": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {

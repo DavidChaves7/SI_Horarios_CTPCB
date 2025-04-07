@@ -12,11 +12,13 @@ namespace Infrastructure.Interfaces
         #region Mantenimientos
 
         #region Ejempplo
+        Task<IEnumerable<EjemploMantDto>> GetAllEjemploMant();
+        #endregion
         Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidad(QueryPuntajeCapacidadDto data);
         Task<QueryPuntajeCapacidadDto> DeletePuntajeCapacidad(QueryPuntajeCapacidadDto data);
         Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidad();
         Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidad(QueryPuntajeCapacidadDto data);
-        #endregion
+       
 
 
         #endregion

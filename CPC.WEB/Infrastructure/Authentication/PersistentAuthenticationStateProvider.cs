@@ -4,6 +4,7 @@ using SI_Horarios_CTPCB.Infrastructure.ApiClient;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 public class PersistentAuthenticationStateProvider(PersistentComponentState persistentState) : AuthenticationStateProvider
 {
@@ -12,14 +13,18 @@ public class PersistentAuthenticationStateProvider(PersistentComponentState pers
 
     public override Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        if (!persistentState.TryTakeFromJson<UsersDto>(nameof(UsersDto), out var userInfo) || userInfo is null)
-        {
-            return _unauthenticatedTask;
-        }
+        //if (!persistentState.TryTakeFromJson<UsersDto>(nameof(UsersDto), out var userInfo) || userInfo is null)
+        //{
+        //    return _unauthenticatedTask;
+        //}
+
+        //Claim[] claims = [
+        //    new Claim(ClaimTypes.NameIdentifier, userInfo.CoD_USUARIO),
+        //    new Claim(ClaimTypes.Name, userInfo.NoM_USUARIO ?? string.Empty)];
 
         Claim[] claims = [
-            new Claim(ClaimTypes.NameIdentifier, userInfo.CoD_USUARIO),
-            new Claim(ClaimTypes.Name, userInfo.NoM_USUARIO ?? string.Empty)];
+            new Claim(ClaimTypes.NameIdentifier, ""),
+            new Claim(ClaimTypes.Name, "" ?? string.Empty)];
 
         return Task.FromResult(
             new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(claims,

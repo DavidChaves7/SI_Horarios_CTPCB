@@ -10590,23 +10590,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dchav\\.nuget\\packages\\": {},
+    "C:\\Users\\campo\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\SI_Horarios_CTPCB.csproj",
+      "projectUniqueName": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\SI_Horarios_CTPCB.csproj",
       "projectName": "SI_Horarios_CTPCB",
-      "projectPath": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\SI_Horarios_CTPCB.csproj",
-      "packagesPath": "C:\\Users\\dchav\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dchav\\Documents\\GitHub\\SI_Horarios_CTPCB\\CPC.WEB\\obj\\",
+      "projectPath": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\SI_Horarios_CTPCB.csproj",
+      "packagesPath": "C:\\Users\\campo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\dchav\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\campo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -10779,7 +10779,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

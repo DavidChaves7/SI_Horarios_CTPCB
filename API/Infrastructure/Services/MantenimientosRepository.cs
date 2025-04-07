@@ -25,6 +25,22 @@ namespace API.Infrastructure.Services
 
         #region Ejemplo
 
+        public async Task<IEnumerable<EjemploMantDto>> GetAllEjemploMant()
+        {
+            //var parameters = await _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>()
+            //             .Select(s => _mapper.Map<QueryPuntajeCapacidadDto>(s)).ToListAsync();
+            var entity = new EjemploMantDto()
+            {
+                ID = 1,
+                DESCRIPCION = "Ejemplo",
+                TEST = "TEST"
+
+            };
+            var parameters = new List<EjemploMantDto>().Append(entity);
+            return parameters;
+        }
+
+        #endregion
         public async Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidad(QueryPuntajeCapacidadDto data)
         {
             try
@@ -107,7 +123,7 @@ namespace API.Infrastructure.Services
 
 
 
-        #endregion
+        
 
         #endregion
     }

@@ -10,6 +10,9 @@ namespace API.Controllers.CPC
         #region Mantenimientos 
 
         #region Ejemplo
+        [HttpGet("GetAllEjemploMant")]
+        public async Task<IEnumerable<EjemploMantDto>> GetAllEjemploMantAsync() => await _mantenimientosRepository.GetAllEjemploMant();
+        #endregion
 
         [HttpGet("GetAllPuntajeCapacidad")]
         public async Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidadAsync() => await _mantenimientosRepository.GetAllPuntajeCapacidad();
@@ -23,7 +26,7 @@ namespace API.Controllers.CPC
         public async Task<QueryPuntajeCapacidadDto?> DeletePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.DeletePuntajeCapacidad(param);
 
 
-        #endregion
+
 
         #endregion
     }
