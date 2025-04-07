@@ -29,15 +29,7 @@
                 <h3 class="card-title">CPC</h3>
             </Link>
 
-            <Link To="http://172.17.62.15/CotizadorAdm" Class="menu-card cotizador">
-            <Image Source="Img/Icon/Proyecto Onboarding Coopemep nov24 editable adicionales_calculadora.svg" alt="Cotizador" Class="card-image" />
-                <h3 class="card-title">Cotizador</h3>
-            </Link>
-
-            <Link To="http://172.17.62.15/ScoringMep" Class="menu-card scoring">
-            <Image Source="Img/Icon/Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg" alt="Scoring" Class="card-image" />
-                <h3 class="card-title">Scoring</h3>
-            </Link>
+            
         </Div>
     </Authorized>
 </AuthorizeView>
@@ -50,11 +42,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
+        //var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        // var user = authState.User;
 
-        userName = user.Identity?.IsAuthenticated == true
-            ? user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "Usuario desconocido"
-            : "Invitado";
+        // userName = user.Identity?.IsAuthenticated == true
+        //     ? user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "Usuario desconocido"
+        //     : "Invitado";
+        userName = "Invitado";
     }
 }

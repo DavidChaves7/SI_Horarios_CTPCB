@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\mantenimientos\\shared\\grids\\catalogoccssgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\mantenimientos\\shared\\grids\\catalogoccssgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\infrastructure\\authentication\\persistingrevalidatingauthenticationstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\infrastructure\\authentication\\persistingrevalidatingauthenticationstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\infrastructure\\authentication\\persistentauthenticationstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\infrastructure\\authentication\\persistentauthenticationstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\shared\\mainmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\mainmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\shared\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\mantenimientos\\shared\\grids\\catalogoccssgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\mantenimientos\\shared\\grids\\catalogoccssgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -38,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -62,46 +62,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PersistingRevalidatingAuthenticationStateProvider.cs",
-              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Infrastructure\\Authentication\\PersistingRevalidatingAuthenticationStateProvider.cs",
-              "RelativeDocumentMoniker": "CPC.WEB\\Infrastructure\\Authentication\\PersistingRevalidatingAuthenticationStateProvider.cs",
-              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Infrastructure\\Authentication\\PersistingRevalidatingAuthenticationStateProvider.cs",
-              "RelativeToolTip": "CPC.WEB\\Infrastructure\\Authentication\\PersistingRevalidatingAuthenticationStateProvider.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAZAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Program.cs",
+              "RelativeDocumentMoniker": "CPC.WEB\\Program.cs",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Program.cs",
+              "RelativeToolTip": "CPC.WEB\\Program.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACMAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:43:47.34Z",
+              "WhenOpened": "2025-04-07T05:22:54.5Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainMenu.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\MainMenu.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Shared\\MainMenu.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\MainMenu.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Shared\\MainMenu.razor",
+              "ViewState": "AgIAABgAAAAAAAAAAAAQwB8AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-07T05:04:14.873Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "PersistentAuthenticationStateProvider.cs",
-              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Infrastructure\\Authentication\\PersistentAuthenticationStateProvider.cs",
-              "RelativeDocumentMoniker": "CPC.WEB\\Infrastructure\\Authentication\\PersistentAuthenticationStateProvider.cs",
-              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Infrastructure\\Authentication\\PersistentAuthenticationStateProvider.cs",
-              "RelativeToolTip": "CPC.WEB\\Infrastructure\\Authentication\\PersistentAuthenticationStateProvider.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:42:35.4Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "Home.razor",
               "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\Home.razor",
               "RelativeDocumentMoniker": "CPC.WEB\\Components\\Shared\\Home.razor",
               "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\Home.razor",
               "RelativeToolTip": "CPC.WEB\\Components\\Shared\\Home.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAABPAAAAAAAAAA==",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAQwEEAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-07T04:42:09.839Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "CatalogoCCSSGrid.razor",
               "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\CatalogoCCSSGrid.razor",
               "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\CatalogoCCSSGrid.razor",
@@ -122,8 +122,7 @@
               "RelativeToolTip": "API\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-07T04:25:11.981Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T04:25:11.981Z"
             },
             {
               "$type": "Document",
@@ -135,8 +134,7 @@
               "RelativeToolTip": "Application\\DependencyInjection.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABkAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:19:06.952Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T04:19:06.952Z"
             },
             {
               "$type": "Document",
@@ -148,8 +146,7 @@
               "RelativeToolTip": "API\\Program.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAAAADkAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:14:57.848Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T04:14:57.848Z"
             }
           ]
         },

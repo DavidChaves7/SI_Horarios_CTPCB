@@ -33,16 +33,16 @@ builder.Services.AddAuthentication().AddCookie(opt =>
 {
     opt.LoginPath = "/Login";
     opt.LogoutPath = "/Login";
-    opt.AccessDeniedPath = "/MenuPrincipal";
+    //opt.AccessDeniedPath = "/MenuPrincipal";
     opt.ExpireTimeSpan = TimeSpan.FromMinutes(5);
     opt.SlidingExpiration = true;
     opt.Cookie.IsEssential = true;
     opt.Cookie.HttpOnly = true;
     opt.Cookie.Name = "coopeBanCK";
     opt.Cookie.SameSite = SameSiteMode.Strict;
-    opt.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    //opt.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
-builder.Services.AddAuthorization();
+//builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<ICustomSessionStorage, CustomSessionStorage>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
