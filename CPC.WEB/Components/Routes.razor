@@ -4,11 +4,11 @@
     <ChildContent>
         <Router AppAssembly="@typeof(Program).Assembly">
             <Found Context="routeData">
-                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.MainLayout)">
-                    <NotAuthorized>
+                <RouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.MainLayout)">
+                     @* <NotAuthorized>
                         <LoginRedirect />
-                    </NotAuthorized>
-                </AuthorizeRouteView>
+                    </NotAuthorized> *@
+                </RouteView> 
                 <FocusOnNavigate RouteData="@routeData" Selector="h1" />
             </Found>
         </Router>
