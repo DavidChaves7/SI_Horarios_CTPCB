@@ -360,23 +360,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\campo\\.nuget\\packages\\": {},
+    "C:\\Users\\Juvardz\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\Infrastructure\\Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\campo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\Infrastructure\\obj\\",
+      "projectPath": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\Infrastructure\\Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\Juvardz\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\campo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Juvardz\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -385,14 +385,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\Domain\\Domain.csproj"
+            "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\Domain\\Domain.csproj"
             }
           }
         }
@@ -442,7 +443,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

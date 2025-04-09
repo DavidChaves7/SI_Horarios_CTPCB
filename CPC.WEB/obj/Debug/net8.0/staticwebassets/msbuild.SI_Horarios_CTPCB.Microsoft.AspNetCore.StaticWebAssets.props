@@ -84,8 +84,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>mztyz94vgy</Fingerprint>
-      <Integrity>UpMnUoWhVQU41eL+fR+ma43mwAraQk0v921GZV/iPZw=</Integrity>
+      <Fingerprint>7vz40grvem</Fingerprint>
+      <Integrity>kz7kbEolNShijYPoKmcuoIHoh9OMa0UOIC1rn29muVE=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\Styles\Style-Login.css'))</OriginalItemSpec>
@@ -192,8 +192,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>qtpw49p0l7</Fingerprint>
-      <Integrity>viJHjcg6NGM2dj6RMAtJKbJ+WNRVg19WXU9Q7QkY/3g=</Integrity>
+      <Fingerprint>jnre2ejuzr</Fingerprint>
+      <Integrity>f22ruiZjQ+5Su7d+kExPSZMdib+H7VLcool8N8trMjQ=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</OriginalItemSpec>
@@ -269,6 +269,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Font\BentonSans Medium.otf'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Font\Geomanist-Regular.otf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>SI_Horarios_CTPCB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/SI_Horarios_CTPCB</BasePath>
+      <RelativePath>Font/Geomanist-Regular.otf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>rij1syjo3i</Fingerprint>
+      <Integrity>E613chQriFt6NhESx1lKmraoj84ORjLbf6qnh9d1kew=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Font\Geomanist-Regular.otf'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Font\Poppins-Regular.ttf'))">
       <SourceType>Package</SourceType>
@@ -480,29 +498,29 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>96fdxhjgod</Fingerprint>
-      <Integrity>75y1wSrw9B2xAiM9US52+EtF2zAvZzESJPkBYqSJR28=</Integrity>
+      <Fingerprint>8x7btn9sv6</Fingerprint>
+      <Integrity>3IXxy78/QZJCFD01KK6rbdw1wXDGO9y1rU/wuznzgTM=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\favicon.png'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\Fondos\Fondo.png'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\Fondos\fondo-educativo-desktop.png'))">
       <SourceType>Package</SourceType>
       <SourceId>SI_Horarios_CTPCB</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/SI_Horarios_CTPCB</BasePath>
-      <RelativePath>Img/Fondos/Fondo.png</RelativePath>
+      <RelativePath>Img/Fondos/fondo-educativo-desktop.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>t4sj9rtv01</Fingerprint>
-      <Integrity>LZrWCZnRjUgxRuoxXwaM6bsKAEPdwceuYYcPFdggx+g=</Integrity>
+      <Fingerprint>qjuvch1z5m</Fingerprint>
+      <Integrity>mhNS4I6DJBWWzTIQxl6n8F3M6JdBPiI2RDnblKShivQ=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\Fondos\Fondo.png'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\Fondos\fondo-educativo-desktop.png'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\Fondos\Proyecto Onboarding Coopemep nov24 editable adicionales_imagen fondo.png'))">
       <SourceType>Package</SourceType>
@@ -719,6 +737,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\Logos\Coopemep_Horizontal.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\Logos\logo_ctp_plan.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>SI_Horarios_CTPCB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/SI_Horarios_CTPCB</BasePath>
+      <RelativePath>Img/Logos/logo_ctp_plan.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>rt26wkn5hj</Fingerprint>
+      <Integrity>z/NbkwS1phQtE+Pb1YdAJWvoNzxnInh70bP104XIpgo=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Img\Logos\logo_ctp_plan.png'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))">
       <SourceType>Package</SourceType>

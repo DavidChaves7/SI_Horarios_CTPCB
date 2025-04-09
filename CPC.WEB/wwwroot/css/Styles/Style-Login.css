@@ -1,66 +1,81 @@
-﻿body {
-    background-image: url("../../Img/Fondos/Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 1.png");
+﻿@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@700&display=swap');
+
+@font-face {
+    font-family: 'Geomanist';
+    src: url('/Font/Geomanist-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
 
-.login-container {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.login-left {
-    background-image: url("../../Img/Fondos/Proyecto Onboarding Coopemep nov24 editable adicionales_imagen fondo.png");
+.login-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/Img/Fondos/fondo-educativo-desktop.png') no-repeat center center;
     background-size: cover;
-    background-position: center;
-    color: white;
+    background-attachment: fixed;
+    margin: 0;
+    font-family: 'Geomanist', sans-serif;
 }
 
-.scoring-title {
-    font-size: 3rem;
-    color: var(--color-azul);
-    font-weight: bold;
-}
-
-.login-right .logo {
-    max-width: 80%;
-}
-
-.user-input,
-.password-input {
-    border: none;
-    border-bottom: 2px solid var(--color-celeste) !important;
-    outline: none;
-    background: transparent;
-    padding: 5px;
-    color: #000;
-}
-
-.password-input {
-    border-bottom-color: var(--color-verde) !important;
-}
-
-.alert-danger {
-    font-size: 0.9rem;
+.login-card {
+    background-color: #331730;
+    padding: 40px;
+    border-radius: 18px;
+    width: 100%;
+    max-width: 400px;
     text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 768px) {
-    .login-left {
-        display: none; 
-    }
-
-    .login-container {
-        height: auto;
-        padding: 20px;
-    }
-
-    .user-input,
-    .password-input {
-        font-size: 14px;
-    }
-
-    .btn-gradient {
-        font-size: 14px;
-    }
+.logo {
+    width: 180px;
+    margin-bottom: 15px;
 }
+
+.titleLog {
+    color: #FFFFFF !important;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    border: 1px solid #80577C;
+    background-color: #fff;
+    color: #331730;
+    font-size: 16px;
+    font-family: 'Geomanist', sans-serif;
+}
+
+    .form-control::placeholder {
+        color: #AB57A1;
+        font-weight: 500;
+    }
+
+.btn-login {
+    width: 100%;
+    background-color: #6A2C69;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Geomanist', sans-serif;
+}
+
+    .btn-login:hover {
+        background-color: #AB57A1;
+    }

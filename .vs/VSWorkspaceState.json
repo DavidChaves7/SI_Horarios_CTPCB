@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\CPC.WEB",
+    "\\CPC.WEB\\Components",
+    "\\CPC.WEB\\Components\\Mantenimientos",
+    "\\CPC.WEB\\Components\\Shared"
+  ],
+  "SelectedNode": "\\CPC.WEB\\Components\\Shared\\LoginRedirect.razor",
+  "PreviewInSolutionExplorer": false
+}

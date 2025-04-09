@@ -37,3 +37,16 @@ C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_
 C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\refint\Domain.dll
 C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\Domain.pdb
 C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\ref\Domain.dll
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\bin\Debug\net8.0\Domain.deps.json
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\bin\Debug\net8.0\Domain.dll
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\bin\Debug\net8.0\Domain.pdb
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\Domain.csproj.AssemblyReference.cache
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\Domain.sourcelink.json
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\Domain.dll
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\refint\Domain.dll
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\Domain.pdb
+C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Domain\obj\Debug\net8.0\ref\Domain.dll
