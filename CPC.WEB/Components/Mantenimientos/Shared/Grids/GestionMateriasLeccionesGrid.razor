@@ -1,15 +1,15 @@
 ﻿@inject SIHAPI api
-<LoadingIndicator Visible="@(dataMaterias is null)">
+<LoadingIndicator Visible="@(data is null)">
     <ChildContent>
             <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir.Open">Importar Archivo</Button>
             <br />
             <br />
         <Row>
-            <ButtonsExportComponent T="EjemploMantDto" Data="dataMaterias" Titulo="Materias y Lecciones" />
+            <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Materias y Lecciones" />
 
         </Row>
 
-        <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddataMaterias" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="dataMaterias" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+        <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
                   Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                   UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
             <DataGridColumns>
@@ -38,8 +38,8 @@
             <ButtonRowTemplate>
 
                 <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
-                <Button Class="btn btn-edit" Disabled="(selecteddataMaterias is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
-                <Button Class="btn btn-delete" Disabled="(selecteddataMaterias is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+                <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
+                <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
 
             </ButtonRowTemplate>
         </DataGrid>
@@ -50,9 +50,9 @@
         <br />
         <br />
         <Row>
-            <ButtonsExportComponent T="EjemploMantDto" Data="dataMaterias" Titulo="Materias y Lecciones" />
+            <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Materias y Lecciones" />
         </Row>
-        <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedDataMateriasTABLA" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="dataMateriasTABLA" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+        <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddataTABLA" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="dataTABLA" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
                   Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                   UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
             <DataGridColumns>
@@ -79,8 +79,8 @@
             <ButtonRowTemplate>
 
                 <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
-                <Button Class="btn btn-edit" Disabled="(selecteddataMaterias is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
-                <Button Class="btn btn-delete" Disabled="(selecteddataMaterias is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+                <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
+                <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
 
             </ButtonRowTemplate>
         </DataGrid>
@@ -96,11 +96,11 @@
     private string accessCategory { get; set; } = "";
     [Inject] AuthenticationStateProvider authService { get; set; } = null!;
 
-    IEnumerable<EjemploMantDto>? dataMaterias { get; set; } = new List<EjemploMantDto>();
-    IEnumerable<EjemploMantDto>? dataMateriasTABLA { get; set; } = new List<EjemploMantDto>();
+    IEnumerable<EjemploMantDto>? data { get; set; } = new List<EjemploMantDto>();
+    IEnumerable<EjemploMantDto>? dataTABLA { get; set; } = new List<EjemploMantDto>();
 
-    private EjemploMantDto? selecteddataMaterias;
-    private EjemploMantDto? selectedDataMateriasTABLA;
+    private EjemploMantDto? selecteddata;
+    private EjemploMantDto? selecteddataTABLA;
 
     private Snackbar? snackbarPrimary;
     [Inject] IMessageService MessageService { get; set; } = null!;
@@ -141,8 +141,8 @@
             // }
 
             // #endregion
-            //dataMaterias = await api.Mantenimientos_GetAllEjemploMantAsync();
-            dataMaterias = new List<EjemploMantDto>
+            //data = await api.Mantenimientos_GetAllEjemploMantAsync();
+            data = new List<EjemploMantDto>
             {
                 new EjemploMantDto
                 {
@@ -157,7 +157,7 @@
                     Test = "15"
                 }
             };
-            dataMateriasTABLA = new List<EjemploMantDto>
+            dataTABLA = new List<EjemploMantDto>
             {
                 new EjemploMantDto
                 {
@@ -182,7 +182,7 @@
         return (__builder) =>
         {
             <Span>
-                @($"{title} Parametros BCCR")
+                @($"{title} Materias Y Lecciones")
             </Span>
         };
     }
@@ -201,8 +201,8 @@
             else
             {
                 //await api.Parameters_AddUpdateParametersBCCRsAsync(item.NewItem);
-                //dataMaterias = await api.Mantenimientos_GetAllEjemploMantAsync();
-                dataMaterias.Append(item.NewItem);
+                //data = await api.Mantenimientos_GetAllEjemploMantAsync();
+                data.Append(item.NewItem);
             }
         }
         catch (Exception ex)
@@ -229,8 +229,8 @@
     async Task DeleteItem(EjemploMantDto item)
     {
         //await api.Parameters_DeleteParametersBCCRAsync(item);
-        //dataMaterias = await api.Mantenimientos_GetAllEjemploMantAsync();
-        dataMaterias = dataMaterias.Where(x => x.Id != item.Id);
+        //data = await api.Mantenimientos_GetAllEjemploMantAsync();
+        data = data.Where(x => x.Id != item.Id);
     }
 
     async Task RemovingRow(CancellableRowChange<EjemploMantDto> item)

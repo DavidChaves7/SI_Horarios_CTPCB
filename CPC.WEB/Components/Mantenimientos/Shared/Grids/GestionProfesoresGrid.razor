@@ -1,8 +1,13 @@
 ﻿@inject SIHAPI api
 <LoadingIndicator Visible="@(data is null)">
     <ChildContent>
-
-        <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Profesores" />
+        <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir.Open">Importar Archivo</Button>
+        <br />
+        <br />
+        <Row>
+            <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Profesores" />
+        </Row>
+        
         <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
                   Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                   UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
@@ -29,6 +34,11 @@
                 <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Correo" />
                 <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Telefono" />
                 <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Carga Horaria" />
+                <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Caption="Restricciones">
+                    <DisplayTemplate>
+                        <Button Class="btn btn-create" Clicked="() => modalRestric.Open()">Restricciones</Button>
+                    </DisplayTemplate>
+                </DataGridColumn>
             </DataGridColumns>
             <ButtonRowTemplate>
 
@@ -42,10 +52,12 @@
     </ChildContent>
 </LoadingIndicator>
 
-
+<ModalSubirArchivo @ref="modalSubir"></ModalSubirArchivo>
+<ModalRestriccionHoraria @ref="modalRestric"></ModalRestriccionHoraria>
 @code {
 
-
+    ModalSubirArchivo? modalSubir;
+    ModalRestriccionHoraria? modalRestric;
     private string accessCategory { get; set; } = "";
     [Inject] AuthenticationStateProvider authService { get; set; } = null!;
 

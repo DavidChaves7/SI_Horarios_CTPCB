@@ -48,6 +48,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNYW50ZW5pbWllbnRvc1xQYWdlc1xTZWd1cmlkYWQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/campo/OneDrive - Universidad Fidélitas/SI-Horarios/Github/SI_Horarios_CTPCB/CPC.WEB/Components/Mantenimientos/Shared/Components/ModalRestriccionHoraria.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNYW50ZW5pbWllbnRvc1xTaGFyZWRcQ29tcG9uZW50c1xNb2RhbFJlc3RyaWNjaW9uSG9yYXJpYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/campo/OneDrive - Universidad Fidélitas/SI-Horarios/Github/SI_Horarios_CTPCB/CPC.WEB/Components/Mantenimientos/Shared/Components/ModalSubirArchivo.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNYW50ZW5pbWllbnRvc1xTaGFyZWRcQ29tcG9uZW50c1xNb2RhbFN1YmlyQXJjaGl2by5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

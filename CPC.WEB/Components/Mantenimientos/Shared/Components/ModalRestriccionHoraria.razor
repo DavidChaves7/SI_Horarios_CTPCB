@@ -1,13 +1,22 @@
-﻿@inject SIHAPI api
-<LoadingIndicator Visible="@(data is null)">
-    <ChildContent>
+﻿<Modal @ref="modal">
+    <ModalContent Centered Size="ModalSize.Large">
+        <ModalHeader>
+            <ModalTitle>Restricciones Horarias</ModalTitle>
+            <CloseButton></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+            <LoadingIndicator @bind-Visible="isLoading">
+                <ChildContent>
+                    <Row>
+                        <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Restricciones Horarias" />
 
-        <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Seguridad" />
-        <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
-                  Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
-                  UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
-            <DataGridColumns>
-                @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
+                    </Row>
+
+                    <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+                              Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
+                              UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
+                        <DataGridColumns>
+                            @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
                         <EditTemplate>
                             <TextEdit Text="@((string)context.CellValue)" TextChanged="@( v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.CoD_RUBRO))">
                                 <Feedback>
@@ -23,34 +32,49 @@
                             <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
                         </DisplayTemplate>
                     </DataGridColumn> *@
-                <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Nombre" />
-                <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Correo" />
-            </DataGridColumns>
-            <ButtonRowTemplate>
+                            <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="Cedula Profesor" />
+                            <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Dia" />
+                            <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Hora Inicio" />
+                            <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Hora Fin" />
+                        </DataGridColumns>
+                        <ButtonRowTemplate>
 
-                <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
-                <Button Class="btn btn-delete" Disabled="(selectedData is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+                            <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
+                            <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
+                            <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
 
-            </ButtonRowTemplate>
-        </DataGrid>
-
-    </ChildContent>
-</LoadingIndicator>
-
-
+                        </ButtonRowTemplate>
+                    </DataGrid>
+                </ChildContent>
+            </LoadingIndicator>
+        </ModalBody>
+        <ModalFooter>
+            <Button Class="btn-outline-danger" Clicked="@Hide">Cerrar</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
 
 @code {
+    Modal? modal;
 
-    private string accessCategory { get; set; } = "";
-    [Inject] AuthenticationStateProvider authService { get; set; } = null!;
+    
+    public bool isLoading { get; set; } = false;
 
     IEnumerable<EjemploMantDto>? data { get; set; } = new List<EjemploMantDto>();
-
-    private EjemploMantDto? selectedData;
-
-    private Snackbar? snackbarPrimary;
+    private EjemploMantDto? selecteddata;
     [Inject] IMessageService MessageService { get; set; } = null!;
 
+    public Task Hide()
+    {
+        modal?.Close(CloseReason.UserClosing);
+        return Task.CompletedTask;
+    }
+
+    public async Task Open()
+    {
+        modal?.Show();
+        
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -58,61 +82,33 @@
         if (firstRender)
         {
 
-            // #region Seguridad
-
-            // var httpContext = HttpContextAccessor.HttpContext;
-            // var userName = "";
-            // if (httpContext != null)
-            // {
-            //     var user = httpContext.User;
-            //     userName = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            // }
-
-
-            // string securityResult = await api.Seguridad_ValidateAccessAsync(new VerificaPermisoRequest
-            // {
-            //     PCodAccion = "BCCR_PARAM_GENERALES",
-            //     PCodCompania = "0001",
-            //     PCodModulo = "CPC",
-            //     PCodUsuario = userName
-            // });
-            // if (securityResult.ToUpper().Contains("ERROR"))
-            // {
-            //     await Task.FromResult(MessageService.Error(securityResult, "Error al validar acceso"));
-            // }
-            // else
-            // {
-            //     accessCategory = securityResult;
-            // }
-
-            // #endregion
-            //data = await api.Mantenimientos_GetAllEjemploMantAsync();
             data = new List<EjemploMantDto>
             {
                 new EjemploMantDto
                 {
-                    Id = 1,
-                    Descripcion = "Denis Campos",
-                    Test = "denisca@gmail.com"
+                    Id = 118820407,
+                    Descripcion = "Lunes",
+                    Test = "3"
                 },
                 new EjemploMantDto
                 {
-                    Id = 2,
-                    Descripcion = "Juan Perez",
-                    Test = "juanperez@gmail.com"
+                    Id = 209945596,
+                    Descripcion = "Martes",
+                    Test = "3"
                 }
             };
+            
             StateHasChanged();
         }
     }
 
     RenderFragment SetModalTitle(PopupTitleContext<EjemploMantDto> context)
     {
-        var title = context.EditState == DataGridEditState.New ? "Nuevo" : "Editar";
+        var title = context.EditState == DataGridEditState.New ? "Nuevas" : "Editar";
         return (__builder) =>
         {
             <Span>
-                @($"{title} Acceso")
+                @($"{title} Restricciones")
             </Span>
         };
     }
@@ -174,4 +170,6 @@
             item.Cancel = true;
         }
     }
+
+
 }
