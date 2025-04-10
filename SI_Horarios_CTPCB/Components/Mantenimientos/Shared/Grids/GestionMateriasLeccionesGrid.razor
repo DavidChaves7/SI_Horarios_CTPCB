@@ -1,21 +1,21 @@
 ﻿@inject SIHAPI api
- <div class="main-content">
+<Div Class="main-content">
 
-<LoadingIndicator Visible="@(data is null)">
-    <ChildContent>
+    <LoadingIndicator Visible="@(data is null)">
+        <ChildContent>
             <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir.Open">Importar Archivo</Button>
             <br />
             <br />
-        <Row>
-            <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Materias y Lecciones" />
+            <Row>
+                <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Materias y Lecciones" />
 
-        </Row>
+            </Row>
 
-        <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
-                  Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
-                  UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
-            <DataGridColumns>
-                @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
+            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+                      Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
+                      UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
+                <DataGridColumns>
+                    @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
                         <EditTemplate>
                             <TextEdit Text="@((string)context.CellValue)" TextChanged="@( v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.CoD_RUBRO))">
                                 <Feedback>
@@ -31,34 +31,34 @@
                             <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
                         </DisplayTemplate>
                     </DataGridColumn> *@
-                <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="Nivel Academico" />
-                <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Materia" />
-                <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Carga Horaria" />
-                <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Prioridad" />
-                <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Asociado A" />
-            </DataGridColumns>
-            <ButtonRowTemplate>
+                    <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="Nivel Academico" />
+                    <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Materia" />
+                    <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Carga Horaria" />
+                    <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Prioridad" />
+                    <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Asociado A" />
+                </DataGridColumns>
+                <ButtonRowTemplate>
 
-                <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
-                <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
-                <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+                    <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
+                    <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
+                    <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
 
-            </ButtonRowTemplate>
-        </DataGrid>
-        <br />
-        <br />
-        <hr />
-        <Heading Size="HeadingSize.Is2" >Materias</Heading>
-        <br />
-        <br />
-        <Row>
-            <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Materias y Lecciones" />
-        </Row>
-        <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddataTABLA" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="dataTABLA" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
-                  Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
-                  UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
-            <DataGridColumns>
-                @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
+                </ButtonRowTemplate>
+            </DataGrid>
+            <br />
+            <br />
+            <hr />
+            <Heading Size="HeadingSize.Is2">Materias</Heading>
+            <br />
+            <br />
+            <Row>
+                <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Materias y Lecciones" />
+            </Row>
+            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddataTABLA" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="dataTABLA" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+                      Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
+                      UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
+                <DataGridColumns>
+                    @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
                         <EditTemplate>
                             <TextEdit Text="@((string)context.CellValue)" TextChanged="@( v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.CoD_RUBRO))">
                                 <Feedback>
@@ -74,22 +74,22 @@
                             <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
                         </DisplayTemplate>
                     </DataGridColumn> *@
-                <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="Nivel Academico" />
-                <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Materia" />
-                <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Cantidad de Horas Semanales" />
-            </DataGridColumns>
-            <ButtonRowTemplate>
+                    <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="Nivel Academico" />
+                    <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Materia" />
+                    <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Cantidad de Horas Semanales" />
+                </DataGridColumns>
+                <ButtonRowTemplate>
 
-                <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
-                <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
-                <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+                    <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
+                    <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
+                    <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
 
-            </ButtonRowTemplate>
-        </DataGrid>
+                </ButtonRowTemplate>
+            </DataGrid>
 
-    </ChildContent>
-</LoadingIndicator>
-</div>
+        </ChildContent>
+    </LoadingIndicator>
+</Div>
 <ModalSubirArchivo @ref="modalSubir"></ModalSubirArchivo>
 
 
@@ -97,7 +97,7 @@
 
 
     private string accessCategory { get; set; } = "";
-    [Inject] AuthenticationStateProvider authService { get; set; } = null!;
+    
 
     IEnumerable<EjemploMantDto>? data { get; set; } = new List<EjemploMantDto>();
     IEnumerable<EjemploMantDto>? dataTABLA { get; set; } = new List<EjemploMantDto>();
@@ -106,7 +106,7 @@
     private EjemploMantDto? selecteddataTABLA;
 
     private Snackbar? snackbarPrimary;
-    [Inject] IMessageService MessageService { get; set; } = null!;
+    
 
     ModalSubirArchivo? modalSubir;
 

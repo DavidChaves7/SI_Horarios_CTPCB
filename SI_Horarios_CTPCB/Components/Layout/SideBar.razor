@@ -1,0 +1,178 @@
+﻿<Bar Mode="BarMode.VerticalPopout"
+    Breakpoint="Breakpoint.Widescreen"
+    CollapseMode="BarCollapseMode.Small"
+    ThemeContrast="ThemeContrast.Dark"
+    Style="background-color: var(--color-primario) !important">
+
+    <BarBrand Style="background-color: var(--primary-banpo) !important; height:auto; width 100%;">
+        <BarLink To="MenuPrincipal">
+            <Image Margin="Margin.Is2.FromEnd"
+            Source="Img/Logos/logo_ctp_plan.png"
+            Style="max-width: 100%; height: auto; display: block;" />
+        </BarLink>
+    </BarBrand>
+
+    <Div Class="text-white text-center px-3 mb-3" style="font-weight: 500; padding-top: 10px;">
+        <Icon Name="IconName.User" Class="me-2" />
+        @userName
+    </Div>
+
+    <BarMenu TextColor="TextColor.White">
+        <BarStart>
+            <BarItem>
+                <BarDropdown>
+                    <BarDropdownToggle>
+                        @if (IsCollapsed)
+                        {
+                            <Icon Name="IconName.Pen"/>
+                        }
+                        else
+                        {
+                            <h5 class="text-white">Mantenimientos</h5>
+                        }
+                    </BarDropdownToggle>
+                    <BarDropdownMenu Class="dropdown-expanded p-2" Style="background-color: var(--color-primario) !important; min-width: 240px;">
+                        @foreach (var option in optionsMantenimiento)
+                        {
+                            <BarDropdownItem Class="mb-1">
+                                <i class="@option.IconClass"></i>
+                                <a class="text-white text-decoration-none" href="@option.Href">@option.Description</a>
+                            </BarDropdownItem>
+                        }
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
+            <BarItem>
+                <BarDropdown>
+                    <BarDropdownToggle>
+                        @if (IsCollapsed)
+                        {
+                            <Icon Name="IconName.Calendar" />
+                        }
+                        else
+                        {
+                            <h5 class="text-white">Horarios</h5>
+                        }
+                    </BarDropdownToggle>
+                    <BarDropdownMenu Class="dropdown-expanded p-2" Style="background-color: var(--color-primario) !important; min-width: 240px;">
+                        @foreach (var option in optionsHorarios)
+                        {
+                            <BarDropdownItem>
+                                <i class="@option.IconClass"></i>
+                                <a class="text-white text-decoration-none" href="@option.Href">@option.Description</a>
+                            </BarDropdownItem>
+                        }
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
+
+            <BarItem>
+                <BarDropdown>
+                    <BarDropdownToggle>
+                        @if (IsCollapsed)
+                        {
+                            <Icon Name="IconName.File" />
+                        }
+                        else
+                        {
+                            <h5 class="text-white">Reportes</h5>
+                        }
+                    </BarDropdownToggle>
+                    <BarDropdownMenu Class="dropdown-expanded p-2" Style="background-color: var(--color-primario) !important; min-width: 240px;">
+                        @foreach (var option in optionsReportes)
+                        {
+                            <BarDropdownItem>
+                                <i class="@option.IconClass"></i>
+                                <a class="text-white text-decoration-none" href="@option.Href">@option.Description</a>
+                            </BarDropdownItem>
+                        }
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
+            <BarItem>
+                <BarDropdown>
+                    <BarDropdownToggle>
+                        @if (IsCollapsed)
+                        {
+                            <Icon Name="IconName.Lock" />
+                        }
+                        else
+                        {
+                            <h5 class="text-white">Seguridad</h5>
+                        }
+                    </BarDropdownToggle>
+                    <BarDropdownMenu Class="dropdown-expanded p-2" Style="background-color: var(--color-primario) !important; min-width: 240px;">
+                        @foreach (var option in optionsSeguridad)
+                        {
+                            <BarDropdownItem>
+                                <i class="@option.IconClass"></i>
+                                <a class="text-white text-decoration-none" href="@option.Href">@option.Description</a>
+                            </BarDropdownItem>
+                        }
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
+        </BarStart>
+    </BarMenu>
+</Bar>
+
+@code {
+    public class Option
+    {
+        public string? Href { get; set; }
+        public string? Description { get; set; }
+        public string? IconClass { get; set; }
+    }
+    private bool IsCollapsed = false;
+      
+    private List<Option> optionsMantenimiento = new List<Option>
+    {
+        new Option { Href = "Mantenimientos/GestionProf", Description = "Gestion de Profesores", IconClass = "fa-solid fa-person" },
+        new Option { Href = "Mantenimientos/GestionMateriasLecciones", Description = "Gestion Materias y Lecciones", IconClass = "fa-solid fa-book" },
+    };
+
+    private List<Option> optionsSeguridad = new List<Option>
+    {
+        new Option { Href = "Mantenimientos/Seguridad", Description = "Seguridad", IconClass = "fa-solid fa-lock" },
+    };
+
+    private List<Option> optionsReportes = new List<Option>
+    {
+        new Option { Href = "Reportes/ReportesHorarios", Description = "Reporte de Horarios", IconClass = "fa-solid fa-file" },
+    };
+
+    private List<Option> optionsHorarios = new List<Option>
+    {
+        new Option { Href = "Horarios/GenHorarios", Description = "Generacion de Horarios", IconClass = "fa-solid fa-calendar" },
+    };
+
+    private string userName;
+
+    [Inject]
+    private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            userName = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "Usuario desconocido";
+        }
+        else
+        {
+            userName = "Invitado";
+        }
+    }
+
+    private void ToggleCollapse()
+    {
+        IsCollapsed = !IsCollapsed;
+    }
+
+    private string GetMenuClass()
+    {
+        return IsCollapsed ? "small" : ""; 
+    }
+}

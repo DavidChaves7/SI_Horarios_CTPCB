@@ -32,9 +32,9 @@
 
 .welcome-text {
     font-size: 40px;
-    font-family: 'BentonSans-Bold', sans-serif;
-    color: var(--color-azul) !important;
-    border: 3px solid var(--color-azul) !important;
+    font-family: 'AlegreyaSans-Bold', sans-serif;
+    color: var(--color-secundario) !important;
+    border: 3px solid var(--color-secundario) !important;
     padding: 10px;
     border-radius: 50px;
     display: inline-block;
@@ -49,11 +49,7 @@
     margin-top: 5%;
 }
 
-i {
-    color: var(--color-azul);
-    font-size: 25px;
-    margin-bottom: 5px !important;
-}
+
 
 .menu-card {
     width: 350px;
@@ -85,18 +81,3 @@ i {
         margin-top: 10px;
     }
 
-.cpc {
-    background: linear-gradient(to right, var(--color-azul), var(--color-celeste));
-}
-
-.cotizador {
-    background: linear-gradient(to right, var(--color-celeste), var(--color-verde));
-}
-
-.scoring {
-    background: linear-gradient(to right,var(--color-verde), var(--color-amarillo));
-}
-
-.card-title{
-    color: white !important
-}

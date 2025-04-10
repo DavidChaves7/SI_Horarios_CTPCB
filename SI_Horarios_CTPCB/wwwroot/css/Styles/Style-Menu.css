@@ -55,7 +55,7 @@
     width: 12px;
     height: 12px;
     margin: 0 5px;
-    background-color: var(--color-azul) !important;
+    background-color: var(--color-secundario) !important;
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -63,6 +63,6 @@
 }
 
     .carousel-dot.active {
-        background-color: var(--color-verde) !important;
+        background-color: var(--color-cuarto) !important;
         opacity: 1;
     }

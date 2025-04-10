@@ -4,12 +4,12 @@
 
 .modal-header {
     border-radius: 25px 25px 0px 0px !important;
-    background-color: var(--color-azul) !important;
+    background-color: var(--color-secundario) !important;
 }
 
 .modal-title {
     color: white !important;
-    font-family: BentonSans-Bold !important;
+    font-family: AlegreyaSans-Bold !important;
     font-size: 20px !important;
 }
 
@@ -18,12 +18,12 @@
 }
 
 .modal::-webkit-scrollbar-thumb {
-    background-color: var(--color-azul);
+    background-color: var(--color-secundario);
     border-radius: 10px;
 }
 
 .modal::-webkit-scrollbar-track {
-    background-color: var(--color-verde);
+    background-color: var(--color-cuarto);
     border-radius: 10px;
 }
 
@@ -37,33 +37,33 @@
 
 input, select {
     border-radius: 25px !important;
-    font-family: Poppins-Regular !important;
+    font-family: Helvica-Bold !important;
 }
 
 label {
-    font-family: Poppins-Regular !important;
+    font-family: Helvica-Bold !important;
 }
 
 .modal-footer button.btn:first-child {
     color: white !important;
-    background: var(--color-azul) !important;
+    background: var(--color-secundario) !important;
     border: 0px !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
     margin-left: 20px !important;
     margin-right: 20px !important;
-    font-family: Poppins-Regular !important;
+    font-family: Helvica-Bold !important;
     text-decoration: none;
 }
 
 .modal-footer button.btn:last-child {
     color: white !important;
-    background: var(--color-verde) !important;
+    background: var(--color-cuarto) !important;
     border: 0px !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
     margin-left: 20px !important;
     margin-right: 20px !important;
-    font-family: Poppins-Regular !important;
+    font-family: Helvica-Bold !important;
     text-decoration: none;
 }

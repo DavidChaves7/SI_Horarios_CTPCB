@@ -1,0 +1,175 @@
+﻿<Div Class="main-content">
+    <LoadingIndicator Visible="@(isLoading)">
+        <Div Class="d-flex">
+            <!-- Sección Izquierda: Formularios -->
+            <Div Class="col-md-6 p-3">
+                <h3>Reportes</h3>
+
+                <EditForm Model="@reportesModel">
+
+                    <Div Class="form-group mb-3">
+                        <label for="tipoReporte">Tipo de Reporte</label>
+                        <Select @bind-SelectedValue="reportesModel.TipoReporte" Class="form-control">
+                            <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                            <SelectItem Value="@("RHG")">Reporte Horarios Generados</SelectItem>
+                        </Select>
+                    </Div>
+
+                    <Div class="form-group mb-3">
+                        <label for="frecuencia">Frecuencia</label>
+                        <Select @bind-SelectedValue="reportesModel.Frecuencia" Class="form-control">
+                            <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                            <SelectItem Value="@("D")">Diario</SelectItem>
+                            <SelectItem Value="@("W")">Semanal</SelectItem>
+                            <SelectItem Value="@("Q")">Quincenal</SelectItem>
+                            <SelectItem Value="@("M")">Mensual</SelectItem>
+                        </Select>
+                    </Div>
+
+                    <Div Class="form-group mb-3">
+                        <label for="correos">Correos</label>
+                        <InputText @bind-Value="reportesModel.Correos" class="form-control" placeholder="Correos separados por coma" />
+                    </Div>
+
+                    <Div Class="row">
+                        <Div Class="col-4">
+                            <Button Class="btn btn-create" Clicked="() => modalReporte.Open()">Ver Reporte</Button>
+                        </Div>
+                        <Div Class="col-4">
+                            <Button Class="btn btn-edit" Clicked="@DownloadReport">Descargar</Button>
+                        </Div>
+                        <Div Class="col-4">
+                            <Button Class="btn btn-delete" Clicked="@SaveReport">Guardar</Button>
+                        </Div>
+                    </Div>
+                </EditForm>
+            </Div>
+
+            <Div Class="vr" Style="height: 100vh;"></Div>
+
+
+            <Div Class="col-md-6 p-3">
+                <h3>Estadísticas</h3>
+
+                <!-- Pie de Profesores -->
+                @* <Div Class="mb-4">
+                    <PieChart Data="@pieDataProfesores" Title="Distribución de Profesores" />
+                </Div> *@
+
+                <Div Class="mb-4">
+                    <BarChart @ref="barChart" TItem="double" Options="@options" />
+                </Div>
+            </Div>
+        </Div>
+    </LoadingIndicator>
+</Div>
+
+<ModalVerReporte @ref="modalReporte"></ModalVerReporte>
+
+@code {
+    ModalVerReporte? modalReporte;
+    private ReportesModel reportesModel = new ReportesModel();
+    private bool isLoading = false;
+    private bool isModalVisible = false;
+
+    private List<int> pieDataProfesores = new List<int> { 30, 50, 20 }; // Ejemplo de datos
+    private List<int> barDataMaterias = new List<int> { 40, 60, 30, 80 }; // Ejemplo de datos
+
+    private void ShowModal()
+    {
+        isModalVisible = true;
+    }
+
+    private void CloseModal()
+    {
+        isModalVisible = false;
+    }
+
+    private void DownloadReport()
+    {
+        Console.WriteLine("Descargando reporte...");
+    }
+
+    private void SaveReport()
+    {
+        Console.WriteLine("Guardando reporte...");
+    }
+
+    public class ReportesModel
+    {
+        public string TipoReporte { get; set; }
+        public string Frecuencia { get; set; }
+        public string Correos { get; set; }
+    }
+
+    BarChart<double> barChart;
+
+    BarChartOptions options = new()
+        {
+            IndexAxis = "y",
+            Elements = new()
+            {
+                Bar = new()
+                {
+                    BorderWidth = 2,
+                }
+            },
+            Responsive = true,
+            Plugins = new()
+            {
+                Legend = new()
+                {
+                    Position = "right"
+                },
+                Title = new()
+                {
+                    Display = true,
+                    Text = "Chart.js Horizontal Bar Chart"
+                }
+            }
+        };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await HandleRedraw();
+        }
+    }
+
+    async Task HandleRedraw()
+    {
+        await barChart.Clear();
+
+        await barChart.AddLabelsDatasetsAndUpdate(Labels,
+            GetBarChartDataset("Dataset 1"),
+            GetBarChartDataset("Dataset 2"));
+    }
+
+    BarChartDataset<double> GetBarChartDataset(string label)
+    {
+        return new BarChartDataset<double>
+            {
+                Label = label,
+                Data = RandomizeData(),
+                BackgroundColor = backgroundColors,
+                BorderColor = borderColors,
+            };
+    }
+
+    string[] Labels = { "Red", "Blue", "Yellow", "Green", "Purple", "Orange" };
+    List<string> backgroundColors = new List<string> { ChartColor.FromRgba(255, 99, 132, 0.2f), ChartColor.FromRgba(54, 162, 235, 0.2f), ChartColor.FromRgba(255, 206, 86, 0.2f), ChartColor.FromRgba(75, 192, 192, 0.2f), ChartColor.FromRgba(153, 102, 255, 0.2f), ChartColor.FromRgba(255, 159, 64, 0.2f) };
+    List<string> borderColors = new List<string> { ChartColor.FromRgba(255, 99, 132, 1f), ChartColor.FromRgba(54, 162, 235, 1f), ChartColor.FromRgba(255, 206, 86, 1f), ChartColor.FromRgba(75, 192, 192, 1f), ChartColor.FromRgba(153, 102, 255, 1f), ChartColor.FromRgba(255, 159, 64, 1f) };
+    Random random = new Random(DateTime.Now.Millisecond);
+
+    List<double> RandomizeData()
+    {
+        return new List<double> {
+            random.Next( -50, 50 ) * random.NextDouble(),
+            random.Next( -50, 50 ) * random.NextDouble(),
+            random.Next( -50, 50 ) * random.NextDouble(),
+            random.Next( -50, 50 ) * random.NextDouble(),
+            random.Next( -50, 50 ) * random.NextDouble(),
+            random.Next( -50, 50 ) * random.NextDouble() };
+    }
+}

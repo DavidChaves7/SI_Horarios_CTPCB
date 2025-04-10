@@ -1,0 +1,47 @@
+﻿<Modal @ref="modal">
+    <ModalContent Centered Size="ModalSize.Large">
+        <ModalHeader>
+            <ModalTitle>Asignar materia</ModalTitle>
+            <CloseButton></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+            <LoadingIndicator @bind-Visible="isLoading">
+                <ChildContent>
+                    <h6>Prueba</h6>
+                </ChildContent>
+            </LoadingIndicator>
+        </ModalBody>
+        <ModalFooter>
+            <Button Class="btn-outline-danger" Clicked="@Hide">Cerrar</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    Modal? modal;
+
+    public bool isLoading { get; set; } = false;
+
+    public Task Hide()
+    {
+        modal?.Close(CloseReason.UserClosing);
+        return Task.CompletedTask;
+    }
+
+    public async Task Open(string dia, string hora)
+    {
+        modal?.Show();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+
+            
+            StateHasChanged();
+        }
+    }
+
+}

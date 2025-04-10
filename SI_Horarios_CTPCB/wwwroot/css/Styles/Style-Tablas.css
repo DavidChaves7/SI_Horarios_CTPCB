@@ -1,6 +1,6 @@
 ﻿
 thead {
-    background-color: var(--color-azul) !important;
+    background-color: var(--color-secundario) !important;
     color: white !important;
     border-top: 1px solid white !important;
 }
@@ -19,7 +19,7 @@ td {
 }
 
 .pagination {
-    --bs-pagination-disabled-bg: var(--color-azul) !important;
+    --bs-pagination-disabled-bg: var(--color-secundario) !important;
     --bs-pagination-disabled-color: white !important;
     --bs-pagination-border-width: 0px;
     --bs-pagination-color: white !important;
@@ -38,7 +38,7 @@ td {
 }
 
 .file-upload-button {
-    background-color: var(--color-azul);
+    background-color: var(--color-secundario);
     color: #fff;
     padding: 5px 10px;
     border-radius: 3px;
@@ -65,7 +65,7 @@ td {
 }
 
 .header-azul{
-    background-color: var(--color-azul) !important;
+    background-color: var(--color-secundario) !important;
     color:white !important;
 }
     .header-azul::after {
@@ -74,7 +74,7 @@ td {
     }
 
 .header-celeste {
-    background-color: var(--color-celeste) !important;
+    background-color: var(--color-primario) !important;
     color: white !important;
 }
     .header-celeste::after {
@@ -83,7 +83,7 @@ td {
     }
 
 .header-verde {
-    background-color: var(--color-verde) !important;
+    background-color: var(--color-cuarto) !important;
     color: white !important;
 }
     .header-verde::after {
@@ -92,7 +92,7 @@ td {
     }
 
 .header-amarillo {
-    background-color: var(--color-amarillo) !important;
+    background-color: var(--color-terciario) !important;
     color: white !important;
 }
     /*.header-amarillo::after {
@@ -101,8 +101,8 @@ td {
     }*/
 
 .alert-info {
-    /*background-color: var(--color-celeste);*/
-    background: linear-gradient(to right,var(--color-azul), var(--color-celeste));
+    /*background-color: var(--color-primario);*/
+    background: linear-gradient(to right,var(--color-secundario), var(--color-primario));
     color: white !important;
     justify-content: center;
     border: 0px

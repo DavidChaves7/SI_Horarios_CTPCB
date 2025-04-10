@@ -32,12 +32,6 @@ wwwroot/node_modules/
 *.bak
 *.tmp
 
-# NuGet
-*.nupkg
-*.snupkg
-packages/
-.nuget/
-
 # dotnet CLI
 project.lock.json
 project.fragment.lock.json

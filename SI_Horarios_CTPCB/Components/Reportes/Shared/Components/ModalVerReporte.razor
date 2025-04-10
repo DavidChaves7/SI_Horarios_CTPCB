@@ -1,0 +1,54 @@
+﻿<Modal @ref="modal">
+    <ModalContent Centered Size="ModalSize.Large">
+        <ModalHeader>
+            <ModalTitle>Reportes Generados</ModalTitle>
+            <CloseButton></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+            <LoadingIndicator @bind-Visible="isLoading">
+                <ChildContent>
+                    <h3>Reporte Ejemplo</h3>
+                    <Button Class="btn btn-create" Clicked="@OnPreviousPageClicked">Prev</Button>
+                    <Button Class="btn btn-edit" Clicked="@OnNextPageClicked">Next</Button>
+                    <PdfViewer @ref="@pdfViewerRef" Source="https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf" />
+                </ChildContent>
+            </LoadingIndicator>
+        </ModalBody>
+        <ModalFooter>
+            <Button Class="btn-outline-danger" Clicked="@Hide">Cerrar</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    Modal? modal;
+
+    public bool isLoading { get; set; } = false;
+
+    public Task Hide()
+    {
+        modal?.Close(CloseReason.UserClosing);
+        return Task.CompletedTask;
+    }
+
+    public async Task Open()
+    {
+        modal?.Show();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+
+            
+            StateHasChanged();
+        }
+    }
+
+    PdfViewer pdfViewerRef;
+
+    Task OnPreviousPageClicked() => pdfViewerRef.PreviousPage();
+    Task OnNextPageClicked() => pdfViewerRef.NextPage();
+}

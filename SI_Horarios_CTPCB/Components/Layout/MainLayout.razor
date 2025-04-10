@@ -1,11 +1,12 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager Navigation
 
-<Layout>
-    <Div Class="topbar">
-        <NavMenu />
-    </Div>
-
+<Layout Sider="true">
+    <LayoutSider>
+        <LayoutSiderContent>
+            <SideBar></SideBar>
+        </LayoutSiderContent>
+    </LayoutSider>
     <Layout>
         <LayoutContent Flex="Flex.Column">
             @Body

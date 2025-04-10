@@ -20,16 +20,21 @@
 @using SI_Horarios_CTPCB.Components.Shared
 @using SI_Horarios_CTPCB.Infrastructure.ApiClient
 @using SI_Horarios_CTPCB.Infrastructure.Services
-@using SI_Horarios_CTPCB.Components.Mantenimientos.Shared.Grids
 @using SI_Horarios_CTPCB.Components.Layout
-@using SI_Horarios_CTPCB.Infrastructure.ApiClient
+@using SI_Horarios_CTPCB.Components.Mantenimientos.Shared.Grids
 @using SI_Horarios_CTPCB.Components.Mantenimientos.Shared.Components
+@using SI_Horarios_CTPCB.Components.Horarios.Shared.Grids
+@using SI_Horarios_CTPCB.Components.Horarios.Shared.Components
+@using SI_Horarios_CTPCB.Components.Reportes.Shared.Grids
+@using SI_Horarios_CTPCB.Components.Reportes.Shared.Components
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @using System.Security.Claims
-@using SI_Horarios_CTPCB.Components.Layout
 @using SI_Horarios_CTPCB.Infrastructure.Interfaces
 @using Microsoft.AspNetCore.Authentication;
 @using Microsoft.AspNetCore.Authentication.Cookies
+@using Blazorise.PdfViewer
 
 @inject DataGridUtil Dg
 @inject SIHAPI api
+@inject IMessageService MessageService
+@inject AuthenticationStateProvider authService

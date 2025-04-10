@@ -15,7 +15,7 @@
     display: inline-block;
     position: absolute;
     top: 0;
-    background-color: var(--color-amarillo-o) !important;
+    background-color: var(--color-terciario-o) !important;
     border-radius: 100%;
     -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
     animation: sk-bounce 2.0s infinite ease-in-out;
@@ -27,7 +27,7 @@
     display: inline-block;
     position: absolute;
     top: 0;
-    background-color: var(--color-azul) !important;
+    background-color: var(--color-secundario) !important;
     border-radius: 100%;
     -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
     animation: sk-bounce 2.0s infinite ease-in-out;

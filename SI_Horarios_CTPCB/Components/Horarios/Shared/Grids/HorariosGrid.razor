@@ -1,0 +1,135 @@
+﻿<Div Class="main-content">
+    <LoadingIndicator Visible="@(isLoading)">
+        <ChildContent>
+            <Div Class="row mb-4 align-items-end">
+                <Div Class="col-md-6">
+                    <label>Grupo</label>
+                    <Select @bind-SelectedValue="reportesModel.Grupo" Class="form-control">
+                        <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                        <SelectItem Value="@("1")">Grupo Décimo</SelectItem>
+                        <SelectItem Value="@("2")">Grupo Undécimo</SelectItem>
+                        <SelectItem Value="@("3")">Grupo Duodécimo</SelectItem>
+                        <SelectItem Value="@("4")">Grupo Sordo/mudos</SelectItem>
+                        <SelectItem Value="@("5")">Grupo Ciegos</SelectItem>
+                    </Select>
+                </Div>
+                <Div Class="col-md-2 text-end">
+                    <Button Class="btn btn-create" Clicked="@GenerarHorario">Generar automáticamente</Button>
+                </Div>
+            </Div>
+            <Div Class="row mb-4">
+                <DataGrid TItem="HorarioRow"
+                Data="@bloques"
+                PageSize="16"
+                ShowPager="false"
+                ShowPageSizes="false"
+                ShowCaptions="false"
+                Editable="false"
+                Responsive="true"
+                Hoverable="true"
+                Class="table-bordered text-center w-100">
+
+                    <DataGridColumn TItem="HorarioRow" Field="@nameof(HorarioRow.Hora)" Caption="Hora" Width="180px" />
+
+                    @foreach (var dia in diasSemana)
+                    {
+                        <DataGridColumn TItem="HorarioRow" Caption="@dia">
+                            <DisplayTemplate Context="context">
+                                @context.Botones[dia]
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                    }
+
+                </DataGrid>
+
+            </Div>
+        </ChildContent>
+    </LoadingIndicator>
+</Div>
+<ModalAsigMateria @ref="modalAsigMateria"></ModalAsigMateria>
+
+@code {
+    private bool isLoading = false;
+    private ReportesModel reportesModel = new();
+    ModalAsigMateria? modalAsigMateria;
+
+    private void GenerarHorario()
+    {
+        // Lógica de generación de horario
+    }
+
+    public class ReportesModel
+    {
+        public string Grupo { get; set; } = string.Empty;
+    }
+
+    public class HorarioRow
+    {
+        public string Hora { get; set; }
+        public Dictionary<string, RenderFragment> Botones { get; set; } = new();
+    }
+
+    private List<string> diasSemana = new() { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
+
+    private List<BloqueHorario> bloquesHorario = new()
+{
+    new("7:00 am - 7:40 am"),
+    new("7:40 am - 8:20 am"),
+    new("8:20 am - 9:00 am"),
+    new("9:00 am - 9:20 am", true),
+    new("9:20 am - 10:00 am"),
+    new("10:00 am - 10:40 am"),
+    new("10:40 am - 11:20 am"),
+    new("11:20 am - 12:00 pm", true),
+    new("12:00 pm - 12:40 pm"),
+    new("12:40 pm - 1:20 pm"),
+    new("1:20 pm - 2:00 pm"),
+    new("2:00 pm - 2:40 pm"),
+    new("2:00 pm - 2:20 pm", true),
+    new("2:20 pm - 3:00 pm"),
+    new("3:00 pm - 3:40 pm"),
+    new("3:40 pm - 4:20 pm")
+};
+
+    private List<HorarioRow> bloques;
+
+    protected override void OnInitialized()
+    {
+        bloques = bloquesHorario.Select(b => new HorarioRow
+            {
+                Hora = b.Hora,
+                Botones = diasSemana.ToDictionary(
+                    dia => dia,
+                    dia => CrearBoton(dia, b.Hora, b.EsReceso)
+                )
+            }).ToList();
+    }
+
+    private RenderFragment CrearBoton(string dia, string hora, bool esReceso) => builder =>
+    {
+        builder.OpenElement(0, "button");
+        builder.AddAttribute(1, "class", esReceso ? "btn btn-secondary w-100 h-100" : "btn btn-outline-primary w-100 h-100");
+        if (esReceso)
+        {
+            builder.AddAttribute(2, "disabled", true);
+            builder.AddContent(3, "Receso");
+        }
+        else
+        {
+            builder.AddAttribute(4, "onclick", EventCallback.Factory.Create(this, () => modalAsigMateria.Open(dia, hora)));
+        }
+        builder.CloseElement();
+    };
+
+    public class BloqueHorario
+    {
+        public string Hora { get; set; }
+        public bool EsReceso { get; set; }
+
+        public BloqueHorario(string hora, bool esReceso = false)
+        {
+            Hora = hora;
+            EsReceso = esReceso;
+        }
+    }
+}
