@@ -12,7 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('/Img/Fondos/fondo-educativo-desktop.png') no-repeat center center;
+    /*background: url('/Img/Fondos/fondo-educativo-desktop.png') no-repeat center center;*/
     background-size: cover;
     background-attachment: fixed;
     margin: 0;

@@ -1,4 +1,5 @@
 ﻿@inject SIHAPI api
+ <div class="main-content">
 <LoadingIndicator Visible="@(data is null)">
     <ChildContent>
         <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir.Open">Importar Archivo</Button>
@@ -51,7 +52,7 @@
 
     </ChildContent>
 </LoadingIndicator>
-
+</div>
 <ModalSubirArchivo @ref="modalSubir"></ModalSubirArchivo>
 <ModalRestriccionHoraria @ref="modalRestric"></ModalRestriccionHoraria>
 @code {

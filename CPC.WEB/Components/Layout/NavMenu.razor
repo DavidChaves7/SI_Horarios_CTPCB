@@ -1,9 +1,81 @@
-﻿<Bar Breakpoint="Breakpoint.Desktop"
+﻿<layout Sider>
+    <LayoutSider> 
+        <LayoutSiderContent>
+<Bar Breakpoint="Breakpoint.Desktop"
+     Background="Background.Light"
+     ThemeContrast="ThemeContrast.Light"
+     Class="bar">
+     <BarBrand class="bar-brand">
+        <BarLink To="MenuPrincipal" class="navbar-brand">
+            <img src="Img/Logos/logo_ctp_plan.png" alt="Logo" 
+                 width= "180px"
+                 >
+        </BarLink>
+    </BarBrand>
+
+    <h5 class="mx-3 mb-4"><Icon Name="IconName.User" Class="px-2" /> @userName</h5>
+    <BarMenu Class="bar-menu d-flex flex-column" BarMode="BarMode.Vertical">
+        <BarStart>
+            @* Dropdowns *@
+            <div class="d-flex flex-column">
+            <BarItem Class="bar-item">
+                <BarDropdown>
+                    <BarDropdownToggle>Mantenimientos</BarDropdownToggle>
+                    <BarDropdownMenu>
+                        @foreach (var option in optionsMantenimiento)
+                        {
+                            <BarDropdownItem>
+                                <img src="@option.ImgUrl" height="30" width="30" class="imgbarDropdown" alt="Icono" />
+                                <a class="btn text-item text-dark p-2" href="@option.Href">@option.Description</a>
+                            </BarDropdownItem>
+                        }
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
+
+
+             <BarItem Class="bar-item">
+                <BarDropdown>
+                    <BarDropdownToggle> Reportes </BarDropdownToggle>
+                    <BarDropdownMenu>
+                        @foreach (var option in optionsReportes)
+                        {
+                            <BarDropdownItem>
+                                <img src="@option.ImgUrl" height="60" width="60" class="d-inline-block align-top imgbarDropdown" alt="Icono" />
+                                <a class="btn text-item text-dark p-3" href="@option.Href">@option.Description</a>
+                            </BarDropdownItem>
+                        }
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
+            <BarItem Class="bar-item">
+                <BarDropdown>
+                    <BarDropdownToggle> Seguridad </BarDropdownToggle>
+                    <BarDropdownMenu>
+                        @foreach (var option in optionsSeguridad)
+                        {
+                            <BarDropdownItem>
+                                <img src="@option.ImgUrl" height="60" width="60" class="d-inline-block align-top imgbarDropdown" alt="Icono" />
+                                <a class="btn text-item text-dark p-3" href="@option.Href">@option.Description</a>
+                            </BarDropdownItem>
+                        }
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
+            </div>
+        </BarStart>
+    </BarMenu>
+ </Bar>
+ </LayoutSiderContent>
+    </LayoutSider>
+</layout>
+
+@* <Bar Breakpoint="Breakpoint.Desktop"
      Background="Background.Light"
      ThemeContrast="ThemeContrast.Light">
     <h5 class="mx-5"><Icon Name="IconName.User" Class="px-2" /> @userName</h5>
     <BarToggler />
-    <BarMenu>
+    <BarMenu BarMenu Class="bar-menu" BarMode="BarMode.Vertical" >
         <BarStart>
             <BarItem>
                 <BarDropdown>
@@ -70,7 +142,7 @@
         </BarLink>
     </BarBrand>
 </Bar>
-
+ *@
 @code {
     public class Option
     {

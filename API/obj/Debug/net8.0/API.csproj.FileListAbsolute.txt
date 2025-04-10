@@ -530,3 +530,6 @@ C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_
 C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\API\obj\Debug\net8.0\API.pdb
 C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\API\obj\Debug\net8.0\ref\API.dll
+D:\horarios\SI_Horarios_CTPCB\API\obj\Debug\net8.0\API.dll
+D:\horarios\SI_Horarios_CTPCB\API\obj\Debug\net8.0\refint\API.dll
+D:\horarios\SI_Horarios_CTPCB\API\obj\Debug\net8.0\API.pdb

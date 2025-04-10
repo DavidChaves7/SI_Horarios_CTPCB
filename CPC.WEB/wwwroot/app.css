@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@700&display=swap');
 @font-face {
     font-family: BentonSans-Bold;
     src: url('Font/BentonSans Bold.otf');
@@ -17,10 +18,14 @@
 }
 
 :root {
-    --color-azul: #002D91;
-    --color-celeste: #00AFC8;
-    --color-verde: #B2CD00;
-    --color-amarillo: #EDE400;
+    --color-azul: #80577C;
+    --color-celeste: #AB57A1;
+    --color-verde: #332832;
+    --color-amarillo: #332031;
+}
+.main-content {
+    margin-left: 250px; /* Ajusta este valor al ancho real del menú lateral */
+    padding: 20px;
 }
 
 
@@ -33,7 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 body {
     margin: 0;
     font-family: Poppins-Regular !important;
-    /*background-image: url("../../Assets/Img/Fondos/Fondo.png");*/
+    background: url('/Img/Fondos/fondo-educativo-desktop.png') no-repeat center center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;

@@ -1,20 +1,4 @@
-﻿/*html, body {
-    overflow: hidden;
-}
-
-.row {
-    height: 100vh;
-}
-
-.container-main {
-    max-height: calc(100vh - 160px);
-}*/
-
-body {
-    background-image: url("../../Img/Fondos/Proyecto Onboarding Coopemep nov24 editable adicionales_Pantalla 2.png");
-}
-
-/* Estructura del carrusel */
+﻿
 .carousel-container {
     width: 100%;
     position: relative;

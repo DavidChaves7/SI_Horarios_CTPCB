@@ -1,33 +1,37 @@
 ﻿@page "/MenuPrincipal"
 @layout MainLayout
 
+
 <HeadContent>
     <link rel="stylesheet" href="css/Styles/Style-MenuPrincipal.css" />
 </HeadContent>
-<PageTitle>Menú Principal - CoopeMep CPC</PageTitle>
+<PageTitle>Menú Principal</PageTitle>
+
+ <div class="main-content">
 
 
-<Div Class="menu-header">
-    <Div Class="user-info">
-        <Icon Name="IconName.User" Class="px-2" />
-        <h1>@userName</h1>
-    </Div>
-    <Image Source="Img/Logos/Coopemep_Horizontal.png" alt="Logo" Class="logo" />
+
+
+
+<Card class="d-flex justify-content-center align-items-center">
+    <CardBody class="text-center">
+        <Div Class="welcome-container">
+        <h1 class="welcome-text">Sistema inteligente de generación de horarios</h1>
 </Div>
+        <CardText>
+                <p>
+                    Es un sistema inteligente diseñado para facilitar la creación de horarios docentes en la sección de Educación Especial del CTP de Calle Blancos.
 
-<Div Class="welcome-container">
-    <h1 class="welcome-text">BIENVENIDO</h1>
-</Div>
+                    Con solo ingresar la información de los profesores, materias y grupos, el sistema genera automáticamente los horarios semanales
+                </p>
+                <hr />
+            </CardText>
+            <img src="img/calendario.png" class="img-fluid" />
+            <hr />
+    </CardBody>
+</Card>
 
-<Div Class="card-container">
-    <Link To="MenuPrincipalCPC" Class="menu-card cpc">
-    <Image Source="Img/Icon/Proyecto Onboarding Coopemep nov24 editable adicionales_computadora.svg" alt="CPC" Class="card-image" />
-    <h3 class="card-title">CPC</h3>
-    </Link>
-
-
-</Div>
-
+</div>
 
 @code {
     private string userName;
