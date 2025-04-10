@@ -1,18 +1,30 @@
 ﻿<Modal @ref="modal">
     <ModalContent Centered Size="ModalSize.Large">
         <ModalHeader>
-            <ModalTitle>Asignar materia</ModalTitle>
+            <ModalTitle>Asignar materia Dia: @Dia y Hora: @Hora</ModalTitle>
             <CloseButton></CloseButton>
         </ModalHeader>
         <ModalBody>
             <LoadingIndicator @bind-Visible="isLoading">
                 <ChildContent>
-                    <h6>Prueba</h6>
+                    <Div Class="form-group mb-3">
+                        <label for="tipoMateria">Materia</label>
+                        <Select Class="form-control" TValue="string" @onchange="SelectedChange">
+                            <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                            <SelectItem Value="@("1")">Matemáticas</SelectItem>
+                            <SelectItem Value="@("2")">Electiva</SelectItem>
+                        </Select>
+                    </Div>
+                    <Div Class="form-group mb-3">
+                        <label for="leccFaltantes">Lecciones Faltantes</label>
+                        <InputText @bind-Value="leccFaltantes" class="form-control" placeholder="Lecciones Faltantes" disabled />
+                    </Div>
                 </ChildContent>
             </LoadingIndicator>
         </ModalBody>
         <ModalFooter>
-            <Button Class="btn-outline-danger" Clicked="@Hide">Cerrar</Button>
+            <Button Class="btn btn-create" Clicked="@Guardar">Guardar</Button>
+            <Button Class="btn btn-outline-danger" Clicked="@Hide">Cerrar</Button>
         </ModalFooter>
     </ModalContent>
 </Modal>
@@ -21,6 +33,14 @@
     Modal? modal;
 
     public bool isLoading { get; set; } = false;
+    public string selectedMateria;
+    public string leccFaltantes;
+
+    [Parameter]
+    public string Dia { get; set; }
+
+    [Parameter]
+    public string Hora { get; set; }
 
     public Task Hide()
     {
@@ -30,7 +50,26 @@
 
     public async Task Open(string dia, string hora)
     {
-        modal?.Show();
+        Dia = dia;
+        Hora = hora;
+        isLoading = false; 
+        modal?.Show(); 
+    }
+
+    public Task Guardar()
+    {
+
+        modal?.Close(CloseReason.UserClosing);
+        return Task.CompletedTask;
+    }
+
+    private void SelectedChange(ChangeEventArgs e)
+    {
+        selectedMateria = e.Value?.ToString() ?? "0";
+        if (selectedMateria == "1")
+            leccFaltantes = "15";
+        else
+            leccFaltantes = "3";
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

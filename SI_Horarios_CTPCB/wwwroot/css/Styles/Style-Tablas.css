@@ -95,15 +95,15 @@ td {
     background-color: var(--color-terciario) !important;
     color: white !important;
 }
-    /*.header-amarillo::after {
-        color: white !important;
-        filter: invert(1);
-    }*/
 
 .alert-info {
-    /*background-color: var(--color-primario);*/
     background: linear-gradient(to right,var(--color-secundario), var(--color-primario));
     color: white !important;
     justify-content: center;
     border: 0px
+}
+
+.no-padding td {
+    padding: 0 !important;
+    height: 50px !important;
 }

@@ -70,20 +70,6 @@
     ModalVerReporte? modalReporte;
     private ReportesModel reportesModel = new ReportesModel();
     private bool isLoading = false;
-    private bool isModalVisible = false;
-
-    private List<int> pieDataProfesores = new List<int> { 30, 50, 20 }; // Ejemplo de datos
-    private List<int> barDataMaterias = new List<int> { 40, 60, 30, 80 }; // Ejemplo de datos
-
-    private void ShowModal()
-    {
-        isModalVisible = true;
-    }
-
-    private void CloseModal()
-    {
-        isModalVisible = false;
-    }
 
     private void DownloadReport()
     {
@@ -124,7 +110,7 @@
                 Title = new()
                 {
                     Display = true,
-                    Text = "Chart.js Horizontal Bar Chart"
+                    Text = "Materias por Nivel"
                 }
             }
         };
@@ -142,8 +128,8 @@
         await barChart.Clear();
 
         await barChart.AddLabelsDatasetsAndUpdate(Labels,
-            GetBarChartDataset("Dataset 1"),
-            GetBarChartDataset("Dataset 2"));
+            GetBarChartDataset("Matematica"),
+            GetBarChartDataset("Electiva"));
     }
 
     BarChartDataset<double> GetBarChartDataset(string label)
@@ -157,19 +143,16 @@
             };
     }
 
-    string[] Labels = { "Red", "Blue", "Yellow", "Green", "Purple", "Orange" };
-    List<string> backgroundColors = new List<string> { ChartColor.FromRgba(255, 99, 132, 0.2f), ChartColor.FromRgba(54, 162, 235, 0.2f), ChartColor.FromRgba(255, 206, 86, 0.2f), ChartColor.FromRgba(75, 192, 192, 0.2f), ChartColor.FromRgba(153, 102, 255, 0.2f), ChartColor.FromRgba(255, 159, 64, 0.2f) };
-    List<string> borderColors = new List<string> { ChartColor.FromRgba(255, 99, 132, 1f), ChartColor.FromRgba(54, 162, 235, 1f), ChartColor.FromRgba(255, 206, 86, 1f), ChartColor.FromRgba(75, 192, 192, 1f), ChartColor.FromRgba(153, 102, 255, 1f), ChartColor.FromRgba(255, 159, 64, 1f) };
+    string[] Labels = { "Decimo", "Undecimo", "Duodecimo"};
+    List<string> backgroundColors = new List<string> { ChartColor.FromRgba(255, 99, 132, 0.2f), ChartColor.FromRgba(54, 162, 235, 0.2f), ChartColor.FromRgba(255, 206, 86, 0.2f)};
+    List<string> borderColors = new List<string> { ChartColor.FromRgba(255, 99, 132, 1f), ChartColor.FromRgba(54, 162, 235, 1f), ChartColor.FromRgba(255, 206, 86, 1f)};
     Random random = new Random(DateTime.Now.Millisecond);
 
     List<double> RandomizeData()
     {
         return new List<double> {
-            random.Next( -50, 50 ) * random.NextDouble(),
-            random.Next( -50, 50 ) * random.NextDouble(),
-            random.Next( -50, 50 ) * random.NextDouble(),
-            random.Next( -50, 50 ) * random.NextDouble(),
-            random.Next( -50, 50 ) * random.NextDouble(),
-            random.Next( -50, 50 ) * random.NextDouble() };
+            random.Next( 0, 40 ) * random.NextDouble(),
+            random.Next( 0, 40 ) * random.NextDouble(),
+            random.Next( 0, 40 ) * random.NextDouble()};
     }
 }

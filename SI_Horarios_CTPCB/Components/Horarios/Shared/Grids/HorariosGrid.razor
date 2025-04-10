@@ -18,24 +18,24 @@
                 </Div>
             </Div>
             <Div Class="row mb-4">
-                <DataGrid TItem="HorarioRow"
-                Data="@bloques"
+                <DataGrid TItem="BloqueHorario"
+                Data="@bloquesHorario"
                 PageSize="16"
                 ShowPager="false"
                 ShowPageSizes="false"
-                ShowCaptions="false"
+                ShowCaptions="true"
                 Editable="false"
                 Responsive="true"
                 Hoverable="true"
-                Class="table-bordered text-center w-100">
+                Class="table-bordered text-center w-100 no-padding">
 
-                    <DataGridColumn TItem="HorarioRow" Field="@nameof(HorarioRow.Hora)" Caption="Hora" Width="180px" />
+                    <DataGridColumn TItem="BloqueHorario" Field="@nameof(BloqueHorario.Hora)" Caption="Hora" Width="180px" />
 
                     @foreach (var dia in diasSemana)
                     {
-                        <DataGridColumn TItem="HorarioRow" Caption="@dia">
+                        <DataGridColumn TItem="BloqueHorario" Caption="@dia">
                             <DisplayTemplate Context="context">
-                                @context.Botones[dia]
+                                <Button Class="@DeterminarClase(context.EsReceso)" Clicked="() => modalAsigMateria.Open(dia,context.Hora)">@DeterminarNombre(context.EsReceso)</Button>
                             </DisplayTemplate>
                         </DataGridColumn>
                     }
@@ -58,15 +58,21 @@
         // Lógica de generación de horario
     }
 
+    public class BloqueHorario
+    {
+        public string Hora { get; set; }
+        public bool EsReceso { get; set; }
+
+        public BloqueHorario(string hora, bool esReceso = false)
+        {
+            Hora = hora;
+            EsReceso = esReceso;
+        }
+    }
+
     public class ReportesModel
     {
         public string Grupo { get; set; } = string.Empty;
-    }
-
-    public class HorarioRow
-    {
-        public string Hora { get; set; }
-        public Dictionary<string, RenderFragment> Botones { get; set; } = new();
     }
 
     private List<string> diasSemana = new() { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
@@ -91,45 +97,21 @@
     new("3:40 pm - 4:20 pm")
 };
 
-    private List<HorarioRow> bloques;
 
     protected override void OnInitialized()
     {
-        bloques = bloquesHorario.Select(b => new HorarioRow
-            {
-                Hora = b.Hora,
-                Botones = diasSemana.ToDictionary(
-                    dia => dia,
-                    dia => CrearBoton(dia, b.Hora, b.EsReceso)
-                )
-            }).ToList();
+        
     }
 
-    private RenderFragment CrearBoton(string dia, string hora, bool esReceso) => builder =>
+    private string DeterminarNombre( bool esReceso) 
     {
-        builder.OpenElement(0, "button");
-        builder.AddAttribute(1, "class", esReceso ? "btn btn-secondary w-100 h-100" : "btn btn-outline-primary w-100 h-100");
-        if (esReceso)
-        {
-            builder.AddAttribute(2, "disabled", true);
-            builder.AddContent(3, "Receso");
-        }
-        else
-        {
-            builder.AddAttribute(4, "onclick", EventCallback.Factory.Create(this, () => modalAsigMateria.Open(dia, hora)));
-        }
-        builder.CloseElement();
-    };
-
-    public class BloqueHorario
-    {
-        public string Hora { get; set; }
-        public bool EsReceso { get; set; }
-
-        public BloqueHorario(string hora, bool esReceso = false)
-        {
-            Hora = hora;
-            EsReceso = esReceso;
-        }
+        return esReceso ? "Receso" : "";
     }
+
+    private string DeterminarClase(bool esReceso)
+    {
+        return esReceso ? "btn btn-secondary w-100 h-100" : "btn btn-outline-primary w-100 h-100";
+    }
+    
+    
 }
