@@ -2,6 +2,7 @@
 <LoadingIndicator Visible="@(data is null)">
     <ChildContent>
 
+        <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Profesores" />
         <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
                   Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                   UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
@@ -24,9 +25,10 @@
                     </DataGridColumn> *@
                 <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="Cedula" />
                 <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Nombre" />
-                <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Apellido" />
+                <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Apellido" />
                 <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Correo" />
                 <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Telefono" />
+                <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Carga Horaria" />
             </DataGridColumns>
             <ButtonRowTemplate>
 
@@ -95,14 +97,14 @@
                 new EjemploMantDto
                 {
                     Id = 1,
-                    Descripcion = "Ejemplo 1",
-                    Test = "Test 1"
+                    Descripcion = "Denis",
+                    Test = "denisca@gmail.com"
                 },
                 new EjemploMantDto
                 {
                     Id = 2,
-                    Descripcion = "Ejemplo 2",
-                    Test = "Test 2"
+                    Descripcion = "Juan",
+                    Test = "juanperez@gmail.com"
                 }
             };
             StateHasChanged();
@@ -111,11 +113,11 @@
 
     RenderFragment SetModalTitle(PopupTitleContext<EjemploMantDto> context)
     {
-        var title = context.EditState == DataGridEditState.New ? "Nuevos" : "Editar";
+        var title = context.EditState == DataGridEditState.New ? "Nuevo" : "Editar";
         return (__builder) =>
         {
             <Span>
-                @($"{title} Parametros BCCR")
+                @($"{title} Profesor")
             </Span>
         };
     }

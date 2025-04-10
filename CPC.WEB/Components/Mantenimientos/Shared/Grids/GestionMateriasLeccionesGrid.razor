@@ -1,8 +1,15 @@
 ﻿@inject SIHAPI api
 <LoadingIndicator Visible="@(dataMaterias is null)">
     <ChildContent>
+            <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir.Open">Importar Archivo</Button>
+            <br />
+            <br />
+        <Row>
+            <ButtonsExportComponent T="EjemploMantDto" Data="dataMaterias" Titulo="Materias y Lecciones" />
 
-        <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddataMaterias" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" dataMaterias="dataMaterias" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+        </Row>
+
+        <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddataMaterias" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="dataMaterias" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
                   Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                   UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
             <DataGridColumns>
@@ -22,9 +29,52 @@
                             <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
                         </DisplayTemplate>
                     </DataGridColumn> *@
-                <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="ID" />
-                <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Desc" />
-                <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Test" />
+                <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="Nivel Academico" />
+                <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Materia" />
+                <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Carga Horaria" />
+                <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Prioridad" />
+                <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Asociado A" />
+            </DataGridColumns>
+            <ButtonRowTemplate>
+
+                <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
+                <Button Class="btn btn-edit" Disabled="(selecteddataMaterias is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
+                <Button Class="btn btn-delete" Disabled="(selecteddataMaterias is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+
+            </ButtonRowTemplate>
+        </DataGrid>
+        <br />
+        <br />
+        <hr />
+        <Heading Size="HeadingSize.Is2" >Materias</Heading>
+        <br />
+        <br />
+        <Row>
+            <ButtonsExportComponent T="EjemploMantDto" Data="dataMaterias" Titulo="Materias y Lecciones" />
+        </Row>
+        <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedDataMateriasTABLA" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="dataMateriasTABLA" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+                  Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
+                  UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
+            <DataGridColumns>
+                @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
+                        <EditTemplate>
+                            <TextEdit Text="@((string)context.CellValue)" TextChanged="@( v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.CoD_RUBRO))">
+                                <Feedback>
+                                    <ValidationError />
+                                    <ValidationNone />
+                                </Feedback>
+                            </TextEdit>
+                        </EditTemplate>
+                    </DataGridColumn>
+                    <DataGridColumn Field="@nameof(CatalogCCSSDto.DesC_RUBRO)" Editable Caption="Descripción"></DataGridColumn>
+                    <DataGridColumn Field="@nameof(CatalogCCSSDto.PorC_RUBRO)" Editable Caption="Porcentaje">
+                        <DisplayTemplate>
+                            <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
+                        </DisplayTemplate>
+                    </DataGridColumn> *@
+                <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="Nivel Academico" />
+                <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Materia" />
+                <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Cantidad de Horas Semanales" />
             </DataGridColumns>
             <ButtonRowTemplate>
 
@@ -37,6 +87,7 @@
 
     </ChildContent>
 </LoadingIndicator>
+<ModalSubirArchivo @ref="modalSubir"></ModalSubirArchivo>
 
 
 @code {
@@ -46,14 +97,15 @@
     [Inject] AuthenticationStateProvider authService { get; set; } = null!;
 
     IEnumerable<EjemploMantDto>? dataMaterias { get; set; } = new List<EjemploMantDto>();
-    IEnumerable<EjemploMantDto>? dataLecciones { get; set; } = new List<EjemploMantDto>();
+    IEnumerable<EjemploMantDto>? dataMateriasTABLA { get; set; } = new List<EjemploMantDto>();
 
     private EjemploMantDto? selecteddataMaterias;
-    private EjemploMantDto? selectedDataLecciones;
+    private EjemploMantDto? selectedDataMateriasTABLA;
 
     private Snackbar? snackbarPrimary;
     [Inject] IMessageService MessageService { get; set; } = null!;
 
+    ModalSubirArchivo? modalSubir;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -95,14 +147,29 @@
                 new EjemploMantDto
                 {
                     Id = 1,
-                    Descripcion = "Ejemplo 1",
-                    Test = "Test 1"
+                    Descripcion = "Matematicas",
+                    Test = "40"
                 },
                 new EjemploMantDto
                 {
                     Id = 2,
-                    Descripcion = "Ejemplo 2",
-                    Test = "Test 2"
+                    Descripcion = "Electiva",
+                    Test = "15"
+                }
+            };
+            dataMateriasTABLA = new List<EjemploMantDto>
+            {
+                new EjemploMantDto
+                {
+                    Id = 1,
+                    Descripcion = "Matematicas",
+                    Test = "20"
+                },
+                new EjemploMantDto
+                {
+                    Id = 2,
+                    Descripcion = "Electiva 2",
+                    Test = "30"
                 }
             };
             StateHasChanged();

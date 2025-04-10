@@ -15,16 +15,28 @@
       "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\mantenimientos\\shared\\grids\\seguridadgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\mantenimientos\\shared\\components\\modalsubirarchivo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\mantenimientos\\shared\\components\\modalsubirarchivo.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\mantenimientos\\pages\\seguridad.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\mantenimientos\\pages\\seguridad.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\shared\\basecomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\basecomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\shared\\mainmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\mainmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\shared\\basecomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\basecomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,11 +50,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{809f6ff3-8092-454a-8003-6d4091f9b5bb}"
+              "Name": "ST:0:0:{5a4e9529-b6a0-46b5-be4f-0f0b239bc0eb}"
             },
             {
               "$type": "Bookmark",
@@ -53,8 +65,81 @@
               "Name": "ST:15:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{809f6ff3-8092-454a-8003-6d4091f9b5bb}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_Imports.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\_Imports.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\_Imports.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\_Imports.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\_Imports.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-10T04:00:57.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ModalSubirArchivo.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Components\\ModalSubirArchivo.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Components\\ModalSubirArchivo.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Components\\ModalSubirArchivo.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Components\\ModalSubirArchivo.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-10T03:47:14.673Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SeguridadGrid.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-10T01:50:21.118Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "MainMenu.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\MainMenu.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Shared\\MainMenu.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\MainMenu.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Shared\\MainMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-10T03:21:11.481Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Layout\\MainLayout.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Layout\\MainLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-10T03:20:12.279Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\API\\Program.cs",
               "RelativeDocumentMoniker": "API\\Program.cs",
@@ -62,21 +147,7 @@
               "RelativeToolTip": "API\\Program.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-10T01:58:53.225Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\NavMenu.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Layout\\NavMenu.razor",
-              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\NavMenu.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Layout\\NavMenu.razor",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAcwFEAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-10T01:54:43.384Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-10T01:58:53.225Z"
             },
             {
               "$type": "Document",
@@ -86,7 +157,7 @@
               "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionProfesoresGrid.razor",
               "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionProfesoresGrid.razor",
               "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionProfesoresGrid.razor",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-10T01:54:15.797Z",
               "EditorCaption": ""
@@ -99,46 +170,33 @@
               "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionMateriasLeccionesGrid.razor",
               "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionMateriasLeccionesGrid.razor",
               "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionMateriasLeccionesGrid.razor",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAADMAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAgwKQAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-10T01:54:13.474Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Seguridad.razor",
               "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Pages\\Seguridad.razor",
               "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Pages\\Seguridad.razor",
               "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Pages\\Seguridad.razor",
               "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Pages\\Seguridad.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-10T01:50:23.535Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SeguridadGrid.razor",
-              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
-              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJYAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-10T01:50:21.118Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "BaseComponent.razor",
               "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\BaseComponent.razor",
               "RelativeDocumentMoniker": "CPC.WEB\\Components\\Shared\\BaseComponent.razor",
               "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\BaseComponent.razor",
               "RelativeToolTip": "CPC.WEB\\Components\\Shared\\BaseComponent.razor",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-09T21:12:02.87Z",
               "EditorCaption": ""
@@ -151,7 +209,15 @@
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }

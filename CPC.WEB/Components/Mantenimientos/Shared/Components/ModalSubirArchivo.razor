@@ -1,0 +1,69 @@
+﻿<Modal @ref="modal">
+    <ModalContent Centered Size="ModalSize.Large">
+        <ModalHeader>
+            <ModalTitle>Subir Archivo</ModalTitle>
+            <CloseButton></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+            <LoadingIndicator @bind-Visible="isLoading">
+                <ChildContent>
+                    <Row>
+                        <Column>
+                            <Field>
+                                <FilePicker Multiple Upload="OnFileUpload" ShowMode="FilePickerShowMode.List" />
+                            </Field>
+                        </Column>
+                       
+
+                    </Row>
+                </ChildContent>
+            </LoadingIndicator>
+        </ModalBody>
+        <ModalFooter>
+            <Button Class="btn-outline-danger" Clicked="@Hide">Cerrar</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    Modal? modal;
+
+    
+    public bool isLoading { get; set; } = false;
+
+    async Task OnFileUpload(FileUploadEventArgs e)
+    {
+        try
+        {
+            using (MemoryStream result = new MemoryStream())
+            {
+                await e.File.OpenReadStream(long.MaxValue).CopyToAsync(result);
+            }
+        }
+        catch (Exception exc)
+        {
+            Console.WriteLine(exc.Message);
+        }
+        finally
+        {
+            this.StateHasChanged();
+        }
+    }
+
+
+
+    public Task Hide()
+    {
+        modal?.Close(CloseReason.UserClosing);
+        return Task.CompletedTask;
+    }
+
+    public async Task Open()
+    {
+        modal?.Show();
+        
+    }
+
+    
+
+}

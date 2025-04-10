@@ -2,6 +2,7 @@
 <LoadingIndicator Visible="@(data is null)">
     <ChildContent>
 
+        <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Seguridad" />
         <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
                   Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                   UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
@@ -37,6 +38,7 @@
 
     </ChildContent>
 </LoadingIndicator>
+
 
 
 @code {

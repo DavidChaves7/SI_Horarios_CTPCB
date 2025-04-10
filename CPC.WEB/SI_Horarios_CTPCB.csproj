@@ -9,9 +9,13 @@
 
 	<ItemGroup>
 	  <Compile Remove="Components\Equifax\**" />
+	  <Compile Remove="Components\Mantenimientos\Shared\Componentes\**" />
 	  <Content Remove="Components\Equifax\**" />
+	  <Content Remove="Components\Mantenimientos\Shared\Componentes\**" />
 	  <EmbeddedResource Remove="Components\Equifax\**" />
+	  <EmbeddedResource Remove="Components\Mantenimientos\Shared\Componentes\**" />
 	  <None Remove="Components\Equifax\**" />
+	  <None Remove="Components\Mantenimientos\Shared\Componentes\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -61,7 +65,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Components\Mantenimientos\Shared\Componentes\" />
 		<Folder Include="Infrastructure\Middleware\" />
 		<Folder Include="Infrastructure\Models\" />
 	</ItemGroup>
