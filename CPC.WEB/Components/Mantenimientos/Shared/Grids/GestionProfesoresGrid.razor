@@ -47,7 +47,7 @@
     private string accessCategory { get; set; } = "";
     [Inject] AuthenticationStateProvider authService { get; set; } = null!;
 
-    IEnumerable<EjemploMantDto>? data { get; set; }
+    IEnumerable<EjemploMantDto>? data { get; set; } = new List<EjemploMantDto>();
 
     private EjemploMantDto? selectedData;
 
@@ -89,79 +89,95 @@
             // }
 
             // #endregion
-            data = await api.Mantenimientos_GetAllEjemploMantAsync();
+            //data = await api.Mantenimientos_GetAllEjemploMantAsync();
+            data = new List<EjemploMantDto>
+            {
+                new EjemploMantDto
+                {
+                    Id = 1,
+                    Descripcion = "Ejemplo 1",
+                    Test = "Test 1"
+                },
+                new EjemploMantDto
+                {
+                    Id = 2,
+                    Descripcion = "Ejemplo 2",
+                    Test = "Test 2"
+                }
+            };
             StateHasChanged();
         }
     }
 
-        RenderFragment SetModalTitle(PopupTitleContext<EjemploMantDto> context)
+    RenderFragment SetModalTitle(PopupTitleContext<EjemploMantDto> context)
+    {
+        var title = context.EditState == DataGridEditState.New ? "Nuevos" : "Editar";
+        return (__builder) =>
         {
-            var title = context.EditState == DataGridEditState.New ? "Nuevos" : "Editar";
-            return (__builder) =>
-            {
-                <Span>
-                    @($"{title} Parametros BCCR")
-                </Span>
-            };
-        }
+            <Span>
+                @($"{title} Parametros BCCR")
+            </Span>
+        };
+    }
 
-        async Task InsertNewItem(SavedRowItem<EjemploMantDto, Dictionary<string, object>> item)
+    async Task InsertNewItem(SavedRowItem<EjemploMantDto, Dictionary<string, object>> item)
+    {
+        try
         {
-            try
-            {
 
-
-                var errors = item.NewItem.ValidateObjectFields();
-                if (!string.IsNullOrEmpty(errors))
-                {
-                    await Task.FromResult(MessageService.Info(errors, "Datos requeridos faltantes"));
-                }
-                else
-                {
-                    //await api.Parameters_AddUpdateParametersBCCRsAsync(item.NewItem);
-                data = await api.Mantenimientos_GetAllEjemploMantAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        Task ValidateEditFields(CancellableRowChange<EjemploMantDto, Dictionary<string, object>> item)
-        {
 
             var errors = item.NewItem.ValidateObjectFields();
             if (!string.IsNullOrEmpty(errors))
             {
-                item.Cancel = true;
-                return MessageService.Info(errors, "Datos requeridos faltantes");
+                await Task.FromResult(MessageService.Info(errors, "Datos requeridos faltantes"));
             }
             else
             {
-                return Task.CompletedTask;
+                //await api.Parameters_AddUpdateParametersBCCRsAsync(item.NewItem);
+                //data = await api.Mantenimientos_GetAllEjemploMantAsync();
+                data.Append(item.NewItem);
             }
         }
-
-        async Task DeleteItem(EjemploMantDto item)
+        catch (Exception ex)
         {
-            //await api.Parameters_DeleteParametersBCCRAsync(item);
-            data = await api.Mantenimientos_GetAllEjemploMantAsync();
-        }
 
-        async Task RemovingRow(CancellableRowChange<EjemploMantDto> item)
-        {
-            var delete = await MessageService.Confirm($"Está seguro de eliminar el Parámetro {item.OldItem.Id}?", "Eliminar Parámetro", opt =>
-            {
-                // opt.MessageIcon = Icon
-            });
-            if (!delete)
-            {
-                item.Cancel = true;
-            }
         }
-
     }
+
+    Task ValidateEditFields(CancellableRowChange<EjemploMantDto, Dictionary<string, object>> item)
+    {
+
+        var errors = item.NewItem.ValidateObjectFields();
+        if (!string.IsNullOrEmpty(errors))
+        {
+            item.Cancel = true;
+            return MessageService.Info(errors, "Datos requeridos faltantes");
+        }
+        else
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    async Task DeleteItem(EjemploMantDto item)
+    {
+        //await api.Parameters_DeleteParametersBCCRAsync(item);
+        //data = await api.Mantenimientos_GetAllEjemploMantAsync();
+        data = data.Where(x => x.Id != item.Id);
+    }
+
+    async Task RemovingRow(CancellableRowChange<EjemploMantDto> item)
+    {
+        var delete = await MessageService.Confirm($"Está seguro de eliminar el Parámetro {item.OldItem.Id}?", "Eliminar Parámetro", opt =>
+        {
+            // opt.MessageIcon = Icon
+        });
+        if (!delete)
+        {
+            item.Cancel = true;
+        }
+    }
+}
 
 
 }
