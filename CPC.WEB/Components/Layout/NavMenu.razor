@@ -21,51 +21,9 @@
             </BarItem>
             <BarItem>
                 <BarDropdown>
-                    <BarDropdownToggle> Consultas </BarDropdownToggle>
+                    <BarDropdownToggle> Horarios </BarDropdownToggle>
                     <BarDropdownMenu>
-                        @foreach (var option in optionsConsultas)
-                        {
-                            <BarDropdownItem>
-                                <img src="@option.ImgUrl" height="60" width="60" class="d-inline-block align-top imgbarDropdown" alt="Icono" />
-                                <a class="btn text-item text-dark p-3" href="@option.Href">@option.Description</a>
-                            </BarDropdownItem>
-                        }
-                    </BarDropdownMenu>
-                </BarDropdown>
-            </BarItem>
-            <BarItem>
-                <BarDropdown>
-                    <BarDropdownToggle> Análisis </BarDropdownToggle>
-                    <BarDropdownMenu>
-                        @foreach (var option in optionsAnalisis)
-                        {
-                            <BarDropdownItem>
-                                <img src="@option.ImgUrl" height="60" width="60" class="d-inline-block align-top imgbarDropdown" alt="Icono" />
-                                <a class="btn text-item text-dark p-3" href="@option.Href">@option.Description</a>
-                            </BarDropdownItem>
-                        }
-                    </BarDropdownMenu>
-                </BarDropdown>
-            </BarItem>
-            <BarItem>
-                <BarDropdown>
-                    <BarDropdownToggle> Cartera </BarDropdownToggle>
-                    <BarDropdownMenu>
-                        @foreach (var option in optionsCartera)
-                        {
-                            <BarDropdownItem>
-                                <img src="@option.ImgUrl" height="60" width="60" class="d-inline-block align-top imgbarDropdown" alt="Icono" />
-                                <a class="btn text-item text-dark p-3" href="@option.Href">@option.Description</a>
-                            </BarDropdownItem>
-                        }
-                    </BarDropdownMenu>
-                </BarDropdown>
-            </BarItem>
-            <BarItem>
-                <BarDropdown>
-                    <BarDropdownToggle> BCCR </BarDropdownToggle>
-                    <BarDropdownMenu>
-                        @foreach (var option in optionsBCCR)
+                        @foreach (var option in optionsHorarios)
                         {
                             <BarDropdownItem>
                                 <img src="@option.ImgUrl" height="60" width="60" class="d-inline-block align-top imgbarDropdown" alt="Icono" />
@@ -122,105 +80,30 @@
     }
     private List<Option> optionsMantenimiento = new List<Option>
     {
-        new Option { Href = "Mantenimientos/Parametros", Description = "Parámetros Generales", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/ParametrosEquifax", Description = "Parámetros Equifax", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/ParametrosBCCR", Description = "Parámetros BCCR", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/ParametrosCIC", Description = "Parámetros CIC", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/ParametrosStress", Description = "Parámetros Stress", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/ParametrosRenta", Description = "Parámetros Renta", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/ParamCombStress", Description = "Parámetros Combinación Stress", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/NivelCapacidadSugef", Description = "Nivel Capacidad Sugef", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/NivelCapacidadDeudor", Description = "Nivel Capacidad Deudor", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/ParamIndEcono", Description = "Indicadores Económicos", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/PuntajeCapacidad", Description = "Puntaje Capacidad Pago", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/ReglasOfertaCredito", Description = "Reglas Oferta de Crédito", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/VCatalogoClientes", Description = "Catálogo de Clientes", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/VCatalogoTipoCredito", Description = "Catálogo de Tipos de Crédito", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/VTipoPrestamo", Description = "Catálogo de Productos", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/VTipoGarantiaPrestamo", Description = "Catálogo de Garantías", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/VOperaciones", Description = "Catálogo de Operaciones", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/ConfigEstadosFinan", Description = "Configuración Estados Financieros", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/TiposGastos", Description = "Tipos de Gastos", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/ParametrosRangosScoring", Description = "Parámetros Rangos Scoring", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/CatalOtraDeduc", Description = "Catálogo de Otras Deducciones", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/CatalOtraCargSoc", Description = "Catálogo de Otras Cargas Sociales", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/CatalCCSS", Description = "Catálogo CCSS",ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/TipoDocumentos", Description = "Tipos Documentos",ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Mantenimientos/DocsPorPrest", Description = "Documentos por Préstamo",ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
+        new Option { Href = "Mantenimientos/GestionProf", Description = "Gestion de Profesores", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
+        new Option { Href = "Mantenimientos/GestionMateriasLecciones", Description = "Gestion Materias y Lecciones", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
     };
 
-    private List<Option> optionsConsultas = new List<Option>
-    {
-        new Option { Href = "Consultas/DescargaEquifax", Description = "Descarga Equifax", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg"},
-        new Option { Href = "Consultas/BitacoraBCCR", Description = "Bitácora BCCR", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/BitacoraEquifax", Description = "Bitácora Equifax", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/PadronElectoral", Description = "Padrón Electoral", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/ConsultaEquifax", Description = "Consulta Equifax", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/EntidadesFinancieras", Description = "Entidades Financieras", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/MotivosLiquidacion", Description = "Motivos Liquidación", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/TiposOperacion", Description = "Tipos de Operación", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/EstadosOperacion", Description = "Estados de Operación", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/BitConsultaronCic", Description = "Bitácora de Consultas CIC", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/BorrarEstudiosMasivo", Description = "Borrar Estudios Masivo", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/NivelRiesgo", Description = "Nivel Riesgo", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/AgentesDisponibles", Description = "Agentes Disponibles", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/BitErrorApi", Description = "Bitácora Errores", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/BitDeCaptcha", Description = "Bitácora De Captcha", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/BitacoraAutorizacion", Description = "Bitácora Autorización", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Consultas/BitacoraFirma", Description = "Bitácora Firma", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "ConsultasConsultasCic", Description = "Consultas CIC", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Seguridad/ListaSupervisores", Description = "Supervisores", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" }
-    };
+    
 
     private List<Option> optionsSeguridad = new List<Option>
     {
-        new Option { Href = "Seguridad/ListaUsuarios", Description = "Compañías y Usuarios", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Seguridad/ListaSupervisores", Description = "Permisos Especiales de Usuario", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Seguridad/ListaPerfilUsuario", Description = "Usuarios por Perfiles", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Seguridad/ListaAcciones", Description = "Acciones", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Seguridad/ListaModuloPerfiles", Description = "Perfiles por Módulo", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Seguridad/ListaModuloAcciones", Description = "Acciones por Módulo", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Seguridad/ListaPerfilAcciones", Description = "Acciones por Perfil", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" }
+        new Option { Href = "Mantenimientos/Seguridad", Description = "Seguridad", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
     };
 
     private List<Option> optionsReportes = new List<Option>
     {
-        new Option { Href = "Reportes/CpcEntidades", Description = "Reporte de Consultas Equifax", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Reportes/CpcEstudioCliente", Description = "Reporte Análisis de Capacidad de Pago", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Reportes/CpcRAnalisis", Description = "Reporte estudio Capacidad por fechas", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Reportes/CpcROferta", Description = "Reporte de Oferta Clientes", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Reportes/CpcRReglasEstudio", Description = "Reglas Estudio", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Reportes/CpcPreEstudioEqfx", Description = "Descarga Estudio Equifax", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Reportes/CpcConsultasCic", Description = "Consultas CIC", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Reportes/CpcEstudioStress", Description = "Estudio Stress", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Reportes/ReportDailyStudies", Description = "Estudios Diarios", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Reportes/ReportMonthlyStudies", Description = "Estudios Mensuales", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" }
+        new Option { Href = "Reportes/ReportesHorarios", Description = "Reporte de Horarios", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
     };
 
-    private List<Option> optionsBCCR = new List<Option>
+   
+
+    private List<Option> optionsHorarios = new List<Option>
     {
-        new Option { Href = "BancoCentral/ConsultaIndicadores", Description = "Consulta Indicadores", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "BancoCentral/ParametrosConfianza", Description = "Parámetros Confianza", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "BancoCentral/SensibilizacionIndicadores", Description = "Sensibilización Indicadores", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "BancoCentral/EstadisticaCanastaB", Description = "Consulta de Canasta Básica", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "BancoCentral/ParametrosIndConsulta", Description = "Parámetros Sensibilización Automática", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "BancoCentral/ConsultaAutomaticaIndicadores", Description = "Consulta Automática de Indicadores", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" }
+        new Option { Href = "Horarios/GenHorarios", Description = "Generacion de Horarios", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
     };
 
-    private List<Option> optionsAnalisis = new List<Option>
-    {
-        new Option { Href = "Analisis/NuevoEstudio", Description = "Nuevo Estudio", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Dashboard", Description = "Rendimiento Estudios", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" }
-    };
-
-    private List<Option> optionsCartera = new List<Option>
-    {
-        new Option { Href = "Cartera/CargaXmlCic", Description = "Carga XML CIC", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Cartera/CargaCartera", Description = "Carga Cartera", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Cartera/CarteraEntidad", Description = "Cartera Entidad", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Cartera/CarteraStress", Description = "Cartera Stress", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" },
-        new Option { Href = "Cartera/CarteraEndeudamiento", Description = "Cartera Endeudamiento", ImgUrl = "Img/Icon/Color/ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg" }
-    };
+   
 
     private string userName;
 

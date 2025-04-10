@@ -1,101 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\",
+  "WorkspaceRootPath": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\mantenimientos\\shared\\grids\\gestionmateriasleccionesgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\mantenimientos\\shared\\grids\\gestionmateriasleccionesgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\wwwroot\\css\\styles\\style-login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\wwwroot\\css\\styles\\style-login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\mantenimientos\\shared\\grids\\gestionprofesoresgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\mantenimientos\\shared\\grids\\gestionprofesoresgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\shared\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\mantenimientos\\shared\\grids\\seguridadgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\mantenimientos\\shared\\grids\\seguridadgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\shared\\mainmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\mainmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\mantenimientos\\pages\\seguridad.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\mantenimientos\\pages\\seguridad.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\shared\\loginredirect.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\loginredirect.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\shared\\error.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\error.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\shared\\buttonsexportcomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\buttonsexportcomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\shared\\basecomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\shared\\basecomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\shared\\basecomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\wwwroot\\img\\logos\\logo_ctp_plan.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\wwwroot\\img\\logos\\logo_ctp_plan.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\layout\\cleanlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\layout\\cleanlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\cpc.web\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\wwwroot\\img\\icon\\proyecto onboarding coopemep nov24 editable adicionales_grafico.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\wwwroot\\img\\icon\\proyecto onboarding coopemep nov24 editable adicionales_grafico.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\wwwroot\\img\\favicon.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\wwwroot\\img\\favicon.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\wwwroot\\img\\logos\\coopemep_azul_horizontal.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\wwwroot\\img\\logos\\coopemep_azul_horizontal.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\wwwroot\\img\\icon\\color\\iconos del proyecto onboarding coopemep nov24 2_catalogo aprobacion.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\wwwroot\\img\\icon\\color\\iconos del proyecto onboarding coopemep nov24 2_catalogo aprobacion.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\wwwroot\\img\\icon\\blanco\\iconos del proyecto onboarding coopemep nov24 2_catalogo aprobacion blanco.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\wwwroot\\img\\icon\\blanco\\iconos del proyecto onboarding coopemep nov24 2_catalogo aprobacion blanco.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\cpc.web\\components\\mantenimientos\\shared\\grids\\catalogoccssgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360B23C9-B68D-4FEE-A502-DFBA743D8003}|CPC.WEB\\SI_Horarios_CTPCB.csproj|solutionrelative:cpc.web\\components\\mantenimientos\\shared\\grids\\catalogoccssgrid.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|solutionrelative:api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2DE5DFB2-57A8-40C9-8E9F-EE6CF8B65401}|Application\\Application.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\application\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DE5DFB2-57A8-40C9-8E9F-EE6CF8B65401}|Application\\Application.csproj|solutionrelative:application\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|c:\\users\\juvardz\\documents\\si_horarios_ctpcb\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|c:\\users\\campo\\onedrive - universidad fid\u00E9litas\\si-horarios\\github\\si_horarios_ctpcb\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0032FDD4-C8ED-44BB-B3D0-59AC87CFF121}|API\\API.csproj|solutionrelative:api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -106,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 27,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -114,411 +46,102 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:1:0:{809f6ff3-8092-454a-8003-6d4091f9b5bb}"
+              "Name": "ST:14:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
             },
             {
               "$type": "Bookmark",
               "Name": "ST:15:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:18:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:19:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:20:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:21:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:22:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:23:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:24:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:25:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:26:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:27:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:28:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:13:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:16:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:17:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:14:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:11:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:12:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{5a4e9529-b6a0-46b5-be4f-0f0b239bc0eb}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "App.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\App.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\App.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\App.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\App.razor",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAB0AAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-09T22:41:49.87Z",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\API\\Program.cs",
+              "RelativeDocumentMoniker": "API\\Program.cs",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\API\\Program.cs",
+              "RelativeToolTip": "API\\Program.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T01:58:53.225Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Error.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\Error.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Shared\\Error.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\Error.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Shared\\Error.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAcwFEAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-09T21:06:04.556Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Home.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\Home.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Shared\\Home.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\Home.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Shared\\Home.razor",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAswFoAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-07T04:42:09.839Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MainMenu.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\MainMenu.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Shared\\MainMenu.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\MainMenu.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Shared\\MainMenu.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-07T05:04:14.873Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "LoginRedirect.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\LoginRedirect.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Shared\\LoginRedirect.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\LoginRedirect.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Shared\\LoginRedirect.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-08T22:39:00.96Z",
+              "WhenOpened": "2025-04-10T01:54:43.384Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Style-Login.css",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Login.css",
-              "RelativeDocumentMoniker": "CPC.WEB\\wwwroot\\css\\Styles\\Style-Login.css",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\css\\Styles\\Style-Login.css",
-              "RelativeToolTip": "CPC.WEB\\wwwroot\\css\\Styles\\Style-Login.css",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAqwCAAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-04-09T20:36:16.755Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ButtonsExportComponent.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\ButtonsExportComponent.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Shared\\ButtonsExportComponent.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\ButtonsExportComponent.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Shared\\ButtonsExportComponent.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "GestionProfesoresGrid.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionProfesoresGrid.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionProfesoresGrid.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionProfesoresGrid.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionProfesoresGrid.razor",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-09T21:12:05.807Z",
+              "WhenOpened": "2025-04-10T01:54:15.797Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
+              "Title": "GestionMateriasLeccionesGrid.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionMateriasLeccionesGrid.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionMateriasLeccionesGrid.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionMateriasLeccionesGrid.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\GestionMateriasLeccionesGrid.razor",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAADMAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-10T01:54:13.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Seguridad.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Pages\\Seguridad.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Pages\\Seguridad.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Pages\\Seguridad.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Pages\\Seguridad.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-10T01:50:23.535Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SeguridadGrid.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
+              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
+              "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\SeguridadGrid.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJYAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-10T01:50:21.118Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "BaseComponent.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\BaseComponent.razor",
+              "DocumentMoniker": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\BaseComponent.razor",
               "RelativeDocumentMoniker": "CPC.WEB\\Components\\Shared\\BaseComponent.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\BaseComponent.razor",
+              "ToolTip": "C:\\Users\\campo\\OneDrive - Universidad Fid\u00E9litas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Shared\\BaseComponent.razor",
               "RelativeToolTip": "CPC.WEB\\Components\\Shared\\BaseComponent.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-09T21:12:02.87Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\NavMenu.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Layout\\NavMenu.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\NavMenu.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Layout\\NavMenu.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-09T21:22:30.522Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "logo_ctp_plan.png - PNG [500x500, 32 bit, PNG]",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Logos\\logo_ctp_plan.png",
-              "RelativeDocumentMoniker": "CPC.WEB\\wwwroot\\Img\\Logos\\logo_ctp_plan.png",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Logos\\logo_ctp_plan.png - PNG [500x500, 32 bit, PNG]",
-              "RelativeToolTip": "CPC.WEB\\wwwroot\\Img\\Logos\\logo_ctp_plan.png - PNG [500x500, 32 bit, PNG]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
-              "WhenOpened": "2025-04-09T21:42:03.809Z",
-              "EditorCaption": " - PNG [500x500, 32 bit, PNG]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "MainLayout.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\MainLayout.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Layout\\MainLayout.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\MainLayout.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Layout\\MainLayout.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-09T21:22:31.84Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "CleanLayout.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\CleanLayout.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Layout\\CleanLayout.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Layout\\CleanLayout.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Layout\\CleanLayout.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-09T21:22:35.356Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "site.js",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\js\\site.js",
-              "RelativeDocumentMoniker": "CPC.WEB\\wwwroot\\js\\site.js",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\js\\site.js",
-              "RelativeToolTip": "CPC.WEB\\wwwroot\\js\\site.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-04-09T21:22:15.027Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "favicon.png - PNG [32x32, 32 bit, PNG]",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\favicon.png",
-              "RelativeDocumentMoniker": "CPC.WEB\\wwwroot\\Img\\favicon.png",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\favicon.png - PNG [32x32, 32 bit, PNG]",
-              "RelativeToolTip": "CPC.WEB\\wwwroot\\Img\\favicon.png - PNG [32x32, 32 bit, PNG]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
-              "WhenOpened": "2025-04-09T21:16:15.74Z",
-              "EditorCaption": " - PNG [32x32, 32 bit, PNG]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Coopemep_Azul_Horizontal.png - PNG [2287x620, 32 bit, PNG]",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Logos\\Coopemep_Azul_Horizontal.png",
-              "RelativeDocumentMoniker": "CPC.WEB\\wwwroot\\Img\\Logos\\Coopemep_Azul_Horizontal.png",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Logos\\Coopemep_Azul_Horizontal.png - PNG [2287x620, 32 bit, PNG]",
-              "RelativeToolTip": "CPC.WEB\\wwwroot\\Img\\Logos\\Coopemep_Azul_Horizontal.png - PNG [2287x620, 32 bit, PNG]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
-              "WhenOpened": "2025-04-09T21:16:06.219Z",
-              "EditorCaption": " - PNG [2287x620, 32 bit, PNG]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg",
-              "RelativeDocumentMoniker": "CPC.WEB\\wwwroot\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg",
-              "RelativeToolTip": "CPC.WEB\\wwwroot\\Img\\Icon\\Proyecto Onboarding Coopemep nov24 editable adicionales_grafico.svg",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAswCcAAAAAAAAAAAAAAA==",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKTSURBVDhPjVNLSFRRGP7unTsz9w75uOaMZlMNpo1aFFJRodRGN7UwatMiKgga3JgVRBSNSA8RooUFLRycCCpc9ITIFi0EW\u002BhCW/gONYUcxplsQL13nKv3dM6ZGV\u002BE9N37c\u002B455/\u002B\u002B/7s/5whYA7/fP5L63BSCIDxvbGxsAiEktZQEE6Brm6K1tXWS5TU0NNQyjsiZKQgCBgBChQ2Q\u002BfswpytgDLmg9zihD9XBNJfhcrlstPoeqlVPRS6uCBDy1broLnN29PkxPeaFFmpC79gOdEu9sB8KQRt\u002Bz/NUVbUGAoGpJIfc5j2gZIuv3fam/sCNGrdjGLGwE23hR\u002BiMeBCKAbXlOTgfr0VW9QfqD4iEZ5BIJNAWDI5yB75X0tXqwrc1JZk90MKVUEq/4UplFc4W5UKwiHjaO4tx90NWiYfT5cQuj4dRITLrZfn9104XtOD3\u002BE4z7/BrqIoKZ4YM37E8XNifA4vdiuCIApPzWY9Wmy9h6UfOpd13t89FstEceyF2PJlAfNHkm6y6xSbxcTASpyuMyFT4NoeI6PV6mzEvvIy0oO\u002BXPVGULaMs186jVLVil0zzF\u002BI4ki\u002BnqjP\u002BGgemrp0Z\u002BHn8T0d0nyrOTky\u002B8x0tNoxE0iZrcSqXz5lAcroCcXkeBcGpyzcnowRTDk9xoDuEmbkE5vRlfB6cRcWzIXibv\u002BNTf5ST0y7SEBa6MGIaOFje2VUnZSgPTFECMZM9YCeLde6cdwvuVLlXrVMFWXGAHqRRaUlDezyEic6tlbFBbW/oS8nHbf0RDZIooDDLipPeTJwozIJJH4EIoG/y1/6Fe/5bj6lFousa0WjoWjoWiLYhGNidWHcXDNhOsVGWFSg0ZCUdDigbIo11Zv73Oq8C\u002BAsr5V2IWWNA0gAAAABJRU5ErkJggg==",
-              "WhenOpened": "2025-04-09T21:16:01.082Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Routes.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Routes.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Routes.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Routes.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Routes.razor",
-              "ViewState": "AgIAABIAAAAAAAAAAADwvygAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-08T22:34:54.035Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Color\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg",
-              "RelativeDocumentMoniker": "CPC.WEB\\wwwroot\\Img\\Icon\\Color\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Color\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg",
-              "RelativeToolTip": "CPC.WEB\\wwwroot\\Img\\Icon\\Color\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion.svg",
-              "ViewState": "AgIAAFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKTSURBVDhPjVNLSFRRGP7unTsz9w75uOaMZlMNpo1aFFJRodRGN7UwatMiKgga3JgVRBSNSA8RooUFLRycCCpc9ITIFi0EW\u002BhCW/gONYUcxplsQL13nKv3dM6ZGV\u002BE9N37c\u002B455/\u002B\u002B/7s/5whYA7/fP5L63BSCIDxvbGxsAiEktZQEE6Brm6K1tXWS5TU0NNQyjsiZKQgCBgBChQ2Q\u002BfswpytgDLmg9zihD9XBNJfhcrlstPoeqlVPRS6uCBDy1broLnN29PkxPeaFFmpC79gOdEu9sB8KQRt\u002Bz/NUVbUGAoGpJIfc5j2gZIuv3fam/sCNGrdjGLGwE23hR\u002BiMeBCKAbXlOTgfr0VW9QfqD4iEZ5BIJNAWDI5yB75X0tXqwrc1JZk90MKVUEq/4UplFc4W5UKwiHjaO4tx90NWiYfT5cQuj4dRITLrZfn9104XtOD3\u002BE4z7/BrqIoKZ4YM37E8XNifA4vdiuCIApPzWY9Wmy9h6UfOpd13t89FstEceyF2PJlAfNHkm6y6xSbxcTASpyuMyFT4NoeI6PV6mzEvvIy0oO\u002BXPVGULaMs186jVLVil0zzF\u002BI4ki\u002BnqjP\u002BGgemrp0Z\u002BHn8T0d0nyrOTky\u002B8x0tNoxE0iZrcSqXz5lAcroCcXkeBcGpyzcnowRTDk9xoDuEmbkE5vRlfB6cRcWzIXibv\u002BNTf5ST0y7SEBa6MGIaOFje2VUnZSgPTFECMZM9YCeLde6cdwvuVLlXrVMFWXGAHqRRaUlDezyEic6tlbFBbW/oS8nHbf0RDZIooDDLipPeTJwozIJJH4EIoG/y1/6Fe/5bj6lFousa0WjoWjoWiLYhGNidWHcXDNhOsVGWFSg0ZCUdDigbIo11Zv73Oq8C\u002BAsr5V2IWWNA0gAAAABJRU5ErkJggg==",
-              "WhenOpened": "2025-04-09T21:06:16.477Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion blanco.svg",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Blanco\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion blanco.svg",
-              "RelativeDocumentMoniker": "CPC.WEB\\wwwroot\\Img\\Icon\\Blanco\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion blanco.svg",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\wwwroot\\Img\\Icon\\Blanco\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion blanco.svg",
-              "RelativeToolTip": "CPC.WEB\\wwwroot\\Img\\Icon\\Blanco\\ICONOS DEL PROYECTO Onboarding Coopemep nov24 2_catalogo aprobacion blanco.svg",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKTSURBVDhPjVNLSFRRGP7unTsz9w75uOaMZlMNpo1aFFJRodRGN7UwatMiKgga3JgVRBSNSA8RooUFLRycCCpc9ITIFi0EW\u002BhCW/gONYUcxplsQL13nKv3dM6ZGV\u002BE9N37c\u002B455/\u002B\u002B/7s/5whYA7/fP5L63BSCIDxvbGxsAiEktZQEE6Brm6K1tXWS5TU0NNQyjsiZKQgCBgBChQ2Q\u002BfswpytgDLmg9zihD9XBNJfhcrlstPoeqlVPRS6uCBDy1broLnN29PkxPeaFFmpC79gOdEu9sB8KQRt\u002Bz/NUVbUGAoGpJIfc5j2gZIuv3fam/sCNGrdjGLGwE23hR\u002BiMeBCKAbXlOTgfr0VW9QfqD4iEZ5BIJNAWDI5yB75X0tXqwrc1JZk90MKVUEq/4UplFc4W5UKwiHjaO4tx90NWiYfT5cQuj4dRITLrZfn9104XtOD3\u002BE4z7/BrqIoKZ4YM37E8XNifA4vdiuCIApPzWY9Wmy9h6UfOpd13t89FstEceyF2PJlAfNHkm6y6xSbxcTASpyuMyFT4NoeI6PV6mzEvvIy0oO\u002BXPVGULaMs186jVLVil0zzF\u002BI4ki\u002BnqjP\u002BGgemrp0Z\u002BHn8T0d0nyrOTky\u002B8x0tNoxE0iZrcSqXz5lAcroCcXkeBcGpyzcnowRTDk9xoDuEmbkE5vRlfB6cRcWzIXibv\u002BNTf5ST0y7SEBa6MGIaOFje2VUnZSgPTFECMZM9YCeLde6cdwvuVLlXrVMFWXGAHqRRaUlDezyEic6tlbFBbW/oS8nHbf0RDZIooDDLipPeTJwozIJJH4EIoG/y1/6Fe/5bj6lFousa0WjoWjoWiLYhGNidWHcXDNhOsVGWFSg0ZCUdDigbIo11Zv73Oq8C\u002BAsr5V2IWWNA0gAAAABJRU5ErkJggg==",
-              "WhenOpened": "2025-04-09T21:05:58.693Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Program.cs",
-              "RelativeDocumentMoniker": "CPC.WEB\\Program.cs",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Program.cs",
-              "RelativeToolTip": "CPC.WEB\\Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACMAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T05:22:54.5Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "CatalogoCCSSGrid.razor",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\CatalogoCCSSGrid.razor",
-              "RelativeDocumentMoniker": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\CatalogoCCSSGrid.razor",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\CatalogoCCSSGrid.razor",
-              "RelativeToolTip": "CPC.WEB\\Components\\Mantenimientos\\Shared\\Grids\\CatalogoCCSSGrid.razor",
-              "ViewState": "AgIAAIEAAAAAAAAAAAAAAJEAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-07T04:41:50.423Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\API\\appsettings.json",
-              "RelativeDocumentMoniker": "API\\appsettings.json",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\API\\appsettings.json",
-              "RelativeToolTip": "API\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-07T04:25:11.981Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "DependencyInjection.cs",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\Application\\DependencyInjection.cs",
-              "RelativeDocumentMoniker": "Application\\DependencyInjection.cs",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\Application\\DependencyInjection.cs",
-              "RelativeToolTip": "Application\\DependencyInjection.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABkAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:19:06.952Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\API\\Program.cs",
-              "RelativeDocumentMoniker": "API\\Program.cs",
-              "ToolTip": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\API\\Program.cs",
-              "RelativeToolTip": "API\\Program.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAADkAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T04:14:57.848Z"
             }
           ]
         },
@@ -528,15 +151,7 @@
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             }
           ]
         }

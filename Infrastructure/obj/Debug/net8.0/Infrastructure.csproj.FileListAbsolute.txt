@@ -30,22 +30,6 @@ C:\Users\dchav\Documents\GitHub\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.
 C:\Users\dchav\Documents\GitHub\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\refint\Infrastructure.dll
 C:\Users\dchav\Documents\GitHub\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
 C:\Users\dchav\Documents\GitHub\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Infrastructure.deps.json
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Infrastructure.dll
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Infrastructure.pdb
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Domain.dll
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Domain.pdb
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.csproj.AssemblyReference.cache
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfoInputs.cache
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfo.cs
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.csproj.CoreCompileInputs.cache
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.sourcelink.json
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastr.15EFFBFE.Up2Date
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.dll
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\refint\Infrastructure.dll
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
-C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll
 C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Infrastructure.deps.json
 C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Infrastructure.dll
 C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Infrastructure.pdb
@@ -62,3 +46,19 @@ C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Inf
 C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\refint\Infrastructure.dll
 C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
 C:\Users\Juvardz\Documents\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Infrastructure.deps.json
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Infrastructure.dll
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Infrastructure.pdb
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Domain.dll
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\bin\Debug\net8.0\Domain.pdb
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.csproj.AssemblyReference.cache
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfoInputs.cache
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfo.cs
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.sourcelink.json
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastr.15EFFBFE.Up2Date
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.dll
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\refint\Infrastructure.dll
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
+C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll

@@ -7665,23 +7665,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Juvardz\\.nuget\\packages\\": {},
+    "C:\\Users\\campo\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\Juvardz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\API\\obj\\",
+      "projectPath": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\campo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Juvardz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\campo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -7690,18 +7690,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\Application\\Application.csproj": {
-              "projectPath": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\Application\\Application.csproj"
+            "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\Application\\Application.csproj": {
+              "projectPath": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\Application\\Application.csproj"
             },
-            "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\Juvardz\\Documents\\SI_Horarios_CTPCB\\Infrastructure\\Infrastructure.csproj"
+            "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\campo\\OneDrive - Universidad Fidélitas\\SI-Horarios\\Github\\SI_Horarios_CTPCB\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -7810,7 +7809,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -7819,7 +7818,7 @@
       "code": "NU1608",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: Oracle.EntityFrameworkCore 8.23.60 requires Microsoft.EntityFrameworkCore.Relational (>= 8.0.3 && < 9.0.0) but version Microsoft.EntityFrameworkCore.Relational 9.0.3 was resolved.",
+      "message": "Se detectó una versión del paquete fuera de la restricción de dependencia: Oracle.EntityFrameworkCore 8.23.60 requiere Microsoft.EntityFrameworkCore.Relational (>= 8.0.3 && < 9.0.0), pero la versión Microsoft.EntityFrameworkCore.Relational 9.0.3 ya se resolvió.",
       "libraryId": "Microsoft.EntityFrameworkCore.Relational",
       "targetGraphs": [
         "net8.0"

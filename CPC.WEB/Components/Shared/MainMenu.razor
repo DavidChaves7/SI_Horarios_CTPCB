@@ -6,33 +6,28 @@
 </HeadContent>
 <PageTitle>Menú Principal - CoopeMep CPC</PageTitle>
 
-<AuthorizeView>
-    <NotAuthorized>
-        <LoginRedirect></LoginRedirect>
-    </NotAuthorized>
-    <Authorized>
-        <Div Class="menu-header">
-            <Div Class="user-info">
-                <Icon Name="IconName.User" Class="px-2" />
-                <h1>@userName</h1>
-            </Div>
-            <Image Source="Img/Logos/Coopemep_Horizontal.png" alt="Logo" Class="logo" />
-        </Div>
 
-        <Div Class="welcome-container">
-            <h1 class="welcome-text">BIENVENIDO</h1>
-        </Div>
+<Div Class="menu-header">
+    <Div Class="user-info">
+        <Icon Name="IconName.User" Class="px-2" />
+        <h1>@userName</h1>
+    </Div>
+    <Image Source="Img/Logos/Coopemep_Horizontal.png" alt="Logo" Class="logo" />
+</Div>
 
-        <Div Class="card-container">
-            <Link To="MenuPrincipalCPC" Class="menu-card cpc">
-            <Image Source="Img/Icon/Proyecto Onboarding Coopemep nov24 editable adicionales_computadora.svg" alt="CPC" Class="card-image" />
-                <h3 class="card-title">CPC</h3>
-            </Link>
+<Div Class="welcome-container">
+    <h1 class="welcome-text">BIENVENIDO</h1>
+</Div>
 
-            
-        </Div>
-    </Authorized>
-</AuthorizeView>
+<Div Class="card-container">
+    <Link To="MenuPrincipalCPC" Class="menu-card cpc">
+    <Image Source="Img/Icon/Proyecto Onboarding Coopemep nov24 editable adicionales_computadora.svg" alt="CPC" Class="card-image" />
+    <h3 class="card-title">CPC</h3>
+    </Link>
+
+
+</Div>
+
 
 @code {
     private string userName;

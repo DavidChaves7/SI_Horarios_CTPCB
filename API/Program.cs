@@ -30,14 +30,6 @@ builder.Services.AddOpenApiDocument(
     }
 );
 
-
-
-
-
-
-var intevaloRevision = Convert.ToInt32(conf.GetSection("IntervaloRevision").Value ?? "8");
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,52 +1,52 @@
 ﻿@using System.Collections.ObjectModel
-<AuthorizeView>
+@* <AuthorizeView>
     <NotAuthorized>
         <LoginRedirect></LoginRedirect>
     </NotAuthorized>
-    <Authorized>
-        <Animate class="d-flex flex-column flex-grow-1" Auto Animation="Animations.FadeIn" DelayMilliseconds="100">
-            <PageTitle>@tituloPagina - CoopeMep CPC</PageTitle>
-             <Row Style="background-color: #fff;" Margin="Margin.Is3.FromBottom.Is0.OnX" Padding="Padding.Is3.OnY.Is2.OnX" Flex="Flex.Row.JustifyContent.Center">
-                 <Column ColumnSize="ColumnSize.Is12" Flex="Flex.Row">
-                     <Icon Name="@(iconName ?? "fa-solid fa-users")" IconSize="IconSize.x2" Margin="Margin.IsAuto.OnY.Is3.FromEnd" Style="color:var(--color-azul)"></Icon>
-                     <h1 class="fw-semibold mb-0">
-                         @tituloPagina
-                    </h1>
-                </Column>
-            </Row>
+    <Authorized> *@
+<Animate class="d-flex flex-column flex-grow-1" Auto Animation="Animations.FadeIn" DelayMilliseconds="100">
+    <PageTitle>@tituloPagina - CoopeMep CPC</PageTitle>
+    <Row Style="background-color: #fff;" Margin="Margin.Is3.FromBottom.Is0.OnX" Padding="Padding.Is3.OnY.Is2.OnX" Flex="Flex.Row.JustifyContent.Center">
+        <Column ColumnSize="ColumnSize.Is12" Flex="Flex.Row">
+            <Icon Name="@(iconName ?? "fa-solid fa-users")" IconSize="IconSize.x2" Margin="Margin.IsAuto.OnY.Is3.FromEnd" Style="color:var(--color-azul)"></Icon>
+            <h1 class="fw-semibold mb-0">
+                @tituloPagina
+            </h1>
+        </Column>
+    </Row>
 
-            <Div Padding="Padding.Is4" Margin="Margin.Is1.FromTop">
-                @if (useChildCard)
+    <Div Padding="Padding.Is4" Margin="Margin.Is1.FromTop">
+        @if (useChildCard)
+        {
+            <Card Class="@(useShadowClass ? "shadow" : "")">
+                @if (hasHeader)
                 {
-                    <Card Class="@(useShadowClass ? "shadow" : "")">
-                        @if (hasHeader)
-                        {
-                            <CardHeader Class="@headerClass">
-                                <CardTitle>
-                                    @headerTitle
-                                </CardTitle>
-                            </CardHeader>
-                        }
-                        <CardBody>
-                            @childContent
-                        </CardBody>
-                    </Card>
+                    <CardHeader Class="@headerClass">
+                        <CardTitle>
+                            @headerTitle
+                        </CardTitle>
+                    </CardHeader>
                 }
-                else
-                {
+                <CardBody>
                     @childContent
-                }
+                </CardBody>
+            </Card>
+        }
+        else
+        {
+            @childContent
+        }
 
-            </Div>
-            @if (additionalContent is not null)
-            {
-                <Div Class="d-flex flex-column flex-grow-1" Padding="Padding.Is4" Margin="Margin.Is1.FromTop">
-                    @additionalContent
-                </Div>
-            }
-        </Animate>
-    </Authorized>
-</AuthorizeView>
+    </Div>
+    @if (additionalContent is not null)
+    {
+        <Div Class="d-flex flex-column flex-grow-1" Padding="Padding.Is4" Margin="Margin.Is1.FromTop">
+            @additionalContent
+        </Div>
+    }
+</Animate>
+@*     </Authorized>
+</AuthorizeView> *@
 
 <script src="js/site.js"></script>
 
@@ -69,13 +69,13 @@
 
     [Parameter]
     public bool useShadowClass { get; set; } = true;
-    
+
     [Parameter]
     public bool useChildCard { get; set; } = true;
 
     [Parameter]
     public string? headerTitle { get; set; }
-    
+
     [Parameter]
     public string? headerClass { get; set; }
 }
