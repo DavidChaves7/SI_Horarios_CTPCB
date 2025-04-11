@@ -24,7 +24,8 @@
         </ModalBody>
         <ModalFooter>
             <Button Class="btn btn-create" Clicked="@Guardar">Guardar</Button>
-            <Button Class="btn btn-outline-danger" Clicked="@Hide">Cerrar</Button>
+            <Button Class="btn btn-edit" Clicked="@Bloquear">Bloquear</Button>
+            <Button Class="btn btn-delete" Clicked="@Hide">Cerrar</Button>
         </ModalFooter>
     </ModalContent>
 </Modal>
@@ -57,6 +58,13 @@
     }
 
     public Task Guardar()
+    {
+
+        modal?.Close(CloseReason.UserClosing);
+        return Task.CompletedTask;
+    }
+
+    public Task Bloquear()
     {
 
         modal?.Close(CloseReason.UserClosing);
