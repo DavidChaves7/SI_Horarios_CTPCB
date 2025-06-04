@@ -42,6 +42,9 @@ namespace API.Infrastructure.Services
         }
 
         #endregion
+
+        #region Ejemplo 2
+
         public async Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidad(QueryPuntajeCapacidadDto data)
         {
             try
@@ -100,7 +103,6 @@ namespace API.Infrastructure.Services
                          .Select(s => _mapper.Map<QueryPuntajeCapacidadDto>(s)).ToListAsync();
             return parameters;
         }
-
         public async Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidad(QueryPuntajeCapacidadDto data)
         {
             if (data is null)
@@ -122,8 +124,10 @@ namespace API.Infrastructure.Services
 
         }
 
-        
-        public async Task<MateriaDto> AddUpdateMateriasDesdeExcel(MateriaDto data)
+        #endregion
+
+        #region Materias
+        public async Task<MateriaDto> AddUpdateMaterias(MateriaDto data)
         {
             try
             {
@@ -153,6 +157,94 @@ namespace API.Infrastructure.Services
             }
 
         }
+        #endregion
+
+        #region Profesores
+
+        public async Task<ProfesorDto?> AddUpdateProfesor(ProfesorDto data)
+        {
+            try
+            {
+                if (data is null)
+                {
+                    throw new Exception("Debe de establecer los campos para el objeto ");
+                }
+                var param = _mapper.Map<Profesor>(data);
+
+                var dbObject = _unitOfWork.Set<Profesor>().FirstOrDefault(x => x.Id_Profesor == param.Id_Profesor);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Profesor>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Profesor>().Update(dbObject);
+                }
+                else
+                {
+                    await _unitOfWork.Set<Profesor>().AddAsync(param);
+                }
+                await _unitOfWork.SaveChangesAsync();
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return new ProfesorDto();
+            }
+
+        }
+
+        public async Task<ProfesorDto> DeleteProfesor(ProfesorDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Profesor>(data);
+
+            var dbObject = _unitOfWork.Set<Profesor>().AsNoTracking().FirstOrDefault(x => x.Id_Profesor == param.Id_Profesor);
+            if (dbObject != null)
+            {
+                _unitOfWork.Set<Profesor>().Entry(dbObject).CurrentValues.SetValues(data);
+                dbObject.Estado = "I";
+                _unitOfWork.Set<Profesor>().Update(dbObject);
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro a eliminar");
+            }
+            await _unitOfWork.SaveChangesAsync();
+
+            return data;
+        }
+
+        public async Task<IEnumerable<ProfesorDto>> GetAllProfesor()
+        {
+            var parameters = await _unitOfWork.Set<Profesor>()
+                         .Select(s => _mapper.Map<ProfesorDto>(s)).ToListAsync();
+            return parameters;
+        }
+
+        public async Task<ProfesorDto> GetOneProfesor(ProfesorDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+
+            var param = _mapper.Map<Profesor>(data);
+            var dbObject = await _unitOfWork.Set<Profesor>().FirstOrDefaultAsync(x => x.Id_Profesor == param.Id_Profesor);
+            if (dbObject != null)
+            {
+                var res = _mapper.Map<ProfesorDto>(dbObject);
+                return res;
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro");
+            }
+
+        }
+
+        #endregion
 
         #endregion
     }

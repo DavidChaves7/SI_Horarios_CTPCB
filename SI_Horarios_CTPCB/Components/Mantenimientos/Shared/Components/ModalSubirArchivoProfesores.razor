@@ -1,17 +1,16 @@
-﻿@using OfficeOpenXml
-<Modal @ref="modal">
+﻿<Modal @ref="modal">
     <ModalContent Centered Size="ModalSize.Large">
         <ModalHeader>
-            <ModalTitle>Subir Archivo</ModalTitle>
+            <ModalTitle>Subir Archivo Profesores</ModalTitle>
             <CloseButton></CloseButton>
         </ModalHeader>
         <ModalBody>
             <LoadingIndicator @bind-Visible="isLoading">
                 <ChildContent>
-                    <Row>
-                        <Column ColumnSize="ColumnSize.Is3">
+                    <Row Class="justify-content-center">
+                        <Column ColumnSize="ColumnSize.Is12" Class="justify-content-center">
 
-                            <label for="file-upload" class="file-upload-button">1. Seleccionar Archivo</label>
+                            <label for="file-upload" class="file-upload-button">Seleccionar Archivo de Profesores</label>
                             <InputFile id="file-upload" OnChange="@SeleccionarExcel" Class="input-file-hidden" />
 
                             @if (!string.IsNullOrEmpty(fileName))
@@ -20,17 +19,13 @@
                                 <Button Clicked="@LimpiarArchivo" Class="clear-button">✕</Button>
                             }
                         </Column>
-                        <Column ColumnSize="ColumnSize.Is3">
-                            <Button Clicked="@Cargar" disabled="@isLoading" Class="file-upload-button">2. Proceso de Carga de Archivo</Button>
-                        </Column>
-                       
-
                     </Row>
                 </ChildContent>
             </LoadingIndicator>
         </ModalBody>
         <ModalFooter>
             <Button Class="btn-outline-danger" Clicked="@Hide">Cerrar</Button>
+            <Button Clicked="@Cargar" disabled="@isLoading" Class="file-upload-button">Subir Archivo</Button>
         </ModalFooter>
     </ModalContent>
 </Modal>
@@ -88,11 +83,24 @@
                             var worksheet = worksheets[0];
                             for (int i = 2; i <= worksheet.Dimension.End.Row; i++)
                             {
-                                var idMateria = Convert.ToInt32(worksheet.Cells[i, 1].Text);
-                                var nombre = worksheet.Cells[i, 2].Text;
-                                var tipo = worksheet.Cells[i, 3].Text;
+                                var IdProfesor = 0;
+                                var Cedula = worksheet.Cells[i, 1].Text;
+                                var Nombre = worksheet.Cells[i, 2].Text;
+                                var Apellidos = worksheet.Cells[i, 3].Text;
+                                var Correo = worksheet.Cells[i, 4].Text;
+                                var Telefono = worksheet.Cells[i, 5].Text;
 
-                                await api.Mantenimientos_AddUpdateMateriasDesdeExcelAsync(new MateriaDto() {Id_Materia = idMateria, Nombre = nombre, Tipo = tipo});
+                                // ¿Aquí todo tiene valor válido?
+                                await api.Mantenimientos_AddUpdateProfesorAsync(new ProfesorDto()
+                                {
+                                    Id_Profesor = IdProfesor,
+                                    Cedula = Cedula,
+                                    Nombre = Nombre,
+                                    Apellido = Apellidos,
+                                    Correo = Correo,
+                                    Telefono = Telefono,
+                                    Estado = "A"
+                                });
 
                             }
                         }
@@ -100,9 +108,6 @@
                 }
                 await Hide();
             }
-
-
-
         }
         catch (Exception ex)
         {
@@ -110,13 +115,9 @@
         finally
         {
             _selectedFile = null;
-            //inputFileId = Guid.NewGuid();
             isLoading = false;
         }
     }
-
-    
-
 
     public Task Hide()
     {
@@ -127,9 +128,6 @@
     public async Task Open()
     {
         modal?.Show();
-        
-    }
-
-    
+    }    
 
 }

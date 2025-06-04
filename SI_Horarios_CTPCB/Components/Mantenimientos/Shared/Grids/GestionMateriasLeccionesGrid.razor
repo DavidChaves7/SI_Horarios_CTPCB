@@ -90,7 +90,7 @@
         </ChildContent>
     </LoadingIndicator>
 </Div>
-<ModalSubirArchivo @ref="modalSubir"></ModalSubirArchivo>
+<ModalSubirArchivoMaterias @ref="modalSubir"></ModalSubirArchivoMaterias>
 
 
 @code {
@@ -108,7 +108,7 @@
     private Snackbar? snackbarPrimary;
     
 
-    ModalSubirArchivo? modalSubir;
+    ModalSubirArchivoMaterias? modalSubir;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

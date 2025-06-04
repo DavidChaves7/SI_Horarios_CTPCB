@@ -1,41 +1,48 @@
-﻿@inject SIHAPI api
+﻿
+@inject SIHAPI api
 <Div Class="main-content">
     <LoadingIndicator Visible="@(data is null)">
         <ChildContent>
-            <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir.Open">Importar Archivo</Button>
+            <Row>
+                <Column ColumnSize="ColumnSize.Is2">
+                    <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="DescargarPlantillaProfesores">Plantilla Excel Profesores</Button>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is2">
+                    <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir.Open">Importar Excel</Button>
+                </Column>
+            </Row>
             <br />
             <br />
             <Row>
-                <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Profesores" />
+                <ButtonsExportComponent T="ProfesorDto" Data="data" Titulo="Profesores" />
             </Row>
 
-            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="ProfesorDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
-                    @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
+                    <DataGridColumn Field="@nameof(ProfesorDto.Id_Profesor)" Caption="Id profesor" />
+                    <DataGridColumn Field="@nameof(ProfesorDto.Cedula)" Editable Caption="Cédula" />
+                    <DataGridColumn Field="@nameof(ProfesorDto.Nombre)" Editable Caption="Nombres" />
+                    <DataGridColumn Field="@nameof(ProfesorDto.Apellido)" Editable Caption="Apellidos" />
+                    <DataGridColumn Field="@nameof(ProfesorDto.Correo)" Editable Caption="Correo" />
+                    <DataGridColumn Field="@nameof(ProfesorDto.Telefono)" Editable Caption="Telefono" />
+                    <DataGridColumn Field="@nameof(ProfesorDto.Estado)" Editable Caption="Estado">
+                        <DisplayTemplate>
+                            <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
+                                <SelectItem Value="@("A")">Activo</SelectItem>
+                                <SelectItem Value="@("I")">Inactivo</SelectItem>
+                            </Select>
+                        </DisplayTemplate>
                         <EditTemplate>
-                            <TextEdit Text="@((string)context.CellValue)" TextChanged="@( v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.CoD_RUBRO))">
-                                <Feedback>
-                                    <ValidationError />
-                                    <ValidationNone />
-                                </Feedback>
-                            </TextEdit>
+                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@( v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                                <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                <SelectItem Value="@("A")">Activo</SelectItem>
+                                <SelectItem Value="@("I")">Inactivo</SelectItem>
+                            </Select>
                         </EditTemplate>
                     </DataGridColumn>
-                    <DataGridColumn Field="@nameof(CatalogCCSSDto.DesC_RUBRO)" Editable Caption="Descripción"></DataGridColumn>
-                    <DataGridColumn Field="@nameof(CatalogCCSSDto.PorC_RUBRO)" Editable Caption="Porcentaje">
-                        <DisplayTemplate>
-                            <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
-                        </DisplayTemplate>
-                    </DataGridColumn> *@
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="Cedula" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Nombre" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Apellido" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Correo" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Telefono" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Carga Horaria" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Caption="Restricciones">
+                    <DataGridColumn Caption="Restricciones">
                         <DisplayTemplate>
                             <Button Class="btn btn-create" Clicked="() => modalRestric.Open()">Restricciones</Button>
                         </DisplayTemplate>
@@ -45,7 +52,7 @@
 
                     <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
                     <Button Class="btn btn-edit" Disabled="(selectedData is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
-                    <Button Class="btn btn-delete" Disabled="(selectedData is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+                    <Button Class="btn btn-delete" Disabled="(selectedData is null)" Clicked="context.DeleteCommand.Clicked">Inactivar</Button>
 
                 </ButtonRowTemplate>
             </DataGrid>
@@ -53,18 +60,18 @@
         </ChildContent>
     </LoadingIndicator>
 </Div>
-<ModalSubirArchivo @ref="modalSubir"></ModalSubirArchivo>
+<ModalSubirArchivoProfesores @ref="modalSubir"></ModalSubirArchivoProfesores>
 <ModalRestriccionHoraria @ref="modalRestric"></ModalRestriccionHoraria>
 @code {
 
-    ModalSubirArchivo? modalSubir;
+    ModalSubirArchivoProfesores? modalSubir;
     ModalRestriccionHoraria? modalRestric;
     private string accessCategory { get; set; } = "";
     
 
-    IEnumerable<EjemploMantDto>? data { get; set; } = new List<EjemploMantDto>();
+    IEnumerable<ProfesorDto>? data { get; set; } = new List<ProfesorDto>();
 
-    private EjemploMantDto? selectedData;
+    private ProfesorDto? selectedData;
 
     private Snackbar? snackbarPrimary;
     
@@ -76,55 +83,13 @@
         if (firstRender)
         {
 
-            // #region Seguridad
-
-            // var httpContext = HttpContextAccessor.HttpContext;
-            // var userName = "";
-            // if (httpContext != null)
-            // {
-            //     var user = httpContext.User;
-            //     userName = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            // }
-
-
-            // string securityResult = await api.Seguridad_ValidateAccessAsync(new VerificaPermisoRequest
-            // {
-            //     PCodAccion = "BCCR_PARAM_GENERALES",
-            //     PCodCompania = "0001",
-            //     PCodModulo = "CPC",
-            //     PCodUsuario = userName
-            // });
-            // if (securityResult.ToUpper().Contains("ERROR"))
-            // {
-            //     await Task.FromResult(MessageService.Error(securityResult, "Error al validar acceso"));
-            // }
-            // else
-            // {
-            //     accessCategory = securityResult;
-            // }
-
-            // #endregion
-            //data = await api.Mantenimientos_GetAllEjemploMantAsync();
-            data = new List<EjemploMantDto>
-            {
-                new EjemploMantDto
-                {
-                    Id = 1,
-                    Descripcion = "Denis",
-                    Test = "denisca@gmail.com"
-                },
-                new EjemploMantDto
-                {
-                    Id = 2,
-                    Descripcion = "Juan",
-                    Test = "juanperez@gmail.com"
-                }
-            };
+            data = await api.Mantenimientos_GetAllProfesorAsync();
+            
             StateHasChanged();
         }
     }
 
-    RenderFragment SetModalTitle(PopupTitleContext<EjemploMantDto> context)
+    RenderFragment SetModalTitle(PopupTitleContext<ProfesorDto> context)
     {
         var title = context.EditState == DataGridEditState.New ? "Nuevo" : "Editar";
         return (__builder) =>
@@ -135,12 +100,10 @@
         };
     }
 
-    async Task InsertNewItem(SavedRowItem<EjemploMantDto, Dictionary<string, object>> item)
+    async Task InsertNewItem(SavedRowItem<ProfesorDto, Dictionary<string, object>> item)
     {
         try
         {
-
-
             var errors = item.NewItem.ValidateObjectFields();
             if (!string.IsNullOrEmpty(errors))
             {
@@ -148,9 +111,8 @@
             }
             else
             {
-                //await api.Parameters_AddUpdateParametersBCCRsAsync(item.NewItem);
-                //data = await api.Mantenimientos_GetAllEjemploMantAsync();
-                data.Append(item.NewItem);
+                await api.Mantenimientos_AddUpdateProfesorAsync(item.NewItem);
+                data = await api.Mantenimientos_GetAllProfesorAsync();
             }
         }
         catch (Exception ex)
@@ -159,7 +121,7 @@
         }
     }
 
-    Task ValidateEditFields(CancellableRowChange<EjemploMantDto, Dictionary<string, object>> item)
+    Task ValidateEditFields(CancellableRowChange<ProfesorDto, Dictionary<string, object>> item)
     {
 
         var errors = item.NewItem.ValidateObjectFields();
@@ -174,22 +136,63 @@
         }
     }
 
-    async Task DeleteItem(EjemploMantDto item)
+    async Task DeleteItem(ProfesorDto item)
     {
-        //await api.Parameters_DeleteParametersBCCRAsync(item);
-        //data = await api.Mantenimientos_GetAllEjemploMantAsync();
-        data = data.Where(x => x.Id != item.Id);
+        await api.Mantenimientos_DeleteProfesorAsync(item);
+        data = await api.Mantenimientos_GetAllProfesorAsync();
+        
     }
 
-    async Task RemovingRow(CancellableRowChange<EjemploMantDto> item)
+    async Task RemovingRow(CancellableRowChange<ProfesorDto> item)
     {
-        var delete = await MessageService.Confirm($"Está seguro de eliminar el Parámetro {item.OldItem.Id}?", "Eliminar Parámetro", opt =>
+        var delete = await MessageService.Confirm($"Está seguro de inactivar al Profesor: {item.OldItem.Nombre} {item.OldItem.Apellido}?", "Inactivar Profesor", opt =>
         {
             // opt.MessageIcon = Icon
         });
         if (!delete)
         {
             item.Cancel = true;
+        }
+    }
+
+    private async Task DescargarPlantillaProfesores()
+    {
+        try
+        {
+            using (var libro = new XLWorkbook())
+            {
+                IXLWorksheet hoja = libro.Worksheets.Add("Resumen (Masivo)");
+
+                hoja.Columns().Width = 30;
+                hoja.Cell(1, 1).Value = "Cedula Profesor";
+                hoja.Cell(1, 2).Value = "Nombres";
+                hoja.Cell(1, 3).Value = "Apellidos";
+                hoja.Cell(1, 4).Value = "Correo";
+                hoja.Cell(1, 5).Value = "Telefono";
+
+                for (int col = 1; col <= 5; col++)
+                {
+                    var celda = hoja.Cell(1, col);
+                    celda.Style.Font.Bold = true;
+                    celda.Style.Font.FontSize = 14;
+                    celda.Style.Fill.BackgroundColor = XLColor.FromHtml("#C6EFCE");
+                }
+
+                using (var memoria = new MemoryStream())
+                {
+                    libro.SaveAs(memoria);
+                    var nombreExcel = string.Concat("Plantilla Profesores", ".xlsx");
+
+                    await JS.InvokeAsync<object>(
+                        "saveAsFile",
+                        nombreExcel,
+                        Convert.ToBase64String(memoria.ToArray())
+                    );
+                }
+            }
+        }
+        catch (Exception ex)
+        {
         }
     }
 }

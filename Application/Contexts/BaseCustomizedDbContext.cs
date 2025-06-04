@@ -12,9 +12,11 @@ namespace Application.Contexts
 
         #region DbSets
 
-        public DbSet<CPC_PUNTAJE_CAPACIDAD> puntaje { get; set; }
+        //public DbSet<CPC_PUNTAJE_CAPACIDAD> puntaje { get; set; }
 
         public DbSet<Materia> Materias { get; set; }
+
+        public DbSet<Profesor> Profesor { get; set; }
 
 
 
@@ -37,10 +39,15 @@ namespace Application.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<CPC_PUNTAJE_CAPACIDAD>().ToTable(nameof(CPC_PUNTAJE_CAPACIDAD), "CPC");
-            modelBuilder.Entity<CPC_PUNTAJE_CAPACIDAD>().HasKey(x => new { /*x.COD_COMPANIA, */ x.PUNTAJE });
+            //modelBuilder.Entity<CPC_PUNTAJE_CAPACIDAD>().ToTable(nameof(CPC_PUNTAJE_CAPACIDAD), "CPC");
+            //modelBuilder.Entity<CPC_PUNTAJE_CAPACIDAD>().HasKey(x => new { /*x.COD_COMPANIA, */ x.PUNTAJE });
+            //Table Materia 
             modelBuilder.Entity<Materia>().ToTable(nameof(Materia));
             modelBuilder.Entity<Materia>().HasKey(x => new { x.Id_Materia });
+
+            //Table Profesor
+            modelBuilder.Entity<Profesor>().ToTable(nameof(Profesor));
+            modelBuilder.Entity<Profesor>().HasKey(x => new { x.Id_Profesor });
 
             base.OnModelCreating(modelBuilder);
 

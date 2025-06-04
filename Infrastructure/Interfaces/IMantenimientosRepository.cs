@@ -12,16 +12,28 @@ namespace Infrastructure.Interfaces
     {
         #region Mantenimientos
 
-        #region Ejempplo
+        #region Ejemplo
         Task<IEnumerable<EjemploMantDto>> GetAllEjemploMant();
         #endregion
+
+        #region Ejemplo 2
         Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidad(QueryPuntajeCapacidadDto data);
         Task<QueryPuntajeCapacidadDto> DeletePuntajeCapacidad(QueryPuntajeCapacidadDto data);
         Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidad();
         Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidad(QueryPuntajeCapacidadDto data);
+        #endregion
 
-        Task<MateriaDto> AddUpdateMateriasDesdeExcel(MateriaDto data);
+        #region Materias
+        Task<MateriaDto> AddUpdateMaterias(MateriaDto data);
+        #endregion
 
+
+        #region Profesor
+        Task<ProfesorDto?> AddUpdateProfesor(ProfesorDto data);
+        Task<ProfesorDto> DeleteProfesor(ProfesorDto data);
+        Task<IEnumerable<ProfesorDto>> GetAllProfesor();
+        Task<ProfesorDto> GetOneProfesor(ProfesorDto data);
+        #endregion
 
         #endregion
 
