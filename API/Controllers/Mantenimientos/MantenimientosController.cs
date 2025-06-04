@@ -1,5 +1,7 @@
 ﻿using Infrastructure.DTOs;
+using Infrastructure.DTOs.Mantenimientos;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
 
 namespace API.Controllers.CPC
 {
@@ -25,9 +27,13 @@ namespace API.Controllers.CPC
         [HttpPost("DeletePuntajeCapacidad")]
         public async Task<QueryPuntajeCapacidadDto?> DeletePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.DeletePuntajeCapacidad(param);
 
+        [HttpPost("AddUpdateMateriasDesdeExcel")]
+        public async Task<MateriaDto?> AddUpdateMateriasDesdeExcel(MateriaDto param) => await _mantenimientosRepository.AddUpdateMateriasDesdeExcel(param);
+
+    }
 
 
 
         #endregion
     }
-}
+

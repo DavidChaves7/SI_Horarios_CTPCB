@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Contexts
 {
@@ -9,6 +10,7 @@ namespace Application.Contexts
             ChangeTracker.LazyLoadingEnabled = false;
             ChangeTracker.AutoDetectChangesEnabled = true;
         }
+
 
     }
 }

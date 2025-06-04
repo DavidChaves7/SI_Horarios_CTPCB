@@ -1,4 +1,5 @@
 ﻿using Infrastructure.DTOs;
+using Infrastructure.DTOs.Mantenimientos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,13 @@ namespace Infrastructure.Interfaces
         Task<QueryPuntajeCapacidadDto> DeletePuntajeCapacidad(QueryPuntajeCapacidadDto data);
         Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidad();
         Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidad(QueryPuntajeCapacidadDto data);
-       
+
+        Task<MateriaDto> AddUpdateMateriasDesdeExcel(MateriaDto data);
 
 
         #endregion
+
+
 
     }
 }

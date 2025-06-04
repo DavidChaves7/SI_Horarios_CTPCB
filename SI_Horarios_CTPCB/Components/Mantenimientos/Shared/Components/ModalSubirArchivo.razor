@@ -1,4 +1,5 @@
-﻿<Modal @ref="modal">
+﻿@using OfficeOpenXml
+<Modal @ref="modal">
     <ModalContent Centered Size="ModalSize.Large">
         <ModalHeader>
             <ModalTitle>Subir Archivo</ModalTitle>
@@ -8,10 +9,19 @@
             <LoadingIndicator @bind-Visible="isLoading">
                 <ChildContent>
                     <Row>
-                        <Column>
-                            <Field>
-                                <FilePicker Multiple Upload="OnFileUpload" ShowMode="FilePickerShowMode.List" />
-                            </Field>
+                        <Column ColumnSize="ColumnSize.Is3">
+
+                            <label for="file-upload" class="file-upload-button">1. Seleccionar Archivo</label>
+                            <InputFile id="file-upload" OnChange="@SeleccionarExcel" Class="input-file-hidden" />
+
+                            @if (!string.IsNullOrEmpty(fileName))
+                            {
+                                <span class="file-name">@fileName</span>
+                                <Button Clicked="@LimpiarArchivo" Class="clear-button">✕</Button>
+                            }
+                        </Column>
+                        <Column ColumnSize="ColumnSize.Is3">
+                            <Button Clicked="@Cargar" disabled="@isLoading" Class="file-upload-button">2. Proceso de Carga de Archivo</Button>
                         </Column>
                        
 
@@ -28,28 +38,84 @@
 @code {
     Modal? modal;
 
-    
     public bool isLoading { get; set; } = false;
 
-    async Task OnFileUpload(FileUploadEventArgs e)
+    private IBrowserFile? _selectedFile;
+    public string fileName;
+
+    private void LimpiarArchivo()
+    {
+        _selectedFile = null;
+        fileName = string.Empty;
+        StateHasChanged();
+    }
+
+    private async Task SeleccionarExcel(InputFileChangeEventArgs e)
     {
         try
         {
-            using (MemoryStream result = new MemoryStream())
-            {
-                await e.File.OpenReadStream(long.MaxValue).CopyToAsync(result);
-            }
+            _selectedFile = e.File;
+            fileName = e.File.Name;
         }
-        catch (Exception exc)
+        catch (Exception ex)
         {
-            Console.WriteLine(exc.Message);
         }
         finally
         {
-            this.StateHasChanged();
         }
     }
 
+    private async Task Cargar()
+    {
+        try
+        {
+            isLoading = true;
+            if (_selectedFile != null)
+            {
+
+                using (var stream = _selectedFile.OpenReadStream())
+                {
+                    var buffer = new byte[stream.Length];
+                    await stream.ReadAsync(buffer, 0, buffer.Length);
+
+                    OfficeOpenXml.ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                    using (var package = new ExcelPackage(new MemoryStream(buffer)))
+                    {
+                        var worksheets = package.Workbook.Worksheets;
+                        if (worksheets.Count > 0)
+                        {
+                            var worksheet = worksheets[0];
+                            for (int i = 2; i <= worksheet.Dimension.End.Row; i++)
+                            {
+                                var idMateria = Convert.ToInt32(worksheet.Cells[i, 1].Text);
+                                var nombre = worksheet.Cells[i, 2].Text;
+                                var tipo = worksheet.Cells[i, 3].Text;
+
+                                await api.Mantenimientos_AddUpdateMateriasDesdeExcelAsync(new MateriaDto() {Id_Materia = idMateria, Nombre = nombre, Tipo = tipo});
+
+                            }
+                        }
+                    }
+                }
+                await Hide();
+            }
+
+
+
+        }
+        catch (Exception ex)
+        {
+        }
+        finally
+        {
+            _selectedFile = null;
+            //inputFileId = Guid.NewGuid();
+            isLoading = false;
+        }
+    }
+
+    
 
 
     public Task Hide()

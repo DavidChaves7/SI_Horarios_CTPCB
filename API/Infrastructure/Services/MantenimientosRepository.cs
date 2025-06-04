@@ -3,6 +3,7 @@ using AutoMapper;
 using Azure.Core;
 using Domain.Entities;
 using Infrastructure.DTOs;
+using Infrastructure.DTOs.Mantenimientos;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -121,9 +122,37 @@ namespace API.Infrastructure.Services
 
         }
 
-
-
         
+        public async Task<MateriaDto> AddUpdateMateriasDesdeExcel(MateriaDto data)
+        {
+            try
+            {
+                if (data is null)
+                {
+                    throw new Exception("Debe de establecer los campos para el objeto");
+                }
+                var param = _mapper.Map<Materia>(data);
+
+                var dbObject = _unitOfWork.Set<Materia>().FirstOrDefault(x => x.Id_Materia == param.Id_Materia);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Materia>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Materia>().Update(dbObject);
+                }
+                else
+                {
+                    var test1 = await _unitOfWork.Set<Materia>().AddAsync(param);
+                }
+                var test2 = await _unitOfWork.SaveChangesAsync();
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return new MateriaDto();
+            }
+
+        }
 
         #endregion
     }

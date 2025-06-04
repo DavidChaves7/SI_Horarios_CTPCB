@@ -172,6 +172,38 @@
           }
         }
       }
+    },
+    "/api/Mantenimientos/AddUpdateMateriasDesdeExcel": {
+      "post": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_AddUpdateMateriasDesdeExcel",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MateriaDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MateriaDto"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -223,6 +255,22 @@
             "type": "integer",
             "format": "int64",
             "nullable": true
+          }
+        }
+      },
+      "MateriaDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id_Materia": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "tipo": {
+            "type": "string"
           }
         }
       }

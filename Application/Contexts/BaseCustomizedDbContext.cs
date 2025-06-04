@@ -13,7 +13,10 @@ namespace Application.Contexts
         #region DbSets
 
         public DbSet<CPC_PUNTAJE_CAPACIDAD> puntaje { get; set; }
-              
+
+        public DbSet<Materia> Materias { get; set; }
+
+
 
         #endregion
 
@@ -30,27 +33,17 @@ namespace Application.Contexts
 
         #region Public Methods override
 
-        public int SaveChanges(string codUsuario)
-            => SaveChangesAsync(codUsuario, CancellationToken.None).Result;
-
-        public async Task<int> SaveChangesAsync(string codUsuario, CancellationToken cancellationToken = default)
-        {
-            return await base.SaveChangesAsync(cancellationToken);
-        }
-
-        public int SaveChanges()
-            => SaveChangesAsync(CancellationToken.None).Result;
-
-        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-            => SaveChangesAsync(cancellationToken);
-
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             modelBuilder.Entity<CPC_PUNTAJE_CAPACIDAD>().ToTable(nameof(CPC_PUNTAJE_CAPACIDAD), "CPC");
             modelBuilder.Entity<CPC_PUNTAJE_CAPACIDAD>().HasKey(x => new { /*x.COD_COMPANIA, */ x.PUNTAJE });
+            modelBuilder.Entity<Materia>().ToTable(nameof(Materia));
+            modelBuilder.Entity<Materia>().HasKey(x => new { x.Id_Materia });
 
             base.OnModelCreating(modelBuilder);
+
         }
 
         #endregion

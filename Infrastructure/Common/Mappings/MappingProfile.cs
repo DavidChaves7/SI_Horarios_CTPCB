@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Infrastructure.DTOs;
+using Infrastructure.DTOs.Mantenimientos;
 
 namespace Infrastructure.Common.Mappings
 {
@@ -10,7 +11,8 @@ namespace Infrastructure.Common.Mappings
         {
             
             CreateMap<CPC_PUNTAJE_CAPACIDAD, QueryPuntajeCapacidadDto>().ReverseMap();
-            
+            CreateMap<Materia, MateriaDto>().ReverseMap();
+
         }
     }
 }
