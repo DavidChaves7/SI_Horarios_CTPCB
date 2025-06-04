@@ -90,8 +90,10 @@
                                 var idMateria = Convert.ToInt32(worksheet.Cells[i, 1].Text);
                                 var nombre = worksheet.Cells[i, 2].Text;
                                 var tipo = worksheet.Cells[i, 3].Text;
+                                var color = worksheet.Cells[i, 4].Text;
+                                var estado = worksheet.Cells[i, 5].Text;
 
-                                await api.Mantenimientos_AddUpdateMateriasDesdeExcelAsync(new MateriaDto() {Id_Materia = idMateria, Nombre = nombre, Tipo = tipo});
+                                await api.Mantenimientos_AddUpdateMateriasDesdeExcelAsync(new MateriaDto() {Id_Materia = idMateria, Nombre = nombre, Tipo = tipo, Color = color, Estado = estado});
 
                             }
                         }
