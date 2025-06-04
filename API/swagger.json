@@ -195,9 +195,10 @@
           "200": {
             "description": "",
             "content": {
-              "application/json": {
+              "application/octet-stream": {
                 "schema": {
-                  "$ref": "#/components/schemas/MateriaDto"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }

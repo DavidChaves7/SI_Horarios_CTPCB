@@ -30,7 +30,9 @@ namespace API.Controllers.CPC
         #endregion
 
         #region Materias
+
         [HttpPost("AddUpdateMateriasDesdeExcel")]
+
         public async Task<MateriaDto?> AddUpdateMateriasDesdeExcel(MateriaDto param) => await _mantenimientosRepository.AddUpdateMaterias(param);
         [HttpGet("GetAllMaterias")]
         public async Task<IEnumerable<MateriaDto>> GetAllMateriasAsync() => await _mantenimientosRepository.GetAllMaterias();
@@ -42,6 +44,8 @@ namespace API.Controllers.CPC
 
         [HttpPost("DeleteMaterias")]
         public async Task<MateriaDto?> DeleteMateriasAsync(MateriaDto param) => await _mantenimientosRepository.DeleteMaterias(param);
+
+
         #endregion
 
         #region Profesor 2
