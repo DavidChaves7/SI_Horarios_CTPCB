@@ -12,7 +12,7 @@ namespace Application.Contexts
 
         #region DbSets
 
-        //public DbSet<SR_USUARIOS> Users { get; set; }
+        public DbSet<CPC_PUNTAJE_CAPACIDAD> puntaje { get; set; }
               
 
         #endregion

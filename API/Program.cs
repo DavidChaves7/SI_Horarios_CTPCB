@@ -1,9 +1,11 @@
-using API.Infrastructure.Services;
-using Infrastructure;
-using Application;
 using API.Infrastructure.Filters;
-using Infrastructure.Interfaces;
 using API.Infrastructure.Middlewares;
+using API.Infrastructure.Services;
+using Application;
+using Application.Contexts;
+using Infrastructure;
+using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,12 +15,17 @@ var conf = builder.Configuration;
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure(conf);
+//builder.Services.AddInfrastructure(conf);
 builder.Services.AddScoped<IMantenimientosRepository, MantenimientosRepository>();
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add<ExceptionFilterHandler>();
 });
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();

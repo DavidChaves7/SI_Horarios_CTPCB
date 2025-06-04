@@ -16,13 +16,13 @@ namespace Application
             {
                 case "SQL":
                     {
-                        var defaultConnectionString = conf.GetConnectionString("SqlConnection");
+                        var defaultConnectionString = conf.GetConnectionString("DefaultConnection");
                         services.AddDbContextPool<AppDbContext>(opt =>
                         {
-                            //opt.UseSqlServer(defaultConnectionString, provider =>
-                            //{
-                            //    //provider.CommandTimeout(180);
-                            //});
+                            opt.UseSqlServer(defaultConnectionString, provider =>
+                            {
+                                provider.CommandTimeout(180);
+                            });
                         });
                     }
                     break;
