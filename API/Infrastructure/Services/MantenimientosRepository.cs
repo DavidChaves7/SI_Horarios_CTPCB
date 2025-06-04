@@ -171,7 +171,7 @@ namespace API.Infrastructure.Services
                 }
                 var param = _mapper.Map<Profesor>(data);
 
-                var dbObject = _unitOfWork.Set<Profesor>().FirstOrDefault(x => x.Id_Profesor == param.Id_Profesor);
+                var dbObject = _unitOfWork.Set<Profesor>().FirstOrDefault(x => x.Cedula == param.Cedula);
                 if (dbObject != null)
                 {
                     _unitOfWork.Set<Profesor>().Entry(dbObject).CurrentValues.SetValues(data);
@@ -200,7 +200,7 @@ namespace API.Infrastructure.Services
             }
             var param = _mapper.Map<Profesor>(data);
 
-            var dbObject = _unitOfWork.Set<Profesor>().AsNoTracking().FirstOrDefault(x => x.Id_Profesor == param.Id_Profesor);
+            var dbObject = _unitOfWork.Set<Profesor>().AsNoTracking().FirstOrDefault(x => x.Cedula == param.Cedula);
             if (dbObject != null)
             {
                 _unitOfWork.Set<Profesor>().Entry(dbObject).CurrentValues.SetValues(data);
@@ -231,7 +231,7 @@ namespace API.Infrastructure.Services
             }
 
             var param = _mapper.Map<Profesor>(data);
-            var dbObject = await _unitOfWork.Set<Profesor>().FirstOrDefaultAsync(x => x.Id_Profesor == param.Id_Profesor);
+            var dbObject = await _unitOfWork.Set<Profesor>().FirstOrDefaultAsync(x => x.Cedula == param.Cedula);
             if (dbObject != null)
             {
                 var res = _mapper.Map<ProfesorDto>(dbObject);

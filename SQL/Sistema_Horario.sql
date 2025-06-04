@@ -76,6 +76,7 @@ CREATE TABLE Horario (
 CREATE TABLE Restriccion_Profesor (
     Id_Restriccion INT IDENTITY(1,1) PRIMARY KEY,
     Id_Profesor VARCHAR(20),
+	Razon VARCHAR(100),
     Dia VARCHAR(1),
     Hora_Inicio TIME,
     Hora_Fin TIME,

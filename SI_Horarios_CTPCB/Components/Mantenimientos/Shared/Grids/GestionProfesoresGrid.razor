@@ -17,12 +17,22 @@
                 <ButtonsExportComponent T="ProfesorDto" Data="data" Titulo="Profesores" />
             </Row>
 
-            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="ProfesorDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+            @* PageSizes="[10, 20, 30]" ShowPageSizes *@
+            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="ProfesorDto" Data="data" PageSize="10" 
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
                     <DataGridColumn Field="@nameof(ProfesorDto.Id_Profesor)" Caption="Id profesor" />
-                    <DataGridColumn Field="@nameof(ProfesorDto.Cedula)" Editable Caption="Cédula" />
+                    <DataGridColumn Field="@nameof(ProfesorDto.Cedula)" Editable Caption="Cédula">
+                        <EditTemplate>
+                            <TextEdit Text="@((string)context.CellValue)" TextChanged="@(v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.Cedula))">
+                                <Feedback>
+                                    <ValidationError />
+                                    <ValidationNone />
+                                </Feedback>
+                            </TextEdit>
+                        </EditTemplate>
+                    </DataGridColumn>
                     <DataGridColumn Field="@nameof(ProfesorDto.Nombre)" Editable Caption="Nombres" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Apellido)" Editable Caption="Apellidos" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Correo)" Editable Caption="Correo" />
@@ -49,12 +59,14 @@
                     </DataGridColumn>
                 </DataGridColumns>
                 <ButtonRowTemplate>
-
                     <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
                     <Button Class="btn btn-edit" Disabled="(selectedData is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
                     <Button Class="btn btn-delete" Disabled="(selectedData is null)" Clicked="context.DeleteCommand.Clicked">Inactivar</Button>
-
                 </ButtonRowTemplate>
+                <NextPageButtonTemplate><Icon Name="IconName.AngleRight" /></NextPageButtonTemplate>
+                <PreviousPageButtonTemplate><Icon Name="IconName.AngleLeft" /></PreviousPageButtonTemplate>
+                <LastPageButtonTemplate><Icon Name="IconName.AngleRight" /><Icon Name="IconName.AngleRight" /></LastPageButtonTemplate>
+                <FirstPageButtonTemplate><Icon Name="IconName.AngleLeft" /><Icon Name="IconName.AngleLeft" /></FirstPageButtonTemplate>
             </DataGrid>
 
         </ChildContent>

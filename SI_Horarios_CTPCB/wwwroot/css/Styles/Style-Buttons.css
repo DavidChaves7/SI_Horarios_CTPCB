@@ -96,7 +96,6 @@
 
 .btn-create {
     background-color: var(--color-secundario) !important;
-    font-size: 15px;
     color: white !important;
     border-radius: 8px !important;
     padding-left: 8px;
@@ -113,7 +112,6 @@
 
 .btn-edit {
     background-color: var(--color-cuarto) !important;
-    font-size: 15px;
     color: white !important;
     border-radius: 8px !important;
     padding-left: 8px;
@@ -130,7 +128,6 @@
 
 .btn-delete {
     background-color: var(--color-primario) !important;
-    font-size: 15px;
     color: white !important;
     border-radius: 8px !important;
     padding-left: 8px;
