@@ -1,4 +1,5 @@
-﻿@inject SIHAPI api
+﻿
+@inject SIHAPI api
 <Div Class="main-content">
 
     <LoadingIndicator Visible="@(data is null)">
@@ -7,35 +8,21 @@
             <br />
             <br />
             <Row>
-                <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Materias y Lecciones" />
+                <ButtonsExportComponent T="MateriaDto" Data="data" Titulo="Materias y Lecciones" />
 
             </Row>
 
-            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="MateriaDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
-                    @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
-                        <EditTemplate>
-                            <TextEdit Text="@((string)context.CellValue)" TextChanged="@( v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.CoD_RUBRO))">
-                                <Feedback>
-                                    <ValidationError />
-                                    <ValidationNone />
-                                </Feedback>
-                            </TextEdit>
-                        </EditTemplate>
-                    </DataGridColumn>
-                    <DataGridColumn Field="@nameof(CatalogCCSSDto.DesC_RUBRO)" Editable Caption="Descripción"></DataGridColumn>
-                    <DataGridColumn Field="@nameof(CatalogCCSSDto.PorC_RUBRO)" Editable Caption="Porcentaje">
-                        <DisplayTemplate>
-                            <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
-                        </DisplayTemplate>
-                    </DataGridColumn> *@
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="Nivel Academico" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Materia" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Carga Horaria" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Prioridad" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Asociado A" />
+                    <DataGridColumn Field="@nameof(MateriaDto.Nombre)" Editable Caption="Materia" />
+                    <DataGridColumn Field="@nameof(MateriaDto.Tipo)" Editable Caption="Tipo" />
+
+
+                    @* <DataGridColumn Field="@nameof(MateriaDto.Test)" Editable Caption="Carga Horaria" /> 
+                    <DataGridColumn Field="@nameof(MateriaDto.Test)" Editable Caption="Prioridad" /> 
+                    <DataGridColumn Field="@nameof(MateriaDto.Test)" Editable Caption="Asociado A" />*@
                 </DataGridColumns>
                 <ButtonRowTemplate>
 
@@ -45,47 +32,7 @@
 
                 </ButtonRowTemplate>
             </DataGrid>
-            <br />
-            <br />
-            <hr />
-            <Heading Size="HeadingSize.Is2">Materias</Heading>
-            <br />
-            <br />
-            <Row>
-                <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Materias y Lecciones" />
-            </Row>
-            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddataTABLA" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="dataTABLA" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
-                      Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
-                      UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
-                <DataGridColumns>
-                    @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
-                        <EditTemplate>
-                            <TextEdit Text="@((string)context.CellValue)" TextChanged="@( v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.CoD_RUBRO))">
-                                <Feedback>
-                                    <ValidationError />
-                                    <ValidationNone />
-                                </Feedback>
-                            </TextEdit>
-                        </EditTemplate>
-                    </DataGridColumn>
-                    <DataGridColumn Field="@nameof(CatalogCCSSDto.DesC_RUBRO)" Editable Caption="Descripción"></DataGridColumn>
-                    <DataGridColumn Field="@nameof(CatalogCCSSDto.PorC_RUBRO)" Editable Caption="Porcentaje">
-                        <DisplayTemplate>
-                            <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
-                        </DisplayTemplate>
-                    </DataGridColumn> *@
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Id)" Editable Caption="Nivel Academico" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Materia" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Cantidad de Horas Semanales" />
-                </DataGridColumns>
-                <ButtonRowTemplate>
 
-                    <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
-                    <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
-                    <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
-
-                </ButtonRowTemplate>
-            </DataGrid>
 
         </ChildContent>
     </LoadingIndicator>
@@ -99,11 +46,11 @@
     private string accessCategory { get; set; } = "";
     
 
-    IEnumerable<EjemploMantDto>? data { get; set; } = new List<EjemploMantDto>();
-    IEnumerable<EjemploMantDto>? dataTABLA { get; set; } = new List<EjemploMantDto>();
+    IEnumerable<MateriaDto>? data { get; set; } = new List<MateriaDto>();
+    IEnumerable<MateriaDto>? dataTABLA { get; set; } = new List<MateriaDto>();
 
-    private EjemploMantDto? selecteddata;
-    private EjemploMantDto? selecteddataTABLA;
+    private MateriaDto? selecteddata;
+    private MateriaDto? selecteddataTABLA;
 
     private Snackbar? snackbarPrimary;
     
@@ -144,42 +91,42 @@
             // }
 
             // #endregion
-            //data = await api.Mantenimientos_GetAllEjemploMantAsync();
-            data = new List<EjemploMantDto>
-            {
-                new EjemploMantDto
-                {
-                    Id = 1,
-                    Descripcion = "Matematicas",
-                    Test = "40"
-                },
-                new EjemploMantDto
-                {
-                    Id = 2,
-                    Descripcion = "Electiva",
-                    Test = "15"
-                }
-            };
-            dataTABLA = new List<EjemploMantDto>
-            {
-                new EjemploMantDto
-                {
-                    Id = 1,
-                    Descripcion = "Matematicas",
-                    Test = "20"
-                },
-                new EjemploMantDto
-                {
-                    Id = 2,
-                    Descripcion = "Electiva 2",
-                    Test = "30"
-                }
-            };
-            StateHasChanged();
+            data = await api.Mantenimientos_GetAllMateriasAsync();
+            // data = new List<MateriaDto>
+            // {
+            //     new MateriaDto
+            //     {
+            //         Id = 1,
+            //         Descripcion = "Matematicas",
+            //         Test = "40"
+            //     },
+            //     new MateriaDto
+            //     {
+            //         Id = 2,
+            //         Descripcion = "Electiva",
+            //         Test = "15"
+            //     }
+            // };
+            // dataTABLA = new List<MateriaDto>
+            // {
+            //     new MateriaDto
+            //     {
+            //         Id = 1,
+            //         Descripcion = "Matematicas",
+            //         Test = "20"
+            //     },
+            //     new MateriaDto
+            //     {
+            //         Id = 2,
+            //         Descripcion = "Electiva 2",
+            //         Test = "30"
+            //     }
+            // };
+             StateHasChanged();
         }
     }
 
-    RenderFragment SetModalTitle(PopupTitleContext<EjemploMantDto> context)
+    RenderFragment SetModalTitle(PopupTitleContext<MateriaDto> context)
     {
         var title = context.EditState == DataGridEditState.New ? "Nuevos" : "Editar";
         return (__builder) =>
@@ -190,7 +137,7 @@
         };
     }
 
-    async Task InsertNewItem(SavedRowItem<EjemploMantDto, Dictionary<string, object>> item)
+    async Task InsertNewItem(SavedRowItem<MateriaDto, Dictionary<string, object>> item)
     {
         try
         {
@@ -203,9 +150,8 @@
             }
             else
             {
-                //await api.Parameters_AddUpdateParametersBCCRsAsync(item.NewItem);
-                //data = await api.Mantenimientos_GetAllEjemploMantAsync();
-                data.Append(item.NewItem);
+                await api.Mantenimientos_AddUpdateMateriasAsync(item.NewItem);
+                data = await api.Mantenimientos_GetAllMateriasAsync();
             }
         }
         catch (Exception ex)
@@ -214,7 +160,7 @@
         }
     }
 
-    Task ValidateEditFields(CancellableRowChange<EjemploMantDto, Dictionary<string, object>> item)
+    Task ValidateEditFields(CancellableRowChange<MateriaDto, Dictionary<string, object>> item)
     {
 
         var errors = item.NewItem.ValidateObjectFields();
@@ -229,16 +175,16 @@
         }
     }
 
-    async Task DeleteItem(EjemploMantDto item)
+    async Task DeleteItem(MateriaDto item)
     {
-        //await api.Parameters_DeleteParametersBCCRAsync(item);
-        //data = await api.Mantenimientos_GetAllEjemploMantAsync();
-        data = data.Where(x => x.Id != item.Id);
+        await api.Mantenimientos_DeleteMateriasAsync(item);
+        data = await api.Mantenimientos_GetAllMateriasAsync();
+        data = data.Where(x => x.Id_Materia != item.Id_Materia);
     }
 
-    async Task RemovingRow(CancellableRowChange<EjemploMantDto> item)
+    async Task RemovingRow(CancellableRowChange<MateriaDto> item)
     {
-        var delete = await MessageService.Confirm($"Está seguro de eliminar el Parámetro {item.OldItem.Id}?", "Eliminar Parámetro", opt =>
+        var delete = await MessageService.Confirm($"Está seguro de eliminar la Mataria {item.OldItem.Nombre}?", "Eliminar Materia", opt =>
         {
             // opt.MessageIcon = Icon
         });

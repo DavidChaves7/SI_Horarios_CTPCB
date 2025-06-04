@@ -25,6 +25,9 @@ namespace Infrastructure.Interfaces
 
         #region Materias
         Task<MateriaDto> AddUpdateMaterias(MateriaDto data);
+        Task<MateriaDto> DeleteMaterias(MateriaDto data);
+        Task<IEnumerable<MateriaDto>> GetAllMaterias();
+        Task<MateriaDto> GetOneMaterias(MateriaDto data);
         #endregion
 
 

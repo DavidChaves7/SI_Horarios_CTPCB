@@ -11,9 +11,9 @@ namespace Domain.Entities
     {
         [Key]
         public int Id_Materia { get; set; }
-        public string Nombre { get; set; }
-        public string Tipo { get; set; }
-        public string Color { get; set; }
-        public string Estado { get; set; }
+        public string? Nombre { get; set; }
+        public string? Tipo { get; set; }
+        public string? Color { get; set; }
+        public string? Estado { get; set; }
     }
 }

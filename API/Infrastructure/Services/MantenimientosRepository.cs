@@ -157,6 +157,55 @@ namespace API.Infrastructure.Services
             }
 
         }
+
+        public async Task<MateriaDto> DeleteMaterias(MateriaDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Materia>(data);
+
+            var dbObject = _unitOfWork.Set<Materia>().FirstOrDefault(x => x.Id_Materia == param.Id_Materia);
+            if (dbObject != null)
+            {
+                _unitOfWork.Set<Materia>().Entry(dbObject).CurrentValues.SetValues(data);
+                _unitOfWork.Set<Materia>().Remove(dbObject);
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro a eliminar");
+            }
+            await _unitOfWork.SaveChangesAsync();
+
+            return data;
+        }
+        public async Task<IEnumerable<MateriaDto>> GetAllMaterias()
+        {
+            var parameters = await _unitOfWork.Set<Materia>()
+                         .Select(s => _mapper.Map<MateriaDto>(s)).ToListAsync();
+            return parameters;
+        }
+        public async Task<MateriaDto> GetOneMaterias(MateriaDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+
+            var param = _mapper.Map<Materia>(data);
+            var dbObject = await _unitOfWork.Set<Materia>().FirstOrDefaultAsync(x => x.Id_Materia == param.Id_Materia);
+            if (dbObject != null)
+            {
+                var res = _mapper.Map<MateriaDto>(dbObject);
+                return res;
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro");
+            }
+
+        }
         #endregion
 
         #region Profesores

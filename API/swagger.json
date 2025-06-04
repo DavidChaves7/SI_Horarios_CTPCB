@@ -205,6 +205,131 @@
         }
       }
     },
+    "/api/Mantenimientos/GetAllMaterias": {
+      "get": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_GetAllMaterias",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "$ref": "#/components/schemas/MateriaDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/GetOneMaterias": {
+      "get": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_GetOneMaterias",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MateriaDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/MateriaDto"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/AddUpdateMaterias": {
+      "post": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_AddUpdateMaterias",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MateriaDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MateriaDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/DeleteMaterias": {
+      "post": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_DeleteMaterias",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MateriaDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MateriaDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Mantenimientos/GetAllProfesor": {
       "get": {
         "tags": [
@@ -392,16 +517,20 @@
             "format": "int32"
           },
           "nombre": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "tipo": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "color": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "estado": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         }
       },
