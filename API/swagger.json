@@ -396,6 +396,12 @@
           },
           "tipo": {
             "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "estado": {
+            "type": "string"
           }
         }
       },
