@@ -145,11 +145,12 @@ namespace API.Infrastructure.Services
                 }
                 else
                 {
+                    param.Id_Materia = 0;
                     var test1 = await _unitOfWork.Set<Materia>().AddAsync(param);
                 }
                 var test2 = await _unitOfWork.SaveChangesAsync();
 
-                return data;
+                return _mapper.Map<MateriaDto>(dbObject ?? param);
             }
             catch (Exception ex)
             {

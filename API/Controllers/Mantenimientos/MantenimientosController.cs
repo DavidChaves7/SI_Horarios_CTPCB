@@ -30,8 +30,18 @@ namespace API.Controllers.CPC
         #endregion
 
         #region Materias
+
         [HttpPost("AddUpdateMateriasDesdeExcel")]
-        public async Task<MateriaDto?> AddUpdateMateriasDesdeExcel(MateriaDto param) => await _mantenimientosRepository.AddUpdateMaterias(param);
+        public async Task<IActionResult> AddUpdateMateriasDesdeExcel(MateriaDto param)
+        {
+            var result = await _mantenimientosRepository.AddUpdateMaterias(param);
+            if (result == null)
+                return BadRequest("No se pudo procesar la materia");
+
+            return Ok(result); 
+        }
+
+        //public async Task<MateriaDto?> AddUpdateMateriasDesdeExcel(MateriaDto param) => await _mantenimientosRepository.AddUpdateMaterias(param);
         #endregion
 
         #region Profesor 2
