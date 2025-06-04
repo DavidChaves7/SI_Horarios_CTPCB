@@ -42,13 +42,21 @@ CREATE TABLE Materia (
 );
 
 -- Tabla: Nivel_Academico
-CREATE TABLE Materia_X_Grupo (
-    Id_Mat_X_Grupo INT IDENTITY(1,1) PRIMARY KEY,
+CREATE TABLE Materia_X_Nivel (
+    Id_Mat_X_Nivel INT IDENTITY(1,1) PRIMARY KEY,
     Id_Materia INT,
-	Id_Grupo INT,
+	Id_Nivel_Academico INT,
     Carga_Horaria INT,
-    FOREIGN KEY (Id_Materia) REFERENCES Materia(Id_Materia)
+	Estado VARCHAR(1)
 );
+
+
+CREATE TABLE Nivel_Academico (
+    Id_Nivel_Academico INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(100),
+    Carga_Horaria INT,
+	Estado VARCHAR(1)
+)
 
 -- Tabla: Grupo
 CREATE TABLE Grupo (
