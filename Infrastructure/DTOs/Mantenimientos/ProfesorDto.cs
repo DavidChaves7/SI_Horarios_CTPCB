@@ -14,6 +14,7 @@ namespace Infrastructure.DTOs.Mantenimientos
         public string Apellido { get; set; }
         public string Correo { get; set; }
         public string Telefono { get; set; }
+        public int Carga_Horaria { get; set; }
         public string Estado { get; set; }
     }
 }

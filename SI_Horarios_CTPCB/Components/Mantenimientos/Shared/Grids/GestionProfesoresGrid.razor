@@ -37,6 +37,7 @@
                     <DataGridColumn Field="@nameof(ProfesorDto.Apellido)" Editable Caption="Apellidos" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Correo)" Editable Caption="Correo" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Telefono)" Editable Caption="Telefono" />
+                    <DataGridColumn Field="@nameof(ProfesorDto.Carga_Horaria)" Editable Caption="Carga Horaria" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Estado)" Editable Caption="Estado">
                         <DisplayTemplate>
                             <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
@@ -72,7 +73,7 @@
         </ChildContent>
     </LoadingIndicator>
 </Div>
-<ModalSubirArchivoProfesores @ref="modalSubir"></ModalSubirArchivoProfesores>
+<ModalSubirArchivoProfesores OnInsert="CallbackInsertarExcel" @ref="modalSubir"></ModalSubirArchivoProfesores>
 <ModalRestriccionHoraria @ref="modalRestric"></ModalRestriccionHoraria>
 @code {
 
@@ -80,7 +81,6 @@
     ModalRestriccionHoraria? modalRestric;
     private string accessCategory { get; set; } = "";
     
-
     IEnumerable<ProfesorDto>? data { get; set; } = new List<ProfesorDto>();
 
     private ProfesorDto? selectedData;
@@ -152,7 +152,7 @@
     {
         await api.Mantenimientos_DeleteProfesorAsync(item);
         data = await api.Mantenimientos_GetAllProfesorAsync();
-        
+
     }
 
     async Task RemovingRow(CancellableRowChange<ProfesorDto> item)
@@ -181,8 +181,9 @@
                 hoja.Cell(1, 3).Value = "Apellidos";
                 hoja.Cell(1, 4).Value = "Correo";
                 hoja.Cell(1, 5).Value = "Telefono";
+                hoja.Cell(1, 6).Value = "Carga Horaria";
 
-                for (int col = 1; col <= 5; col++)
+                for (int col = 1; col <= 6; col++)
                 {
                     var celda = hoja.Cell(1, col);
                     celda.Style.Font.Bold = true;
@@ -206,5 +207,11 @@
         catch (Exception ex)
         {
         }
+    }
+
+    async Task CallbackInsertarExcel()
+    {
+        data = await api.Mantenimientos_GetAllProfesorAsync();
+        StateHasChanged();
     }
 }
