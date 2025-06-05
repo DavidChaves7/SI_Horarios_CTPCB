@@ -4,41 +4,28 @@
             <ModalTitle>Subir Archivo Materias</ModalTitle>
             <CloseButton></CloseButton>
         </ModalHeader>
-
         <ModalBody>
             <LoadingIndicator @bind-Visible="isLoading">
                 <ChildContent>
-                    <Row Class="align-items-center">
-                        <Column ColumnSize="ColumnSize.Is7" Class="d-flex flex-wrap align-items-center">
-                            <label for="file-upload" class="file-upload-button me-3 mb-2">1. Seleccionar Archivo</label>
-                            <InputFile id="file-upload" OnChange="@SeleccionarExcel" class="input-file-hidden" />
+                    <Row Class="justify-content-center">
+                        <Column ColumnSize="ColumnSize.Is12" Class="justify-content-center">
+
+                            <label for="file-upload" class="file-upload-button">Seleccionar Archivo de las Materias</label>
+                            <InputFile id="file-upload" OnChange="@SeleccionarExcel" Class="input-file-hidden" />
 
                             @if (!string.IsNullOrEmpty(fileName))
                             {
-                                <div class="d-flex align-items-center mt-2">
-                                    <span class="file-name me-2">@fileName</span>
-                                    <Button Clicked="@LimpiarArchivo"
-                                            Class="btn btn-sm btn-danger d-flex align-items-center justify-content-center p-1"
-                                            Style="width: 28px; height: 28px;">
-                                        ✕
-                                    </Button>
-                                </div>
+                                <span class="file-name">@fileName</span>
+                                <Button Clicked="@LimpiarArchivo" Class="clear-button">✕</Button>
                             }
-                        </Column>
-
-                        <!-- Columna para cargar archivo -->
-                        <Column ColumnSize="ColumnSize.Is5" Class="d-flex justify-content-start mt-2">
-                            <Button Clicked="@Cargar" disabled="@isLoading" Class="file-upload-button w-100">
-                                2. Proceso de Carga de Archivo
-                            </Button>
                         </Column>
                     </Row>
                 </ChildContent>
             </LoadingIndicator>
         </ModalBody>
-
         <ModalFooter>
             <Button Class="btn-outline-danger" Clicked="@Hide">Cerrar</Button>
+            <Button Clicked="@Cargar" disabled="@isLoading" Class="file-upload-button">Subir Archivo</Button>
         </ModalFooter>
     </ModalContent>
 </Modal>
