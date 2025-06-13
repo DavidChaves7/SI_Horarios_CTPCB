@@ -58,6 +58,11 @@
                             <Button Class="btn btn-create" Clicked="() => modalRestric.Open()">Restricciones</Button>
                         </DisplayTemplate>
                     </DataGridColumn>
+                    <DataGridColumn Caption="Materias">
+                        <DisplayTemplate>
+                            <Button Class="btn btn-edit" Clicked="() => modalProfesor_X_Materia.Open()">Materias</Button>
+                        </DisplayTemplate>
+                    </DataGridColumn>
                 </DataGridColumns>
                 <ButtonRowTemplate>
                     <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
@@ -74,11 +79,13 @@
     </LoadingIndicator>
 </Div>
 <ModalSubirArchivoProfesores OnInsert="CallbackInsertarExcel" @ref="modalSubir"></ModalSubirArchivoProfesores>
+<ModalProfesor_X_Materia @ref="modalProfesor_X_Materia"></ModalProfesor_X_Materia>
 <ModalRestriccionHoraria @ref="modalRestric"></ModalRestriccionHoraria>
 @code {
 
     ModalSubirArchivoProfesores? modalSubir;
     ModalRestriccionHoraria? modalRestric;
+    ModalProfesor_X_Materia? modalProfesor_X_Materia;
     private string accessCategory { get; set; } = "";
     
     IEnumerable<ProfesorDto>? data { get; set; } = new List<ProfesorDto>();

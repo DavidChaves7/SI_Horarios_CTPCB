@@ -4,7 +4,14 @@
 
     <LoadingIndicator Visible="@(data is null)">
         <ChildContent>
-            <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir.Open">Importar Archivo</Button>
+            <Row>
+                <Column ColumnSize="ColumnSize.Is2">
+                    <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="DescargarPlantillaMaterias">Plantilla Excel Materias</Button>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is2">
+                    <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir.Open">Importar Excel</Button>
+                </Column>
+            </Row>
             <br />
             <br />
             <Row>
@@ -16,8 +23,39 @@
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
+                    <DataGridColumn Field="@nameof(MateriaDto.Id_Materia)" Caption="Id" />
                     <DataGridColumn Field="@nameof(MateriaDto.Nombre)" Editable Caption="Materia" />
-                    <DataGridColumn Field="@nameof(MateriaDto.Tipo)" Editable Caption="Tipo" />
+                    <DataGridColumn Field="@nameof(MateriaDto.Tipo)" Editable Caption="Tipo" >
+                        <DisplayTemplate>
+                            <Select SelectedValue="@context.Tipo" Disabled TValue="string" Style="min-width: 200px;">
+                                <SelectItem Value="@("A")">Academico</SelectItem>
+                                <SelectItem Value="@("E")">Especialidad</SelectItem>
+                            </Select>
+                        </DisplayTemplate>
+                        <EditTemplate>
+                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                                <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                <SelectItem Value="@("A")">Academico</SelectItem>
+                                <SelectItem Value="@("E")">Especialidad</SelectItem>
+                            </Select>
+                        </EditTemplate>
+                    </DataGridColumn>
+                    <DataGridColumn Field="@nameof(MateriaDto.Color)" Editable Caption="Color" />
+                    <DataGridColumn Field="@nameof(MateriaDto.Estado)" Editable Caption="Estado" >
+                    <DisplayTemplate>
+                            <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
+                                <SelectItem Value="@("A")">Activo</SelectItem>
+                                <SelectItem Value="@("I")">Inactivo</SelectItem>
+                            </Select>
+                        </DisplayTemplate>
+                        <EditTemplate>
+                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@( v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                                <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                <SelectItem Value="@("A")">Activo</SelectItem>
+                                <SelectItem Value="@("I")">Inactivo</SelectItem>
+                            </Select>
+                        </EditTemplate>
+                    </DataGridColumn>
 
 
                     @* <DataGridColumn Field="@nameof(MateriaDto.Test)" Editable Caption="Carga Horaria" /> 
@@ -37,6 +75,7 @@
         </ChildContent>
     </LoadingIndicator>
 </Div>
+<ModalSubirArchivoMaterias OnInsert="CallbackInsertarExcel" @ref="modalSubir"></ModalSubirArchivoMaterias>
 <ModalSubirArchivoMaterias @ref="modalSubir"></ModalSubirArchivoMaterias>
 
 
@@ -192,5 +231,51 @@
         {
             item.Cancel = true;
         }
+    }
+
+    private async Task DescargarPlantillaMaterias()
+    {
+        try
+        {
+            using (var libro = new XLWorkbook())
+            {
+                IXLWorksheet hoja = libro.Worksheets.Add("Resumen (Masivo)");
+
+                hoja.Columns().Width = 30;
+                hoja.Cell(1, 1).Value = "Nombre";
+                hoja.Cell(1, 2).Value = "Tipo";
+                hoja.Cell(1, 3).Value = "Color";
+
+
+                for (int col = 1; col <= 3; col++)
+                {
+                    var celda = hoja.Cell(1, col);
+                    celda.Style.Font.Bold = true;
+                    celda.Style.Font.FontSize = 14;
+                    celda.Style.Fill.BackgroundColor = XLColor.FromHtml("#C6EFCE");
+                }
+
+                using (var memoria = new MemoryStream())
+                {
+                    libro.SaveAs(memoria);
+                    var nombreExcel = string.Concat("Plantilla Materias", ".xlsx");
+
+                    await JS.InvokeAsync<object>(
+                        "saveAsFile",
+                        nombreExcel,
+                        Convert.ToBase64String(memoria.ToArray())
+                    );
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+        }
+    }
+
+    async Task CallbackInsertarExcel()
+    {
+        data = await api.Mantenimientos_GetAllMateriasAsync();
+        StateHasChanged();
     }
 }

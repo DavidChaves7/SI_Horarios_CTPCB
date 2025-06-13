@@ -1,4 +1,5 @@
-﻿using Infrastructure.DTOs;
+﻿using Domain.Entities;
+using Infrastructure.DTOs;
 using Infrastructure.DTOs.Mantenimientos;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,13 @@ namespace Infrastructure.Interfaces
         Task<ProfesorDto> DeleteProfesor(ProfesorDto data);
         Task<IEnumerable<ProfesorDto>> GetAllProfesor();
         Task<ProfesorDto> GetOneProfesor(ProfesorDto data);
+        #endregion
+
+        #region Profersor_X_Materia
+        Task<Profesor_X_MateriaDto> AddUpdateProfesor_X_Materia(Profesor_X_MateriaDto data);
+        Task<Profesor_X_MateriaDto> DeleteProfesor_X_Materia(Profesor_X_MateriaDto data);
+        Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_Materia();
+        Task<Profesor_X_MateriaDto> GetOneProfesor_X_Materias(Profesor_X_MateriaDto data);
         #endregion
 
         #endregion

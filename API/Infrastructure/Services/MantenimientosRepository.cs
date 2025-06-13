@@ -296,6 +296,89 @@ namespace API.Infrastructure.Services
 
         #endregion
 
+        #region Profesor_X_Materia
+        public async Task<Profesor_X_MateriaDto> AddUpdateProfesor_X_Materia(Profesor_X_MateriaDto data)
+        {
+            try
+            {
+                if (data is null)
+                {
+                    throw new Exception("Debe de establecer los campos para el objeto");
+                }
+                var param = _mapper.Map<Profesor_X_Materia>(data);
+
+                var dbObject = _unitOfWork.Set<Profesor_X_Materia>().FirstOrDefault(x => x.Id_Prof_Materia == param.Id_Prof_Materia);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Profesor_X_Materia>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Profesor_X_Materia>().Update(dbObject);
+                }
+                else
+                {
+                    param.Id_Materia = 0;
+                    var test1 = await _unitOfWork.Set<Profesor_X_Materia>().AddAsync(param);
+                }
+                var test2 = await _unitOfWork.SaveChangesAsync();
+
+                return _mapper.Map<Profesor_X_MateriaDto>(dbObject ?? param);
+            }
+            catch (Exception ex)
+            {
+                return new Profesor_X_MateriaDto();
+            }
+
+        }
+
+        public async Task<Profesor_X_MateriaDto> DeleteProfesor_X_Materia(Profesor_X_MateriaDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Profesor_X_Materia>(data);
+
+            var dbObject = _unitOfWork.Set<Profesor_X_Materia>().FirstOrDefault(x => x.Id_Prof_Materia == param.Id_Prof_Materia);
+            if (dbObject != null)
+            {
+                _unitOfWork.Set<Profesor_X_Materia>().Entry(dbObject).CurrentValues.SetValues(data);
+                _unitOfWork.Set<Profesor_X_Materia>().Remove(dbObject);
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro a eliminar");
+            }
+            await _unitOfWork.SaveChangesAsync();
+
+            return data;
+        }
+        public async Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_Materia()
+        {
+            var parameters = await _unitOfWork.Set<Profesor_X_Materia>()
+                         .Select(s => _mapper.Map<Profesor_X_MateriaDto>(s)).ToListAsync();
+            return parameters;
+        }
+        public async Task<Profesor_X_MateriaDto> GetOneProfesor_X_Materias(Profesor_X_MateriaDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+
+            var param = _mapper.Map<Profesor_X_Materia>(data);
+            var dbObject = await _unitOfWork.Set<Profesor_X_Materia>().FirstOrDefaultAsync(x => x.Id_Prof_Materia == param.Id_Prof_Materia);
+            if (dbObject != null)
+            {
+                var res = _mapper.Map<Profesor_X_MateriaDto>(dbObject);
+                return res;
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro");
+            }
+
+        }
+        #endregion
+
         #endregion
     }
 }

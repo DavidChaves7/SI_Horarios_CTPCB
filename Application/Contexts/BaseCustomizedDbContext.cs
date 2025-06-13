@@ -18,6 +18,8 @@ namespace Application.Contexts
 
         public DbSet<Profesor> Profesor { get; set; }
 
+        public DbSet<Profesor_X_Materia> Profesor_X_Materia { get; set; }
+
 
 
         #endregion
@@ -48,6 +50,10 @@ namespace Application.Contexts
             //Table Profesor
             modelBuilder.Entity<Profesor>().ToTable(nameof(Profesor));
             modelBuilder.Entity<Profesor>().HasKey(x => new { x.Id_Profesor });
+
+            //Table Profesor_X_Materia
+            modelBuilder.Entity<Profesor_X_Materia>().ToTable(nameof(Profesor_X_Materia));
+            modelBuilder.Entity<Profesor_X_Materia>().HasKey(x => new { x.Id_Prof_Materia });
 
             base.OnModelCreating(modelBuilder);
 

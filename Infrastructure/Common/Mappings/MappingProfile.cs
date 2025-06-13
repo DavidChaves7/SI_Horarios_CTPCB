@@ -13,6 +13,7 @@ namespace Infrastructure.Common.Mappings
             CreateMap<CPC_PUNTAJE_CAPACIDAD, QueryPuntajeCapacidadDto>().ReverseMap();
             CreateMap<Materia, MateriaDto>().ReverseMap();
             CreateMap<Profesor, ProfesorDto>().ReverseMap();
+            CreateMap<Profesor_X_Materia, Profesor_X_MateriaDto>().ReverseMap();
         }
     }
 }

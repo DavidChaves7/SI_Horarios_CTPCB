@@ -61,6 +61,22 @@ namespace API.Controllers.CPC
         public async Task<ProfesorDto?> DeleteProfesorAsync(ProfesorDto param) => await _mantenimientosRepository.DeleteProfesor(param);
         #endregion
 
+        #region Profesor_X_Materia
+
+        
+        [HttpGet("GetAllProfesor_X_Materia")]
+        public async Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_MateriaAsync() => await _mantenimientosRepository.GetAllProfesor_X_Materia();
+        [HttpGet("GetOneProfesor_X_Materia")]
+        public async Task<Profesor_X_MateriaDto> GetOneProfesor_X_MateriaAsync(Profesor_X_MateriaDto param) => await _mantenimientosRepository.GetOneProfesor_X_Materias(param);
+
+        [HttpPost("AddUpdateProfesor_X_Materia")]
+        public async Task<Profesor_X_MateriaDto?> AddUpdateProfesor_X_MateriaAsync(Profesor_X_MateriaDto param) => await _mantenimientosRepository.AddUpdateProfesor_X_Materia(param);
+
+        [HttpPost("DeleteProfesor_X_Materia")]
+        public async Task<Profesor_X_MateriaDto?> DeleteProfesor_X_MateriaAsync(Profesor_X_MateriaDto param) => await _mantenimientosRepository.DeleteProfesor_X_Materia(param);
+
+        #endregion
+
         #endregion
     }
 }

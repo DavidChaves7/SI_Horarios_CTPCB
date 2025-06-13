@@ -1,0 +1,174 @@
+﻿<Modal @ref="modal">
+    <ModalContent Centered Size="ModalSize.Large">
+        <ModalHeader>
+            <ModalTitle>Profesores por Materia</ModalTitle>
+            <CloseButton></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+            <LoadingIndicator @bind-Visible="isLoading">
+                <ChildContent>
+                    <Row>
+                        <ButtonsExportComponent T="Profesor_X_MateriaDto" Data="data" Titulo="Profesor por Materia" />
+
+                    </Row>
+
+                    <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="Profesor_X_MateriaDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+                              Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
+                              UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
+                        <DataGridColumns>
+                            @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
+                        <EditTemplate>
+                            <TextEdit Text="@((string)context.CellValue)" TextChanged="@( v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.CoD_RUBRO))">
+                                <Feedback>
+                                    <ValidationError />
+                                    <ValidationNone />
+                                </Feedback>
+                            </TextEdit>
+                        </EditTemplate>
+                    </DataGridColumn>
+                    <DataGridColumn Field="@nameof(CatalogCCSSDto.DesC_RUBRO)" Editable Caption="Descripción"></DataGridColumn>
+                    <DataGridColumn Field="@nameof(CatalogCCSSDto.PorC_RUBRO)" Editable Caption="Porcentaje">
+                        <DisplayTemplate>
+                            <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
+                        </DisplayTemplate>
+                    </DataGridColumn> *@
+                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Prof_Materia)" Caption="Id" />
+                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Profesor)" Editable Caption="Profesor" />
+                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Materia)" Editable Caption="Materia" />
+                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Estado)" Editable Caption="Estado">
+                                <DisplayTemplate>
+                                    <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
+                                        <SelectItem Value="@("A")">Activo</SelectItem>
+                                        <SelectItem Value="@("I")">Inactivo</SelectItem>
+                                    </Select>
+                                </DisplayTemplate>
+                                <EditTemplate>
+                                    <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                                        <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                        <SelectItem Value="@("A")">Activo</SelectItem>
+                                        <SelectItem Value="@("I")">Inactivo</SelectItem>
+                                    </Select>
+                                </EditTemplate>
+                            </DataGridColumn>
+                        </DataGridColumns>
+                        <ButtonRowTemplate>
+
+                            <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
+                            <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
+                            <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+
+                        </ButtonRowTemplate>
+                    </DataGrid>
+                </ChildContent>
+            </LoadingIndicator>
+        </ModalBody>
+        <ModalFooter>
+            <Button Class="btn-outline-danger" Clicked="@Hide">Cerrar</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    Modal? modal;
+
+
+    public bool isLoading { get; set; } = false;
+
+    IEnumerable<Profesor_X_MateriaDto>? data { get; set; } = new List<Profesor_X_MateriaDto>();
+    private Profesor_X_MateriaDto? selecteddata;
+
+
+    public Task Hide()
+    {
+        modal?.Close(CloseReason.UserClosing);
+        return Task.CompletedTask;
+    }
+
+    public async Task Open()
+    {
+        modal?.Show();
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+
+            data = await api.Mantenimientos_GetAllProfesor_X_MateriaAsync();
+           
+            StateHasChanged();
+        }
+    }
+
+    RenderFragment SetModalTitle(PopupTitleContext<Profesor_X_MateriaDto> context)
+    {
+        var title = context.EditState == DataGridEditState.New ? "Nuevas" : "Editar";
+        return (__builder) =>
+        {
+            <Span>
+                @($"{title} Asignacion de Materias")
+            </Span>
+        };
+    }
+
+    async Task InsertNewItem(SavedRowItem<Profesor_X_MateriaDto, Dictionary<string, object>> item)
+    {
+        try
+        {
+
+
+            var errors = item.NewItem.ValidateObjectFields();
+            if (!string.IsNullOrEmpty(errors))
+            {
+                await Task.FromResult(MessageService.Info(errors, "Datos requeridos faltantes"));
+            }
+            else
+            {
+                await api.Mantenimientos_AddUpdateProfesor_X_MateriaAsync(item.NewItem);
+                data = await api.Mantenimientos_GetAllProfesor_X_MateriaAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    Task ValidateEditFields(CancellableRowChange<Profesor_X_MateriaDto, Dictionary<string, object>> item)
+    {
+
+        var errors = item.NewItem.ValidateObjectFields();
+        if (!string.IsNullOrEmpty(errors))
+        {
+            item.Cancel = true;
+            return MessageService.Info(errors, "Datos requeridos faltantes");
+        }
+        else
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    async Task DeleteItem(Profesor_X_MateriaDto item)
+    {
+        await api.Mantenimientos_DeleteProfesor_X_MateriaAsync(item);
+        data = await api.Mantenimientos_GetAllProfesor_X_MateriaAsync();
+       
+    }
+
+    async Task RemovingRow(CancellableRowChange<Profesor_X_MateriaDto> item)
+    {
+        var delete = await MessageService.Confirm($"Está seguro de eliminar el Parámetro {item.OldItem.Id_Prof_Materia}?", "Eliminar Parámetro", opt =>
+        {
+            // opt.MessageIcon = Icon
+        });
+        if (!delete)
+        {
+            item.Cancel = true;
+        }
+    }
+
+
+}

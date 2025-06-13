@@ -454,6 +454,131 @@
           }
         }
       }
+    },
+    "/api/Mantenimientos/GetAllProfesor_X_Materia": {
+      "get": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_GetAllProfesor_X_Materia",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "$ref": "#/components/schemas/Profesor_X_MateriaDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/GetOneProfesor_X_Materia": {
+      "get": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_GetOneProfesor_X_Materia",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Profesor_X_MateriaDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Profesor_X_MateriaDto"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/AddUpdateProfesor_X_Materia": {
+      "post": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_AddUpdateProfesor_X_Materia",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Profesor_X_MateriaDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profesor_X_MateriaDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/DeleteProfesor_X_Materia": {
+      "post": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_DeleteProfesor_X_Materia",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Profesor_X_MateriaDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profesor_X_MateriaDto"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -558,6 +683,27 @@
             "type": "string"
           },
           "carga_Horaria": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "estado": {
+            "type": "string"
+          }
+        }
+      },
+      "Profesor_X_MateriaDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id_Prof_Materia": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "id_Materia": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "id_Profesor": {
             "type": "integer",
             "format": "int32"
           },
