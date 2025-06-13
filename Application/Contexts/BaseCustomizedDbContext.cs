@@ -19,6 +19,7 @@ namespace Application.Contexts
         public DbSet<Profesor> Profesor { get; set; }
 
         public DbSet<Profesor_X_Materia> Profesor_X_Materia { get; set; }
+        public DbSet<Restriccion_Profesor> Restriccion_Profesor { get; set; }
 
 
 
@@ -54,6 +55,10 @@ namespace Application.Contexts
             //Table Profesor_X_Materia
             modelBuilder.Entity<Profesor_X_Materia>().ToTable(nameof(Profesor_X_Materia));
             modelBuilder.Entity<Profesor_X_Materia>().HasKey(x => new { x.Id_Prof_Materia });
+
+            //Table Restriccion_Profesor
+            modelBuilder.Entity<Restriccion_Profesor>().ToTable(nameof(Restriccion_Profesor));
+            modelBuilder.Entity<Restriccion_Profesor>().HasKey(x => new { x.Id_Restriccion });
 
             base.OnModelCreating(modelBuilder);
 

@@ -1,0 +1,268 @@
+﻿<Modal @ref="modal">
+    <ModalContent Centered Size="ModalSize.ExtraLarge">
+        <ModalHeader>
+            <ModalTitle>Restricciones Horarias: @Nombre_Profesor</ModalTitle>
+            <CloseButton></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+            <LoadingIndicator @bind-Visible="isLoading">
+                <ChildContent>
+                    <Row>
+                        <ButtonsExportComponent T="Restriccion_ProfesorDto" Data="data" Titulo="Restricciones Horarias" />
+                    </Row>
+
+                    <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="Restriccion_ProfesorDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+                              Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
+                              UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
+                        <DataGridColumns>
+                            <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Id_Restriccion)" Caption="Id Restriccion" />
+                            <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Id_Profesor)" Caption="Profesor">
+                                <DisplayTemplate>
+                                    @Nombre_Profesor
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Razon)" Editable Caption="Razon" />
+                            <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Dia)" Editable Caption="Dia">
+                                <DisplayTemplate>
+                                    <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
+                                        <SelectItem Value="@("L")">Lunes</SelectItem>
+                                        <SelectItem Value="@("K")">Martes</SelectItem>
+                                        <SelectItem Value="@("M")">Miércoles</SelectItem>
+                                        <SelectItem Value="@("J")">Jueves</SelectItem>
+                                        <SelectItem Value="@("V")">Viernes</SelectItem>
+                                    </Select>
+                                </DisplayTemplate>
+                                <EditTemplate>
+                                    <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                                        <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                        <SelectItem Value="@("L")">Lunes</SelectItem>
+                                        <SelectItem Value="@("K")">Martes</SelectItem>
+                                        <SelectItem Value="@("M")">Miércoles</SelectItem>
+                                        <SelectItem Value="@("J")">Jueves</SelectItem>
+                                        <SelectItem Value="@("V")">Viernes</SelectItem>
+                                    </Select>
+                                </EditTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Hora_Inicio)" Editable Caption="Hora Inicio">
+                                <DisplayTemplate>
+                                    <Select SelectedValue="@context.Hora_Inicio" Disabled TValue="string" Style="min-width: 200px;">
+                                        <SelectItem Value="@("7:00")">7:00 am</SelectItem>
+                                        <SelectItem Value="@("7:40")">7:40 am</SelectItem>
+                                        <SelectItem Value="@("8:20")">8:20 am</SelectItem>
+                                        <SelectItem Value="@("9:00")">9:00 am</SelectItem>
+                                        <SelectItem Value="@("9:20")">9:20 am</SelectItem>
+                                        <SelectItem Value="@("10:00")">10:00 am</SelectItem>
+                                        <SelectItem Value="@("10:40")">10:40 am</SelectItem>
+                                        <SelectItem Value="@("11:20")">11:20 am</SelectItem>
+                                        <SelectItem Value="@("12:00")">12:00 pm</SelectItem>
+                                        <SelectItem Value="@("12:40")">12:40 pm</SelectItem>
+                                        <SelectItem Value="@("13:20")">1:20 pm</SelectItem>
+                                        <SelectItem Value="@("14:00")">2:00 pm</SelectItem>
+                                        <SelectItem Value="@("14:20")">2:20 pm</SelectItem>
+                                        <SelectItem Value="@("15:00")">3:00 pm</SelectItem>
+                                        <SelectItem Value="@("15:40")">3:40 pm</SelectItem>
+                                        <SelectItem Value="@("16:20")">4:20 pm</SelectItem>
+                                    </Select>
+                                </DisplayTemplate>
+                                <EditTemplate>
+                                    <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                                        <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                        <SelectItem Value="@("7:00")">7:00 am</SelectItem>
+                                        <SelectItem Value="@("7:40")">7:40 am</SelectItem>
+                                        <SelectItem Value="@("8:20")">8:20 am</SelectItem>
+                                        <SelectItem Value="@("9:00")">9:00 am</SelectItem>
+                                        <SelectItem Value="@("9:20")">9:20 am</SelectItem>
+                                        <SelectItem Value="@("10:00")">10:00 am</SelectItem>
+                                        <SelectItem Value="@("10:40")">10:40 am</SelectItem>
+                                        <SelectItem Value="@("11:20")">11:20 am</SelectItem>
+                                        <SelectItem Value="@("12:00")">12:00 pm</SelectItem>
+                                        <SelectItem Value="@("12:40")">12:40 pm</SelectItem>
+                                        <SelectItem Value="@("13:20")">1:20 pm</SelectItem>
+                                        <SelectItem Value="@("14:00")">2:00 pm</SelectItem>
+                                        <SelectItem Value="@("14:20")">2:20 pm</SelectItem>
+                                        <SelectItem Value="@("15:00")">3:00 pm</SelectItem>
+                                        <SelectItem Value="@("15:40")">3:40 pm</SelectItem>
+                                        <SelectItem Value="@("16:20")">4:20 pm</SelectItem>
+                                    </Select>
+                                </EditTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Hora_Fin)" Editable Caption="Hora Fin">
+                                <DisplayTemplate>
+                                    <Select SelectedValue="@context.Hora_Fin" Disabled TValue="string" Style="min-width: 200px;">
+                                        <SelectItem Value="@("7:00")">7:00 am</SelectItem>
+                                        <SelectItem Value="@("7:40")">7:40 am</SelectItem>
+                                        <SelectItem Value="@("8:20")">8:20 am</SelectItem>
+                                        <SelectItem Value="@("9:00")">9:00 am</SelectItem>
+                                        <SelectItem Value="@("9:20")">9:20 am</SelectItem>
+                                        <SelectItem Value="@("10:00")">10:00 am</SelectItem>
+                                        <SelectItem Value="@("10:40")">10:40 am</SelectItem>
+                                        <SelectItem Value="@("11:20")">11:20 am</SelectItem>
+                                        <SelectItem Value="@("12:00")">12:00 pm</SelectItem>
+                                        <SelectItem Value="@("12:40")">12:40 pm</SelectItem>
+                                        <SelectItem Value="@("13:20")">1:20 pm</SelectItem>
+                                        <SelectItem Value="@("14:00")">2:00 pm</SelectItem>
+                                        <SelectItem Value="@("14:20")">2:20 pm</SelectItem>
+                                        <SelectItem Value="@("15:00")">3:00 pm</SelectItem>
+                                        <SelectItem Value="@("15:40")">3:40 pm</SelectItem>
+                                        <SelectItem Value="@("16:20")">4:20 pm</SelectItem>
+                                    </Select>
+                                </DisplayTemplate>
+                                <EditTemplate>
+                                    <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                                        <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                        <SelectItem Value="@("7:00")">7:00 am</SelectItem>
+                                        <SelectItem Value="@("7:40")">7:40 am</SelectItem>
+                                        <SelectItem Value="@("8:20")">8:20 am</SelectItem>
+                                        <SelectItem Value="@("9:00")">9:00 am</SelectItem>
+                                        <SelectItem Value="@("9:20")">9:20 am</SelectItem>
+                                        <SelectItem Value="@("10:00")">10:00 am</SelectItem>
+                                        <SelectItem Value="@("10:40")">10:40 am</SelectItem>
+                                        <SelectItem Value="@("11:20")">11:20 am</SelectItem>
+                                        <SelectItem Value="@("12:00")">12:00 pm</SelectItem>
+                                        <SelectItem Value="@("12:40")">12:40 pm</SelectItem>
+                                        <SelectItem Value="@("13:20")">1:20 pm</SelectItem>
+                                        <SelectItem Value="@("14:00")">2:00 pm</SelectItem>
+                                        <SelectItem Value="@("14:20")">2:20 pm</SelectItem>
+                                        <SelectItem Value="@("15:00")">3:00 pm</SelectItem>
+                                        <SelectItem Value="@("15:40")">3:40 pm</SelectItem>
+                                        <SelectItem Value="@("16:20")">4:20 pm</SelectItem>
+                                    </Select>
+                                </EditTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Estado)" Editable Caption="Estado">
+                                <DisplayTemplate>
+                                    <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
+                                        <SelectItem Value="@("A")">Activo</SelectItem>
+                                        <SelectItem Value="@("I")">Inactivo</SelectItem>
+                                    </Select>
+                                </DisplayTemplate>
+                                <EditTemplate>
+                                    <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                                        <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                        <SelectItem Value="@("A")">Activo</SelectItem>
+                                        <SelectItem Value="@("I")">Inactivo</SelectItem>
+                                    </Select>
+                                </EditTemplate>
+                            </DataGridColumn>
+                        </DataGridColumns>
+                        <ButtonRowTemplate>
+                            <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
+                            <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
+                            <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+                        </ButtonRowTemplate>
+                        <NextPageButtonTemplate><Icon Name="IconName.AngleRight" /></NextPageButtonTemplate>
+                        <PreviousPageButtonTemplate><Icon Name="IconName.AngleLeft" /></PreviousPageButtonTemplate>
+                        <LastPageButtonTemplate><Icon Name="IconName.AngleRight" /><Icon Name="IconName.AngleRight" /></LastPageButtonTemplate>
+                        <FirstPageButtonTemplate><Icon Name="IconName.AngleLeft" /><Icon Name="IconName.AngleLeft" /></FirstPageButtonTemplate>
+                    </DataGrid>
+                </ChildContent>
+            </LoadingIndicator>
+        </ModalBody>
+        <ModalFooter>
+            <Button Class="btn-outline-danger" Clicked="@Hide">Cerrar</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    Modal? modal;
+
+
+    public bool isLoading { get; set; } = false;
+
+    public int Id_Profesor { get; set; }
+    public string Nombre_Profesor { get; set; } = "";
+
+    IEnumerable<Restriccion_ProfesorDto>? data { get; set; } = new List<Restriccion_ProfesorDto>();
+    private Restriccion_ProfesorDto? selecteddata;
+
+
+    public Task Hide()
+    {
+        modal?.Close(CloseReason.UserClosing);
+        return Task.CompletedTask;
+    }
+
+    public async Task Open(int pId, string pNombre)
+    {
+        Id_Profesor = pId;
+        Nombre_Profesor = pNombre;
+        data = await api.Mantenimientos_GetAllRestriccion_ProfesorAsync();
+        if (!String.IsNullOrEmpty(Id_Profesor.ToString()))
+            data = data.Where(x => x.Id_Profesor == Id_Profesor).ToList();
+        StateHasChanged();
+        modal?.Show();
+    }
+
+    RenderFragment SetModalTitle(PopupTitleContext<Restriccion_ProfesorDto> context)
+    {
+        var title = context.EditState == DataGridEditState.New ? "Nuevas" : "Editar";
+        return (__builder) =>
+        {
+            <Span>
+                @($"{title} Restricciones")
+            </Span>
+        };
+    }
+
+    async Task InsertNewItem(SavedRowItem<Restriccion_ProfesorDto, Dictionary<string, object>> item)
+    {
+        try
+        {
+            item.NewItem.Id_Profesor = Id_Profesor;
+            var errors = item.NewItem.ValidateObjectFields();
+            if (!string.IsNullOrEmpty(errors))
+            {
+                await Task.FromResult(MessageService.Info(errors, "Datos requeridos faltantes"));
+            }
+            else
+            {
+                await api.Mantenimientos_AddUpdateRestriccion_ProfesorAsync(item.NewItem);
+                data = await api.Mantenimientos_GetAllRestriccion_ProfesorAsync();
+                if (!String.IsNullOrEmpty(Id_Profesor.ToString()))
+                    data = data.Where(x => x.Id_Profesor == Id_Profesor).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    Task ValidateEditFields(CancellableRowChange<Restriccion_ProfesorDto, Dictionary<string, object>> item)
+    {
+
+        var errors = item.NewItem.ValidateObjectFields();
+        if (!string.IsNullOrEmpty(errors))
+        {
+            item.Cancel = true;
+            return MessageService.Info(errors, "Datos requeridos faltantes");
+        }
+        else
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    async Task DeleteItem(Restriccion_ProfesorDto item)
+    {
+        await api.Mantenimientos_DeleteRestriccion_ProfesorAsync(item);
+        data = await api.Mantenimientos_GetAllRestriccion_ProfesorAsync();
+        if (!String.IsNullOrEmpty(Id_Profesor.ToString()))
+            data = data.Where(x => x.Id_Profesor == Id_Profesor).ToList();
+    }
+
+    async Task RemovingRow(CancellableRowChange<Restriccion_ProfesorDto> item)
+    {
+        var delete = await MessageService.Confirm($"Está seguro de eliminar el Parámetro {item.OldItem.Id_Restriccion}?", "Eliminar Parámetro", opt =>
+        {
+            // opt.MessageIcon = Icon
+        });
+        if (!delete)
+        {
+            item.Cancel = true;
+        }
+    }
+
+
+}

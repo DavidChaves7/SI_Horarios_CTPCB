@@ -14,6 +14,7 @@ namespace Infrastructure.Common.Mappings
             CreateMap<Materia, MateriaDto>().ReverseMap();
             CreateMap<Profesor, ProfesorDto>().ReverseMap();
             CreateMap<Profesor_X_Materia, Profesor_X_MateriaDto>().ReverseMap();
+            CreateMap<Restriccion_Profesor, Restriccion_ProfesorDto>().ReverseMap();
         }
     }
 }

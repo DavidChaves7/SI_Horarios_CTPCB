@@ -88,11 +88,11 @@ CREATE TABLE Horario (
 -- Tabla: Restriccion_Profesor
 CREATE TABLE Restriccion_Profesor (
     Id_Restriccion INT IDENTITY(1,1) PRIMARY KEY,
-    Id_Profesor VARCHAR(20),
+    Id_Profesor INT,
 	Razon VARCHAR(100),
     Dia VARCHAR(1),
-    Hora_Inicio TIME,
-    Hora_Fin TIME,
+    Hora_Inicio VARCHAR(10),
+    Hora_Fin VARCHAR(10),
 	Estado VARCHAR(1)
 );
 

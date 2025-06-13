@@ -31,7 +31,6 @@ namespace Infrastructure.Interfaces
         Task<MateriaDto> GetOneMaterias(MateriaDto data);
         #endregion
 
-
         #region Profesor
         Task<ProfesorDto?> AddUpdateProfesor(ProfesorDto data);
         Task<ProfesorDto> DeleteProfesor(ProfesorDto data);
@@ -44,6 +43,13 @@ namespace Infrastructure.Interfaces
         Task<Profesor_X_MateriaDto> DeleteProfesor_X_Materia(Profesor_X_MateriaDto data);
         Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_Materia();
         Task<Profesor_X_MateriaDto> GetOneProfesor_X_Materias(Profesor_X_MateriaDto data);
+        #endregion
+
+        #region Restriccion_Profesor
+        Task<Restriccion_ProfesorDto?> AddUpdateRestriccion_Profesor(Restriccion_ProfesorDto data);
+        Task<Restriccion_ProfesorDto> DeleteRestriccion_Profesor(Restriccion_ProfesorDto data);
+        Task<IEnumerable<Restriccion_ProfesorDto>> GetAllRestriccion_Profesor();
+        Task<Restriccion_ProfesorDto> GetOneRestriccion_Profesor(Restriccion_ProfesorDto data);
         #endregion
 
         #endregion

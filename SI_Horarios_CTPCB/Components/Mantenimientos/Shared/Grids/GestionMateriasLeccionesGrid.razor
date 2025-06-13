@@ -57,18 +57,16 @@
                         </EditTemplate>
                     </DataGridColumn>
 
-
-                    @* <DataGridColumn Field="@nameof(MateriaDto.Test)" Editable Caption="Carga Horaria" /> 
-                    <DataGridColumn Field="@nameof(MateriaDto.Test)" Editable Caption="Prioridad" /> 
-                    <DataGridColumn Field="@nameof(MateriaDto.Test)" Editable Caption="Asociado A" />*@
                 </DataGridColumns>
                 <ButtonRowTemplate>
-
                     <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
                     <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
                     <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
-
                 </ButtonRowTemplate>
+                <NextPageButtonTemplate><Icon Name="IconName.AngleRight" /></NextPageButtonTemplate>
+                <PreviousPageButtonTemplate><Icon Name="IconName.AngleLeft" /></PreviousPageButtonTemplate>
+                <LastPageButtonTemplate><Icon Name="IconName.AngleRight" /><Icon Name="IconName.AngleRight" /></LastPageButtonTemplate>
+                <FirstPageButtonTemplate><Icon Name="IconName.AngleLeft" /><Icon Name="IconName.AngleLeft" /></FirstPageButtonTemplate>
             </DataGrid>
 
 

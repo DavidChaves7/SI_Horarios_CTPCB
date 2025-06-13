@@ -379,6 +379,93 @@ namespace API.Infrastructure.Services
         }
         #endregion
 
+        #region Restriccion_Profesor
+
+        public async Task<Restriccion_ProfesorDto?> AddUpdateRestriccion_Profesor(Restriccion_ProfesorDto data)
+        {
+            try
+            {
+                if (data is null)
+                {
+                    throw new Exception("Debe de establecer los campos para el objeto ");
+                }
+                var param = _mapper.Map<Restriccion_Profesor>(data);
+
+                var dbObject = _unitOfWork.Set<Restriccion_Profesor>().FirstOrDefault(x => x.Id_Restriccion == param.Id_Restriccion);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Restriccion_Profesor>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Restriccion_Profesor>().Update(dbObject);
+                }
+                else
+                {
+                    await _unitOfWork.Set<Restriccion_Profesor>().AddAsync(param);
+                }
+                await _unitOfWork.SaveChangesAsync();
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return new Restriccion_ProfesorDto();
+            }
+
+        }
+
+        public async Task<Restriccion_ProfesorDto> DeleteRestriccion_Profesor(Restriccion_ProfesorDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Restriccion_Profesor>(data);
+
+            var dbObject = _unitOfWork.Set<Restriccion_Profesor>().AsNoTracking().FirstOrDefault(x => x.Id_Restriccion == param.Id_Restriccion);
+            if (dbObject != null)
+            {
+                _unitOfWork.Set<Restriccion_Profesor>().Entry(dbObject).CurrentValues.SetValues(data);
+                dbObject.Estado = "I";
+                _unitOfWork.Set<Restriccion_Profesor>().Update(dbObject);
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro a eliminar");
+            }
+            await _unitOfWork.SaveChangesAsync();
+
+            return data;
+        }
+
+        public async Task<IEnumerable<Restriccion_ProfesorDto>> GetAllRestriccion_Profesor()
+        {
+            var parameters = await _unitOfWork.Set<Restriccion_Profesor>()
+                         .Select(s => _mapper.Map<Restriccion_ProfesorDto>(s)).ToListAsync();
+            return parameters;
+        }
+
+        public async Task<Restriccion_ProfesorDto> GetOneRestriccion_Profesor(Restriccion_ProfesorDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+
+            var param = _mapper.Map<Restriccion_Profesor>(data);
+            var dbObject = await _unitOfWork.Set<Restriccion_Profesor>().FirstOrDefaultAsync(x => x.Id_Restriccion == param.Id_Restriccion);
+            if (dbObject != null)
+            {
+                var res = _mapper.Map<Restriccion_ProfesorDto>(dbObject);
+                return res;
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro");
+            }
+
+        }
+
+        #endregion
+
         #endregion
     }
 }

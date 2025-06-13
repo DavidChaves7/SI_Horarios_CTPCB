@@ -55,7 +55,7 @@
                     </DataGridColumn>
                     <DataGridColumn Caption="Restricciones">
                         <DisplayTemplate>
-                            <Button Class="btn btn-create" Clicked="() => modalRestric.Open()">Restricciones</Button>
+                            <Button Class="btn btn-create" Clicked="() => modalRestric.Open(context.Id_Profesor, context.Nombre + ' ' + context.Apellido)">Restricciones</Button>
                         </DisplayTemplate>
                     </DataGridColumn>
                     <DataGridColumn Caption="Materias">
@@ -74,17 +74,16 @@
                 <LastPageButtonTemplate><Icon Name="IconName.AngleRight" /><Icon Name="IconName.AngleRight" /></LastPageButtonTemplate>
                 <FirstPageButtonTemplate><Icon Name="IconName.AngleLeft" /><Icon Name="IconName.AngleLeft" /></FirstPageButtonTemplate>
             </DataGrid>
-
         </ChildContent>
     </LoadingIndicator>
 </Div>
 <ModalSubirArchivoProfesores OnInsert="CallbackInsertarExcel" @ref="modalSubir"></ModalSubirArchivoProfesores>
 <ModalProfesor_X_Materia @ref="modalProfesor_X_Materia"></ModalProfesor_X_Materia>
-<ModalRestriccionHoraria @ref="modalRestric"></ModalRestriccionHoraria>
+<ModalRestriccionHorariaProfesores @ref="modalRestric"></ModalRestriccionHorariaProfesores>
 @code {
 
     ModalSubirArchivoProfesores? modalSubir;
-    ModalRestriccionHoraria? modalRestric;
+    ModalRestriccionHorariaProfesores? modalRestric;
     ModalProfesor_X_Materia? modalProfesor_X_Materia;
     private string accessCategory { get; set; } = "";
     

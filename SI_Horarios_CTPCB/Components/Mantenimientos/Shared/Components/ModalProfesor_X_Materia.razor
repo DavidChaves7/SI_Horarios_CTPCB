@@ -9,29 +9,12 @@
                 <ChildContent>
                     <Row>
                         <ButtonsExportComponent T="Profesor_X_MateriaDto" Data="data" Titulo="Profesor por Materia" />
-
                     </Row>
 
                     <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="Profesor_X_MateriaDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
                               Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                               UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                         <DataGridColumns>
-                            @* <DataGridColumn Field="@nameof(CatalogCCSSDto.CoD_RUBRO)" Editable Caption="Código Rubro">
-                        <EditTemplate>
-                            <TextEdit Text="@((string)context.CellValue)" TextChanged="@( v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.CoD_RUBRO))">
-                                <Feedback>
-                                    <ValidationError />
-                                    <ValidationNone />
-                                </Feedback>
-                            </TextEdit>
-                        </EditTemplate>
-                    </DataGridColumn>
-                    <DataGridColumn Field="@nameof(CatalogCCSSDto.DesC_RUBRO)" Editable Caption="Descripción"></DataGridColumn>
-                    <DataGridColumn Field="@nameof(CatalogCCSSDto.PorC_RUBRO)" Editable Caption="Porcentaje">
-                        <DisplayTemplate>
-                            <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
-                        </DisplayTemplate>
-                    </DataGridColumn> *@
                             <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Prof_Materia)" Caption="Id" />
                             <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Profesor)" Editable Caption="Profesor" />
                             <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Materia)" Editable Caption="Materia" />
@@ -52,12 +35,14 @@
                             </DataGridColumn>
                         </DataGridColumns>
                         <ButtonRowTemplate>
-
                             <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
                             <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
                             <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
-
                         </ButtonRowTemplate>
+                        <NextPageButtonTemplate><Icon Name="IconName.AngleRight" /></NextPageButtonTemplate>
+                        <PreviousPageButtonTemplate><Icon Name="IconName.AngleLeft" /></PreviousPageButtonTemplate>
+                        <LastPageButtonTemplate><Icon Name="IconName.AngleRight" /><Icon Name="IconName.AngleRight" /></LastPageButtonTemplate>
+                        <FirstPageButtonTemplate><Icon Name="IconName.AngleLeft" /><Icon Name="IconName.AngleLeft" /></FirstPageButtonTemplate>
                     </DataGrid>
                 </ChildContent>
             </LoadingIndicator>
