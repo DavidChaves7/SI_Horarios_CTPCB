@@ -35,6 +35,9 @@
 
     public bool isLoading { get; set; } = false;
 
+    [Parameter]
+    public EventCallback OnInsert { get; set; }
+
     private IBrowserFile? _selectedFile;
     public string fileName;
 
@@ -89,6 +92,7 @@
                                 var Apellidos = worksheet.Cells[i, 3].Text;
                                 var Correo = worksheet.Cells[i, 4].Text;
                                 var Telefono = worksheet.Cells[i, 5].Text;
+                                var CargaHoraria = Convert.ToInt32( worksheet.Cells[i, 6].Text);
 
                                 // ¿Aquí todo tiene valor válido?
                                 await api.Mantenimientos_AddUpdateProfesorAsync(new ProfesorDto()
@@ -99,6 +103,7 @@
                                     Apellido = Apellidos,
                                     Correo = Correo,
                                     Telefono = Telefono,
+                                    Carga_Horaria = CargaHoraria,
                                     Estado = "A"
                                 });
 
@@ -107,6 +112,8 @@
                     }
                 }
                 await Hide();
+                await OnInsert.InvokeAsync();
+
             }
         }
         catch (Exception ex)

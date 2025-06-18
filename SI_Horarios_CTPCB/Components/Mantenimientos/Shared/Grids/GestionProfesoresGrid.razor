@@ -37,6 +37,7 @@
                     <DataGridColumn Field="@nameof(ProfesorDto.Apellido)" Editable Caption="Apellidos" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Correo)" Editable Caption="Correo" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Telefono)" Editable Caption="Telefono" />
+                    <DataGridColumn Field="@nameof(ProfesorDto.Carga_Horaria)" Editable Caption="Carga Horaria" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Estado)" Editable Caption="Estado">
                         <DisplayTemplate>
                             <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
@@ -54,7 +55,12 @@
                     </DataGridColumn>
                     <DataGridColumn Caption="Restricciones">
                         <DisplayTemplate>
-                            <Button Class="btn btn-create" Clicked="() => modalRestric.Open()">Restricciones</Button>
+                            <Button Class="btn btn-create" Clicked="() => modalRestric.Open(context.Id_Profesor, context.Nombre + ' ' + context.Apellido)">Restricciones</Button>
+                        </DisplayTemplate>
+                    </DataGridColumn>
+                    <DataGridColumn Caption="Materias">
+                        <DisplayTemplate>
+                            <Button Class="btn btn-edit" Clicked="() => modalProfesor_X_Materia.Open()">Materias</Button>
                         </DisplayTemplate>
                     </DataGridColumn>
                 </DataGridColumns>
@@ -68,19 +74,19 @@
                 <LastPageButtonTemplate><Icon Name="IconName.AngleRight" /><Icon Name="IconName.AngleRight" /></LastPageButtonTemplate>
                 <FirstPageButtonTemplate><Icon Name="IconName.AngleLeft" /><Icon Name="IconName.AngleLeft" /></FirstPageButtonTemplate>
             </DataGrid>
-
         </ChildContent>
     </LoadingIndicator>
 </Div>
-<ModalSubirArchivoProfesores @ref="modalSubir"></ModalSubirArchivoProfesores>
-<ModalRestriccionHoraria @ref="modalRestric"></ModalRestriccionHoraria>
+<ModalSubirArchivoProfesores OnInsert="CallbackInsertarExcel" @ref="modalSubir"></ModalSubirArchivoProfesores>
+<ModalProfesor_X_Materia @ref="modalProfesor_X_Materia"></ModalProfesor_X_Materia>
+<ModalRestriccionHorariaProfesores @ref="modalRestric"></ModalRestriccionHorariaProfesores>
 @code {
 
     ModalSubirArchivoProfesores? modalSubir;
-    ModalRestriccionHoraria? modalRestric;
+    ModalRestriccionHorariaProfesores? modalRestric;
+    ModalProfesor_X_Materia? modalProfesor_X_Materia;
     private string accessCategory { get; set; } = "";
     
-
     IEnumerable<ProfesorDto>? data { get; set; } = new List<ProfesorDto>();
 
     private ProfesorDto? selectedData;
@@ -152,7 +158,7 @@
     {
         await api.Mantenimientos_DeleteProfesorAsync(item);
         data = await api.Mantenimientos_GetAllProfesorAsync();
-        
+
     }
 
     async Task RemovingRow(CancellableRowChange<ProfesorDto> item)
@@ -181,8 +187,9 @@
                 hoja.Cell(1, 3).Value = "Apellidos";
                 hoja.Cell(1, 4).Value = "Correo";
                 hoja.Cell(1, 5).Value = "Telefono";
+                hoja.Cell(1, 6).Value = "Carga Horaria";
 
-                for (int col = 1; col <= 5; col++)
+                for (int col = 1; col <= 6; col++)
                 {
                     var celda = hoja.Cell(1, col);
                     celda.Style.Font.Bold = true;
@@ -206,5 +213,11 @@
         catch (Exception ex)
         {
         }
+    }
+
+    async Task CallbackInsertarExcel()
+    {
+        data = await api.Mantenimientos_GetAllProfesorAsync();
+        StateHasChanged();
     }
 }

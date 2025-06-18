@@ -7,10 +7,10 @@
         <ModalBody>
             <LoadingIndicator @bind-Visible="isLoading">
                 <ChildContent>
-                    <Row>
-                        <Column ColumnSize="ColumnSize.Is3">
+                    <Row Class="justify-content-center">
+                        <Column ColumnSize="ColumnSize.Is12" Class="justify-content-center">
 
-                            <label for="file-upload" class="file-upload-button">1. Seleccionar Archivo</label>
+                            <label for="file-upload" class="file-upload-button">Seleccionar Archivo de las Materias</label>
                             <InputFile id="file-upload" OnChange="@SeleccionarExcel" Class="input-file-hidden" />
 
                             @if (!string.IsNullOrEmpty(fileName))
@@ -19,20 +19,17 @@
                                 <Button Clicked="@LimpiarArchivo" Class="clear-button">✕</Button>
                             }
                         </Column>
-                        <Column ColumnSize="ColumnSize.Is3">
-                            <Button Clicked="@Cargar" disabled="@isLoading" Class="file-upload-button">2. Proceso de Carga de Archivo</Button>
-                        </Column>
-                       
-
                     </Row>
                 </ChildContent>
             </LoadingIndicator>
         </ModalBody>
         <ModalFooter>
             <Button Class="btn-outline-danger" Clicked="@Hide">Cerrar</Button>
+            <Button Clicked="@Cargar" disabled="@isLoading" Class="file-upload-button">Subir Archivo</Button>
         </ModalFooter>
     </ModalContent>
 </Modal>
+
 
 @code {
     Modal? modal;
@@ -41,6 +38,9 @@
 
     private IBrowserFile? _selectedFile;
     public string fileName;
+
+    [Parameter]
+    public EventCallback OnInsert { get; set; }
 
     private void LimpiarArchivo()
     {
@@ -87,19 +87,18 @@
                             var worksheet = worksheets[0];
                             for (int i = 2; i <= worksheet.Dimension.End.Row; i++)
                             {
-                                var idMateria = Convert.ToInt32(worksheet.Cells[i, 1].Text);
-                                var nombre = worksheet.Cells[i, 2].Text;
-                                var tipo = worksheet.Cells[i, 3].Text;
-                                var color = worksheet.Cells[i, 4].Text;
-                                var estado = worksheet.Cells[i, 5].Text;
+                                var nombre = worksheet.Cells[i, 1].Text;
+                                var tipo = worksheet.Cells[i, 2].Text;
+                                var color = worksheet.Cells[i, 3].Text;
 
-                                await api.Mantenimientos_AddUpdateMateriasDesdeExcelAsync(new MateriaDto() {Id_Materia = idMateria, Nombre = nombre, Tipo = tipo, Color = color, Estado = estado});
+                                await api.Mantenimientos_AddUpdateMateriasDesdeExcelAsync(new MateriaDto() {Id_Materia = 0, Nombre = nombre, Tipo = tipo, Color = color, Estado = "A"});
 
                             }
                         }
                     }
                 }
                 await Hide();
+                await OnInsert.InvokeAsync();
             }
 
 

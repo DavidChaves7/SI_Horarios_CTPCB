@@ -1,4 +1,5 @@
-﻿using Infrastructure.DTOs;
+﻿using Domain.Entities;
+using Infrastructure.DTOs;
 using Infrastructure.DTOs.Mantenimientos;
 using System;
 using System.Collections.Generic;
@@ -25,8 +26,10 @@ namespace Infrastructure.Interfaces
 
         #region Materias
         Task<MateriaDto> AddUpdateMaterias(MateriaDto data);
+        Task<MateriaDto> DeleteMaterias(MateriaDto data);
+        Task<IEnumerable<MateriaDto>> GetAllMaterias();
+        Task<MateriaDto> GetOneMaterias(MateriaDto data);
         #endregion
-
 
         #region Profesor
         Task<ProfesorDto?> AddUpdateProfesor(ProfesorDto data);
@@ -41,11 +44,23 @@ namespace Infrastructure.Interfaces
         Task<NivelAcademicoDto> DeleteNivelAcademico(NivelAcademicoDto data);
         Task<IEnumerable<NivelAcademicoDto>> GetAllNivelAcademico();
         Task<NivelAcademicoDto> GetOneNivelAcademico(NivelAcademicoDto data);
-
-
         #endregion
 
+        #region Profersor_X_Materia
+        Task<Profesor_X_MateriaDto> AddUpdateProfesor_X_Materia(Profesor_X_MateriaDto data);
+        Task<Profesor_X_MateriaDto> DeleteProfesor_X_Materia(Profesor_X_MateriaDto data);
+        Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_Materia();
+        Task<Profesor_X_MateriaDto> GetOneProfesor_X_Materias(Profesor_X_MateriaDto data);
         #endregion
+
+        #region Restriccion_Profesor
+        Task<Restriccion_ProfesorDto?> AddUpdateRestriccion_Profesor(Restriccion_ProfesorDto data);
+        Task<Restriccion_ProfesorDto> DeleteRestriccion_Profesor(Restriccion_ProfesorDto data);
+        Task<IEnumerable<Restriccion_ProfesorDto>> GetAllRestriccion_Profesor();
+        Task<Restriccion_ProfesorDto> GetOneRestriccion_Profesor(Restriccion_ProfesorDto data);
+        #endregion
+
+       
 
 
 

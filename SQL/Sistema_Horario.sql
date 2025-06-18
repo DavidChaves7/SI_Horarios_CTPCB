@@ -1,5 +1,7 @@
 -- Crear la base de datos
-Drop Database Sistema_Horarios;
+USE master
+GO
+--Drop Database Sistema_Horarios;
 CREATE DATABASE Sistema_Horarios;
 GO
 USE Sistema_Horarios;
@@ -13,6 +15,7 @@ CREATE TABLE Profesor (
     Apellido VARCHAR(100),
     Correo VARCHAR(100),
     Telefono VARCHAR(20),
+	Carga_Horaria INT,
     Estado VARCHAR(1)
 );
 
@@ -36,8 +39,9 @@ CREATE TABLE Profesor_X_Materia (
 CREATE TABLE Materia (
     Id_Materia INT IDENTITY(1,1) PRIMARY KEY,
     Nombre VARCHAR(100),
+	Area VARCHAR (50),
     Tipo VARCHAR(50),
-	Color VARCHAr(10),
+	Color VARCHAR(10),
     Estado VARCHAR(1)
 );
 
@@ -46,6 +50,8 @@ CREATE TABLE Materia_X_Nivel (
     Id_Mat_X_Nivel INT IDENTITY(1,1) PRIMARY KEY,
     Id_Materia INT,
 	Id_Nivel_Academico INT,
+	Prioridad INT,
+    Carga_Horaria INT,
 	Estado VARCHAR(1)
 );
 
@@ -83,11 +89,11 @@ CREATE TABLE Horario (
 -- Tabla: Restriccion_Profesor
 CREATE TABLE Restriccion_Profesor (
     Id_Restriccion INT IDENTITY(1,1) PRIMARY KEY,
-    Id_Profesor VARCHAR(20),
+    Id_Profesor INT,
 	Razon VARCHAR(100),
     Dia VARCHAR(1),
-    Hora_Inicio TIME,
-    Hora_Fin TIME,
+    Hora_Inicio VARCHAR(10),
+    Hora_Fin VARCHAR(10),
 	Estado VARCHAR(1)
 );
 

@@ -30,11 +30,25 @@ namespace API.Controllers.CPC
         #endregion
 
         #region Materias
+
         [HttpPost("AddUpdateMateriasDesdeExcel")]
+
         public async Task<MateriaDto?> AddUpdateMateriasDesdeExcel(MateriaDto param) => await _mantenimientosRepository.AddUpdateMaterias(param);
+        [HttpGet("GetAllMaterias")]
+        public async Task<IEnumerable<MateriaDto>> GetAllMateriasAsync() => await _mantenimientosRepository.GetAllMaterias();
+        [HttpGet("GetOneMaterias")]
+        public async Task<MateriaDto> GetOneMateriasAsync(MateriaDto param) => await _mantenimientosRepository.GetOneMaterias(param);
+
+        [HttpPost("AddUpdateMaterias")]
+        public async Task<MateriaDto?> AddUpdateMateriasAsync(MateriaDto param) => await _mantenimientosRepository.AddUpdateMaterias(param);
+
+        [HttpPost("DeleteMaterias")]
+        public async Task<MateriaDto?> DeleteMateriasAsync(MateriaDto param) => await _mantenimientosRepository.DeleteMaterias(param);
+
+
         #endregion
 
-        #region Profesor 2
+        #region Profesor
         [HttpGet("GetAllProfesor")]
         public async Task<IEnumerable<ProfesorDto>> GetAllProfesorAsync() => await _mantenimientosRepository.GetAllProfesor();
         [HttpGet("GetOneProfesor")]
@@ -59,8 +73,36 @@ namespace API.Controllers.CPC
         [HttpPost("DeleteNivelAcademico")]
         public async Task<NivelAcademicoDto?> DeleteNivelAcademicoAsync(NivelAcademicoDto param) => await _mantenimientosRepository.DeleteNivelAcademico(param);
         #endregion
+        #region Profesor_X_Materia
+
+        
+        [HttpGet("GetAllProfesor_X_Materia")]
+        public async Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_MateriaAsync() => await _mantenimientosRepository.GetAllProfesor_X_Materia();
+        [HttpGet("GetOneProfesor_X_Materia")]
+        public async Task<Profesor_X_MateriaDto> GetOneProfesor_X_MateriaAsync(Profesor_X_MateriaDto param) => await _mantenimientosRepository.GetOneProfesor_X_Materias(param);
+
+        [HttpPost("AddUpdateProfesor_X_Materia")]
+        public async Task<Profesor_X_MateriaDto?> AddUpdateProfesor_X_MateriaAsync(Profesor_X_MateriaDto param) => await _mantenimientosRepository.AddUpdateProfesor_X_Materia(param);
+
+        [HttpPost("DeleteProfesor_X_Materia")]
+        public async Task<Profesor_X_MateriaDto?> DeleteProfesor_X_MateriaAsync(Profesor_X_MateriaDto param) => await _mantenimientosRepository.DeleteProfesor_X_Materia(param);
 
         #endregion
+
+        #region Restriccion_Profesor 
+        [HttpGet("GetAllRestriccion_Profesor")]
+        public async Task<IEnumerable<Restriccion_ProfesorDto>> GetAllRestriccion_ProfesorAsync() => await _mantenimientosRepository.GetAllRestriccion_Profesor();
+        [HttpGet("GetOneRestriccion_Profesor")]
+        public async Task<Restriccion_ProfesorDto> GetOneRestriccion_ProfesorAsync(Restriccion_ProfesorDto param) => await _mantenimientosRepository.GetOneRestriccion_Profesor(param);
+
+        [HttpPost("AddUpdateRestriccion_Profesor")]
+        public async Task<Restriccion_ProfesorDto?> AddUpdateRestriccion_ProfesorAsync(Restriccion_ProfesorDto param) => await _mantenimientosRepository.AddUpdateRestriccion_Profesor(param);
+
+        [HttpPost("DeleteRestriccion_Profesor")]
+        public async Task<Restriccion_ProfesorDto?> DeleteRestriccion_ProfesorAsync(Restriccion_ProfesorDto param) => await _mantenimientosRepository.DeleteRestriccion_Profesor(param);
+        #endregion
+
+        
     }
 }
 
