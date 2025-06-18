@@ -402,6 +402,7 @@ namespace API.Infrastructure.Services
                     await _unitOfWork.Set<Nivel_Academico>().AddAsync(param);
                 }
                 await _unitOfWork.SaveChangesAsync();
+                return data;
             }
             catch (Exception ex)
             {
@@ -550,6 +551,5 @@ namespace API.Infrastructure.Services
 
         #endregion
 
-        #endregion
     }
 }

@@ -102,7 +102,7 @@ namespace API.Controllers.CPC
         public async Task<Restriccion_ProfesorDto?> DeleteRestriccion_ProfesorAsync(Restriccion_ProfesorDto param) => await _mantenimientosRepository.DeleteRestriccion_Profesor(param);
         #endregion
 
-        
+        #endregion
     }
 }
 

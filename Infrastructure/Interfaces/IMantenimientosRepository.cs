@@ -60,9 +60,9 @@ namespace Infrastructure.Interfaces
         Task<Restriccion_ProfesorDto> GetOneRestriccion_Profesor(Restriccion_ProfesorDto data);
         #endregion
 
-       
 
 
 
+        #endregion
     }
 }
