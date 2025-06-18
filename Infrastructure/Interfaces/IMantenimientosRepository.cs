@@ -17,10 +17,10 @@ namespace Infrastructure.Interfaces
         #endregion
 
         #region Ejemplo 2
-        Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidad(QueryPuntajeCapacidadDto data);
-        Task<QueryPuntajeCapacidadDto> DeletePuntajeCapacidad(QueryPuntajeCapacidadDto data);
-        Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidad();
-        Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidad(QueryPuntajeCapacidadDto data);
+        //Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidad(QueryPuntajeCapacidadDto data);
+        //Task<QueryPuntajeCapacidadDto> DeletePuntajeCapacidad(QueryPuntajeCapacidadDto data);
+        //Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidad();
+        //Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidad(QueryPuntajeCapacidadDto data);
         #endregion
 
         #region Materias
@@ -33,6 +33,16 @@ namespace Infrastructure.Interfaces
         Task<ProfesorDto> DeleteProfesor(ProfesorDto data);
         Task<IEnumerable<ProfesorDto>> GetAllProfesor();
         Task<ProfesorDto> GetOneProfesor(ProfesorDto data);
+        #endregion
+
+        #region Nivel Academico
+
+        Task<NivelAcademicoDto?> AddUpdateNivelAcademico(NivelAcademicoDto data);
+        Task<NivelAcademicoDto> DeleteNivelAcademico(NivelAcademicoDto data);
+        Task<IEnumerable<NivelAcademicoDto>> GetAllNivelAcademico();
+        Task<NivelAcademicoDto> GetOneNivelAcademico(NivelAcademicoDto data);
+
+
         #endregion
 
         #endregion

@@ -49,6 +49,10 @@ namespace Application.Contexts
             modelBuilder.Entity<Profesor>().ToTable(nameof(Profesor));
             modelBuilder.Entity<Profesor>().HasKey(x => new { x.Id_Profesor });
 
+            //Table Nivel academico
+            modelBuilder.Entity<Nivel_Academico>().ToTable(nameof(Nivel_Academico));
+            modelBuilder.Entity<Nivel_Academico>().HasKey(x => new { x.Id_Nivel_Academico });
+
             base.OnModelCreating(modelBuilder);
 
         }

@@ -48,131 +48,6 @@
         }
       }
     },
-    "/api/Mantenimientos/GetAllPuntajeCapacidad": {
-      "get": {
-        "tags": [
-          "Mantenimientos"
-        ],
-        "operationId": "Mantenimientos_GetAllPuntajeCapacidad",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "nullable": true,
-                  "items": {
-                    "$ref": "#/components/schemas/QueryPuntajeCapacidadDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Mantenimientos/GetOnePuntajeCapacidad": {
-      "get": {
-        "tags": [
-          "Mantenimientos"
-        ],
-        "operationId": "Mantenimientos_GetOnePuntajeCapacidad",
-        "requestBody": {
-          "x-name": "param",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/QueryPuntajeCapacidadDto"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "nullable": true,
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/QueryPuntajeCapacidadDto"
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Mantenimientos/AddUpdatePuntajeCapacidad": {
-      "post": {
-        "tags": [
-          "Mantenimientos"
-        ],
-        "operationId": "Mantenimientos_AddUpdatePuntajeCapacidad",
-        "requestBody": {
-          "x-name": "param",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/QueryPuntajeCapacidadDto"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryPuntajeCapacidadDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Mantenimientos/DeletePuntajeCapacidad": {
-      "post": {
-        "tags": [
-          "Mantenimientos"
-        ],
-        "operationId": "Mantenimientos_DeletePuntajeCapacidad",
-        "requestBody": {
-          "x-name": "param",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/QueryPuntajeCapacidadDto"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QueryPuntajeCapacidadDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/Mantenimientos/AddUpdateMateriasDesdeExcel": {
       "post": {
         "tags": [
@@ -329,6 +204,131 @@
           }
         }
       }
+    },
+    "/api/Mantenimientos/GetAllNivelAcademico": {
+      "get": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_GetAllNivelAcademico",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "$ref": "#/components/schemas/NivelAcademicoDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/GetOneNivelAcademico": {
+      "get": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_GetOneNivelAcademico",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NivelAcademicoDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/NivelAcademicoDto"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/AddUpdateNivelAcademico": {
+      "post": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_AddUpdateNivelAcademico",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NivelAcademicoDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NivelAcademicoDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/DeleteNivelAcademico": {
+      "post": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_DeleteNivelAcademico",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NivelAcademicoDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NivelAcademicoDto"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -352,37 +352,6 @@
           }
         }
       },
-      "QueryPuntajeCapacidadDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "puntaje": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "nuM_DIAS_MAX_INICIAL": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "nuM_DIAS_MAX_FINAL": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "nuM_DIAS_MEDIO_INICIAL": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "nuM_DIAS_MEDIO_FINAL": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          }
-        }
-      },
       "MateriaDto": {
         "type": "object",
         "additionalProperties": false,
@@ -392,16 +361,20 @@
             "format": "int32"
           },
           "nombre": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "tipo": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "color": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "estado": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -430,6 +403,28 @@
           },
           "estado": {
             "type": "string"
+          }
+        }
+      },
+      "NivelAcademicoDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id_Nivel_Academico": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "carga_Horaria": {
+            "type": "string",
+            "nullable": true
+          },
+          "estado": {
+            "type": "string",
+            "nullable": true
           }
         }
       }

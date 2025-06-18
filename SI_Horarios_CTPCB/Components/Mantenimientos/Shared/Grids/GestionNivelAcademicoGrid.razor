@@ -1,0 +1,140 @@
+﻿@inject SIHAPI api
+<Div Class="main-content">
+
+    <LoadingIndicator Visible="@(data is null)">
+        <ChildContent>   
+            <Row>
+                <ButtonsExportComponent T="NivelAcademicoDto" Data="data" Titulo="Materias y Lecciones" />
+
+            </Row>
+
+            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="NivelAcademicoDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+                      Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
+                      UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
+                <DataGridColumns>
+                   @*  <DataGridColumn Field="@nameof(NivelAcademicoDto.Id_Nivel_Academico)" Editable Caption="ID">
+                        <EditTemplate>
+                            <TextEdit Text="@((string)context.CellValue)" TextChanged="@(v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.Id_Nivel_Academico.ToString()))">
+                                <Feedback>
+                                    <ValidationError />
+                                    <ValidationNone />
+                                </Feedback>
+                            </TextEdit>
+                        </EditTemplate>
+                    </DataGridColumn> *@
+                    @*  <DataGridColumn Field="@nameof(NivelAcademicoDto.DesC_RUBRO)" Editable Caption="Descripción"></DataGridColumn>
+                    <DataGridColumn Field="@nameof(CatalogCCSSDto.PorC_RUBRO)" Editable Caption="Porcentaje">
+                        <DisplayTemplate>
+                            <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
+                        </DisplayTemplate>
+                    </DataGridColumn> *@
+                    <DataGridColumn Field="@nameof(NivelAcademicoDto.Id_Nivel_Academico)" Editable Caption="ID" />
+                    <DataGridColumn Field="@nameof(NivelAcademicoDto.Nombre)" Editable Caption="Nombre" />
+                    <DataGridColumn Field="@nameof(NivelAcademicoDto.Carga_Horaria)" Editable Caption="Carga Horaria" />
+                    <DataGridColumn Field="@nameof(NivelAcademicoDto.Estado)" Editable Caption="Estado" />
+                </DataGridColumns>
+                <ButtonRowTemplate>
+
+                    <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
+                    <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
+                    <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+
+                </ButtonRowTemplate>
+            </DataGrid>
+        </ChildContent>
+    </LoadingIndicator>
+</Div>
+
+
+@code {
+
+
+    private string accessCategory { get; set; } = "";
+    
+
+    IEnumerable<NivelAcademicoDto>? data { get; set; } = new List<NivelAcademicoDto>();
+
+    private NivelAcademicoDto? selecteddata;
+
+    private Snackbar? snackbarPrimary;
+    
+
+    ModalSubirArchivoMaterias? modalSubir;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            data = await api.Mantenimientos_GetAllNivelAcademicoAsync();
+            StateHasChanged();
+        }
+    }
+
+    RenderFragment SetModalTitle(PopupTitleContext<NivelAcademicoDto> context)
+    {
+        var title = context.EditState == DataGridEditState.New ? "Nuevo" : "Editar";
+        return (__builder) =>
+        {
+            <Span>
+                @($"{title} Nivel Academico")
+            </Span>
+        };
+    }
+
+    async Task InsertNewItem(SavedRowItem<NivelAcademicoDto, Dictionary<string, object>> item)
+    {
+        try
+        {
+
+
+            var errors = item.NewItem.ValidateObjectFields();
+            if (!string.IsNullOrEmpty(errors))
+            {
+                await Task.FromResult(MessageService.Info(errors, "Datos requeridos faltantes"));
+            }
+            else
+            {
+                await api.Mantenimientos_AddUpdateNivelAcademicoAsync(item.NewItem);
+                data = await api.Mantenimientos_GetAllNivelAcademicoAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    Task ValidateEditFields(CancellableRowChange<NivelAcademicoDto, Dictionary<string, object>> item)
+    {
+
+        var errors = item.NewItem.ValidateObjectFields();
+        if (!string.IsNullOrEmpty(errors))
+        {
+            item.Cancel = true;
+            return MessageService.Info(errors, "Datos requeridos faltantes");
+        }
+        else
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    async Task DeleteItem(NivelAcademicoDto item)
+    {
+        await api.Mantenimientos_DeleteNivelAcademicoAsync(item);
+        data = await api.Mantenimientos_GetAllNivelAcademicoAsync();
+    }
+
+    async Task RemovingRow(CancellableRowChange<NivelAcademicoDto> item)
+    {
+        var delete = await MessageService.Confirm($"Está seguro de eliminar el Parámetro {item.OldItem.Id_Nivel_Academico}?", "Eliminar Parámetro", opt =>
+        {
+            // opt.MessageIcon = Icon
+        });
+        if (!delete)
+        {
+            item.Cancel = true;
+        }
+    }
+}

@@ -45,84 +45,84 @@ namespace API.Infrastructure.Services
 
         #region Ejemplo 2
 
-        public async Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidad(QueryPuntajeCapacidadDto data)
-        {
-            try
-            {
-                if (data is null)
-                {
-                    throw new Exception("Debe de establecer los campos para el objeto ");
-                }
-                var param = _mapper.Map<CPC_PUNTAJE_CAPACIDAD>(data);
+        //public async Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidad(QueryPuntajeCapacidadDto data)
+        //{
+        //    try
+        //    {
+        //        if (data is null)
+        //        {
+        //            throw new Exception("Debe de establecer los campos para el objeto ");
+        //        }
+        //        var param = _mapper.Map<CPC_PUNTAJE_CAPACIDAD>(data);
 
-                var dbObject = _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().FirstOrDefault(x => x.PUNTAJE == param.PUNTAJE);
-                if (dbObject != null)
-                {
-                    _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().Entry(dbObject).CurrentValues.SetValues(data);
-                    _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().Update(dbObject);
-                }
-                else
-                {
-                    await _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().AddAsync(param);
-                }
-                await _unitOfWork.SaveChangesAsync();
+        //        var dbObject = _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().FirstOrDefault(x => x.PUNTAJE == param.PUNTAJE);
+        //        if (dbObject != null)
+        //        {
+        //            _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().Entry(dbObject).CurrentValues.SetValues(data);
+        //            _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().Update(dbObject);
+        //        }
+        //        else
+        //        {
+        //            await _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().AddAsync(param);
+        //        }
+        //        await _unitOfWork.SaveChangesAsync();
 
-                return data;
-            }
-            catch (Exception ex)
-            {
-                return new QueryPuntajeCapacidadDto();
-            }
+        //        return data;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new QueryPuntajeCapacidadDto();
+        //    }
 
-        }
-        public async Task<QueryPuntajeCapacidadDto> DeletePuntajeCapacidad(QueryPuntajeCapacidadDto data)
-        {
-            if (data is null)
-            {
-                throw new Exception("Debe de establecer los campos para el objeto ");
-            }
-            var param = _mapper.Map<CPC_PUNTAJE_CAPACIDAD>(data);
+        //}
+        //public async Task<QueryPuntajeCapacidadDto> DeletePuntajeCapacidad(QueryPuntajeCapacidadDto data)
+        //{
+        //    if (data is null)
+        //    {
+        //        throw new Exception("Debe de establecer los campos para el objeto ");
+        //    }
+        //    var param = _mapper.Map<CPC_PUNTAJE_CAPACIDAD>(data);
 
-            var dbObject = _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().FirstOrDefault(x => x.PUNTAJE == param.PUNTAJE);
-            if (dbObject != null)
-            {
-                _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().Entry(dbObject).CurrentValues.SetValues(data);
-                _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().Remove(dbObject);
-            }
-            else
-            {
-                throw new Exception("No se encontro el Parámetro a eliminar");
-            }
-            await _unitOfWork.SaveChangesAsync();
+        //    var dbObject = _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().FirstOrDefault(x => x.PUNTAJE == param.PUNTAJE);
+        //    if (dbObject != null)
+        //    {
+        //        _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().Entry(dbObject).CurrentValues.SetValues(data);
+        //        _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().Remove(dbObject);
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("No se encontro el Parámetro a eliminar");
+        //    }
+        //    await _unitOfWork.SaveChangesAsync();
 
-            return data;
-        }
-        public async Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidad()
-        {
-            var parameters = await _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>()
-                         .Select(s => _mapper.Map<QueryPuntajeCapacidadDto>(s)).ToListAsync();
-            return parameters;
-        }
-        public async Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidad(QueryPuntajeCapacidadDto data)
-        {
-            if (data is null)
-            {
-                throw new Exception("Debe de establecer los campos para el objeto ");
-            }
+        //    return data;
+        //}
+        //public async Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidad()
+        //{
+        //    var parameters = await _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>()
+        //                 .Select(s => _mapper.Map<QueryPuntajeCapacidadDto>(s)).ToListAsync();
+        //    return parameters;
+        //}
+        //public async Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidad(QueryPuntajeCapacidadDto data)
+        //{
+        //    if (data is null)
+        //    {
+        //        throw new Exception("Debe de establecer los campos para el objeto ");
+        //    }
 
-            var param = _mapper.Map<CPC_PUNTAJE_CAPACIDAD>(data);
-            var dbObject = await _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().FirstOrDefaultAsync(x => x.PUNTAJE == param.PUNTAJE);
-            if (dbObject != null)
-            {
-                var res = _mapper.Map<QueryPuntajeCapacidadDto>(dbObject);
-                return res;
-            }
-            else
-            {
-                throw new Exception("No se encontro el Parámetro");
-            }
+        //    var param = _mapper.Map<CPC_PUNTAJE_CAPACIDAD>(data);
+        //    var dbObject = await _unitOfWork.Set<CPC_PUNTAJE_CAPACIDAD>().FirstOrDefaultAsync(x => x.PUNTAJE == param.PUNTAJE);
+        //    if (dbObject != null)
+        //    {
+        //        var res = _mapper.Map<QueryPuntajeCapacidadDto>(dbObject);
+        //        return res;
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("No se encontro el Parámetro");
+        //    }
 
-        }
+        //}
 
         #endregion
 
@@ -246,6 +246,85 @@ namespace API.Infrastructure.Services
 
         #endregion
 
+        #region Nivel Academico
+
+        public async Task<NivelAcademicoDto?> AddUpdateNivelAcademico(NivelAcademicoDto data)
+        {
+            try
+            {
+                if (data is null)
+                {
+                    throw new Exception("Debe de establecer los campos para el objeto ");
+                }
+                var param = _mapper.Map<Nivel_Academico>(data);
+                var dbObject = _unitOfWork.Set<Nivel_Academico>().FirstOrDefault(x => x.Id_Nivel_Academico == param.Id_Nivel_Academico);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Nivel_Academico>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Nivel_Academico>().Update(dbObject);
+                }
+                else
+                {
+                    await _unitOfWork.Set<Nivel_Academico>().AddAsync(param);
+                }
+                await _unitOfWork.SaveChangesAsync();
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return new NivelAcademicoDto();
+            }
+        }
+        public async Task<NivelAcademicoDto> DeleteNivelAcademico(NivelAcademicoDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Nivel_Academico>(data);
+            var dbObject = _unitOfWork.Set<Nivel_Academico>().FirstOrDefault(x => x.Id_Nivel_Academico == param.Id_Nivel_Academico);
+            if (dbObject != null)
+            {
+                _unitOfWork.Set<Nivel_Academico>().Entry(dbObject).CurrentValues.SetValues(data);
+                _unitOfWork.Set<Nivel_Academico>().Remove(dbObject);
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro a eliminar");
+            }
+            await _unitOfWork.SaveChangesAsync();
+            return data;
+        }
+
+        public async Task<IEnumerable<NivelAcademicoDto>> GetAllNivelAcademico()
+        {
+            var parameters = await _unitOfWork.Set<Nivel_Academico>()
+                         .Select(s => _mapper.Map<NivelAcademicoDto>(s)).ToListAsync();
+            return parameters;
+        }
+
+        public async Task<NivelAcademicoDto> GetOneNivelAcademico(NivelAcademicoDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Nivel_Academico>(data);
+            var dbObject = await _unitOfWork.Set<Nivel_Academico>().FirstOrDefaultAsync(x => x.Id_Nivel_Academico == param.Id_Nivel_Academico);
+            if (dbObject != null)
+            {
+                var res = _mapper.Map<NivelAcademicoDto>(dbObject);
+                return res;
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro");
+            }
+        }
+
+
+
+        #endregion
         #endregion
     }
 }

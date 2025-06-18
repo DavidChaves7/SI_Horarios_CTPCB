@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace Infrastructure.DTOs.Mantenimientos
+namespace Domain.Entities
 {
-    public class MateriaDto
+    public class Nivel_Academico
     {
-        public int Id_Materia { get; set; }
+        [Key]
+        public int Id_Nivel_Academico { get; set; }
         public string? Nombre { get; set; }
-        public string? Tipo { get; set; }
-        public string? Color { get; set; }
+        public string? Carga_Horaria { get; set; }
         public string? Estado { get; set; }
     }
 }

@@ -10,9 +10,9 @@ namespace Infrastructure.Common.Mappings
         public MappingProfile()
         {
             
-            CreateMap<CPC_PUNTAJE_CAPACIDAD, QueryPuntajeCapacidadDto>().ReverseMap();
             CreateMap<Materia, MateriaDto>().ReverseMap();
             CreateMap<Profesor, ProfesorDto>().ReverseMap();
+            CreateMap<Nivel_Academico, NivelAcademicoDto>().ReverseMap();
         }
     }
 }

@@ -17,16 +17,16 @@ namespace API.Controllers.CPC
         #endregion
 
         #region Ejemplo 2
-        [HttpGet("GetAllPuntajeCapacidad")]
-        public async Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidadAsync() => await _mantenimientosRepository.GetAllPuntajeCapacidad();
-        [HttpGet("GetOnePuntajeCapacidad")]
-        public async Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.GetOnePuntajeCapacidad(param);
+        //[HttpGet("GetAllPuntajeCapacidad")]
+        //public async Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidadAsync() => await _mantenimientosRepository.GetAllPuntajeCapacidad();
+        //[HttpGet("GetOnePuntajeCapacidad")]
+        //public async Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.GetOnePuntajeCapacidad(param);
 
-        [HttpPost("AddUpdatePuntajeCapacidad")]
-        public async Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.AddUpdatePuntajeCapacidad(param);
+        //[HttpPost("AddUpdatePuntajeCapacidad")]
+        //public async Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.AddUpdatePuntajeCapacidad(param);
 
-        [HttpPost("DeletePuntajeCapacidad")]
-        public async Task<QueryPuntajeCapacidadDto?> DeletePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.DeletePuntajeCapacidad(param);
+        //[HttpPost("DeletePuntajeCapacidad")]
+        //public async Task<QueryPuntajeCapacidadDto?> DeletePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.DeletePuntajeCapacidad(param);
         #endregion
 
         #region Materias
@@ -45,6 +45,19 @@ namespace API.Controllers.CPC
 
         [HttpPost("DeleteProfesor")]
         public async Task<ProfesorDto?> DeleteProfesorAsync(ProfesorDto param) => await _mantenimientosRepository.DeleteProfesor(param);
+        #endregion
+
+        #region Nivel Academico
+        [HttpGet("GetAllNivelAcademico")]
+        public async Task<IEnumerable<NivelAcademicoDto>> GetAllNivelAcademicoAsync() => await _mantenimientosRepository.GetAllNivelAcademico();
+        [HttpGet("GetOneNivelAcademico")]
+        public async Task<NivelAcademicoDto> GetOneNivelAcademicoAsync(NivelAcademicoDto param) => await _mantenimientosRepository.GetOneNivelAcademico(param);
+
+        [HttpPost("AddUpdateNivelAcademico")]
+        public async Task<NivelAcademicoDto?> AddUpdateNivelAcademicoAsync(NivelAcademicoDto param) => await _mantenimientosRepository.AddUpdateNivelAcademico(param);
+
+        [HttpPost("DeleteNivelAcademico")]
+        public async Task<NivelAcademicoDto?> DeleteNivelAcademicoAsync(NivelAcademicoDto param) => await _mantenimientosRepository.DeleteNivelAcademico(param);
         #endregion
 
         #endregion

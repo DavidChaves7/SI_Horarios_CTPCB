@@ -41,16 +41,16 @@ CREATE TABLE Materia (
     Estado VARCHAR(1)
 );
 
--- Tabla: Nivel_Academico
+-- Tabla: Materia_X_Nivel
 CREATE TABLE Materia_X_Nivel (
     Id_Mat_X_Nivel INT IDENTITY(1,1) PRIMARY KEY,
     Id_Materia INT,
 	Id_Nivel_Academico INT,
-    Carga_Horaria INT,
 	Estado VARCHAR(1)
 );
 
 
+-- Tabla: Nivel_Academico
 CREATE TABLE Nivel_Academico (
     Id_Nivel_Academico INT IDENTITY(1,1) PRIMARY KEY,
     Nombre VARCHAR(100),
