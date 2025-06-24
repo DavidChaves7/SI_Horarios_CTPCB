@@ -355,8 +355,21 @@ namespace API.Infrastructure.Services
 
         public async Task<IEnumerable<MateriaXNivelDto>> GetAllMateriaXNivel()
         {
-            var parameters = await _unitOfWork.Set<Materia_X_Nivel>()
-                         .Select(s => _mapper.Map<MateriaXNivelDto>(s)).ToListAsync();
+            var parameters = await _unitOfWork.Set<Materia_X_Nivel>().Select(s => _mapper.Map<MateriaXNivelDto>(s)).ToListAsync();
+
+            var materias = await _unitOfWork.Set<Materia>().Select(s => _mapper.Map<MateriaDto>(s)).ToListAsync();
+            var nivelesAcademicos = await _unitOfWork.Set<Nivel_Academico>().Select(s => _mapper.Map<NivelAcademicoDto>(s)).ToListAsync();
+
+            foreach (var item in parameters)
+            {
+                var materia = materias.FirstOrDefault(m => m.Id_Materia == item.Id_Materia);
+                if (materia != null)
+                    item.Desc_Materia = materia.Nombre;
+
+                var nivelAcademico = nivelesAcademicos.FirstOrDefault(n => n.Id_Nivel_Academico == item.Id_Nivel_Academico);
+                if (nivelAcademico != null)
+                    item.Desc_Nivel_Academico = nivelAcademico.Nombre;
+            }
             return parameters;
         }
 
@@ -371,6 +384,7 @@ namespace API.Infrastructure.Services
             if (dbObject != null)
             {
                 var res = _mapper.Map<MateriaXNivelDto>(dbObject);
+                
                 return res;
             }
             else

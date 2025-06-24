@@ -11,7 +11,9 @@ namespace Infrastructure.DTOs.Mantenimientos
     {
         public int Id_Mat_X_Nivel { get; set; }
         public int Id_Materia { get; set; }
+        public string? Desc_Materia { get; set; }
         public int Id_Nivel_Academico { get; set; }
+        public string? Desc_Nivel_Academico { get; set; }
         public int? Prioridad { get; set; }
         public int? Carga_Horaria { get; set; }
         public string? Estado { get; set; }

@@ -55,6 +55,10 @@ namespace Application.Contexts
             //Table Nivel academico
             modelBuilder.Entity<Nivel_Academico>().ToTable(nameof(Nivel_Academico));
             modelBuilder.Entity<Nivel_Academico>().HasKey(x => new { x.Id_Nivel_Academico });
+
+            //Table Nivel academico
+            modelBuilder.Entity<Materia_X_Nivel>().ToTable(nameof(Materia_X_Nivel));
+            modelBuilder.Entity<Materia_X_Nivel>().HasKey(x => new { x.Id_Mat_X_Nivel });
             //Table Profesor_X_Materia
             modelBuilder.Entity<Profesor_X_Materia>().ToTable(nameof(Profesor_X_Materia));
             modelBuilder.Entity<Profesor_X_Materia>().HasKey(x => new { x.Id_Prof_Materia });
