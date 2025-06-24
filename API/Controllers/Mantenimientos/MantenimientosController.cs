@@ -73,9 +73,24 @@ namespace API.Controllers.CPC
         [HttpPost("DeleteNivelAcademico")]
         public async Task<NivelAcademicoDto?> DeleteNivelAcademicoAsync(NivelAcademicoDto param) => await _mantenimientosRepository.DeleteNivelAcademico(param);
         #endregion
+
+        #region Materia X Nivel Academico
+
+        [HttpGet("GetAllMateriaXNivel")]
+        public async Task<IEnumerable<MateriaXNivelDto>> GetAllMateriaXNivelAsync() => await _mantenimientosRepository.GetAllMateriaXNivel();
+        [HttpGet("GetOneMateriaXNivel")]
+        public async Task<MateriaXNivelDto> GetOneMateriaXNivelAsync(MateriaXNivelDto param) => await _mantenimientosRepository.GetOneMateriaXNivel(param);
+        [HttpPost("AddUpdateMateriaXNivel")]
+        public async Task<MateriaXNivelDto?> AddUpdateMateriaXNivelAsync(MateriaXNivelDto param) => await _mantenimientosRepository.AddUpdateMateriaXNivel(param);
+        [HttpPost("DeleteMateriaXNivel")]
+        public async Task<MateriaXNivelDto?> DeleteMateriaXNivelAsync(MateriaXNivelDto param) => await _mantenimientosRepository.DeleteMateriaXNivel(param);
+
+
+        #endregion
+
         #region Profesor_X_Materia
 
-        
+
         [HttpGet("GetAllProfesor_X_Materia")]
         public async Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_MateriaAsync() => await _mantenimientosRepository.GetAllProfesor_X_Materia();
         [HttpGet("GetOneProfesor_X_Materia")]

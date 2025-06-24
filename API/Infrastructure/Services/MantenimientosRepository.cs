@@ -430,6 +430,7 @@ namespace API.Infrastructure.Services
                // var MateriasXLeccion = var parameters = await _unitOfWork.Set<MateriaX>()
                         // .Select(s => _mapper.Map<NivelAcademicoDto>(s)).ToListAsync();
 
+
                 _unitOfWork.Set<Nivel_Academico>().Entry(dbObject).CurrentValues.SetValues(data);
                 _unitOfWork.Set<Nivel_Academico>().Remove(dbObject);
 
@@ -471,6 +472,84 @@ namespace API.Infrastructure.Services
         }
 
         #endregion
+
+        #region MateriaXNivel
+
+        public async Task<MateriaXNivelDto> AddUpdateMateriaXNivel(MateriaXNivelDto data)
+        {
+            try
+            {
+                if (data is null)
+                {
+                    throw new Exception("Debe de establecer los campos para el objeto ");
+                }
+                var param = _mapper.Map<Materia_X_Nivel>(data);
+                var dbObject = _unitOfWork.Set<Materia_X_Nivel>().FirstOrDefault(x => x.Id_Mat_X_Nivel == param.Id_Mat_X_Nivel);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Materia_X_Nivel>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Materia_X_Nivel>().Update(dbObject);
+                }
+                else
+                {
+                    await _unitOfWork.Set<Materia_X_Nivel>().AddAsync(param);
+                }
+                await _unitOfWork.SaveChangesAsync();
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return new MateriaXNivelDto();
+            }
+        }
+        
+        public async Task<MateriaXNivelDto> DeleteMateriaXNivel(MateriaXNivelDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Materia_X_Nivel>(data);
+            var dbObject = _unitOfWork.Set<Materia_X_Nivel>().FirstOrDefault(x => x.Id_Mat_X_Nivel == param.Id_Mat_X_Nivel);
+            if (dbObject != null)
+            {
+                _unitOfWork.Set<Materia_X_Nivel>().Entry(dbObject).CurrentValues.SetValues(data);
+                _unitOfWork.Set<Materia_X_Nivel>().Remove(dbObject);
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro a eliminar");
+            }
+            await _unitOfWork.SaveChangesAsync();
+            return data;
+        }
+
+        public async Task<IEnumerable<MateriaXNivelDto>> GetAllMateriaXNivel()
+        {
+            var parameters = await _unitOfWork.Set<Materia_X_Nivel>()
+                         .Select(s => _mapper.Map<MateriaXNivelDto>(s)).ToListAsync();
+            return parameters;
+        }
+
+        public async Task<MateriaXNivelDto> GetOneMateriaXNivel(MateriaXNivelDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Materia_X_Nivel>(data);
+            var dbObject = await _unitOfWork.Set<Materia_X_Nivel>().FirstOrDefaultAsync(x => x.Id_Mat_X_Nivel == param.Id_Mat_X_Nivel);
+            if (dbObject != null)
+            {
+                var res = _mapper.Map<MateriaXNivelDto>(dbObject);
+                return res;
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro");
+            }
+        }
+
         #region Restriccion_Profesor
 
         public async Task<Restriccion_ProfesorDto?> AddUpdateRestriccion_Profesor(Restriccion_ProfesorDto data)
