@@ -1,5 +1,4 @@
-﻿
-@inject SIHAPI api
+﻿@inject SIHAPI api
 <Div Class="main-content">
 
     <LoadingIndicator Visible="@(data is null)">
@@ -25,7 +24,7 @@
                 <DataGridColumns>
                     <DataGridColumn Field="@nameof(MateriaDto.Id_Materia)" Caption="Id" />
                     <DataGridColumn Field="@nameof(MateriaDto.Nombre)" Editable Caption="Materia" />
-                    <DataGridColumn Field="@nameof(MateriaDto.Tipo)" Editable Caption="Tipo" >
+                    <DataGridColumn Field="@nameof(MateriaDto.Tipo)" Editable Caption="Tipo">
                         <DisplayTemplate>
                             <Select SelectedValue="@context.Tipo" Disabled TValue="string" Style="min-width: 200px;">
                                 <SelectItem Value="@("A")">Academico</SelectItem>
@@ -40,16 +39,29 @@
                             </Select>
                         </EditTemplate>
                     </DataGridColumn>
-                    <DataGridColumn Field="@nameof(MateriaDto.Color)" Editable Caption="Color" />
-                    <DataGridColumn Field="@nameof(MateriaDto.Estado)" Editable Caption="Estado" >
-                    <DisplayTemplate>
+                    <DataGridColumn Field="@nameof(MateriaDto.Color)" Editable Caption="Color">
+                        <DisplayTemplate>
+                            <Div style="display: flex; align-items: center; gap: 10px;">
+                                <ColorEdit Color="@context.Color" Style="width: 60px;" Disabled />
+                                <Span>@context.Color</Span>
+                            </Div>
+                        </DisplayTemplate>
+                        <EditTemplate>
+                            <ColorPicker Color="@((string)context.CellValue)"
+                                         ColorChanged="@(v => context.CellValue = v)"
+                                         Style="min-width: 200px;" />
+
+                        </EditTemplate>
+                    </DataGridColumn>
+                    <DataGridColumn Field="@nameof(MateriaDto.Estado)" Editable Caption="Estado">
+                        <DisplayTemplate>
                             <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
                                 <SelectItem Value="@("A")">Activo</SelectItem>
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
                             </Select>
                         </DisplayTemplate>
                         <EditTemplate>
-                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@( v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
                                 <SelectItem Value="@("")">Seleccione una opción</SelectItem>
                                 <SelectItem Value="@("A")">Activo</SelectItem>
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
@@ -81,7 +93,7 @@
 
 
     private string accessCategory { get; set; } = "";
-    
+
 
     IEnumerable<MateriaDto>? data { get; set; } = new List<MateriaDto>();
     IEnumerable<MateriaDto>? dataTABLA { get; set; } = new List<MateriaDto>();
@@ -90,7 +102,7 @@
     private MateriaDto? selecteddataTABLA;
 
     private Snackbar? snackbarPrimary;
-    
+
 
     ModalSubirArchivoMaterias? modalSubir;
 
@@ -129,8 +141,8 @@
 
             // #endregion
             data = await api.Mantenimientos_GetAllMateriasAsync();
-            
-             StateHasChanged();
+
+            StateHasChanged();
         }
     }
 
