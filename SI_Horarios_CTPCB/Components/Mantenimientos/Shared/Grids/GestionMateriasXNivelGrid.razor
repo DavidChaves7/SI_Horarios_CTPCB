@@ -8,7 +8,7 @@
                     <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="DescargarPlantillaMaterias">Plantilla Excel Materias</Button>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is2">
-                    <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir!.Open">Importar Excel</Button>
+                    <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir.Open">Importar Excel</Button>
                 </Column>
             </Row> 
             <br />
@@ -44,16 +44,16 @@
                             <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
                                 <SelectItem Value="@("A")">Activo</SelectItem>
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
-                            </Select>
+                            </Select> 
                         </DisplayTemplate>
                         <EditTemplate>
                             <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
                                 <SelectItem Value="@("")">Seleccione una opción</SelectItem>
                                 <SelectItem Value="@("A")">Activo</SelectItem>
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
-                            </Select>
+                            </Select> 
                         </EditTemplate>
-                    </DataGridColumn>
+                    </DataGridColumn> 
 
                 </DataGridColumns>
                 <ButtonRowTemplate>
