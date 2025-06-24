@@ -31,19 +31,27 @@ namespace Infrastructure.Interfaces
         Task<MateriaDto> GetOneMaterias(MateriaDto data);
         #endregion
 
-        #region Profesor
-        Task<ProfesorDto?> AddUpdateProfesor(ProfesorDto data);
-        Task<ProfesorDto> DeleteProfesor(ProfesorDto data);
-        Task<IEnumerable<ProfesorDto>> GetAllProfesor();
-        Task<ProfesorDto> GetOneProfesor(ProfesorDto data);
-        #endregion
-
         #region Nivel Academico
 
         Task<NivelAcademicoDto?> AddUpdateNivelAcademico(NivelAcademicoDto data);
         Task<NivelAcademicoDto> DeleteNivelAcademico(NivelAcademicoDto data);
         Task<IEnumerable<NivelAcademicoDto>> GetAllNivelAcademico();
         Task<NivelAcademicoDto> GetOneNivelAcademico(NivelAcademicoDto data);
+        #endregion
+
+        #region MateriaXNivel
+
+        Task<MateriaXNivelDto?> AddUpdateMateriaXNivel(MateriaXNivelDto data);
+        Task<MateriaXNivelDto> DeleteMateriaXNivel(MateriaXNivelDto data);
+        Task<IEnumerable<MateriaXNivelDto>> GetAllMateriaXNivel();
+        Task<MateriaXNivelDto> GetOneMateriaXNivel(MateriaXNivelDto data);
+        #endregion
+
+        #region Profesor
+        Task<ProfesorDto?> AddUpdateProfesor(ProfesorDto data);
+        Task<ProfesorDto> DeleteProfesor(ProfesorDto data);
+        Task<IEnumerable<ProfesorDto>> GetAllProfesor();
+        Task<ProfesorDto> GetOneProfesor(ProfesorDto data);
         #endregion
 
         #region Profersor_X_Materia

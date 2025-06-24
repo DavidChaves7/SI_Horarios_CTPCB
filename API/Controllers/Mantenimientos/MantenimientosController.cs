@@ -48,19 +48,6 @@ namespace API.Controllers.CPC
 
         #endregion
 
-        #region Profesor
-        [HttpGet("GetAllProfesor")]
-        public async Task<IEnumerable<ProfesorDto>> GetAllProfesorAsync() => await _mantenimientosRepository.GetAllProfesor();
-        [HttpGet("GetOneProfesor")]
-        public async Task<ProfesorDto> GetOneProfesorAsync(ProfesorDto param) => await _mantenimientosRepository.GetOneProfesor(param);
-
-        [HttpPost("AddUpdateProfesor")]
-        public async Task<ProfesorDto?> AddUpdateProfesorAsync(ProfesorDto param) => await _mantenimientosRepository.AddUpdateProfesor(param);
-
-        [HttpPost("DeleteProfesor")]
-        public async Task<ProfesorDto?> DeleteProfesorAsync(ProfesorDto param) => await _mantenimientosRepository.DeleteProfesor(param);
-        #endregion
-
         #region Nivel Academico
         [HttpGet("GetAllNivelAcademico")]
         public async Task<IEnumerable<NivelAcademicoDto>> GetAllNivelAcademicoAsync() => await _mantenimientosRepository.GetAllNivelAcademico();
@@ -86,6 +73,19 @@ namespace API.Controllers.CPC
         public async Task<MateriaXNivelDto?> DeleteMateriaXNivelAsync(MateriaXNivelDto param) => await _mantenimientosRepository.DeleteMateriaXNivel(param);
 
 
+        #endregion
+
+        #region Profesor
+        [HttpGet("GetAllProfesor")]
+        public async Task<IEnumerable<ProfesorDto>> GetAllProfesorAsync() => await _mantenimientosRepository.GetAllProfesor();
+        [HttpGet("GetOneProfesor")]
+        public async Task<ProfesorDto> GetOneProfesorAsync(ProfesorDto param) => await _mantenimientosRepository.GetOneProfesor(param);
+
+        [HttpPost("AddUpdateProfesor")]
+        public async Task<ProfesorDto?> AddUpdateProfesorAsync(ProfesorDto param) => await _mantenimientosRepository.AddUpdateProfesor(param);
+
+        [HttpPost("DeleteProfesor")]
+        public async Task<ProfesorDto?> DeleteProfesorAsync(ProfesorDto param) => await _mantenimientosRepository.DeleteProfesor(param);
         #endregion
 
         #region Profesor_X_Materia

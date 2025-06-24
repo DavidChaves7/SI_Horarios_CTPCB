@@ -209,6 +209,178 @@ namespace API.Infrastructure.Services
         }
         #endregion
 
+        #region Nivel Academico
+
+        public async Task<NivelAcademicoDto?> AddUpdateNivelAcademico(NivelAcademicoDto data)
+        {
+            try
+            {
+                if (data is null)
+                {
+                    throw new Exception("Debe de establecer los campos para el objeto ");
+                }
+                var param = _mapper.Map<Nivel_Academico>(data);
+                var dbObject = _unitOfWork.Set<Nivel_Academico>().FirstOrDefault(x => x.Id_Nivel_Academico == param.Id_Nivel_Academico);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Nivel_Academico>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Nivel_Academico>().Update(dbObject);
+                }
+                else
+                {
+                    await _unitOfWork.Set<Nivel_Academico>().AddAsync(param);
+                }
+                await _unitOfWork.SaveChangesAsync();
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return new NivelAcademicoDto();
+            }
+
+        }
+
+        public async Task<NivelAcademicoDto> DeleteNivelAcademico(NivelAcademicoDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Nivel_Academico>(data);
+            var dbObject = _unitOfWork.Set<Nivel_Academico>().FirstOrDefault(x => x.Id_Nivel_Academico == param.Id_Nivel_Academico);
+            if (dbObject != null)
+            {
+                //todo:
+                /* hacer verificacion:
+                 * 
+                 * En caso de que no tenga materias ni docentes asignados, cuando se presione 'Eliminar' el sistema lo elimina y actualiza el listado.
+                 */
+
+                // var MateriasXLeccion = var parameters = await _unitOfWork.Set<MateriaX>()
+                // .Select(s => _mapper.Map<NivelAcademicoDto>(s)).ToListAsync();
+
+
+                _unitOfWork.Set<Nivel_Academico>().Entry(dbObject).CurrentValues.SetValues(data);
+                _unitOfWork.Set<Nivel_Academico>().Remove(dbObject);
+
+
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro a eliminar");
+            }
+            await _unitOfWork.SaveChangesAsync();
+            return data;
+
+        }
+
+        public async Task<IEnumerable<NivelAcademicoDto>> GetAllNivelAcademico()
+        {
+            var parameters = await _unitOfWork.Set<Nivel_Academico>()
+                         .Select(s => _mapper.Map<NivelAcademicoDto>(s)).ToListAsync();
+            return parameters;
+        }
+
+        public async Task<NivelAcademicoDto> GetOneNivelAcademico(NivelAcademicoDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Nivel_Academico>(data);
+            var dbObject = await _unitOfWork.Set<Nivel_Academico>().FirstOrDefaultAsync(x => x.Id_Nivel_Academico == param.Id_Nivel_Academico);
+            if (dbObject != null)
+            {
+                var res = _mapper.Map<NivelAcademicoDto>(dbObject);
+                return res;
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro");
+            }
+        }
+
+        #endregion
+
+        #region MateriaXNivel
+
+        public async Task<MateriaXNivelDto?> AddUpdateMateriaXNivel(MateriaXNivelDto data)
+        {
+            try
+            {
+                if (data is null)
+                {
+                    throw new Exception("Debe de establecer los campos para el objeto ");
+                }
+                var param = _mapper.Map<Materia_X_Nivel>(data);
+                var dbObject = _unitOfWork.Set<Materia_X_Nivel>().FirstOrDefault(x => x.Id_Mat_X_Nivel == param.Id_Mat_X_Nivel);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Materia_X_Nivel>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Materia_X_Nivel>().Update(dbObject);
+                }
+                else
+                {
+                    await _unitOfWork.Set<Materia_X_Nivel>().AddAsync(param);
+                }
+                await _unitOfWork.SaveChangesAsync();
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return new MateriaXNivelDto();
+            }
+        }
+
+        public async Task<MateriaXNivelDto> DeleteMateriaXNivel(MateriaXNivelDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Materia_X_Nivel>(data);
+            var dbObject = _unitOfWork.Set<Materia_X_Nivel>().FirstOrDefault(x => x.Id_Mat_X_Nivel == param.Id_Mat_X_Nivel);
+            if (dbObject != null)
+            {
+                _unitOfWork.Set<Materia_X_Nivel>().Entry(dbObject).CurrentValues.SetValues(data);
+                _unitOfWork.Set<Materia_X_Nivel>().Remove(dbObject);
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro a eliminar");
+            }
+            await _unitOfWork.SaveChangesAsync();
+            return data;
+        }
+
+        public async Task<IEnumerable<MateriaXNivelDto>> GetAllMateriaXNivel()
+        {
+            var parameters = await _unitOfWork.Set<Materia_X_Nivel>()
+                         .Select(s => _mapper.Map<MateriaXNivelDto>(s)).ToListAsync();
+            return parameters;
+        }
+
+        public async Task<MateriaXNivelDto> GetOneMateriaXNivel(MateriaXNivelDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Materia_X_Nivel>(data);
+            var dbObject = await _unitOfWork.Set<Materia_X_Nivel>().FirstOrDefaultAsync(x => x.Id_Mat_X_Nivel == param.Id_Mat_X_Nivel);
+            if (dbObject != null)
+            {
+                var res = _mapper.Map<MateriaXNivelDto>(dbObject);
+                return res;
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro");
+            }
+        }
+
+        #endregion
+
         #region Profesores
 
         public async Task<ProfesorDto?> AddUpdateProfesor(ProfesorDto data)
@@ -296,7 +468,6 @@ namespace API.Infrastructure.Services
 
         #endregion
 
-        
         #region Profesor_X_Materia
         public async Task<Profesor_X_MateriaDto> AddUpdateProfesor_X_Materia(Profesor_X_MateriaDto data)
         {
@@ -379,176 +550,6 @@ namespace API.Infrastructure.Services
 
         }
         #endregion
-
-        #region Nivel Academico
-
-        public async Task<NivelAcademicoDto?> AddUpdateNivelAcademico(NivelAcademicoDto data)
-        {
-            try
-            {
-                if (data is null)
-                {
-                    throw new Exception("Debe de establecer los campos para el objeto ");
-                }
-                var param = _mapper.Map<Nivel_Academico>(data);
-                var dbObject = _unitOfWork.Set<Nivel_Academico>().FirstOrDefault(x => x.Id_Nivel_Academico == param.Id_Nivel_Academico);
-                if (dbObject != null)
-                {
-                    _unitOfWork.Set<Nivel_Academico>().Entry(dbObject).CurrentValues.SetValues(data);
-                    _unitOfWork.Set<Nivel_Academico>().Update(dbObject);
-                }
-                else
-                {
-                    await _unitOfWork.Set<Nivel_Academico>().AddAsync(param);
-                }
-                await _unitOfWork.SaveChangesAsync();
-                return data;
-            }
-            catch (Exception ex)
-            {
-                return new NivelAcademicoDto();
-            }
-            
-        }
-
-         public async Task<NivelAcademicoDto> DeleteNivelAcademico(NivelAcademicoDto data)
-        {
-            if (data is null)
-            {
-                throw new Exception("Debe de establecer los campos para el objeto ");
-            }
-            var param = _mapper.Map<Nivel_Academico>(data);
-            var dbObject = _unitOfWork.Set<Nivel_Academico>().FirstOrDefault(x => x.Id_Nivel_Academico == param.Id_Nivel_Academico);
-            if (dbObject != null)
-            {
-                //todo:
-                /* hacer verificacion:
-                 * 
-                 * En caso de que no tenga materias ni docentes asignados, cuando se presione 'Eliminar' el sistema lo elimina y actualiza el listado.
-                 */
-
-               // var MateriasXLeccion = var parameters = await _unitOfWork.Set<MateriaX>()
-                        // .Select(s => _mapper.Map<NivelAcademicoDto>(s)).ToListAsync();
-
-
-                _unitOfWork.Set<Nivel_Academico>().Entry(dbObject).CurrentValues.SetValues(data);
-                _unitOfWork.Set<Nivel_Academico>().Remove(dbObject);
-
-
-            }
-            else
-            {
-                throw new Exception("No se encontro el Parámetro a eliminar");
-            }
-            await _unitOfWork.SaveChangesAsync();
-            return data;
-            
-        }        
-
-        public async Task<IEnumerable<NivelAcademicoDto>> GetAllNivelAcademico()
-        {
-            var parameters = await _unitOfWork.Set<Nivel_Academico>()
-                         .Select(s => _mapper.Map<NivelAcademicoDto>(s)).ToListAsync();
-            return parameters;
-        }
-
-        public async Task<NivelAcademicoDto> GetOneNivelAcademico(NivelAcademicoDto data)
-        {
-            if (data is null)
-            {
-                throw new Exception("Debe de establecer los campos para el objeto ");
-            }
-            var param = _mapper.Map<Nivel_Academico>(data);
-            var dbObject = await _unitOfWork.Set<Nivel_Academico>().FirstOrDefaultAsync(x => x.Id_Nivel_Academico == param.Id_Nivel_Academico);
-            if (dbObject != null)
-            {
-                var res = _mapper.Map<NivelAcademicoDto>(dbObject);
-                return res;
-            }
-            else
-            {
-                throw new Exception("No se encontro el Parámetro");
-            }
-        }
-
-        #endregion
-
-        #region MateriaXNivel
-
-        public async Task<MateriaXNivelDto> AddUpdateMateriaXNivel(MateriaXNivelDto data)
-        {
-            try
-            {
-                if (data is null)
-                {
-                    throw new Exception("Debe de establecer los campos para el objeto ");
-                }
-                var param = _mapper.Map<Materia_X_Nivel>(data);
-                var dbObject = _unitOfWork.Set<Materia_X_Nivel>().FirstOrDefault(x => x.Id_Mat_X_Nivel == param.Id_Mat_X_Nivel);
-                if (dbObject != null)
-                {
-                    _unitOfWork.Set<Materia_X_Nivel>().Entry(dbObject).CurrentValues.SetValues(data);
-                    _unitOfWork.Set<Materia_X_Nivel>().Update(dbObject);
-                }
-                else
-                {
-                    await _unitOfWork.Set<Materia_X_Nivel>().AddAsync(param);
-                }
-                await _unitOfWork.SaveChangesAsync();
-                return data;
-            }
-            catch (Exception ex)
-            {
-                return new MateriaXNivelDto();
-            }
-        }
-        
-        public async Task<MateriaXNivelDto> DeleteMateriaXNivel(MateriaXNivelDto data)
-        {
-            if (data is null)
-            {
-                throw new Exception("Debe de establecer los campos para el objeto ");
-            }
-            var param = _mapper.Map<Materia_X_Nivel>(data);
-            var dbObject = _unitOfWork.Set<Materia_X_Nivel>().FirstOrDefault(x => x.Id_Mat_X_Nivel == param.Id_Mat_X_Nivel);
-            if (dbObject != null)
-            {
-                _unitOfWork.Set<Materia_X_Nivel>().Entry(dbObject).CurrentValues.SetValues(data);
-                _unitOfWork.Set<Materia_X_Nivel>().Remove(dbObject);
-            }
-            else
-            {
-                throw new Exception("No se encontro el Parámetro a eliminar");
-            }
-            await _unitOfWork.SaveChangesAsync();
-            return data;
-        }
-
-        public async Task<IEnumerable<MateriaXNivelDto>> GetAllMateriaXNivel()
-        {
-            var parameters = await _unitOfWork.Set<Materia_X_Nivel>()
-                         .Select(s => _mapper.Map<MateriaXNivelDto>(s)).ToListAsync();
-            return parameters;
-        }
-
-        public async Task<MateriaXNivelDto> GetOneMateriaXNivel(MateriaXNivelDto data)
-        {
-            if (data is null)
-            {
-                throw new Exception("Debe de establecer los campos para el objeto ");
-            }
-            var param = _mapper.Map<Materia_X_Nivel>(data);
-            var dbObject = await _unitOfWork.Set<Materia_X_Nivel>().FirstOrDefaultAsync(x => x.Id_Mat_X_Nivel == param.Id_Mat_X_Nivel);
-            if (dbObject != null)
-            {
-                var res = _mapper.Map<MateriaXNivelDto>(dbObject);
-                return res;
-            }
-            else
-            {
-                throw new Exception("No se encontro el Parámetro");
-            }
-        }
 
         #region Restriccion_Profesor
 
