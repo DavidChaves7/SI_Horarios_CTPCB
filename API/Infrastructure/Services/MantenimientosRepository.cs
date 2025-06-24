@@ -421,8 +421,19 @@ namespace API.Infrastructure.Services
             var dbObject = _unitOfWork.Set<Nivel_Academico>().FirstOrDefault(x => x.Id_Nivel_Academico == param.Id_Nivel_Academico);
             if (dbObject != null)
             {
+                //todo:
+                /* hacer verificacion:
+                 * 
+                 * En caso de que no tenga materias ni docentes asignados, cuando se presione 'Eliminar' el sistema lo elimina y actualiza el listado.
+                 */
+
+               // var MateriasXLeccion = var parameters = await _unitOfWork.Set<MateriaX>()
+                        // .Select(s => _mapper.Map<NivelAcademicoDto>(s)).ToListAsync();
+
                 _unitOfWork.Set<Nivel_Academico>().Entry(dbObject).CurrentValues.SetValues(data);
                 _unitOfWork.Set<Nivel_Academico>().Remove(dbObject);
+
+
             }
             else
             {

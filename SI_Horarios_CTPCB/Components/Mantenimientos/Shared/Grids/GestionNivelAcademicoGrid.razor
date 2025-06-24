@@ -28,10 +28,24 @@
                             <TextEdit ReadOnly Text="@(Convert.ToDouble(context.PorC_RUBRO).ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("en-US")))"></TextEdit>
                         </DisplayTemplate>
                     </DataGridColumn> *@
-                    <DataGridColumn Field="@nameof(NivelAcademicoDto.Id_Nivel_Academico)" Editable Caption="ID" />
+                    <DataGridColumn Field="@nameof(NivelAcademicoDto.Id_Nivel_Academico)" Caption="ID" />
                     <DataGridColumn Field="@nameof(NivelAcademicoDto.Nombre)" Editable Caption="Nombre" />
-                    <DataGridColumn Field="@nameof(NivelAcademicoDto.Carga_Horaria)" Editable Caption="Carga Horaria" />
-                    <DataGridColumn Field="@nameof(NivelAcademicoDto.Estado)" Editable Caption="Estado" />
+                    <DataGridColumn Field="@nameof(NivelAcademicoDto.Estado)" Editable Caption="Estado" >
+                        <DisplayTemplate>
+                            <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
+                                <SelectItem Value="@("A")">Activo</SelectItem>
+                                <SelectItem Value="@("I")">Inactivo</SelectItem>
+                            </Select>
+                        </DisplayTemplate>
+                        <EditTemplate>
+                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                                <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                <SelectItem Value="@("A")">Activo</SelectItem>
+                                <SelectItem Value="@("I")">Inactivo</SelectItem>
+                            </Select>
+                        </EditTemplate>
+
+                    </DataGridColumn>
                 </DataGridColumns>
                 <ButtonRowTemplate>
 
@@ -122,8 +136,16 @@
 
     async Task DeleteItem(NivelAcademicoDto item)
     {
-        await api.Mantenimientos_DeleteNivelAcademicoAsync(item);
-        data = await api.Mantenimientos_GetAllNivelAcademicoAsync();
+        try
+        {
+            var res = await api.Mantenimientos_DeleteNivelAcademicoAsync(item);
+            data = await api.Mantenimientos_GetAllNivelAcademicoAsync();
+        }
+        catch(Exception ex)
+        {
+            
+        }
+       
     }
 
     async Task RemovingRow(CancellableRowChange<NivelAcademicoDto> item)

@@ -60,7 +60,6 @@ CREATE TABLE Materia_X_Nivel (
 CREATE TABLE Nivel_Academico (
     Id_Nivel_Academico INT IDENTITY(1,1) PRIMARY KEY,
     Nombre VARCHAR(100),
-    Carga_Horaria INT,
 	Estado VARCHAR(1)
 )
 
