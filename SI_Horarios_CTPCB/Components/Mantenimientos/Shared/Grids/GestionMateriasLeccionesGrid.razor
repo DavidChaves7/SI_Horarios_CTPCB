@@ -1,4 +1,7 @@
-﻿
+﻿@code {
+    string colorValue = "NULL";
+}
+
 @inject SIHAPI api
 <Div Class="main-content">
 
@@ -9,13 +12,13 @@
                     <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="DescargarPlantillaMaterias">Plantilla Excel Materias</Button>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is2">
-                    <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir!.Open">Importar Excel</Button>
+                    <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir.Open">Importar Excel</Button>
                 </Column>
             </Row>
             <br />
             <br />
             <Row>
-                <ButtonsExportComponent T="MateriaDto" Data="data" Titulo="Materias y Lecciones" />
+                <ButtonsExportComponent T="MateriaDto" Data="data" Titulo="Materias" />
 
             </Row>
 
@@ -40,22 +43,40 @@
                             </Select>
                         </EditTemplate>
                     </DataGridColumn>
-                    <DataGridColumn Field="@nameof(MateriaDto.Color)" Editable Caption="Color" />
-                    <DataGridColumn Field="@nameof(MateriaDto.Estado)" Editable Caption="Estado" >
+
+
+                    <DataGridColumn Field="@nameof(MateriaDto.Color)" Editable Caption="Color" >
                     <DisplayTemplate>
-                            <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <ColorEdit Color="@context.Color" Style="width: 60px;" Disabled />
+                                <span>@context.Color</span>
+                            </div>
+                    </DisplayTemplate>
+                    <EditTemplate>
+                            <ColorPicker Color="@((string)context.CellValue)"
+                                         ColorChanged="@(v => context.CellValue = v)"
+                                         TValue="string"
+                                         Style="min-width: 200px;" />
+                           
+                    </EditTemplate>
+                    </DataGridColumn> 
+
+                    <DataGridColumn Field="@nameof(MateriaDto.Estado)" Editable Caption="Estado" >
+
+                    <DisplayTemplate>
+                             <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
                                 <SelectItem Value="@("A")">Activo</SelectItem>
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
-                            </Select>
+                            </Select> 
                         </DisplayTemplate>
                         <EditTemplate>
-                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@( v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                             <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@( v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
                                 <SelectItem Value="@("")">Seleccione una opción</SelectItem>
                                 <SelectItem Value="@("A")">Activo</SelectItem>
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
-                            </Select>
+                            </Select> 
                         </EditTemplate>
-                    </DataGridColumn>
+                    </DataGridColumn> 
 
                 </DataGridColumns>
                 <ButtonRowTemplate>
