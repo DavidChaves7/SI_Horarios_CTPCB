@@ -2363,13 +2363,13 @@ namespace SI_Horarios_CTPCB.Infrastructure.ApiClient
         [Newtonsoft.Json.JsonProperty("id_Mat_X_Nivel", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Id_Mat_X_Nivel { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("id_Materia", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("id_Materia", Required = Newtonsoft.Json.Required.Always)]
         public int Id_Materia { get; set; }
 
         [Newtonsoft.Json.JsonProperty("desc_Materia", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Desc_Materia { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("id_Nivel_Academico", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("id_Nivel_Academico", Required = Newtonsoft.Json.Required.Always)]
         public int Id_Nivel_Academico { get; set; }
 
         [Newtonsoft.Json.JsonProperty("desc_Nivel_Academico", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -2379,7 +2379,6 @@ namespace SI_Horarios_CTPCB.Infrastructure.ApiClient
         public int? Prioridad { get; set; }
 
         [Newtonsoft.Json.JsonProperty("carga_Horaria", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [System.ComponentModel.DataAnnotations.Range(30, 150)]
         public int? Carga_Horaria { get; set; }
 
         [Newtonsoft.Json.JsonProperty("estado", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]

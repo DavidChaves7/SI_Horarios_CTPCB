@@ -23,10 +23,10 @@
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
                     @* <DataGridColumn Field="@nameof(MateriaXNivelDto.Id_Materia)" Caption="Id" /> *@
-                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Id_Materia)" Editable Displayable="false" Caption="ID Materia" >
+                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Id_Materia)" Editable Displayable="false" Caption="ID Materia">
                         <EditTemplate>
                             <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
-                                <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
                                 @foreach (var i in dataMateria ?? new List<MateriaDto>())
                                 {
                                     <SelectItem Value="@(i.Id_Materia)">@i.Nombre</SelectItem>
@@ -34,12 +34,12 @@
                             </Select>
                         </EditTemplate>
                     </DataGridColumn>
-                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Desc_Materia)"  Caption="Materia" />
+                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Desc_Materia)" Caption="Materia" />
 
-                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Id_Nivel_Academico)" Editable Displayable="false" Caption="ID Nivel Academico" >
+                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Id_Nivel_Academico)" Editable Displayable="false" Caption="ID Nivel Academico">
                         <EditTemplate>
                             <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
-                                <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
                                 @foreach (var i in dataNivelAcademico ?? new List<NivelAcademicoDto>())
                                 {
                                     <SelectItem Value="@(i.Id_Nivel_Academico)">@i.Nombre</SelectItem>
@@ -47,21 +47,21 @@
                             </Select>
                         </EditTemplate>
                     </DataGridColumn>
-                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Desc_Nivel_Academico)" Caption="Nivel Academico"/>
+                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Desc_Nivel_Academico)" Caption="Nivel Academico" />
 
 
-                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Prioridad)" Editable Caption="Prioridad"/>
+                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Prioridad)" Editable Caption="Prioridad">
+                        <EditTemplate>
+                            <NumericEdit Value="@((int?)context.CellValue)" ValueChanged="@(v => context.CellValue = v)" Min="1" Max="99" TValue="int?" />
+                        </EditTemplate>
+                    
+                    </DataGridColumn>
 
 
                     <DataGridColumn Field="@nameof(MateriaXNivelDto.Carga_Horaria)" Editable Caption="Carga Horaria">
-                         <EditTemplate>
-                            <FieldLabel >
-                                Por favor coloque la cantidad de lecciones
-                            </FieldLabel>
-                            <NumericEdit  @bind-Value="@context.Item.Carga_Horaria" Min="1" Max="8" />
-                            @* <TextEdit text="@context.Item.Carga_Horaria.ToString()" MaskType="MaskType.RegEx" EditMask="^(3[0-9]|[4-9][0-9]|1[0-4][0-9]|150)$" />*@
-
-                        </EditTemplate> 
+                        <EditTemplate>
+                            <NumericEdit Value="@((int?)context.CellValue)" ValueChanged="@(v => context.CellValue = v)" Min="1" Max="200" TValue="int?" />
+                        </EditTemplate>
                     </DataGridColumn>
 
 
@@ -70,16 +70,16 @@
                             <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
                                 <SelectItem Value="@("A")">Activo</SelectItem>
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
-                            </Select> 
+                            </Select>
                         </DisplayTemplate>
                         <EditTemplate>
                             <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
                                 <SelectItem Value="@("")">Seleccione una opción</SelectItem>
                                 <SelectItem Value="@("A")">Activo</SelectItem>
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
-                            </Select> 
+                            </Select>
                         </EditTemplate>
-                    </DataGridColumn> 
+                    </DataGridColumn>
 
                 </DataGridColumns>
                 <ButtonRowTemplate>
@@ -193,6 +193,11 @@
 
     Task ValidateEditFields(CancellableRowChange<MateriaXNivelDto, Dictionary<string, object>> item)
     {
+        if (item.NewItem.Id_Materia == 0 || item.NewItem.Id_Nivel_Academico == 0)
+        {
+            item.Cancel = true;
+            return MessageService.Info("Seleccione bien los ID's", "Datos requeridos faltantes");
+        }
 
         var errors = item.NewItem.ValidateObjectFields();
         if (!string.IsNullOrEmpty(errors))
