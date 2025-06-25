@@ -2379,6 +2379,7 @@ namespace SI_Horarios_CTPCB.Infrastructure.ApiClient
         public int? Prioridad { get; set; }
 
         [Newtonsoft.Json.JsonProperty("carga_Horaria", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [System.ComponentModel.DataAnnotations.Range(30, 150)]
         public int? Carga_Horaria { get; set; }
 
         [Newtonsoft.Json.JsonProperty("estado", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]

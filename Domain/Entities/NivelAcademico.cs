@@ -12,7 +12,7 @@ namespace Domain.Entities
         [Key]
         public int Id_Nivel_Academico { get; set; }
         public string? Nombre { get; set; }
-        public string? Carga_Horaria { get; set; }
+        //public string? Carga_Horaria { get; set; }
         public string? Estado { get; set; }
     }
 }

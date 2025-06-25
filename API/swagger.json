@@ -903,6 +903,10 @@
       "MateriaXNivelDto": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "id_Materia",
+          "id_Nivel_Academico"
+        ],
         "properties": {
           "id_Mat_X_Nivel": {
             "type": "integer",
