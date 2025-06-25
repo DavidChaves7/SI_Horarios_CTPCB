@@ -23,18 +23,20 @@
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
                     @* <DataGridColumn Field="@nameof(MateriaXNivelDto.Id_Materia)" Caption="Id" /> *@
+                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Id_Materia)" Editable Caption="ID Materia" />
                     <DataGridColumn Field="@nameof(MateriaXNivelDto.Desc_Materia)" Editable Caption="Materia" />
-                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Desc_Nivel_Academico)" Editable Caption="Nivel Academico">
+                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Id_Nivel_Academico)" Editable Displayable="false" Caption="ID Nivel Academico" >
                         <EditTemplate>
-                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="string" Style="min-width: 200px;">
+                            <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
                                 <SelectItem Value="@("")">Seleccione una opción</SelectItem>
-                                @foreach (var i in dataNivelAcademico ?? new List<NivelAcademicoDto>() )
+                                @foreach (var i in dataNivelAcademico ?? new List<NivelAcademicoDto>())
                                 {
                                     <SelectItem Value="@(i.Id_Nivel_Academico)">@i.Nombre</SelectItem>
                                 }
                             </Select>
                         </EditTemplate>
                     </DataGridColumn>
+                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Desc_Nivel_Academico)" Caption="Nivel Academico"/>
                     <DataGridColumn Field="@nameof(MateriaXNivelDto.Prioridad)" Editable Caption="Prioridad">
 
                     </DataGridColumn>
