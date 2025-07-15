@@ -51,16 +51,29 @@
 
 
                     <DataGridColumn Field="@nameof(MateriaXNivelDto.Prioridad)" Editable Caption="Prioridad">
+                        <DisplayTemplate>
+                            <Select SelectedValue="@context.Prioridad" Disabled TValue="int?" Style="min-width: 200px;">
+                                <SelectItem Value="@(1)">Alta</SelectItem>
+                                <SelectItem Value="@(2)">Media</SelectItem>
+                                <SelectItem Value="@(3)">Baja</SelectItem>
+                            </Select>
+                        </DisplayTemplate>
                         <EditTemplate>
-                            <NumericEdit Value="@((int?)context.CellValue)" ValueChanged="@(v => context.CellValue = v)" Min="1" Max="99" TValue="int?" />
+                            <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
+                                <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
+                                <SelectItem Value="@(1)">Alta</SelectItem>
+                                <SelectItem Value="@(2)">Media</SelectItem>
+                                <SelectItem Value="@(3)">Baja</SelectItem>
+                            </Select>
                         </EditTemplate>
+                       
                     
                     </DataGridColumn>
 
 
                     <DataGridColumn Field="@nameof(MateriaXNivelDto.Carga_Horaria)" Editable Caption="Carga Horaria">
                         <EditTemplate>
-                            <NumericEdit Value="@((int?)context.CellValue)" ValueChanged="@(v => context.CellValue = v)" Min="1" Max="200" TValue="int?" />
+                            <NumericEdit Value="@((int?)context.CellValue)" ValueChanged="@(v => context.CellValue = v)" Min="1" Max="48" TValue="int?"><FieldHelp>Carga Horaria Semanalmente en Lecciones</FieldHelp></NumericEdit>
                         </EditTemplate>
                     </DataGridColumn>
 
