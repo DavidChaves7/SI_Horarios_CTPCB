@@ -48,6 +48,14 @@ namespace Application.Contexts
             modelBuilder.Entity<Materia>().ToTable(nameof(Materia));
             modelBuilder.Entity<Materia>().HasKey(x => new { x.Id_Materia });
 
+            //Table Grupo
+            modelBuilder.Entity<Grupo>().ToTable(nameof(Grupo));
+            modelBuilder.Entity<Grupo>().HasKey(x => new { x.Id_Grupo });
+
+            //Table Horario
+            modelBuilder.Entity<Horario>().ToTable(nameof(Horario));
+            modelBuilder.Entity<Horario>().HasKey(x => new { x.Id_Horario });
+
             //Table Profesor
             modelBuilder.Entity<Profesor>().ToTable(nameof(Profesor));
             modelBuilder.Entity<Profesor>().HasKey(x => new { x.Id_Profesor });

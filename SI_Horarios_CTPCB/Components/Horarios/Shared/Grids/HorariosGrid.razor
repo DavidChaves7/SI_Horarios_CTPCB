@@ -18,15 +18,7 @@
                 </Div>
             </Div>
             <Div Class="row mb-4">
-                <DataGrid TItem="BloqueHorario"
-                Data="@bloquesHorario"
-                PageSize="16"
-                ShowPager="false"
-                ShowPageSizes="false"
-                ShowCaptions="true"
-                Editable="false"
-                Responsive="true"
-                Hoverable="true"
+                <DataGrid TItem="BloqueHorario" Data="@bloquesHorario" PageSize="16" ShowPager="false" ShowPageSizes="false" ShowCaptions="true" Editable="false" Responsive="true" Hoverable="true"
                 Class="table-bordered text-center w-100 no-padding">
 
                     <DataGridColumn TItem="BloqueHorario" Field="@nameof(BloqueHorario.Hora)" Caption="Hora" Width="180px" />
@@ -35,7 +27,7 @@
                     {
                         <DataGridColumn TItem="BloqueHorario" Caption="@dia">
                             <DisplayTemplate Context="context">
-                                <Button Class="@DeterminarClase(context.EsReceso)" Clicked="() => modalAsigMateria.Open(dia,context.Hora)">@DeterminarNombre(context.EsReceso)</Button>
+                                <Button Class="@DeterminarClase(context.EsReceso)" Clicked="() => modalAsigMateria!.Open(dia,context.Hora)">@DeterminarNombre(context.EsReceso)</Button>
                             </DisplayTemplate>
                         </DataGridColumn>
                     }
@@ -53,29 +45,49 @@
     private ReportesModel reportesModel = new();
     ModalAsigMateria? modalAsigMateria;
 
-    private void GenerarHorario()
+    private async Task GenerarHorario()
     {
+        isLoading = true;
         // Lógica de generación de horario
-    }
+        var materias = await api.Mantenimientos_GetAllMateriasAsync();
 
-    public class BloqueHorario
-    {
-        public string Hora { get; set; }
-        public bool EsReceso { get; set; }
+        var horarios = await api.Horarios_GenHorarioAsync(Convert.ToInt32(reportesModel.Grupo));
 
-        public BloqueHorario(string hora, bool esReceso = false)
+        foreach (var horario in horarios)
         {
-            Hora = hora;
-            EsReceso = esReceso;
+            var horaInicio = horario.Hora_Inicio; // tipo TimeSpan
+
+            var bloque = bloquesHorario.FirstOrDefault(b =>
+                ObtenerHoraInicio(b.Hora) == horaInicio);
+
+            if (bloque is not null)
+            {
+                var dia = horario.Dia.ToUpperInvariant();
+                var materia = materias.FirstOrDefault(m => m.Id_Materia == horario.Id_Materia); 
+
+                switch (dia)
+                {
+                    case "Lunes": bloque.Lunes = materia?.Nombre; break; 
+                    case "Martes": bloque.Martes = materia?.Nombre; break;
+                    case "Miercoles": bloque.Miércoles = materia?.Nombre; break;
+                    case "Jueves": bloque.Jueves = materia?.Nombre; break;
+                    case "Viernes": bloque.Viernes = materia?.Nombre; break;
+                    default: break;
+                }
+            }
         }
+
+        isLoading = false;
     }
+
+    
 
     public class ReportesModel
     {
         public string Grupo { get; set; } = string.Empty;
     }
 
-    private List<string> diasSemana = new() { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
+    private List<string> diasSemana = new() { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes" };
 
     private List<BloqueHorario> bloquesHorario = new()
 {
@@ -100,6 +112,7 @@
     protected override void OnInitialized()
     {
         
+        // Initialize data or state here if needed
     }
 
     private string DeterminarNombre( bool esReceso) 
@@ -110,6 +123,43 @@
     private string DeterminarClase(bool esReceso)
     {
         return esReceso ? "btn btn-secondary w-100 h-100" : "btn btn-outline-primary w-100 h-100";
+    }
+
+    private string GetMateriaDelDia(BloqueHorario context, string dia)
+    {
+        return dia switch
+        {
+            "Lunes" => context.Lunes ?? DeterminarNombre(context.EsReceso),
+            "Martes" => context.Martes ?? DeterminarNombre(context.EsReceso),
+            "Miércoles" => context.Miércoles ?? DeterminarNombre(context.EsReceso),
+            "Jueves" => context.Jueves ?? DeterminarNombre(context.EsReceso),
+            "Viernes" => context.Viernes ?? DeterminarNombre(context.EsReceso),
+            _ => ""
+        };
+    }
+    private static TimeSpan ObtenerHoraInicio(string rangoHora)
+    {
+        var horaInicioStr = rangoHora.Split(" - ")[0].Trim();
+        return DateTime.Parse(horaInicioStr).TimeOfDay;
+    }
+
+
+    public class BloqueHorario
+    {
+        public string Hora { get; set; }
+        public bool EsReceso { get; set; }
+
+        public string? Lunes { get; set; }
+        public string? Martes { get; set; }
+        public string? Miércoles { get; set; }
+        public string? Jueves { get; set; }
+        public string? Viernes { get; set; }
+
+        public BloqueHorario(string hora, bool esReceso = false)
+        {
+            Hora = hora;
+            EsReceso = esReceso;
+        }
     }
     
     

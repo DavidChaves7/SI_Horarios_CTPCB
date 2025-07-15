@@ -34,14 +34,14 @@
     Modal? modal;
 
     public bool isLoading { get; set; } = false;
-    public string selectedMateria;
-    public string leccFaltantes;
+    public string? selectedMateria;
+    public string? leccFaltantes;
 
     [Parameter]
-    public string Dia { get; set; }
+    public string? Dia { get; set; }
 
     [Parameter]
-    public string Hora { get; set; }
+    public string? Hora { get; set; }
 
     public Task Hide()
     {

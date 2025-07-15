@@ -7,12 +7,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
 {
-    public class Profesor_X_Materia
+    public class Horario
     {
         [Key]
-        public int Id_Prof_Materia { get; set; }
+        public int Id_Horario { get; set; }
+        public string? Dia { get; set; }
+        public string? Id_Profesor { get; set; }
         public int Id_Materia { get; set; }
-        public int Id_Profesor { get; set; }
+        public int Id_Grupo { get; set; }
+        public TimeSpan Hora_Inicio { get; set; }
+        public TimeSpan Hora_Fin { get; set; }
         public string? Estado { get; set; }
+      
     }
 }

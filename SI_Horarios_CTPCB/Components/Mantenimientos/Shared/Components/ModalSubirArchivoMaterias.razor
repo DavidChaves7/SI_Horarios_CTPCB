@@ -37,7 +37,7 @@
     public bool isLoading { get; set; } = false;
 
     private IBrowserFile? _selectedFile;
-    public string fileName;
+    public string? fileName;
 
     [Parameter]
     public EventCallback OnInsert { get; set; }
@@ -54,7 +54,7 @@
         try
         {
             _selectedFile = e.File;
-            fileName = e.File.Name;
+            fileName = e.File?.Name;
         }
         catch (Exception ex)
         {

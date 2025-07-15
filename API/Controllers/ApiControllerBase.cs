@@ -7,6 +7,7 @@ namespace API.Controllers
     public abstract class ApiControllerBase : ControllerBase
     {
         protected IMantenimientosRepository _mantenimientosRepository => HttpContext.RequestServices.GetRequiredService<IMantenimientosRepository>();
+        protected IHorariosRepository _horariosRepository => HttpContext.RequestServices.GetRequiredService<IHorariosRepository>();
 
     }
 }

@@ -17,6 +17,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplication();
 //builder.Services.AddInfrastructure(conf);
 builder.Services.AddScoped<IMantenimientosRepository, MantenimientosRepository>();
+builder.Services.AddScoped<IHorariosRepository, HorariosRepository>();
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add<ExceptionFilterHandler>();

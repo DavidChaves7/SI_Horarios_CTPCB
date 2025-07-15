@@ -24,6 +24,69 @@
         }
       }
     },
+    "/api/Horarios/GetAllEjemploMant": {
+      "get": {
+        "tags": [
+          "Horarios"
+        ],
+        "operationId": "Horarios_GetAllEjemploMant",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "$ref": "#/components/schemas/EjemploMantDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Horarios/GenHorario": {
+      "post": {
+        "tags": [
+          "Horarios"
+        ],
+        "operationId": "Horarios_GenHorario",
+        "parameters": [
+          {
+            "name": "grupoId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "nullable": true,
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/HorarioDto"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Mantenimientos/GetAllEjemploMant": {
       "get": {
         "tags": [
@@ -847,6 +910,44 @@
             "nullable": true
           },
           "test": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "HorarioDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id_Horario": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dia": {
+            "type": "string",
+            "nullable": true
+          },
+          "id_Profesor": {
+            "type": "string",
+            "nullable": true
+          },
+          "id_Materia": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "id_Grupo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hora_Inicio": {
+            "type": "string",
+            "format": "duration"
+          },
+          "hora_Fin": {
+            "type": "string",
+            "format": "duration"
+          },
+          "estado": {
             "type": "string",
             "nullable": true
           }
