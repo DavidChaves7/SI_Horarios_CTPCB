@@ -6,12 +6,11 @@
                 <Div Class="col-md-6">
                     <label>Grupo</label>
                     <Select Class="form-control" SelectedValue="@reportesModel.Grupo" SelectedValueChanged="@GrupoChanged" TValue="string">
-                        <SelectItem Value="@("")">Seleccione una opción</SelectItem>
-                        <SelectItem Value="@("1")">Grupo Décimo</SelectItem>
-                        <SelectItem Value="@("2")">Grupo Undécimo</SelectItem>
-                        <SelectItem Value="@("3")">Grupo Duodécimo</SelectItem>
-                        <SelectItem Value="@("4")">Grupo Sordo/mudos</SelectItem>
-                        <SelectItem Value="@("5")">Grupo Ciegos</SelectItem>
+                        <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
+                        @foreach (var i in dataGrupo ?? new List<GrupoDto>())
+                        {
+                            <SelectItem Value="@(i.Id_Grupo)">@i.Nombre</SelectItem>
+                        }
                     </Select>
                 </Div>
                 <Div Class="col-md-2 text-end">
@@ -54,6 +53,18 @@
     private ReportesModel reportesModel = new();
     ModalAsigMateria? modalAsigMateria;
 
+
+    IEnumerable<GrupoDto>? dataGrupo { get; set; } = new List<GrupoDto>();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            var resGrupo = await api.Mantenimientos_GetAllGrupossAsync();
+            dataGrupo = resGrupo.Where(x => x.Estado.Equals("A"));
+            StateHasChanged();
+        }
+    }
     private bool usarColorAlternativo = false; // Variable hard-codeada para controlar el uso del color alternativo
     private async Task GenerarHorario()
     {

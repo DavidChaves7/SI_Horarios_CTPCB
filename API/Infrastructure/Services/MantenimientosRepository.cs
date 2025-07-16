@@ -4,6 +4,7 @@ using Azure.Core;
 using Domain.Entities;
 using Infrastructure.DTOs;
 using Infrastructure.DTOs.Mantenimientos;
+using Infrastructure.DTOs.Horarios;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -741,7 +742,15 @@ namespace API.Infrastructure.Services
         }
         #endregion
 
+        #region Grupos
+        public async Task<IEnumerable<GrupoDto>> GetAllGrupos()
+        {
+            var parameters = await _unitOfWork.Set<Grupo>()
+                         .Select(s => _mapper.Map<GrupoDto>(s)).ToListAsync();
+            return parameters;
+        }
 
+        #endregion
 
         #endregion
 

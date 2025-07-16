@@ -1,5 +1,6 @@
 ﻿using Infrastructure.DTOs;
 using Infrastructure.DTOs.Mantenimientos;
+using Infrastructure.DTOs.Horarios;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 
@@ -119,7 +120,7 @@ namespace API.Controllers.CPC
 
         #region Seguridad
 
-        
+
         [HttpGet("GetAllSeguridad")]
         public async Task<IEnumerable<SeguridadDto>> GetAllSeguridadsAsync() => await _mantenimientosRepository.GetAllSeguridad();
         [HttpGet("GetOneSeguridad")]
@@ -131,6 +132,12 @@ namespace API.Controllers.CPC
         [HttpPost("EnableDisableSeguridad")]
         public async Task<SeguridadDto?> EnableDisableSeguridadsAsync(SeguridadDto param) => await _mantenimientosRepository.EnableDisable(param);
 
+
+        #endregion
+
+        #region Grupos
+        [HttpGet("GetAllGrupos")]
+        public async Task<IEnumerable<GrupoDto>> GetAllGrupossAsync() => await _mantenimientosRepository.GetAllGrupos();
 
         #endregion
 

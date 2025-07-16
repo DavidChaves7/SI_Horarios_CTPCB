@@ -22,7 +22,6 @@
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
-                    @* <DataGridColumn Field="@nameof(MateriaXNivelDto.Id_Materia)" Caption="Id" /> *@
                     <DataGridColumn Field="@nameof(MateriaXNivelDto.Id_Materia)" Editable Displayable="false" Caption="ID Materia">
                         <EditTemplate>
                             <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
