@@ -10,24 +10,30 @@
                     <Div Class="col-md-6">
                         <label>Profesor</label>
 
-                        <Select @bind-SelectedValue="reportesModel.Profesor" Class="form-control">
+                        <Select @bind-SelectedValue="reportesModel.Profesor" Class="form-control" @onchange="OnProfesorChanged">
                             <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
                             @foreach (var i in dataProfesor ?? new List<ProfesorDto>())
                             {
                                 <SelectItem Value="@(i.Id_Profesor)">@i.Nombre @i.Apellido</SelectItem>
                             }
                         </Select>
+
                     </Div>
                     <Div Class="form-group mb-3">
                         <label>Materia</label>
 
-                        @* <Select @bind-SelectedValue="reportesModel.Profesor_X_Materia" Class="form-control">
+                        <Select @bind-SelectedValue="reportesModel.Profesor_X_Materia" Class="form-control">
                             <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
-                            @foreach (var i in dataProfesor_X_Materia ?? new List<Profesor_X_MateriaDto>())
+                            @if (reportesModel.Profesor != null)
                             {
-                                <SelectItem Value="@(i.Id_Profesor)">@i.Id_Materia </SelectItem>
+                                foreach (var materia in GetMateriasFiltradas())
+                                {
+                                    <SelectItem Value="@(materia.Id_Materia)">@materia.Nombre</SelectItem>
+                                }
                             }
-                        </Select> *@
+                        </Select>
+
+
                     </Div>
                     <Div Class="form-group mb-3">
                         <label for="leccFaltantes">Lecciones Faltantes</label>
@@ -46,7 +52,7 @@
 
 @code {
     private ReportesModel reportesModel { get; set; } = new ReportesModel();
-
+    IEnumerable<MateriaDto>? dataMateria{ get; set; } = new List<MateriaDto>();
     IEnumerable<ProfesorDto>? dataProfesor { get; set; } = new List<ProfesorDto>();
     IEnumerable<Profesor_X_MateriaDto>? dataProfesor_X_Materia { get; set; } = new List<Profesor_X_MateriaDto>();
     public class ReportesModel
@@ -103,6 +109,31 @@
         else
             leccFaltantes = "3";
     }
+    private IEnumerable<MateriaDto> GetMateriasFiltradas()
+    {
+        var materiasFiltradas = from pxm in dataProfesor_X_Materia
+                                where pxm.Id_Profesor == reportesModel.Profesor
+                                join m in dataMateria on pxm.Id_Materia equals m.Id_Materia
+                                select m;
+
+        return materiasFiltradas;
+    }
+    private void OnProfesorChanged(ChangeEventArgs e)
+    {
+        
+        if (int.TryParse(e.Value?.ToString(), out int profesorId))
+        {
+            reportesModel.Profesor = profesorId;
+        }
+        else
+        {
+            reportesModel.Profesor = null;
+        }
+
+        // Reiniciar la materia seleccionada
+        reportesModel.Profesor_X_Materia = null;
+    }
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -111,16 +142,16 @@
         {
             var resProfesor = await api.Mantenimientos_GetAllProfesorAsync();
             dataProfesor = resProfesor.Where(x => x.Estado.Equals("A"));
-            var resProfesorxmateria = await api.Mantenimientos_GetAllProfesor_X_MateriaAsync();
-            dataProfesor = resProfesor.Where(x => x.Estado.Equals("A"));
-            StateHasChanged();
-        }
-        if (firstRender)
-        {
 
-            
+            var resProfesorxmateria = await api.Mantenimientos_GetAllProfesor_X_MateriaAsync();
+            dataProfesor_X_Materia = resProfesorxmateria;
+
+            var resMaterias = await api.Mantenimientos_GetAllMateriasAsync();
+            dataMateria = resMaterias;
+
             StateHasChanged();
         }
+
     }
 
 }
