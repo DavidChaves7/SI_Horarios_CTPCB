@@ -4,7 +4,7 @@
         <ChildContent>
             <Div Class="row mb-4 align-items-end">
                 <Div Class="col-md-6">
-                    <label>Grupo</label>
+                    <label>Ver los horarios del Grupo:</label>
                     <Select Class="form-control" SelectedValue="@reportesModel.Grupo" SelectedValueChanged="@GrupoChanged" TValue="string">
                         <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
                         @foreach (var i in dataGrupo ?? new List<GrupoDto>())
@@ -13,27 +13,21 @@
                         }
                     </Select>
                 </Div>
-                <Div Class="col-md-2 text-end">
+                <Div Class="col-md-6 text-end" Padding="Padding.Is4.FromEnd">
                     <Button Class="btn btn-create" Clicked="@GenerarHorario">Generar automáticamente</Button>
                 </Div>
             </Div>
             <Div Class="row mb-4">
-                <DataGrid TItem="BloqueHorario" Data="@bloquesHorario" PageSize="16" ShowPager="false" ShowPageSizes="false" ShowCaptions="true" Editable="false" Responsive="true" Hoverable="true"
+                <DataGrid TItem="BloqueHorario" Data="@bloquesHorario" PageSize="16" ShowPager="false" ShowPageSizes="false" ShowCaptions="true" Editable="false" Responsive="true" Hoverable="true" 
                           Class="table-bordered text-center w-100 no-padding">
 
                     <DataGridColumn TItem="BloqueHorario" Field="@nameof(BloqueHorario.Hora)" Caption="Hora" Width="180px" />
 
                     @foreach (var dia in diasSemana)
                     {
-                        @* <DataGridColumn TItem="BloqueHorario" Caption="@dia">
-                            <DisplayTemplate Context="context">
-                                <Button Class="@DeterminarClase(context.EsReceso)" Clicked="() => modalAsigMateria!.Open(dia,context.Hora)">@DeterminarNombre(context.EsReceso)</Button>
-                            </DisplayTemplate>
-                        </DataGridColumn> *@
-
                         <DataGridColumn TItem="BloqueHorario" Caption="@dia">
                             <DisplayTemplate>
-                                <Button Class="@DeterminarClase(context.EsReceso)" Style="@($"background-color: {DeterminarColor(context.EsReceso, GetColorDelDia(context, dia))}; color: white;")" Clicked="() => modalAsigMateria!.Open(dia, context.Hora)">
+                                <Button Class="@DeterminarClase(context.EsReceso)" Style="@($"background-color: {DeterminarColor(context.EsReceso, GetColorDelDia(context, dia))};")" Clicked="() => modalAsigMateria!.Open(dia, context.Hora)">
                                     @DeterminarNombre(context.EsReceso, GetMateriaDelDia(context, dia))
                                 </Button>
                             </DisplayTemplate>
@@ -52,9 +46,10 @@
     private bool isLoading = true;
     private ReportesModel reportesModel = new();
     ModalAsigMateria? modalAsigMateria;
-
-
+    private bool usarColorAlternativo = true; // Variable hard-codeada para controlar el uso del color alternativo
     IEnumerable<GrupoDto>? dataGrupo { get; set; } = new List<GrupoDto>();
+    
+    //trae los datos apenas carga la pagina
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -62,10 +57,12 @@
         {
             var resGrupo = await api.Mantenimientos_GetAllGrupossAsync();
             dataGrupo = resGrupo.Where(x => x.Estado.Equals("A"));
+            isLoading = false;
             StateHasChanged();
         }
     }
-    private bool usarColorAlternativo = false; // Variable hard-codeada para controlar el uso del color alternativo
+   
+    //genera el horario del grupo
     private async Task GenerarHorario()
     {
         if (string.IsNullOrEmpty(reportesModel.Grupo))
@@ -80,6 +77,7 @@
         isLoading = false;
     }
 
+    //cada que cambian el grupo en el select, trae y carga el horario del grupo respectivo
     private async Task GrupoChanged(string value)
     {
         reportesModel.Grupo = value;
@@ -97,6 +95,7 @@
         }
     }
 
+    //limpia los horarios 
     private void LimpiarBloquesHorario()
     {
         foreach (var bloque in bloquesHorario)
@@ -109,6 +108,7 @@
         }
     }
 
+    //asigna los horarios a las celdas del dataGrid
     private void AsignarHorariosABloques(ICollection<HorarioDto> horarios, ICollection<MateriaDto> materias)
     {
         foreach (var horario in horarios)
@@ -137,24 +137,26 @@
     }
 
    
-
+    //revisa si el color esta activo, si es asi le asigna el color de la materia
     private string DeterminarColor(bool esReceso, string? colorMateria)
     {
         if (usarColorAlternativo)
         {
-            return esReceso ? "#6c757d" : "#ffcc00"; // Color alternativo cuando usarColorAlternativo es true
+            return esReceso ? "#6c757d" : "#ffffff"; // Color alternativo cuando usarColorAlternativo es true
         }
         return esReceso ? "#6c757d" : (string.IsNullOrWhiteSpace(colorMateria) ? "#ffffff" : colorMateria);
     }
+
 
     private string DeterminarNombre(bool esReceso, string? materia)
     {
         return esReceso ? "Receso" : materia ?? "Sin asignar";
     }
 
+    //pone la clase del boton
     private string DeterminarClase(bool esReceso)
     {
-        return esReceso ? "btn btn-secondary w-100 h-100" : "btn btn-outline w-100 h-100";
+        return esReceso ? "btn btn-secondary w-100 h-100" : "btn btn-outline-primary w-100 h-100";
     }
 
     public class ReportesModel
@@ -223,6 +225,7 @@
         public string? Miercoles { get; set; }
         public string? Jueves { get; set; }
         public string? Viernes { get; set; }
+
         public string? Color { get; set; }
 
         public BloqueHorario(string hora, bool esReceso = false)
