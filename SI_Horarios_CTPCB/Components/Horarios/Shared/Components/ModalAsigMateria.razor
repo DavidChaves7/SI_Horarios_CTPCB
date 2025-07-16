@@ -7,13 +7,27 @@
         <ModalBody>
             <LoadingIndicator @bind-Visible="isLoading">
                 <ChildContent>
-                    <Div Class="form-group mb-3">
-                        <label for="tipoMateria">Materia</label>
-                        <Select Class="form-control" TValue="string" @onchange="SelectedChange">
-                            <SelectItem Value="@("")">Seleccione una opción</SelectItem>
-                            <SelectItem Value="@("1")">Matemáticas</SelectItem>
-                            <SelectItem Value="@("2")">Electiva</SelectItem>
+                    <Div Class="col-md-6">
+                        <label>Profesor</label>
+
+                        <Select @bind-SelectedValue="reportesModel.Profesor" Class="form-control">
+                            <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
+                            @foreach (var i in dataProfesor ?? new List<ProfesorDto>())
+                            {
+                                <SelectItem Value="@(i.Id_Profesor)">@i.Nombre @i.Apellido</SelectItem>
+                            }
                         </Select>
+                    </Div>
+                    <Div Class="form-group mb-3">
+                        <label>Materia</label>
+
+                        @* <Select @bind-SelectedValue="reportesModel.Profesor_X_Materia" Class="form-control">
+                            <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
+                            @foreach (var i in dataProfesor_X_Materia ?? new List<Profesor_X_MateriaDto>())
+                            {
+                                <SelectItem Value="@(i.Id_Profesor)">@i.Id_Materia </SelectItem>
+                            }
+                        </Select> *@
                     </Div>
                     <Div Class="form-group mb-3">
                         <label for="leccFaltantes">Lecciones Faltantes</label>
@@ -31,6 +45,16 @@
 </Modal>
 
 @code {
+    private ReportesModel reportesModel { get; set; } = new ReportesModel();
+
+    IEnumerable<ProfesorDto>? dataProfesor { get; set; } = new List<ProfesorDto>();
+    IEnumerable<Profesor_X_MateriaDto>? dataProfesor_X_Materia { get; set; } = new List<Profesor_X_MateriaDto>();
+    public class ReportesModel
+    {
+        public int? Profesor { get; set; }
+        public int? Profesor_X_Materia { get; set; }
+    }
+
     Modal? modal;
 
     public bool isLoading { get; set; } = false;
@@ -83,6 +107,14 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            var resProfesor = await api.Mantenimientos_GetAllProfesorAsync();
+            dataProfesor = resProfesor.Where(x => x.Estado.Equals("A"));
+            var resProfesorxmateria = await api.Mantenimientos_GetAllProfesor_X_MateriaAsync();
+            dataProfesor = resProfesor.Where(x => x.Estado.Equals("A"));
+            StateHasChanged();
+        }
         if (firstRender)
         {
 

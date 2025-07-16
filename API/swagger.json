@@ -1017,6 +1017,30 @@
           }
         }
       }
+    },
+    "/api/Mantenimientos/GetAllGrupos": {
+      "get": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_GetAllGruposs",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "$ref": "#/components/schemas/GrupoDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1276,6 +1300,32 @@
           "estado": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "GrupoDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id_Grupo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "id_Nivel_Academico": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seccion": {
+            "type": "string"
+          },
+          "id_Profesor_Guia": {
+            "type": "string"
+          },
+          "estado": {
+            "type": "string"
           }
         }
       }

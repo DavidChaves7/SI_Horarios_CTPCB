@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Infrastructure.DTOs;
+using Infrastructure.DTOs.Horarios;
 using Infrastructure.DTOs.Mantenimientos;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace Infrastructure.Interfaces
 {
     public interface IMantenimientosRepository
     {
+
         #region Mantenimientos
 
         #region Ejemplo
@@ -77,6 +79,9 @@ namespace Infrastructure.Interfaces
 
         #endregion
 
+        #region Grupos
+        Task<IEnumerable<GrupoDto>> GetAllGrupos();
+        #endregion
 
 
 
