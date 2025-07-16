@@ -3,17 +3,32 @@
     <LoadingIndicator Visible="@(data is null)">
         <ChildContent>
 
-            <ButtonsExportComponent T="EjemploMantDto" Data="data" Titulo="Seguridad" />
-            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="EjemploMantDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+            <ButtonsExportComponent T="SeguridadDto" Data="data" Titulo="Seguridad" />
+            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="SeguridadDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Descripcion)" Editable Caption="Nombre" />
-                    <DataGridColumn Field="@nameof(EjemploMantDto.Test)" Editable Caption="Correo" />
-                </DataGridColumns>
+                    <DataGridColumn Field="@nameof(SeguridadDto.Cedula)" Editable Caption="Cedula" />
+                    <DataGridColumn Field="@nameof(SeguridadDto.Correo)" Editable Caption="Correo" />
+                    <DataGridColumn Field="@nameof(SeguridadDto.Estado)" Editable Caption="Estado">
+                        <DisplayTemplate>
+                            <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
+                                <SelectItem Value="@("A")">Activo</SelectItem>
+                                <SelectItem Value="@("I")">Inactivo</SelectItem>
+                            </Select>
+                        </DisplayTemplate>
+                        <EditTemplate>
+                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                                <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                <SelectItem Value="@("A")">Activo</SelectItem>
+                                <SelectItem Value="@("I")">Inactivo</SelectItem>
+                            </Select>
+                        </EditTemplate>
+                    </DataGridColumn>
+                    </DataGridColumns>
                 <ButtonRowTemplate>
                     <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
-                    <Button Class="btn btn-delete" Disabled="(selectedData is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+                    <Button Class="btn btn-delete" Disabled="(selectedData is null)" Clicked="context.DeleteCommand.Clicked">Cambiar Estado</Button>
                 </ButtonRowTemplate>
                 <NextPageButtonTemplate><Icon Name="IconName.AngleRight" /></NextPageButtonTemplate>
                 <PreviousPageButtonTemplate><Icon Name="IconName.AngleLeft" /></PreviousPageButtonTemplate>
@@ -31,9 +46,9 @@
     private string accessCategory { get; set; } = "";
     
 
-    IEnumerable<EjemploMantDto>? data { get; set; } = new List<EjemploMantDto>();
+    IEnumerable<SeguridadDto>? data { get; set; } = new List<SeguridadDto>();
 
-    private EjemploMantDto? selectedData;
+    private SeguridadDto? selectedData;
 
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -71,26 +86,13 @@
 
             // #endregion
             //data = await api.Mantenimientos_GetAllEjemploMantAsync();
-            data = new List<EjemploMantDto>
-            {
-                new EjemploMantDto
-                {
-                    Id = 1,
-                    Descripcion = "Denis Campos",
-                    Test = "denisca@gmail.com"
-                },
-                new EjemploMantDto
-                {
-                    Id = 2,
-                    Descripcion = "Juan Perez",
-                    Test = "juanperez@gmail.com"
-                }
-            };
+            data = await api.Mantenimientos_GetAllSeguridadsAsync();
+
             StateHasChanged();
         }
     }
 
-    RenderFragment SetModalTitle(PopupTitleContext<EjemploMantDto> context)
+    RenderFragment SetModalTitle(PopupTitleContext<SeguridadDto> context)
     {
         var title = context.EditState == DataGridEditState.New ? "Nuevo" : "Editar";
         return (__builder) =>
@@ -101,7 +103,7 @@
         };
     }
 
-    async Task InsertNewItem(SavedRowItem<EjemploMantDto, Dictionary<string, object>> item)
+    async Task InsertNewItem(SavedRowItem<SeguridadDto, Dictionary<string, object>> item)
     {
         try
         {
@@ -114,9 +116,8 @@
             }
             else
             {
-                //await api.Parameters_AddUpdateParametersBCCRsAsync(item.NewItem);
-                //data = await api.Mantenimientos_GetAllEjemploMantAsync();
-                data.Append(item.NewItem);
+                await api.Mantenimientos_AddUpdateSeguridadsAsync(item.NewItem);
+                data = await api.Mantenimientos_GetAllSeguridadsAsync();
             }
         }
         catch (Exception ex)
@@ -125,7 +126,7 @@
         }
     }
 
-    Task ValidateEditFields(CancellableRowChange<EjemploMantDto, Dictionary<string, object>> item)
+    Task ValidateEditFields(CancellableRowChange<SeguridadDto, Dictionary<string, object>> item)
     {
 
         var errors = item.NewItem.ValidateObjectFields();
@@ -140,16 +141,15 @@
         }
     }
 
-    async Task DeleteItem(EjemploMantDto item)
+    async Task DeleteItem(SeguridadDto item)
     {
-        //await api.Parameters_DeleteParametersBCCRAsync(item);
-        //data = await api.Mantenimientos_GetAllEjemploMantAsync();
-        data = data.Where(x => x.Id != item.Id);
+        await api.Mantenimientos_EnableDisableSeguridadsAsync(item);
+        data = await api.Mantenimientos_GetAllSeguridadsAsync();
     }
 
-    async Task RemovingRow(CancellableRowChange<EjemploMantDto> item)
+    async Task RemovingRow(CancellableRowChange<SeguridadDto> item)
     {
-        var delete = await MessageService.Confirm($"Está seguro de eliminar el Parámetro {item.OldItem.Id}?", "Eliminar Parámetro", opt =>
+        var delete = await MessageService.Confirm($"Está seguro de inactivar el Usuario: {item.OldItem.Id_Usuario}?", "Inactivar Usuario", opt =>
         {
             // opt.MessageIcon = Icon
         });

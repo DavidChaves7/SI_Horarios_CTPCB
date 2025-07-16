@@ -68,6 +68,15 @@ namespace Infrastructure.Interfaces
         Task<Restriccion_ProfesorDto> GetOneRestriccion_Profesor(Restriccion_ProfesorDto data);
         #endregion
 
+        #region Seguridad
+
+        Task<SeguridadDto?> AddUpdateSeguridad(SeguridadDto data);
+        Task<SeguridadDto> EnableDisable(SeguridadDto data);
+        Task<IEnumerable<SeguridadDto>> GetAllSeguridad();
+        Task<SeguridadDto> GetOneSeguridad(SeguridadDto data);
+
+        #endregion
+
 
 
 

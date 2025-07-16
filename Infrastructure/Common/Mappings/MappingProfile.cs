@@ -16,6 +16,7 @@ namespace Infrastructure.Common.Mappings
             CreateMap<Nivel_Academico, NivelAcademicoDto>().ReverseMap();
             CreateMap<Profesor_X_Materia, Profesor_X_MateriaDto>().ReverseMap();
             CreateMap<Restriccion_Profesor, Restriccion_ProfesorDto>().ReverseMap();
+            CreateMap<Seguridad, SeguridadDto>().ReverseMap();
         }
     }
 }

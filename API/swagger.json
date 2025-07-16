@@ -892,6 +892,131 @@
           }
         }
       }
+    },
+    "/api/Mantenimientos/GetAllSeguridad": {
+      "get": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_GetAllSeguridads",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "$ref": "#/components/schemas/SeguridadDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/GetOneSeguridad": {
+      "get": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_GetOneSeguridads",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/SeguridadDto"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/AddUpdateSeguridad": {
+      "post": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_AddUpdateSeguridads",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeguridadDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Mantenimientos/EnableDisableSeguridad": {
+      "post": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_EnableDisableSeguridads",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeguridadDto"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1123,6 +1248,28 @@
             "nullable": true
           },
           "hora_Fin": {
+            "type": "string",
+            "nullable": true
+          },
+          "estado": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "SeguridadDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id_Usuario": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cedula": {
+            "type": "string",
+            "nullable": true
+          },
+          "correo": {
             "type": "string",
             "nullable": true
           },

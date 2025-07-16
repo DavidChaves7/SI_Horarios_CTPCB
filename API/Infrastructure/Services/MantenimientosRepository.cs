@@ -652,7 +652,96 @@ namespace API.Infrastructure.Services
 
         #endregion
 
-        
+        #region Seguridad
+        public async Task<SeguridadDto?> AddUpdateSeguridad(SeguridadDto data)
+        {
+            try
+            {
+                if (data is null)
+                    throw new Exception("Debe establecer los campos para el objeto");
+
+                var param = _mapper.Map<Seguridad>(data);
+
+                var dbObject = _unitOfWork.Set<Seguridad>().FirstOrDefault(x => x.Id_Usuario == param.Id_Usuario);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Seguridad>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Seguridad>().Update(dbObject);
+                }
+                else
+                {
+                    param.Id_Usuario = 0;
+                    await _unitOfWork.Set<Seguridad>().AddAsync(param);
+                }
+
+                await _unitOfWork.SaveChangesAsync();
+
+                return _mapper.Map<SeguridadDto>(dbObject ?? param);
+            }
+            catch (Exception)
+            {
+                return new SeguridadDto();
+            }
+        }
+
+        public async Task<SeguridadDto> EnableDisable(SeguridadDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Seguridad>(data);
+
+            var dbObject = _unitOfWork.Set<Seguridad>().AsNoTracking().FirstOrDefault(x => x.Id_Usuario == param.Id_Usuario);
+            if (dbObject != null)
+            {
+                _unitOfWork.Set<Seguridad>().Entry(dbObject).CurrentValues.SetValues(data);
+                if (dbObject.Estado == "A")
+                    dbObject.Estado = "I";
+                else 
+                    dbObject.Estado = "A";
+
+                    _unitOfWork.Set<Seguridad>().Update(dbObject);
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro a cambiar estado");
+            }
+            await _unitOfWork.SaveChangesAsync();
+
+            return data;
+        }
+
+        public async Task<IEnumerable<SeguridadDto>> GetAllSeguridad()
+        {
+            var parameters = await _unitOfWork.Set<Seguridad>()
+                         .Select(s => _mapper.Map<SeguridadDto>(s)).ToListAsync();
+            return parameters;
+        }
+
+        public async Task<SeguridadDto> GetOneSeguridad(SeguridadDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+
+            var param = _mapper.Map<Seguridad>(data);
+            var dbObject = await _unitOfWork.Set<Seguridad>().FirstOrDefaultAsync(x => x.Id_Usuario == param.Id_Usuario);
+            if (dbObject != null)
+            {
+                var res = _mapper.Map<SeguridadDto>(dbObject);
+                return res;
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro");
+            }
+
+        }
+        #endregion
+
+
 
         #endregion
 

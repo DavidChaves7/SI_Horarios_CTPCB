@@ -117,6 +117,23 @@ namespace API.Controllers.CPC
         public async Task<Restriccion_ProfesorDto?> DeleteRestriccion_ProfesorAsync(Restriccion_ProfesorDto param) => await _mantenimientosRepository.DeleteRestriccion_Profesor(param);
         #endregion
 
+        #region Seguridad
+
+        
+        [HttpGet("GetAllSeguridad")]
+        public async Task<IEnumerable<SeguridadDto>> GetAllSeguridadsAsync() => await _mantenimientosRepository.GetAllSeguridad();
+        [HttpGet("GetOneSeguridad")]
+        public async Task<SeguridadDto> GetOneSeguridadsAsync(SeguridadDto param) => await _mantenimientosRepository.GetOneSeguridad(param);
+
+        [HttpPost("AddUpdateSeguridad")]
+        public async Task<SeguridadDto?> AddUpdateSeguridadsAsync(SeguridadDto param) => await _mantenimientosRepository.AddUpdateSeguridad(param);
+
+        [HttpPost("EnableDisableSeguridad")]
+        public async Task<SeguridadDto?> EnableDisableSeguridadsAsync(SeguridadDto param) => await _mantenimientosRepository.EnableDisable(param);
+
+
+        #endregion
+
         #endregion
     }
 }
