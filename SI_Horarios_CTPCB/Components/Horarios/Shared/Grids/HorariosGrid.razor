@@ -48,7 +48,7 @@
     ModalAsigMateria? modalAsigMateria;
     private bool usarColorAlternativo = true; // Variable hard-codeada para controlar el uso del color alternativo
     IEnumerable<GrupoDto>? dataGrupo { get; set; } = new List<GrupoDto>();
-    
+
     //trae los datos apenas carga la pagina
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -61,7 +61,7 @@
             StateHasChanged();
         }
     }
-   
+
     //genera el horario del grupo
     private async Task GenerarHorario()
     {
@@ -123,6 +123,7 @@
                 var dia = horario.Dia.ToUpperInvariant();
                 var materia = materias.FirstOrDefault(m => m.Id_Materia == horario.Id_Materia);
                 bloque.Color = materia?.Color ?? "";
+                bloque.IdHorario = horario.Id_Horario;
                 switch (dia)
                 {
                     case "L": bloque.Lunes = materia?.Nombre ?? "Sin asignar"; break;
@@ -136,7 +137,7 @@
         }
     }
 
-   
+
     //revisa si el color esta activo, si es asi le asigna el color de la materia
     private string DeterminarColor(bool esReceso, string? colorMateria)
     {
@@ -217,6 +218,7 @@
 
     public class BloqueHorario
     {
+        public int IdHorario { get; set; }
         public string Hora { get; set; }
         public bool EsReceso { get; set; }
 
