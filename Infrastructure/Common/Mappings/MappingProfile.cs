@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Infrastructure.DTOs;
+using Infrastructure.DTOs.Horarios;
 using Infrastructure.DTOs.Mantenimientos;
 
 namespace Infrastructure.Common.Mappings
@@ -10,6 +11,8 @@ namespace Infrastructure.Common.Mappings
         public MappingProfile()
         {
             
+            CreateMap<Grupo, GrupoDto>().ReverseMap();
+            CreateMap<Horario, HorarioDto>().ReverseMap();
             CreateMap<Materia, MateriaDto>().ReverseMap();
             CreateMap<Materia_X_Nivel, MateriaXNivelDto>().ReverseMap();
             CreateMap<Profesor, ProfesorDto>().ReverseMap();

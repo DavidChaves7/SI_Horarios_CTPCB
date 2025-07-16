@@ -87,6 +87,46 @@
         }
       }
     },
+    "/api/Horarios/GetOneHorario": {
+      "get": {
+        "tags": [
+          "Horarios"
+        ],
+        "operationId": "Horarios_GetOneHorario",
+        "requestBody": {
+          "x-name": "data",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HorarioDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "nullable": true,
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/HorarioDto"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Mantenimientos/GetAllEjemploMant": {
       "get": {
         "tags": [

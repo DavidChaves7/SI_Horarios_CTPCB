@@ -31,15 +31,18 @@ namespace API.Controllers.CPC
         //public async Task<QueryPuntajeCapacidadDto?> DeletePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.DeletePuntajeCapacidad(param);
         #endregion
 
-        #region Materias
+        #region Horarios
 
         [HttpPost("GenHorario")]
 
         public async Task<List<HorarioDto>?> GenHorarioAsync(int grupoId) => await _horariosRepository.GenHorario(grupoId);
-        
-        
+
+        [HttpGet("GetOneHorario")]
+
+        public async Task<List<HorarioDto>?> GetOneHorarioAsync(HorarioDto data) => await _horariosRepository.GetOneHorario(data);
 
         #endregion
+
 
 
 
