@@ -35,10 +35,7 @@
 
 
                     </Div>
-                    <Div Class="form-group mb-3">
-                        <label for="leccFaltantes">Lecciones Faltantes</label>
-                        <InputText @bind-Value="leccFaltantes" class="form-control" placeholder="Lecciones Faltantes" disabled />
-                    </Div>
+
                 </ChildContent>
             </LoadingIndicator>
         </ModalBody>
@@ -66,6 +63,7 @@
     public bool isLoading { get; set; } = false;
     public string? selectedMateria;
     public string? leccFaltantes;
+    public int Id_Horario { get; set; }
 
     [Parameter]
     public string? Dia { get; set; }
@@ -73,25 +71,28 @@
     [Parameter]
     public string? Hora { get; set; }
 
+
+
     public Task Hide()
     {
         modal?.Close(CloseReason.UserClosing);
         return Task.CompletedTask;
     }
 
-    public async Task Open(string dia, string hora)
+    public async Task Open(string dia, string hora, int IdHorario)
     {
+        Id_Horario = IdHorario;
         Dia = dia;
         Hora = hora;
         isLoading = false; 
         modal?.Show(); 
     }
 
-    public Task Guardar()
+    public async Task Guardar()
     {
 
         modal?.Close(CloseReason.UserClosing);
-        return Task.CompletedTask;
+
     }
 
     public Task Bloquear()

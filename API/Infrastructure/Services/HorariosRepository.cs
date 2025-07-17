@@ -196,11 +196,38 @@ namespace API.Infrastructure.Services
             }
         }
 
+       
+        public async Task<HorarioDto?> UpdateHorario(HorarioDto data)
+        {
+            try
+            {
+                if (data is null)
+                {
+                    throw new Exception("Debe de establecer los campos para el objeto");
+                }
+                var param = _mapper.Map<Horario>(data);
 
+                var dbObject = _unitOfWork.Set<Horario>().FirstOrDefault(x => x.Id_Horario == param.Id_Horario);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Horario>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Horario>().Update(dbObject);
+                }
+                else
+                {
+                    param.Id_Horario = 0;
+                    var test1 = await _unitOfWork.Set<Horario>().AddAsync(param);
+                }
+                var test2 = await _unitOfWork.SaveChangesAsync();
 
+                return _mapper.Map<HorarioDto>(dbObject ?? param);
+            }
+            catch (Exception ex)
+            {
+                return new HorarioDto();
+            }
 
-
-
+        }
 
     }
 }

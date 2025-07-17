@@ -127,6 +127,38 @@
         }
       }
     },
+    "/api/Horarios/UpdateHorario": {
+      "get": {
+        "tags": [
+          "Horarios"
+        ],
+        "operationId": "Horarios_updateUpdateHorario",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HorarioDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HorarioDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Mantenimientos/GetAllEjemploMant": {
       "get": {
         "tags": [

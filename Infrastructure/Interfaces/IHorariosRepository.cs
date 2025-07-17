@@ -18,7 +18,7 @@ namespace Infrastructure.Interfaces
         Task<List<HorarioDto>?> GenHorario(int grupoId);
         Task<List<HorarioDto>?> GetOneHorario(HorarioDto data);
         #endregion
-
+        Task<HorarioDto?> UpdateHorario(HorarioDto data);
 
 
     }
