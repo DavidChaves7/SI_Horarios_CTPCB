@@ -132,7 +132,7 @@
         "tags": [
           "Horarios"
         ],
-        "operationId": "Horarios_updateUpdateHorario",
+        "operationId": "Horarios_UpdateHorario",
         "requestBody": {
           "x-name": "param",
           "content": {

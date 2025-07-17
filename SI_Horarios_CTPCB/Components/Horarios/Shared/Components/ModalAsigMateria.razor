@@ -1,7 +1,7 @@
 ﻿<Modal @ref="modal">
     <ModalContent Centered Size="ModalSize.Large">
         <ModalHeader>
-            <ModalTitle>Asignar materia Dia: @Dia y Hora: @Hora</ModalTitle>
+            <ModalTitle>Asignar materia Dia: @Dia y Hora: @Hora_Inicio - @Hora_Fin</ModalTitle>
             <CloseButton></CloseButton>
         </ModalHeader>
         <ModalBody>
@@ -10,7 +10,7 @@
                     <Div Class="col-md-6">
                         <label>Profesor</label>
 
-                        <Select @bind-SelectedValue="reportesModel.Profesor" Class="form-control" @onchange="OnProfesorChanged">
+                        <Select @bind-SelectedValue="IdProfesor" Class="form-control" @onchange="OnProfesorChanged">
                             <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
                             @foreach (var i in dataProfesor ?? new List<ProfesorDto>())
                             {
@@ -22,9 +22,9 @@
                     <Div Class="form-group mb-3">
                         <label>Materia</label>
 
-                        <Select @bind-SelectedValue="reportesModel.Profesor_X_Materia" Class="form-control">
+                        <Select @bind-SelectedValue="IdMateria" Class="form-control">
                             <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
-                            @if (reportesModel.Profesor != null)
+                            @if (IdProfesor != null)
                             {
                                 foreach (var materia in GetMateriasFiltradas())
                                 {
@@ -48,30 +48,30 @@
 </Modal>
 
 @code {
-    private ReportesModel reportesModel { get; set; } = new ReportesModel();
-    IEnumerable<MateriaDto>? dataMateria{ get; set; } = new List<MateriaDto>();
+    IEnumerable<MateriaDto>? dataMateria { get; set; } = new List<MateriaDto>();
     IEnumerable<ProfesorDto>? dataProfesor { get; set; } = new List<ProfesorDto>();
     IEnumerable<Profesor_X_MateriaDto>? dataProfesor_X_Materia { get; set; } = new List<Profesor_X_MateriaDto>();
-    public class ReportesModel
-    {
-        public int? Profesor { get; set; }
-        public int? Profesor_X_Materia { get; set; }
-    }
+
 
     Modal? modal;
 
+    public int IdGrupo { get; set; }
+    public int? IdProfesor { get; set; }
+    public int? IdMateria { get; set; }
     public bool isLoading { get; set; } = false;
     public string? selectedMateria;
     public string? leccFaltantes;
     public int Id_Horario { get; set; }
+    public TimeSpan? Hora_Inicio { get; set; }
+    public TimeSpan? Hora_Fin { get; set; }
 
     [Parameter]
     public string? Dia { get; set; }
 
+
+
     [Parameter]
-    public string? Hora { get; set; }
-
-
+    public EventCallback OnInsert { get; set; }
 
     public Task Hide()
     {
@@ -79,20 +79,48 @@
         return Task.CompletedTask;
     }
 
-    public async Task Open(string dia, string hora, int IdHorario)
+    public  Task Open(int idGrupo, string dia, TimeSpan horaInicio, TimeSpan horaFin, int IdHorario)
     {
         Id_Horario = IdHorario;
-        Dia = dia;
-        Hora = hora;
-        isLoading = false; 
-        modal?.Show(); 
+        Dia = TransformarDia(dia);
+        Hora_Inicio = horaInicio;
+        Hora_Fin = horaFin;
+        IdGrupo = idGrupo;
+        isLoading = false;
+        modal?.Show();
+        return Task.CompletedTask;
     }
-
+    private string TransformarDia(string? dia)
+    {
+        return dia switch
+        {
+            "Lunes" => "L",
+            "Martes" => "K",
+            "Miércoles" => "M",
+            "Jueves" => "J",
+            "Viernes" => "V",
+            "Sábado" => "S",
+            "Domingo" => "D",
+            _ => string.Empty
+        };
+    }
     public async Task Guardar()
     {
+        var horarioDto = new HorarioDto
+        {
+            Id_Horario = Id_Horario,
+            Dia = this.Dia,
+            Id_Grupo = this.IdGrupo,
+            Id_Profesor = IdProfesor?.ToString(),
+            Id_Materia = IdMateria ?? 0,
+            Hora_Inicio = Hora_Inicio ?? TimeSpan.Zero,
+            Hora_Fin = Hora_Fin ?? TimeSpan.Zero,
+            Estado = "A"
+        };
 
+        await api.Horarios_UpdateHorarioAsync(horarioDto);
+        await OnInsert.InvokeAsync();
         modal?.Close(CloseReason.UserClosing);
-
     }
 
     public Task Bloquear()
@@ -113,7 +141,7 @@
     private IEnumerable<MateriaDto> GetMateriasFiltradas()
     {
         var materiasFiltradas = from pxm in dataProfesor_X_Materia
-                                where pxm.Id_Profesor == reportesModel.Profesor
+                                where pxm.Id_Profesor == IdProfesor
                                 join m in dataMateria on pxm.Id_Materia equals m.Id_Materia
                                 select m;
 
@@ -121,18 +149,18 @@
     }
     private void OnProfesorChanged(ChangeEventArgs e)
     {
-        
+
         if (int.TryParse(e.Value?.ToString(), out int profesorId))
         {
-            reportesModel.Profesor = profesorId;
+            IdProfesor = profesorId;
         }
         else
         {
-            reportesModel.Profesor = null;
+            IdProfesor = null;
         }
 
         // Reiniciar la materia seleccionada
-        reportesModel.Profesor_X_Materia = null;
+        IdMateria = null;
     }
 
 

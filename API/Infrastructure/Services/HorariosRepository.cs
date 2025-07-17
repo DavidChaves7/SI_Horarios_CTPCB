@@ -49,6 +49,8 @@ namespace API.Infrastructure.Services
         {
             try
             {
+                var delete = await _unitOfWork.Set<Horario>().ExecuteDeleteAsync();
+
                 var materiasXNivel = await _unitOfWork.Set<Materia_X_Nivel>()
                     .Where(s => s.Estado == "A")
                     .Select(s => _mapper.Map<MateriaXNivelDto>(s))
@@ -140,9 +142,9 @@ namespace API.Infrastructure.Services
                 }
 
                 var horariosDB = _mapper.Map<List<Horario>>(horariosGenerados);
-                var delete = await _unitOfWork.Set<Horario>().ExecuteDeleteAsync();
+               
                 await _unitOfWork.Set<Horario>().AddRangeAsync(horariosDB);
-                await _unitOfWork.SaveChangesAsync();
+                var test = await _unitOfWork.SaveChangesAsync();
 
                 return horariosGenerados;
             }

@@ -42,7 +42,7 @@ namespace API.Controllers.CPC
         public async Task<List<HorarioDto>?> GetOneHorarioAsync(HorarioDto data) => await _horariosRepository.GetOneHorario(data);
 
         [HttpGet("UpdateHorario")]
-        public async Task<HorarioDto?> updateUpdateHorario(HorarioDto param) => await _horariosRepository.UpdateHorario(param);
+        public async Task<HorarioDto?> UpdateHorarioAsync(HorarioDto param) => await _horariosRepository.UpdateHorario(param);
 
 
         #endregion

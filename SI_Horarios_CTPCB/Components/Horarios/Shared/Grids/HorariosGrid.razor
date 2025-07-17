@@ -18,16 +18,16 @@
                 </Div>
             </Div>
             <Div Class="row mb-4">
-                <DataGrid TItem="BloqueHorario" Data="@bloquesHorario" PageSize="16" ShowPager="false" ShowPageSizes="false" ShowCaptions="true" Editable="false" Responsive="true" Hoverable="true" 
+                <DataGrid TItem="BloqueHorario" Data="@bloquesHorario" PageSize="16" ShowPager="false" ShowPageSizes="false" ShowCaptions="true" Editable="false" Responsive="true" Hoverable="true"
                           Class="table-bordered text-center w-100 no-padding">
 
-                    <DataGridColumn TItem="BloqueHorario" Field="@nameof(BloqueHorario.Hora)" Caption="Hora" Width="180px" />
+                    <DataGridColumn TItem="BloqueHorario" Field="@nameof(BloqueHorario.RangoHorario)" Caption="Hora" Width="180px" />
 
                     @foreach (var dia in diasSemana)
                     {
                         <DataGridColumn TItem="BloqueHorario" Caption="@dia">
                             <DisplayTemplate>
-                                <Button Class="@DeterminarClase(context.EsReceso)" Style="@($"background-color: {DeterminarColor(context.EsReceso, GetColorDelDia(context, dia))};")" Clicked="() => modalAsigMateria!.Open(dia, context.Hora, context.IdHorario)">
+                                <Button Class="@DeterminarClase(context.EsReceso)" Style="@($"background-color: {DeterminarColor(context.EsReceso, GetColorDelDia(context, dia))};")" Clicked="() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario)">
                                     @DeterminarNombre(context.EsReceso, GetMateriaDelDia(context, dia))
                                 </Button>
                             </DisplayTemplate>
@@ -40,7 +40,7 @@
         </ChildContent>
     </LoadingIndicator>
 </Div>
-<ModalAsigMateria @ref="modalAsigMateria"></ModalAsigMateria>
+<ModalAsigMateria @ref="modalAsigMateria" OnInsert="CallbackUpdateHorario"></ModalAsigMateria>
 
 @code {
     private bool isLoading = true;
@@ -83,19 +83,32 @@
         reportesModel.Grupo = value;
         if (!string.IsNullOrEmpty(reportesModel.Grupo))
         {
-            isLoading = true;
-
-            var horarios = await api.Horarios_GetOneHorarioAsync(new HorarioDto { Id_Grupo = Convert.ToInt32(reportesModel.Grupo) });
-            LimpiarBloquesHorario();
-
-            var materias = await api.Mantenimientos_GetAllMateriasAsync();
-            AsignarHorariosABloques(horarios, materias);
-
-            isLoading = false;
+            await ObtenerHorarios();
         }
     }
 
-    //limpia los horarios 
+    private async Task ObtenerHorarios()
+    {
+        isLoading = true;
+
+        var horarios = await api.Horarios_GetOneHorarioAsync(new HorarioDto { Id_Grupo = Convert.ToInt32(reportesModel.Grupo) });
+        LimpiarBloquesHorario();
+
+        var materias = await api.Mantenimientos_GetAllMateriasAsync();
+        AsignarHorariosABloques(horarios, materias);
+
+        isLoading = false;
+    }
+
+    async Task CallbackUpdateHorario()
+    {
+        if (!string.IsNullOrEmpty(reportesModel.Grupo))
+        {
+            await ObtenerHorarios();
+        }
+    }
+
+    //limpia los horarios
     private void LimpiarBloquesHorario()
     {
         foreach (var bloque in bloquesHorario)
@@ -115,8 +128,7 @@
         {
             var horaInicio = horario.Hora_Inicio;
 
-            var bloque = bloquesHorario.FirstOrDefault(b =>
-                ObtenerHoraInicio(b.Hora) == horaInicio);
+            var bloque = bloquesHorario.FirstOrDefault(b => b.HoraInicio == horaInicio);
 
             if (bloque is not null)
             {
@@ -169,26 +181,35 @@
 
     private List<BloqueHorario> bloquesHorario = new()
     {
-        new("7:00 am - 7:40 am"),
-        new("7:40 am - 8:20 am"),
-        new("8:20 am - 9:00 am"),
-        new("9:00 am - 9:20 am", true),
-        new("9:20 am - 10:00 am"),
-        new("10:00 am - 10:40 am"),
-        new("10:40 am - 11:20 am"),
-        new("11:20 am - 12:00 pm", true),
-        new("12:00 pm - 12:40 pm"),
-        new("12:40 pm - 1:20 pm"),
-        new("1:20 pm - 2:00 pm"),
-        new("2:00 pm - 2:20 pm", true),
-        new("2:20 pm - 3:00 pm"),
-        new("3:00 pm - 3:40 pm"),
-        new("3:40 pm - 4:20 pm")
-    };
+        new(new(7, 0, 0), new(7, 40, 0)),
+        new(new(7, 40, 0), new(8, 20, 0)),
+        new(new(8, 20, 0), new(9, 0, 0)),
+        new(new(9, 0, 0), new(9, 20, 0), true), // Receso
+        new(new(9, 20, 0), new(10, 0, 0)),
+        new(new(10, 0, 0), new(10, 40, 0)),
+        new(new(10, 40, 0), new(11, 20, 0)),
+        new(new(11, 20, 0), new(12, 0, 0), true), // Almuerzo
+        new(new(12, 0, 0), new(12, 40, 0)),
+        new(new(12, 40, 0), new(13, 20, 0)),
+        new(new(13, 20, 0), new(14, 0, 0)),
+        new(new(14, 0, 0), new(14, 20, 0), true), // Receso
+        new(new(14, 20, 0), new(15, 0, 0)),
+        new(new(15, 0, 0), new(15, 40, 0)),
+        new(new(15, 40, 0), new(16, 20, 0))
+        };
 
-    private string DeterminarNombre(bool esReceso)
+
+    private string GetMateriaDelDia(BloqueHorario context, string dia)
     {
-        return esReceso ? "Receso" : "";
+        return dia switch
+        {
+            "Lunes" => context.Lunes ?? (context.EsReceso ? "Receso" : "Sin asignar"),
+            "Martes" => context.Martes ?? (context.EsReceso ? "Receso" : "Sin asignar"),
+            "Miercoles" => context.Miercoles ?? (context.EsReceso ? "Receso" : "Sin asignar"),
+            "Jueves" => context.Jueves ?? (context.EsReceso ? "Receso" : "Sin asignar"),
+            "Viernes" => context.Viernes ?? (context.EsReceso ? "Receso" : "Sin asignar"),
+            _ => ""
+        };
     }
 
     private string GetColorDelDia(BloqueHorario context, string dia)
@@ -196,44 +217,27 @@
         return context.Color ?? "#ffffff";
     }
 
-
-    private string GetMateriaDelDia(BloqueHorario context, string dia)
-    {
-        return dia switch
-        {
-            "Lunes" => context.Lunes ?? DeterminarNombre(context.EsReceso),
-            "Martes" => context.Martes ?? DeterminarNombre(context.EsReceso),
-            "Miercoles" => context.Miercoles ?? DeterminarNombre(context.EsReceso),
-            "Jueves" => context.Jueves ?? DeterminarNombre(context.EsReceso),
-            "Viernes" => context.Viernes ?? DeterminarNombre(context.EsReceso),
-            _ => ""
-        };
-    }
-    private static TimeSpan ObtenerHoraInicio(string rangoHora)
-    {
-        var horaInicioStr = rangoHora.Split(" - ")[0].Trim();
-        return DateTime.Parse(horaInicioStr).TimeOfDay;
-    }
-
-
     public class BloqueHorario
     {
         public int IdHorario { get; set; }
-        public string Hora { get; set; }
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraFin { get; set; }
         public bool EsReceso { get; set; }
-
         public string? Lunes { get; set; }
         public string? Martes { get; set; }
         public string? Miercoles { get; set; }
         public string? Jueves { get; set; }
         public string? Viernes { get; set; }
-
         public string? Color { get; set; }
 
-        public BloqueHorario(string hora, bool esReceso = false)
+        public string RangoHorario { get; private set; }
+
+        public BloqueHorario(TimeSpan horaInicio, TimeSpan horaFin, bool esReceso = false)
         {
-            Hora = hora;
+            HoraInicio = horaInicio;
+            HoraFin = horaFin;
             EsReceso = esReceso;
+            RangoHorario = $"{DateTime.Today.Add(HoraInicio):hh\\:mm tt} - {DateTime.Today.Add(HoraFin):hh\\:mm tt}";
         }
     }
 
