@@ -27,7 +27,7 @@
                     {
                         <DataGridColumn TItem="BloqueHorario" Caption="@dia">
                             <DisplayTemplate>
-                                <Button Class="@DeterminarClase(context.EsReceso)" Style="@($"background-color: {DeterminarColor(context.EsReceso, GetColorDelDia(context, dia))};")" Clicked="() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario)">
+                                <Button Disabled="@(reportesModel.Grupo is null || context.EsReceso )" Class="@DeterminarClase(context.EsReceso)" Style="@($"background-color: {DeterminarColor(context.EsReceso, GetColorDelDia(context, dia))};")" Clicked="() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario)">
                                     @DeterminarNombre(context.EsReceso, GetMateriaDelDia(context, dia))
                                 </Button>
                             </DisplayTemplate>

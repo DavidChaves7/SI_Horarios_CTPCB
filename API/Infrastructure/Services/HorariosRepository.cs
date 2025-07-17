@@ -45,6 +45,9 @@ namespace API.Infrastructure.Services
             (new(15, 40, 0), new(16, 20, 0)),
         ];
 
+        //validar que MAXIMO haya 6 lecciones del mismo profe PERO que maximo sean bloques de 3 lecciones de la misma materia
+
+
         public async Task<List<HorarioDto>?> GenHorario(int grupoId)
         {
             try
