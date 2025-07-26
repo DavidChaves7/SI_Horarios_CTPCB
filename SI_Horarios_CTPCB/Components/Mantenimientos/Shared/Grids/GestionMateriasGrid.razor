@@ -40,10 +40,10 @@
                         </EditTemplate>
                     </DataGridColumn>
                     <DataGridColumn Field="@nameof(MateriaDto.Color)" Editable Caption="Color">
-                        <DisplayTemplate>
-                            <Div style="display: flex; align-items: center; gap: 10px;">
-                                <ColorEdit Color="@context.Color" Style="width: 60px;" Disabled />
-                                <Span>@context.Color</Span>
+                        <DisplayTemplate >
+                            <Div style="display: flex; align-items: center; gap: 10px; ">
+                                <ColorEdit Color="@context.Color" Style="width: 100%; height:70px;" Disabled />
+                               
                             </Div>
                         </DisplayTemplate>
                         <EditTemplate>
