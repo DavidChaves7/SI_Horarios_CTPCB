@@ -27,9 +27,24 @@
                     {
                         <DataGridColumn TItem="BloqueHorario" Caption="@dia">
                             <DisplayTemplate>
-                                <Button Disabled="@(reportesModel.Grupo is null || context.EsReceso )" Class="@DeterminarClase(context.EsReceso)" Style="@($"background-color: {DeterminarColor(context.EsReceso, GetColorDelDia(context, dia))};")" Clicked="() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario)">
-                                    @DeterminarNombre(context.EsReceso, GetMateriaDelDia(context, dia))
-                                </Button>
+                                @{
+                                    var detalle = context.GetDetalle(dia);
+                                }
+                                <div style="background-color:@(detalle?.Color ?? "#6c757d"); color:white; min-height:60px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                                    @if (context.EsReceso)
+                                    {
+                                        <span>Receso</span>
+                                    }
+                                    else if (detalle is not null)
+                                    {
+                                        <span><b>Materia:</b> @detalle.Materia</span>
+                                        <span><b>Profesor:</b> @detalle.Profesor</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Sin asignar</span>
+                                    }
+                                </div>
                             </DisplayTemplate>
                         </DataGridColumn>
                     }
@@ -46,10 +61,8 @@
     private bool isLoading = true;
     private ReportesModel reportesModel = new();
     ModalAsigMateria? modalAsigMateria;
-    private bool usarColorAlternativo = true; // Variable hard-codeada para controlar el uso del color alternativo
     IEnumerable<GrupoDto>? dataGrupo { get; set; } = new List<GrupoDto>();
 
-    //trae los datos apenas carga la pagina
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -62,7 +75,6 @@
         }
     }
 
-    //genera el horario del grupo
     private async Task GenerarHorario()
     {
         if (string.IsNullOrEmpty(reportesModel.Grupo))
@@ -71,13 +83,13 @@
         isLoading = true;
 
         var materias = await api.Mantenimientos_GetAllMateriasAsync();
+        var profesores = await api.Mantenimientos_GetAllProfesorAsync();
         var horarioGen = await api.Horarios_GenHorarioAsync(Convert.ToInt32(reportesModel.Grupo));
-        AsignarHorariosABloques(horarioGen, materias);
+        AsignarHorariosABloques(horarioGen, materias, profesores);
 
         isLoading = false;
     }
 
-    //cada que cambian el grupo en el select, trae y carga el horario del grupo respectivo
     private async Task GrupoChanged(string value)
     {
         reportesModel.Grupo = value;
@@ -95,7 +107,8 @@
         LimpiarBloquesHorario();
 
         var materias = await api.Mantenimientos_GetAllMateriasAsync();
-        AsignarHorariosABloques(horarios, materias);
+        var profesores = await api.Mantenimientos_GetAllProfesorAsync();
+        AsignarHorariosABloques(horarios, materias, profesores);
 
         isLoading = false;
     }
@@ -108,68 +121,43 @@
         }
     }
 
-    //limpia los horarios
     private void LimpiarBloquesHorario()
     {
         foreach (var bloque in bloquesHorario)
         {
-            bloque.Lunes = null;
-            bloque.Martes = null;
-            bloque.Miercoles = null;
-            bloque.Jueves = null;
-            bloque.Viernes = null;
+            bloque.DetallesPorDia.Clear();
         }
     }
 
-    //asigna los horarios a las celdas del dataGrid
-    private void AsignarHorariosABloques(ICollection<HorarioDto> horarios, ICollection<MateriaDto> materias)
+    private void AsignarHorariosABloques(ICollection<HorarioDto> horarios, ICollection<MateriaDto> materias, ICollection<ProfesorDto> profesores)
     {
         foreach (var horario in horarios)
         {
-            var horaInicio = horario.Hora_Inicio;
-
-            var bloque = bloquesHorario.FirstOrDefault(b => b.HoraInicio == horaInicio);
-
+            var bloque = bloquesHorario.FirstOrDefault(b => b.HoraInicio == horario.Hora_Inicio);
             if (bloque is not null)
             {
-                var dia = horario.Dia.ToUpperInvariant();
-                var materia = materias.FirstOrDefault(m => m.Id_Materia == horario.Id_Materia);
-                bloque.Color = materia?.Color ?? "";
-                bloque.IdHorario = horario.Id_Horario;
-                switch (dia)
+                var dia = horario.Dia?.ToUpperInvariant() switch
                 {
-                    case "L": bloque.Lunes = materia?.Nombre ?? "Sin asignar"; break;
-                    case "K": bloque.Martes = materia?.Nombre ?? "Sin asignar"; break;
-                    case "M": bloque.Miercoles = materia?.Nombre ?? "Sin asignar"; break;
-                    case "J": bloque.Jueves = materia?.Nombre ?? "Sin asignar"; break;
-                    case "V": bloque.Viernes = materia?.Nombre ?? "Sin asignar"; break;
-                    default: break;
+                    "L" => "Lunes",
+                    "K" => "Martes",
+                    "M" => "Miercoles",
+                    "J" => "Jueves",
+                    "V" => "Viernes",
+                    _ => null
+                };
+                if (dia is not null)
+                {
+                    var materia = materias.FirstOrDefault(m => m.Id_Materia == horario.Id_Materia);
+                    var profesor = profesores.FirstOrDefault(p => p.Id_Profesor.ToString() == horario.Id_Profesor);
+                    bloque.DetallesPorDia[dia] = new DetalleBloque
+                    {
+                        Materia = materia?.Nombre ?? "Sin asignar",
+                        Profesor = profesor is not null ? $"{profesor.Nombre} {profesor.Apellido}" : "Sin asignar",
+                        Color = materia?.Color ?? "#6c757d"
+                    };
                 }
             }
         }
-    }
-
-
-    //revisa si el color esta activo, si es asi le asigna el color de la materia
-    private string DeterminarColor(bool esReceso, string? colorMateria)
-    {
-        if (usarColorAlternativo)
-        {
-            return esReceso ? "#6c757d" : "#ffffff"; // Color alternativo cuando usarColorAlternativo es true
-        }
-        return esReceso ? "#6c757d" : (string.IsNullOrWhiteSpace(colorMateria) ? "#ffffff" : colorMateria);
-    }
-
-
-    private string DeterminarNombre(bool esReceso, string? materia)
-    {
-        return esReceso ? "Receso" : materia ?? "Sin asignar";
-    }
-
-    //pone la clase del boton
-    private string DeterminarClase(bool esReceso)
-    {
-        return esReceso ? "btn btn-secondary w-100 h-100" : "btn btn-outline-primary w-100 h-100";
     }
 
     public class ReportesModel
@@ -196,26 +184,7 @@
         new(new(14, 20, 0), new(15, 0, 0)),
         new(new(15, 0, 0), new(15, 40, 0)),
         new(new(15, 40, 0), new(16, 20, 0))
-        };
-
-
-    private string GetMateriaDelDia(BloqueHorario context, string dia)
-    {
-        return dia switch
-        {
-            "Lunes" => context.Lunes ?? (context.EsReceso ? "Receso" : "Sin asignar"),
-            "Martes" => context.Martes ?? (context.EsReceso ? "Receso" : "Sin asignar"),
-            "Miercoles" => context.Miercoles ?? (context.EsReceso ? "Receso" : "Sin asignar"),
-            "Jueves" => context.Jueves ?? (context.EsReceso ? "Receso" : "Sin asignar"),
-            "Viernes" => context.Viernes ?? (context.EsReceso ? "Receso" : "Sin asignar"),
-            _ => ""
-        };
-    }
-
-    private string GetColorDelDia(BloqueHorario context, string dia)
-    {
-        return context.Color ?? "#ffffff";
-    }
+    };
 
     public class BloqueHorario
     {
@@ -223,14 +192,8 @@
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
         public bool EsReceso { get; set; }
-        public string? Lunes { get; set; }
-        public string? Martes { get; set; }
-        public string? Miercoles { get; set; }
-        public string? Jueves { get; set; }
-        public string? Viernes { get; set; }
-        public string? Color { get; set; }
-
         public string RangoHorario { get; private set; }
+        public Dictionary<string, DetalleBloque> DetallesPorDia { get; set; } = new();
 
         public BloqueHorario(TimeSpan horaInicio, TimeSpan horaFin, bool esReceso = false)
         {
@@ -239,7 +202,18 @@
             EsReceso = esReceso;
             RangoHorario = $"{DateTime.Today.Add(HoraInicio):hh\\:mm tt} - {DateTime.Today.Add(HoraFin):hh\\:mm tt}";
         }
+
+        public DetalleBloque? GetDetalle(string dia)
+        {
+            DetallesPorDia.TryGetValue(dia, out var detalle);
+            return detalle;
+        }
     }
 
-
+    public class DetalleBloque
+    {
+        public string Materia { get; set; } = "";
+        public string Profesor { get; set; } = "";
+        public string Color { get; set; } = "#6c757d";
+    }
 }
