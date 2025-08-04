@@ -97,16 +97,37 @@ namespace API.Infrastructure.Services
                     throw new Exception("No hay asignaciones de profesores a materias disponibles.");
                 }
 
+                // Obtener el ID de la materia "GUIA" dinámicamente
+                var materiaGuia = await _unitOfWork.Set<Materia>().FirstOrDefaultAsync(m => (m.Nombre ?? "").Contains("GUIA") && m.Estado == "A");
+                int idMateriaGuia = materiaGuia?.Id_Materia ?? 0;
 
                 foreach (var grupo in grupos)
                 {
                     var nivel = grupo.Id_Nivel_Academico;
                     var materiasDelNivel = materiasXNivel.Where(m => m.Id_Nivel_Academico == nivel).ToList();
 
+                    // Obtener el profesor guía para este grupo
+                    var profesorGuiaGrupo = !string.IsNullOrEmpty(grupo.Id_Profesor_Guia) && grupo.Id_Profesor_Guia != "N/A"
+                        ? Convert.ToInt32(grupo.Id_Profesor_Guia)
+                        : (int?)null;
+
                     foreach (var mat in materiasDelNivel)
                     {
-                        var profe = profXMateria.FirstOrDefault(x => x.Id_Materia == mat.Id_Materia)?.Id_Profesor;
-                        if (profe == null) continue;
+                        int? profe;
+                        // Si la materia es GUIA, asignar el profesor guía del grupo
+                        if (mat.Id_Materia == idMateriaGuia && profesorGuiaGrupo.HasValue)
+                        {
+                            profe = profesorGuiaGrupo.Value;
+                        }
+                        else
+                        {
+                            profe = profXMateria.FirstOrDefault(x => x.Id_Materia == mat.Id_Materia)?.Id_Profesor;
+                            if (profe == null)
+                            {
+                                // Asignar "Sin Asignar" si no hay profesor disponible
+                                profe = profesores.FirstOrDefault(p => p.Cedula == "000000000" || (p.Nombre ?? "").Contains("Sin Asignar"))?.Id_Profesor;
+                            }
+                        }
 
                         var leccionesRestantes = mat.Carga_Horaria;
                         var diasDisponibles = Dias.ToList();
@@ -137,6 +158,30 @@ namespace API.Infrastructure.Services
                             }
                         }
                     }
+
+
+                    // Asignar lección de "GUIA" para el profesor guía del grupo SOLO si no existe ya
+                    if (profesorGuiaGrupo.HasValue)
+                    {
+                        bool yaTieneGuia = horariosGenerados.Any(h =>
+                            h.Id_Grupo == grupo.Id_Grupo &&
+                            h.Id_Profesor == profesorGuiaGrupo.Value.ToString() &&
+                            h.Id_Materia == idMateriaGuia
+                        );
+                        if (!yaTieneGuia)
+                        {
+                            var diaGuia = Dias.FirstOrDefault(d => !horariosGenerados.Any(h => h.Id_Profesor == profesorGuiaGrupo.Value.ToString() && h.Dia == d));
+                            if (diaGuia != null)
+                            {
+                                var bloqueGuia = BuscarBloqueDisponible(restricciones, horariosGenerados, grupo.Id_Grupo, profesorGuiaGrupo.Value, idMateriaGuia, 1, diaGuia);
+                                if (bloqueGuia != null)
+                                {
+                                    horariosGenerados.AddRange(bloqueGuia);
+                                }
+                            }
+                        }
+                    }
+
                 }
 
                 if (horariosGenerados is null)
@@ -145,7 +190,7 @@ namespace API.Infrastructure.Services
                 }
 
                 var horariosDB = _mapper.Map<List<Horario>>(horariosGenerados);
-               
+
                 await _unitOfWork.Set<Horario>().AddRangeAsync(horariosDB);
                 var test = await _unitOfWork.SaveChangesAsync();
 
@@ -201,7 +246,7 @@ namespace API.Infrastructure.Services
             }
         }
 
-       
+
         public async Task<HorarioDto?> UpdateHorario(HorarioDto data)
         {
             try
