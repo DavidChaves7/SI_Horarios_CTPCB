@@ -12,50 +12,52 @@ VALUES
 
 INSERT INTO Materia (Nombre, Area, Tipo, Color, Estado)
 VALUES 
-('Matemáticas', 'Académica', 'N/A', '#FF5733', 'A'),            -- Rojo anaranjado
-('Ciencias', 'Académica', 'N/A', '#33C1FF', 'A'),               -- Celeste
-('Español', 'Académica', 'N/A', '#2ECC71', 'A'),                -- Verde
-('Cocina', 'Tecnica', 'N/A', '#F39C12', 'A'),                   -- Naranja
-('Mantenimiento', 'Tecnica', 'N/A', '#D35400', 'A'),            -- Naranja oscuro
-('Tecnologia', 'Académica', 'N/A', '#9B59B6', 'A'),             -- Morado
-('Informatica', 'Académica', 'N/A', '#2980B9', 'A'),            -- Azul
-('Orientación', 'Académica', 'N/A', '#1ABC9C', 'A'),            -- Turquesa
-('Musica', 'Académica', 'N/A', '#E74C3C', 'A'),                 -- Rojo
-('Educación Religiosa', 'Académica', 'N/A', '#34495E', 'A'),               -- Gris azulado
-('Hogar', 'Académica', 'N/A', '#7D3C98', 'A'),                  -- Morado oscuro
-('Estudios Sociales', 'Académica', 'N/A', '#27AE60', 'A'),      -- Verde fuerte
-('Habilidades', 'Académica', 'N/A', '#F1C40F', 'A'),            -- Amarillo
-('Artes Industriales', 'Académica', 'N/A', '#E67E22', 'A'),     -- Naranja suave
-('Artesanias', 'Tecnica', 'N/A', '#BA4A00', 'A'),               -- Marrón quemado
-('Artes Plasticas', 'Académica', 'N/A', '#A569BD', 'A'),        -- Lila
-('Educación Fisica', 'Académica', 'N/A', '#3498DB', 'A'),       -- Azul brillante
-('Ingles', 'Académica', 'N/A', '#58D68D', 'A'),                 -- Verde menta
-('Afectividad y Sexualidad', 'Académica', 'N/A', '#F06292', 'A'), -- Rosado coral
-('GUIA', 'Académica', 'N/A', '#16A085', 'A'),           -- Verde azulado
-('Maderas', 'Tecnica', 'N/A', '#8B4513', 'A'); -- Marrón madera
+('Matemáticas', 'Académica', 'N/A', '#FFB3A7', 'A'),            -- Rojo anaranjado pastel
+('Ciencias', 'Académica', 'N/A', '#A3DAFF', 'A'),               -- Celeste pastel
+('Español', 'Académica', 'N/A', '#A9E5C6', 'A'),                -- Verde pastel
+('Cocina', 'Tecnica', 'N/A', '#FFD59E', 'A'),                   -- Naranja pastel
+('Mantenimiento', 'Tecnica', 'N/A', '#FFBC9A', 'A'),            -- Naranja oscuro pastel
+('Tecnologia', 'Académica', 'N/A', '#D7BDE2', 'A'),             -- Morado pastel
+('Informatica', 'Académica', 'N/A', '#AED6F1', 'A'),            -- Azul pastel
+('Orientación', 'Académica', 'N/A', '#A0E6D2', 'A'),            -- Turquesa pastel
+('Musica', 'Académica', 'N/A', '#FFA9A3', 'A'),                 -- Rojo pastel
+('Educación Religiosa', 'Académica', 'N/A', '#BFC9CA', 'A'),    -- Gris azulado claro
+('Hogar', 'Académica', 'N/A', '#D2B4DE', 'A'),                  -- Morado oscuro pastel
+('Estudios Sociales', 'Académica', 'N/A', '#A3E4D7', 'A'),      -- Verde fuerte pastel
+('Habilidades', 'Académica', 'N/A', '#FFF3B0', 'A'),            -- Amarillo suave
+('Artes Industriales', 'Académica', 'N/A', '#FFCFB3', 'A'),     -- Naranja suave pastel
+('Artesanias', 'Tecnica', 'N/A', '#D7A88F', 'A'),               -- Marrón pastel
+('Artes Plasticas', 'Académica', 'N/A', '#E8DAEF', 'A'),        -- Lila claro
+('Educación Fisica', 'Académica', 'N/A', '#AED9E0', 'A'),       -- Azul brillante pastel
+('Ingles', 'Académica', 'N/A', '#C3EFC0', 'A'),                 -- Verde menta pastel
+('Afectividad y Sexualidad', 'Académica', 'N/A', '#F8C1D9', 'A'), -- Rosado coral pastel
+('GUIA', 'Académica', 'N/A', '#A3DED2', 'A'),                   -- Verde azulado pastel
+('Maderas', 'Tecnica', 'N/A', '#D2B48C', 'A');                  -- Marrón claro madera pastel
+
  
  
 INSERT INTO Profesor (Cedula, Nombre, Apellido, Correo, Telefono, Carga_Horaria, Estado)
 VALUES 
-('111111111', 'MARÍA FERNANDA', 'BRENES CHACÓN', 'example@colegio.edu', '8888-8888', 23, 'A'),
-('222222222', 'MONSERRAT', 'CARBONELL RAMÍREZ', 'example@colegio.edu', '8888-2345', 20, 'A'),
-('333333333', 'LIZETTE', 'RETANA BARBOZA', 'example@colegio.edu', '8888-2345', 41, 'A'),
-('444444444', 'ANGIE', 'RAMÍREZ RIVAS', 'example@colegio.edu', '8888-2345', 42, 'A'),
-('555555555', 'WENDY', 'ÁLVAREZ QUESADA', 'example@colegio.edu', '8888-2345', 19, 'A'),
-('666666666', 'FRANCINI', 'ANGULO HERNÁNDEZ', 'example@colegio.edu', '8888-2345', 41, 'A'),
-('777777777', 'GERARDINA', 'MURILLO AZOFEIFA', 'example@colegio.edu', '8888-2345', 33, 'A'),
-('888888888', 'YENDRI', 'CALDERÓN RAMÍREZ', 'example@colegio.edu', '8888-2345', 10, 'A'),
-('999999999', 'GUSTAVO', 'SILES RÍOS', 'example@colegio.edu', '8888-2345', 28, 'A'),
-('123123123', 'MARCO', 'ROVERSSI ALVARADO', 'example@colegio.edu', '8888-2345', 15, 'A'),
-('321321321', 'ROBERTO', 'PICADO ALCOCER', 'example@colegio.edu', '8888-2345', 30, 'A'),
-('456456456', 'ALEXANDER', 'CRUZ SALGUERA', 'example@colegio.edu', '8888-2345', 12, 'A'),
-('456456457', 'ESTEBAN ', 'GARRO B', 'example@colegio.edu', '8888-2345', 16, 'A'),
-('654654654', 'ALEJANDRA', 'CHAVEZ UMAÑA', 'example@colegio.edu', '8888-2345', 16, 'A'),
-('789789789', 'JÉSSICA', 'SALAZAR MARÍN', 'example@colegio.edu', '8888-2345', 30, 'A'),
-('987987987', 'EVELYN', 'BOGANTES AGUILAR', 'example@colegio.edu', '8888-2345', 1, 'A'),
-('147147147', ' YERLY ', 'CASTILLO LINARES', 'example@colegio.edu', '8888-2345', 2, 'A'),
-('258258258', 'RAQUEL', 'CHINCHILLA ARIAS', 'example@colegio.edu', '8888-2345', 3, 'A'),
-('369369369', 'ADRIANA', 'ALVARADO CAMBRONERO', 'example@colegio.edu', '8888-2345', 3, 'A');
+('111111111', 'María Fernanda', 'Brenes Chacón', 'example@colegio.edu', '8888-8888', 23, 'A'),
+('222222222', 'Monserrat', 'Carbonell Ramírez', 'example@colegio.edu', '8888-2345', 20, 'A'),
+('333333333', 'Lizette', 'Retana Barboza', 'example@colegio.edu', '8888-2345', 41, 'A'),
+('444444444', 'Angie', 'Ramírez Rivas', 'example@colegio.edu', '8888-2345', 42, 'A'),
+('555555555', 'Wendy', 'Álvarez Quesada', 'example@colegio.edu', '8888-2345', 19, 'A'),
+('666666666', 'Francini', 'Angulo Hernández', 'example@colegio.edu', '8888-2345', 41, 'A'),
+('777777777', 'Gerardina', 'Murillo Azofeifa', 'example@colegio.edu', '8888-2345', 33, 'A'),
+('888888888', 'Yendri', 'Calderón Ramírez', 'example@colegio.edu', '8888-2345', 10, 'A'),
+('999999999', 'Gustavo', 'Siles Ríos', 'example@colegio.edu', '8888-2345', 28, 'A'),
+('123123123', 'Marco', 'Roverssi Alvarado', 'example@colegio.edu', '8888-2345', 15, 'A'),
+('321321321', 'Roberto', 'Picado Alcocer', 'example@colegio.edu', '8888-2345', 30, 'A'),
+('456456456', 'Alexander', 'Cruz Salguera', 'example@colegio.edu', '8888-2345', 12, 'A'),
+('456456457', 'Esteban', 'Garro B', 'example@colegio.edu', '8888-2345', 16, 'A'),
+('654654654', 'Alejandra', 'Chavez Umaña', 'example@colegio.edu', '8888-2345', 16, 'A'),
+('789789789', 'Jéssica', 'Salazar Marín', 'example@colegio.edu', '8888-2345', 30, 'A'),
+('987987987', 'Evelyn', 'Bogantes Aguilar', 'example@colegio.edu', '8888-2345', 1, 'A'),
+('147147147', 'Yerly', 'Castillo Linares', 'example@colegio.edu', '8888-2345', 2, 'A'),
+('258258258', 'Raquel', 'Chinchilla Arias', 'example@colegio.edu', '8888-2345', 3, 'A'),
+('369369369', 'Adriana', 'Alvarado Cambronero', 'example@colegio.edu', '8888-2345', 3, 'A');
+
 
 
 INSERT INTO Profesor_X_Materia (Id_Profesor, Id_Materia, Estado)

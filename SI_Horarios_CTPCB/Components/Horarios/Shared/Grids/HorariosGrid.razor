@@ -16,12 +16,17 @@
                 <Div Class="col-md-6 text-end" Padding="Padding.Is4.FromEnd">
                     <Button Class="btn btn-create" Clicked="@GenerarHorario">Generar automáticamente</Button>
                 </Div>
+                <Div Class="col-md-6" style="display:flex; align-items:baseline; gap:8px; ">
+
+                    <h2 style="font-size: 30px">Profesor Guia: </h2>
+                        <label>@nombreProfesorGuia</label>
+                </Div>
             </Div>
             <Div Class="row mb-4">
-                <DataGrid TItem="BloqueHorario" Data="@bloquesHorario" PageSize="16" ShowPager="false" ShowPageSizes="false" ShowCaptions="true" Editable="false" Responsive="true" Hoverable="true"
-                          Class="table-bordered text-center w-100 no-padding">
+                <DataGrid TItem="BloqueHorario" Data="@bloquesHorario" PageSize="16" ShowPager="false" ShowPageSizes="false" ShowCaptions="true" Editable="false" Responsive="true"
+                          Class="table-bordered text-center w-100 no-padding ">
 
-                    <DataGridColumn TItem="BloqueHorario" Field="@nameof(BloqueHorario.RangoHorario)" Caption="Hora" Width="180px" />
+                    <DataGridColumn TItem="BloqueHorario" Field="@nameof(BloqueHorario.RangoHorario)" Caption="Hora" />
 
                     @foreach (var dia in diasSemana)
                     {
@@ -30,15 +35,15 @@
                                 @{
                                     var detalle = context.GetDetalle(dia);
                                 }
-                                <div style="background-color:@(detalle?.Color ?? "#6c757d"); color:white; min-height:60px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                                <div style="background-color:@(context.EsReceso ? "#bbbec2" : (detalle?.Color ?? "#6c757d")); width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; font-size: 18px; padding:5px; border-radius: 12px;">
                                     @if (context.EsReceso)
                                     {
                                         <span>Receso</span>
                                     }
                                     else if (detalle is not null)
                                     {
-                                        <span><b>Materia:</b> @detalle.Materia</span>
-                                        <span><b>Profesor:</b> @detalle.Profesor</span>
+                                        <span style="color: #555;" ><b style="color: black;">Materia:</b> @detalle.Materia</span>
+                                        <span style="color: #555;"><b style="color: black;">Profesor:</b> @detalle.Profesor</span>
                                     }
                                     else
                                     {
@@ -62,6 +67,7 @@
     private ReportesModel reportesModel = new();
     ModalAsigMateria? modalAsigMateria;
     IEnumerable<GrupoDto>? dataGrupo { get; set; } = new List<GrupoDto>();
+    private string nombreProfesorGuia = string.Empty;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -93,9 +99,28 @@
     private async Task GrupoChanged(string value)
     {
         reportesModel.Grupo = value;
+        await ActualizarProfesorGuia();
         if (!string.IsNullOrEmpty(reportesModel.Grupo))
         {
             await ObtenerHorarios();
+        }
+    }
+
+    private async Task ActualizarProfesorGuia()
+    {
+        nombreProfesorGuia = string.Empty;
+        if (!string.IsNullOrEmpty(reportesModel.Grupo) && dataGrupo is not null)
+        {
+            var grupo = dataGrupo.FirstOrDefault(g => g.Id_Grupo.ToString() == reportesModel.Grupo);
+            if (grupo is not null && !string.IsNullOrEmpty(grupo.Id_Profesor_Guia))
+            {
+                var profesores = await api.Mantenimientos_GetAllProfesorAsync();
+                var profesor = profesores.FirstOrDefault(p => p.Id_Profesor.ToString() == grupo.Id_Profesor_Guia);
+                if (profesor is not null)
+                {
+                    nombreProfesorGuia = $"{profesor.Nombre} {profesor.Apellido}";
+                }
+            }
         }
     }
 

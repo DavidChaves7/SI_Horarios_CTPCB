@@ -9,6 +9,8 @@ table {
     text-align: center;
 }
 
+
+
 td {
     width: 100px !important;
 }
@@ -119,6 +121,6 @@ td {
 }
 
 .no-padding td {
-    padding: 0 !important;
+    padding: 1 !important;
     height: 50px !important;
 }
