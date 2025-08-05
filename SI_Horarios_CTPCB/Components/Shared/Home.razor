@@ -29,7 +29,14 @@
                 </div>
             } *@
 
-            <button type="submit" class="btn-login">Iniciar Sesión</button>
+            @*<button type="submit" class="btn-login">Iniciar Sesión</button>*@
+                <a href="/MicrosoftIdentity/Account/SignIn?redirectUri=/MenuPrincipal"
+                   class="btn-login"
+                   type="submit">
+                    Iniciar sesión con SSO
+                </a>
+
+
         </form>
     </div>
 </div>

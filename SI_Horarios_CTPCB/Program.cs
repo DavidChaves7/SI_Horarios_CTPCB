@@ -18,6 +18,11 @@ using Microsoft.AspNetCore.Components.Server.Circuits;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +34,7 @@ builder.Services.AddRazorComponents(opt =>
 {
 })
     .AddInteractiveServerComponents();
-builder.Services.AddAuthentication().AddCookie(opt =>
+/*builder.Services.AddAuthentication().AddCookie(opt =>
 {
     opt.LoginPath = "/Login";
     opt.LogoutPath = "/Login";
@@ -41,8 +46,19 @@ builder.Services.AddAuthentication().AddCookie(opt =>
     opt.Cookie.Name = "coopeBanCK";
     opt.Cookie.SameSite = SameSiteMode.Strict;
     //opt.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-});
-//builder.Services.AddAuthorization();
+});*/
+
+builder.Services
+    .AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
+
+builder.Services
+    .AddControllersWithViews()
+    .AddMicrosoftIdentityUI();
+
+
+builder.Services.AddAuthorization();
+builder.Services.AddControllers();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<ICustomSessionStorage, CustomSessionStorage>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
@@ -117,6 +133,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
 app.UseMiddleware<UserServiceMiddleware>();
+app.MapControllers(); 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 if (app.Environment.IsProduction())

@@ -79,3 +79,16 @@
     .btn-login:hover {
         background-color: #AB57A1;
     }
+
+.sso-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #FFFFFF; 
+    text-decoration: none;
+    font-weight: 500;
+}
+
+    .sso-link:hover {
+        text-decoration: underline;
+    }
