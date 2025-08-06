@@ -189,6 +189,9 @@ namespace API.Infrastructure.Services
                     throw new Exception("Debe de establecer los campos para el objeto");
                 }
 
+                // Ajustar los bloques para que sean consecutivos antes de guardar
+                AjustarBloquesConsecutivosPorDia(horariosGenerados);
+
                 var horariosDB = _mapper.Map<List<Horario>>(horariosGenerados);
 
                 await _unitOfWork.Set<Horario>().AddRangeAsync(horariosDB);
@@ -277,6 +280,33 @@ namespace API.Infrastructure.Services
                 return new HorarioDto();
             }
 
+        }
+
+        // Ajusta los bloques para que sean consecutivos por día y grupo, moviendo las lecciones a los primeros bloques disponibles del día
+        private static void AjustarBloquesConsecutivosPorDia(List<HorarioDto> horariosGenerados)
+        {
+            var dias = Dias;
+            var bloques = Bloques;
+            var grupos = horariosGenerados.Select(h => h.Id_Grupo).Distinct();
+            foreach (var grupoId in grupos)
+            {
+                foreach (var dia in dias)
+                {
+                    var bloquesDia = horariosGenerados
+                        .Where(h => h.Id_Grupo == grupoId && h.Dia == dia)
+                        .OrderBy(h => h.Hora_Inicio)
+                        .ToList();
+                    if (bloquesDia.Count == 0)
+                        continue;
+                    // Reasignar los bloques a los primeros disponibles del día
+                    for (int i = 0; i < bloquesDia.Count; i++)
+                    {
+                        var bloque = bloques[i];
+                        bloquesDia[i].Hora_Inicio = bloque.inicio;
+                        bloquesDia[i].Hora_Fin = bloque.fin;
+                    }
+                }
+            }
         }
 
     }
