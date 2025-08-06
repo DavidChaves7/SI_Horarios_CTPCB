@@ -107,7 +107,7 @@ namespace API.Infrastructure.Services
                     var materiasDelNivel = materiasXNivel.Where(m => m.Id_Nivel_Academico == nivel).ToList();
 
                     // Obtener el profesor guía para este grupo
-                    var profesorGuiaGrupo = !string.IsNullOrEmpty(grupo.Id_Profesor_Guia) && grupo.Id_Profesor_Guia != "N/A"
+                    var profesorGuiaGrupo = !string.IsNullOrEmpty(grupo.Id_Profesor_Guia.ToString()) && grupo.Id_Profesor_Guia != -1
                         ? Convert.ToInt32(grupo.Id_Profesor_Guia)
                         : (int?)null;
 

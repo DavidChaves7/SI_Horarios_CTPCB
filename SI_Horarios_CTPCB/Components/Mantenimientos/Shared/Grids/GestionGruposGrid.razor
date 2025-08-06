@@ -1,0 +1,164 @@
+﻿
+@inject SIHAPI api
+<Div Class="main-content">
+    <LoadingIndicator Visible="@(data is null)">
+        <ChildContent>
+            <br />
+            <Row>
+                <ButtonsExportComponent T="GrupoDto" Data="data" Titulo="Grupos" />
+            </Row>
+
+            @* PageSizes="[10, 20, 30]" ShowPageSizes *@
+            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="GrupoDto" Data="data" PageSize="10" 
+                      Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
+                      UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
+                <DataGridColumns>
+                    <DataGridColumn Field="@nameof(GrupoDto.Id_Grupo)" Caption="Id Grupo" />
+                    <DataGridColumn Field="@nameof(GrupoDto.Nombre)" Editable Caption="Nombre" />
+                    <DataGridColumn Field="@nameof(GrupoDto.Id_Nivel_Academico)" Editable Displayable="false" Caption="Nivel Academico">
+                        <EditTemplate>
+                            <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
+                                <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
+                                @foreach (var i in dataNivelAcad ?? new List<NivelAcademicoDto>())
+                                {
+                                    <SelectItem Value="@(i.Id_Nivel_Academico)">@i.Nombre</SelectItem>
+                                }
+                            </Select>
+                        </EditTemplate>
+                    </DataGridColumn>
+                    
+                    <DataGridColumn Field="@nameof(GrupoDto.Seccion)" Editable Caption="Sección" />
+                    <DataGridColumn Field="@nameof(GrupoDto.Id_Profesor_Guia)" Editable Displayable="false" Caption="Profesor Guia">
+                        <EditTemplate>
+                            <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
+                                <SelectItem Value="@((int?)-1)">Sin asignar</SelectItem>
+                                @foreach (var i in dataProf ?? new List<ProfesorDto>())
+                                {
+                                    <SelectItem Value="@(i.Id_Profesor)">@i.Nombre @i.Apellido</SelectItem>
+                                }
+                            </Select>
+                        </EditTemplate>
+                    </DataGridColumn>
+                    <DataGridColumn Field="@nameof(GrupoDto.Estado)" Editable Caption="Estado">
+                        <DisplayTemplate>
+                            <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
+                                <SelectItem Value="@("A")">Activo</SelectItem>
+                                <SelectItem Value="@("I")">Inactivo</SelectItem>
+                            </Select>
+                        </DisplayTemplate>
+                        <EditTemplate>
+                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@( v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                                <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                <SelectItem Value="@("A")">Activo</SelectItem>
+                                <SelectItem Value="@("I")">Inactivo</SelectItem>
+                            </Select>
+                        </EditTemplate>
+                    </DataGridColumn>
+                </DataGridColumns>
+                <ButtonRowTemplate>
+                    <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
+                    <Button Class="btn btn-edit" Disabled="(selectedData is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
+                    <Button Class="btn btn-delete" Disabled="(selectedData is null)" Clicked="context.DeleteCommand.Clicked">Inactivar</Button>
+                </ButtonRowTemplate>
+                <NextPageButtonTemplate><Icon Name="IconName.AngleRight" /></NextPageButtonTemplate>
+                <PreviousPageButtonTemplate><Icon Name="IconName.AngleLeft" /></PreviousPageButtonTemplate>
+                <LastPageButtonTemplate><Icon Name="IconName.AngleRight" /><Icon Name="IconName.AngleRight" /></LastPageButtonTemplate>
+                <FirstPageButtonTemplate><Icon Name="IconName.AngleLeft" /><Icon Name="IconName.AngleLeft" /></FirstPageButtonTemplate>
+            </DataGrid>
+        </ChildContent>
+    </LoadingIndicator>
+</Div>
+
+@code {
+
+    private string accessCategory { get; set; } = "";
+
+    IEnumerable<GrupoDto>? data { get; set; } = new List<GrupoDto>();
+    IEnumerable<NivelAcademicoDto>? dataNivelAcad { get; set; } = new List<NivelAcademicoDto>();
+    IEnumerable<ProfesorDto>? dataProf { get; set; } = new List<ProfesorDto>();
+
+    private GrupoDto? selectedData;
+
+    private Snackbar? snackbarPrimary;
+
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+
+            data = await api.Mantenimientos_GetAllGruposAsync();
+            dataNivelAcad = await api.Mantenimientos_GetAllNivelAcademicoAsync();
+            dataProf = await api.Mantenimientos_GetAllProfesorAsync();
+            StateHasChanged();
+        }
+    }
+
+    RenderFragment SetModalTitle(PopupTitleContext<GrupoDto> context)
+    {
+        var title = context.EditState == DataGridEditState.New ? "Nuevo" : "Editar";
+        return (__builder) =>
+        {
+            <Span>
+                @($"{title} Grupo")
+            </Span>
+        };
+    }
+
+    async Task InsertNewItem(SavedRowItem<GrupoDto, Dictionary<string, object>> item)
+    {
+        try
+        {
+            var errors = item.NewItem.ValidateObjectFields();
+            if (!string.IsNullOrEmpty(errors))
+            {
+                await Task.FromResult(MessageService.Info(errors, "Datos requeridos faltantes"));
+            }
+            else
+            {
+                await api.Mantenimientos_AddUpdateGrupoAsync(item.NewItem);
+                data = await api.Mantenimientos_GetAllGruposAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    Task ValidateEditFields(CancellableRowChange<GrupoDto, Dictionary<string, object>> item)
+    {
+
+        var errors = item.NewItem.ValidateObjectFields();
+        if (!string.IsNullOrEmpty(errors))
+        {
+            item.Cancel = true;
+            return MessageService.Info(errors, "Datos requeridos faltantes");
+        }
+        else
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    async Task DeleteItem(GrupoDto item)
+    {
+        await api.Mantenimientos_DeleteGrupoAsync(item);
+        data = await api.Mantenimientos_GetAllGruposAsync();
+
+    }
+
+    async Task RemovingRow(CancellableRowChange<GrupoDto> item)
+    {
+        var delete = await MessageService.Confirm($"Está seguro de inactivar al Grupo: {item.OldItem.Nombre}?", "Inactivar Grupo", opt =>
+        {
+            // opt.MessageIcon = Icon
+        });
+        if (!delete)
+        {
+            item.Cancel = true;
+        }
+    }
+}

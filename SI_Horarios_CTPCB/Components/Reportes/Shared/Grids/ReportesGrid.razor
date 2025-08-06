@@ -1,4 +1,10 @@
-﻿<Div Class="main-content">
+﻿@using System.IO.Compression
+@using QuestPDF.Fluent;
+@using QuestPDF.Helpers;
+@using QuestPDF.Infrastructure;
+@using QuestPDF.Drawing;
+
+<Div Class="main-content">
     <LoadingIndicator Visible="@(isLoading)">
         <Div Class="d-flex">
             <!-- Sección Izquierda: Formularios -->
@@ -7,22 +13,13 @@
 
                 <EditForm Model="@reportesModel">
 
-                    <Div Class="form-group mb-3">
-                        <label for="tipoReporte">Tipo de Reporte</label>
-                        <Select @bind-SelectedValue="reportesModel.TipoReporte" Class="form-control">
-                            <SelectItem Value="@("")">Seleccione una opción</SelectItem>
-                            <SelectItem Value="@("RHG")">Reporte Horarios Generados</SelectItem>
-                        </Select>
-                    </Div>
-
                     <Div class="form-group mb-3">
                         <label for="frecuencia">Frecuencia</label>
                         <Select @bind-SelectedValue="reportesModel.Frecuencia" Class="form-control">
                             <SelectItem Value="@("")">Seleccione una opción</SelectItem>
-                            <SelectItem Value="@("D")">Diario</SelectItem>
-                            <SelectItem Value="@("W")">Semanal</SelectItem>
                             <SelectItem Value="@("Q")">Quincenal</SelectItem>
                             <SelectItem Value="@("M")">Mensual</SelectItem>
+                            <SelectItem Value="@("T")">Trimestral</SelectItem>
                         </Select>
                     </Div>
 
@@ -32,14 +29,14 @@
                     </Div>
 
                     <Div Class="row">
-                        <Div Class="col-4">
+                        @* <Div Class="col-4">
                             <Button Class="btn btn-create" Clicked="() => modalReporte.Open()">Ver Reporte</Button>
+                        </Div> *@
+                        <Div Class="col-6">
+                            <Button Class="btn btn-edit" Clicked="@DownloadReport">Descargar Horarios</Button>
                         </Div>
-                        <Div Class="col-4">
-                            <Button Class="btn btn-edit" Clicked="@DownloadReport">Descargar</Button>
-                        </Div>
-                        <Div Class="col-4">
-                            <Button Class="btn btn-delete" Clicked="@SaveReport">Guardar</Button>
+                        <Div Class="col-6">
+                            <Button Class="btn btn-delete" Clicked="@SaveReport">Guardar Parámetros</Button>
                         </Div>
                     </Div>
                 </EditForm>
@@ -50,11 +47,6 @@
 
             <Div Class="col-md-6 p-3">
                 <h3>Estadísticas</h3>
-
-                <!-- Pie de Profesores -->
-                @* <Div Class="mb-4">
-                    <PieChart Data="@pieDataProfesores" Title="Distribución de Profesores" />
-                </Div> *@
 
                 <Div Class="mb-4">
                     <BarChart @ref="barChart" TItem="double" Options="@options" />
@@ -68,91 +60,278 @@
 
 @code {
     ModalVerReporte? modalReporte;
-    private ReportesModel reportesModel = new ReportesModel();
+    private Reporteria_ProgamadaDto reportesModel = new Reporteria_ProgamadaDto();
     private bool isLoading = false;
 
-    private void DownloadReport()
+    private async Task DownloadReport()
     {
-        Console.WriteLine("Descargando reporte...");
+        var zipBytes = await GenerarZipHorarios();
+        var base64Zip = Convert.ToBase64String(zipBytes);
+        var fileName = "HorariosGenerados.zip";
+
+        await JS.InvokeVoidAsync("saveAsFile", fileName, base64Zip);
+
     }
 
-    private void SaveReport()
+    private async Task<byte[]> GenerarZipHorarios()
     {
-        Console.WriteLine("Guardando reporte...");
+        using var zipStream = new MemoryStream();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, leaveOpen: true);
+
+        var grupos = await api.Mantenimientos_GetAllGruposAsync();
+
+        foreach (var grupo in grupos)
+        {
+            var horarios = await api.Horarios_GenHorarioAsync(grupo.Id_Grupo);
+            var pdfBytes = await GenerarPdfHorario(horarios.Where(x => x.Id_Grupo == grupo.Id_Grupo).ToList(), grupo.Nombre); 
+
+            var entry = archive.CreateEntry($"{grupo.Nombre}_Horario.pdf");
+            using var entryStream = entry.Open();
+            entryStream.Write(pdfBytes, 0, pdfBytes.Length);
+        }
+
+        archive.Dispose(); 
+        return zipStream.ToArray();
     }
 
-    public class ReportesModel
+    private List<BloqueHorario> bloquesHorario = new()
     {
-        public string TipoReporte { get; set; }
-        public string Frecuencia { get; set; }
-        public string Correos { get; set; }
+        new(new(7, 0, 0), new(7, 40, 0)),
+        new(new(7, 40, 0), new(8, 20, 0)),
+        new(new(8, 20, 0), new(9, 0, 0)),
+        new(new(9, 0, 0), new(9, 20, 0), true), // Receso
+        new(new(9, 20, 0), new(10, 0, 0)),
+        new(new(10, 0, 0), new(10, 40, 0)),
+        new(new(10, 40, 0), new(11, 20, 0)),
+        new(new(11, 20, 0), new(12, 0, 0), true), // Almuerzo
+        new(new(12, 0, 0), new(12, 40, 0)),
+        new(new(12, 40, 0), new(13, 20, 0)),
+        new(new(13, 20, 0), new(14, 0, 0)),
+        new(new(14, 0, 0), new(14, 20, 0), true), // Receso
+        new(new(14, 20, 0), new(15, 0, 0)),
+        new(new(15, 0, 0), new(15, 40, 0)),
+        new(new(15, 40, 0), new(16, 20, 0))
+    };
+
+    public class BloqueHorario
+    {
+        public int IdHorario { get; set; }
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraFin { get; set; }
+        public bool EsReceso { get; set; }
+        public string RangoHorario { get; private set; }
+        public Dictionary<string, DetalleBloque> DetallesPorDia { get; set; } = new();
+
+        public BloqueHorario(TimeSpan horaInicio, TimeSpan horaFin, bool esReceso = false)
+        {
+            HoraInicio = horaInicio;
+            HoraFin = horaFin;
+            EsReceso = esReceso;
+            RangoHorario = $"{DateTime.Today.Add(HoraInicio):hh\\:mm tt} - {DateTime.Today.Add(HoraFin):hh\\:mm tt}";
+        }
+
+        public DetalleBloque? GetDetalle(string dia)
+        {
+            DetallesPorDia.TryGetValue(dia, out var detalle);
+            return detalle;
+        }
+    }
+
+    public class DetalleBloque
+    {
+        public string Materia { get; set; } = "";
+        public string Profesor { get; set; } = "";
+        public string Color { get; set; } = "#6c757d";
+    }
+
+    private async Task<byte[]> GenerarPdfHorario(List<HorarioDto> horarios, string nombreGrupo)
+    {
+        QuestPDF.Settings.License = LicenseType.Community;
+        var listaMaterias = await api.Mantenimientos_GetAllMateriasAsync();
+        var listaProfesores = await api.Mantenimientos_GetAllProfesorAsync();
+        var diasSemana = new[] { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
+        var diasSemanaCode = new[] { "L", "K", "M", "J", "V" };
+
+        var pdf = QuestPDF.Fluent.Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A4.Landscape());
+                page.Margin(20);
+                page.DefaultTextStyle(x => x.FontSize(10));
+
+                page.Header().Text($"Horario - Grupo {nombreGrupo}").Bold().FontSize(16).AlignCenter();
+
+                page.Content().Table(table =>
+                {
+                    table.ColumnsDefinition(columns =>
+                    {
+                        columns.ConstantColumn(100); // Hora
+                        foreach (var _ in diasSemana)
+                            columns.RelativeColumn();
+                    });
+
+                    // Header
+                    table.Header(header =>
+                    {
+                        header.Cell().Text("Hora").Bold();
+                        foreach (var dia in diasSemana)
+                            header.Cell().Text(dia).Bold().AlignCenter();
+                    });
+
+                    foreach (var bloque in bloquesHorario)
+                    {
+                        table.Cell().Text($"{bloque.HoraInicio:hh\\:mm} - {bloque.HoraFin:hh\\:mm}");
+
+                        foreach (var dia in diasSemanaCode)
+                        {
+                            if (bloque.EsReceso)
+                            {
+                                table.Cell().Background("#bbbec2").AlignCenter().AlignMiddle().Text("Receso");
+                                continue;
+                            }
+
+                            var clase = horarios.FirstOrDefault(h =>
+                                h.Dia.Equals(dia, StringComparison.OrdinalIgnoreCase)
+                                && h.Hora_Inicio == bloque.HoraInicio
+                                && h.Hora_Fin == bloque.HoraFin
+                            );
+
+                            if (clase != null)
+                            {
+                                var materia = listaMaterias.FirstOrDefault(m => m.Id_Materia == clase.Id_Materia);
+                                var profesor = listaProfesores.FirstOrDefault(p => p.Id_Profesor.ToString() == clase.Id_Profesor);
+                                var color = materia?.Color ?? "#6c757d";
+
+                                table.Cell().Background(color).Padding(5).Text(text =>
+                                {
+                                    text.DefaultTextStyle(x => x.FontSize(8));
+
+                                    text.Span("Materia: ").SemiBold();
+                                    text.Span($"{materia?.Nombre ?? "N/A"}\n");
+
+                                    text.Span("Profesor: ").SemiBold();
+                                    text.Span($"{profesor?.Nombre} {profesor?.Apellido}");
+                                });
+                            }
+                            else
+                            {
+                                table.Cell().Background("#bbbec2").AlignCenter().AlignMiddle().Text("Sin asignar");
+                            }
+                        }
+                    }
+                });
+            });
+        });
+
+        return pdf.GeneratePdf();
+    }
+
+
+    private async Task SaveReport()
+    {
+        if (reportesModel != null)
+            await api.Mantenimientos_AddUpdateReporteria_ProgamadaAsync(reportesModel);
     }
 
     BarChart<double> barChart;
 
     BarChartOptions options = new()
+    {
+        IndexAxis = "y",
+        Elements = new()
         {
-            IndexAxis = "y",
-            Elements = new()
+            Bar = new()
             {
-                Bar = new()
-                {
-                    BorderWidth = 2,
-                }
-            },
-            Responsive = true,
-            Plugins = new()
-            {
-                Legend = new()
-                {
-                    Position = "right"
-                },
-                Title = new()
-                {
-                    Display = true,
-                    Text = "Materias por Nivel"
-                }
+                BorderWidth = 1,
             }
-        };
+        },
+        Responsive = true,
+        Plugins = new()
+        {
+            Legend = new() { Position = "right" },
+            Title = new() { Display = true, Text = "Distribución de Lecciones por Nivel y Materia" }
+        }
+    };
+
+    List<string> Labels = new(); // ← Niveles
+    List<string> MateriaLabels = new(); // ← Materias
+    List<string> backgroundColors = new();
+    List<string> borderColors = new();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await HandleRedraw();
+            //await HandleRedraw();
+            reportesModel = await api.Mantenimientos_GetOneReporteria_ProgamadaAsync(new Reporteria_ProgamadaDto(){Id_Rep_Programada = 1});
         }
     }
 
     async Task HandleRedraw()
     {
+        Labels.Clear();
+        MateriaLabels.Clear();
+
+        var niveles = await api.Mantenimientos_GetAllNivelAcademicoAsync();
+        var materias = await api.Mantenimientos_GetAllMateriasAsync();
+        var grupos = await api.Mantenimientos_GetAllGruposAsync();
+
+        Labels = niveles.Select(n => n.Nombre).ToList(); // Eje Y
+        MateriaLabels = materias.Select(m => m.Nombre).ToList();
+
+        // Diccionario [nivel][materia] => total horas
+        Dictionary<string, Dictionary<string, double>> datos = new();
+
+        foreach (var nivel in Labels)
+        {
+            datos[nivel] = new Dictionary<string, double>();
+            foreach (var materia in MateriaLabels)
+                datos[nivel][materia] = 0;
+        }
+
+        foreach (var grupo in grupos)
+        {
+            var nivel = niveles.FirstOrDefault(n => n.Id_Nivel_Academico == grupo.Id_Nivel_Academico)?.Nombre;
+            if (nivel is null) continue;
+
+            var horario = await api.Horarios_GenHorarioAsync(grupo.Id_Grupo);
+            horario = horario.Where(x => x.Id_Grupo == grupo.Id_Grupo).ToList();
+            foreach (var clase in horario)
+            {
+                var materia = materias.FirstOrDefault(m => m.Id_Materia == clase.Id_Materia)?.Nombre;
+                if (materia is null) continue;
+
+                var duracion = (clase.Hora_Fin - clase.Hora_Inicio).TotalMinutes / 40.0; // Cada bloque 40min
+                datos[nivel][materia] += duracion;
+            }
+        }
+
         await barChart.Clear();
 
-        await barChart.AddLabelsDatasetsAndUpdate(Labels,
-            GetBarChartDataset("Matematica"),
-            GetBarChartDataset("Electiva"));
-    }
+        int colorIndex = 0;
+        foreach (var materia in MateriaLabels)
+        {
+            List<double> valores = new();
+            foreach (var nivel in Labels)
+                valores.Add(datos[nivel][materia]);
 
-    BarChartDataset<double> GetBarChartDataset(string label)
-    {
-        return new BarChartDataset<double>
+            var dataset = new BarChartDataset<double>
             {
-                Label = label,
-                Data = RandomizeData(),
-                BackgroundColor = backgroundColors,
-                BorderColor = borderColors,
+                Label = materia,
+                Data = valores,
+                BackgroundColor = ChartColor.FromRgba(Convert.ToByte(100 + colorIndex * 30), 100, 200, 0.6f),
+                BorderColor = ChartColor.FromRgba(Convert.ToByte(100 + colorIndex * 30), 100, 200, 1f),
+                BorderWidth = 1
             };
+
+            await barChart.AddDataSet(dataset);
+            colorIndex++;
+        }
+
+        await barChart.AddLabels(Labels);
+        await barChart.Update();
     }
 
-    string[] Labels = { "Decimo", "Undecimo", "Duodecimo"};
-    List<string> backgroundColors = new List<string> { ChartColor.FromRgba(255, 99, 132, 0.2f), ChartColor.FromRgba(54, 162, 235, 0.2f), ChartColor.FromRgba(255, 206, 86, 0.2f)};
-    List<string> borderColors = new List<string> { ChartColor.FromRgba(255, 99, 132, 1f), ChartColor.FromRgba(54, 162, 235, 1f), ChartColor.FromRgba(255, 206, 86, 1f)};
-    Random random = new Random(DateTime.Now.Millisecond);
-
-    List<double> RandomizeData()
-    {
-        return new List<double> {
-            random.Next( 0, 40 ) * random.NextDouble(),
-            random.Next( 0, 40 ) * random.NextDouble(),
-            random.Next( 0, 40 ) * random.NextDouble()};
-    }
+    
 }

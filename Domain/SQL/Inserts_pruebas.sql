@@ -59,6 +59,7 @@ VALUES
 ('000000000', 'Sin Asignar', '', '', '', 0, 'A');
 
 
+
 INSERT INTO Profesor_X_Materia (Id_Profesor, Id_Materia, Estado)
 VALUES 
 (1, 12, 'A'), -- MARÍA	FERNANDA	BRENES	CHACÓN : ESTUDIOS SOCIALES
@@ -241,14 +242,14 @@ VALUES
 
 INSERT INTO Grupo (Nombre, Id_Nivel_Academico, Seccion, Id_Profesor_Guia, Estado)
 VALUES 
-('7-1', 1, 'Grupo 1', '1', 'A'),
-('7-2', 1, 'Grupo 2', '4', 'A'),
-('8-1', 2, 'Grupo 3', '2', 'A'),
-('8-2', 2, 'Grupo 4', '6', 'A'),
-('9-1', 3, 'Grupo 5', '4', 'A'),
-('9-2', 3, 'Grupo 8', '5', 'A'),
-('10-1', 4, 'Grupo 6', 'N/A', 'A'),
-('12-1', 6, 'Grupo 7', '7', 'A');
+('7-1', 1, 'Grupo 1', 1, 'A'),
+('7-2', 1, 'Grupo 2', 4, 'A'),
+('8-1', 2, 'Grupo 3', 2, 'A'),
+('8-2', 2, 'Grupo 4', 6, 'A'),
+('9-1', 3, 'Grupo 5', 4, 'A'),
+('9-2', 3, 'Grupo 8', 5, 'A'),
+('10-1', 4, 'Grupo 6', -1, 'A'),
+('12-1', 6, 'Grupo 7', 7, 'A');
 
 
 INSERT INTO Restriccion_Profesor (Id_Profesor, Razon, Dia, Hora_Inicio, Hora_Fin, Estado)
@@ -275,3 +276,5 @@ VALUES
 (15, 'Trabajo en otra institución', 'L', '07:00', '16:20', 'A'),
 (15, 'Trabajo en otra institución', 'K', '07:00', '16:20', 'A');
 
+INSERT INTO Reporteria_Progamada(Frecuencia,Correos,Estado)
+VALUES ('T', 'dchavesd.07@gmail.com,camposcespedesd@gmail.com', 'A');

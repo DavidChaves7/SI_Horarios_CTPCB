@@ -137,7 +137,25 @@ namespace API.Controllers.CPC
 
         #region Grupos
         [HttpGet("GetAllGrupos")]
-        public async Task<IEnumerable<GrupoDto>> GetAllGrupossAsync() => await _mantenimientosRepository.GetAllGrupos();
+        public async Task<IEnumerable<GrupoDto>> GetAllGruposAsync() => await _mantenimientosRepository.GetAllGrupos();
+        [HttpGet("GetOneGrupo")]
+        public async Task<GrupoDto> GetOneGrupoAsync(GrupoDto param) => await _mantenimientosRepository.GetOneGrupo(param);
+
+        [HttpPost("AddUpdateGrupo")]
+        public async Task<GrupoDto?> AddUpdateGrupoAsync(GrupoDto param) => await _mantenimientosRepository.AddUpdateGrupo(param);
+
+        [HttpPost("DeleteGrupo")]
+        public async Task<GrupoDto?> DeleteGrupoAsync(GrupoDto param) => await _mantenimientosRepository.DeleteGrupo(param);
+
+
+        #endregion
+
+        #region Reporteria_Progamada
+        [HttpGet("GetOneReporteria_Progamada")]
+        public async Task<Reporteria_ProgamadaDto> GetOneReporteria_ProgamadaAsync(Reporteria_ProgamadaDto param) => await _mantenimientosRepository.GetOneReporteria_Progamada(param);
+
+        [HttpPost("AddUpdateReporteria_Progamada")]
+        public async Task<Reporteria_ProgamadaDto?> AddUpdateReporteria_ProgamadaAsync(Reporteria_ProgamadaDto param) => await _mantenimientosRepository.AddUpdateReporteria_Progamada(param);
 
         #endregion
 

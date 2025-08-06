@@ -78,12 +78,21 @@ namespace Infrastructure.Interfaces
         Task<SeguridadDto> GetOneSeguridad(SeguridadDto data);
 
         #endregion
-
+                
         #region Grupos
         Task<IEnumerable<GrupoDto>> GetAllGrupos();
+        Task<GrupoDto?> AddUpdateGrupo(GrupoDto data);
+        Task<GrupoDto> DeleteGrupo(GrupoDto data);
+        Task<GrupoDto> GetOneGrupo(GrupoDto data);
         #endregion
 
+        #region Reporteria_Progamada
 
+        Task<Reporteria_ProgamadaDto?> AddUpdateReporteria_Progamada(Reporteria_ProgamadaDto data);
+
+        Task<Reporteria_ProgamadaDto> GetOneReporteria_Progamada(Reporteria_ProgamadaDto data);
+
+        #endregion
 
         #endregion
     }

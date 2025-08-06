@@ -750,7 +750,141 @@ namespace API.Infrastructure.Services
             return parameters;
         }
 
+        public async Task<GrupoDto?> AddUpdateGrupo(GrupoDto data)
+        {
+            try
+            {
+                if (data is null)
+                {
+                    throw new Exception("Debe de establecer los campos para el objeto ");
+                }
+                var param = _mapper.Map<Grupo>(data);
+
+                var dbObject = _unitOfWork.Set<Grupo>().FirstOrDefault(x => x.Id_Grupo == param.Id_Grupo);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Grupo>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Grupo>().Update(dbObject);
+                }
+                else
+                {
+                    await _unitOfWork.Set<Grupo>().AddAsync(param);
+                }
+                await _unitOfWork.SaveChangesAsync();
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return new GrupoDto();
+            }
+
+        }
+
+        public async Task<GrupoDto> DeleteGrupo(GrupoDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+            var param = _mapper.Map<Grupo>(data);
+
+            var dbObject = _unitOfWork.Set<Grupo>().AsNoTracking().FirstOrDefault(x => x.Id_Grupo == param.Id_Grupo);
+            if (dbObject != null)
+            {
+                _unitOfWork.Set<Grupo>().Entry(dbObject).CurrentValues.SetValues(data);
+                dbObject.Estado = "I";
+                _unitOfWork.Set<Grupo>().Update(dbObject);
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro a eliminar");
+            }
+            await _unitOfWork.SaveChangesAsync();
+
+            return data;
+        }
+
+
+        public async Task<GrupoDto> GetOneGrupo(GrupoDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+
+            var param = _mapper.Map<Grupo>(data);
+            var dbObject = await _unitOfWork.Set<Grupo>().FirstOrDefaultAsync(x => x.Id_Grupo == param.Id_Grupo);
+            if (dbObject != null)
+            {
+                var res = _mapper.Map<GrupoDto>(dbObject);
+                return res;
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro");
+            }
+
+        }
+
         #endregion
+
+        #region Reporteria_Progamada
+
+        public async Task<Reporteria_ProgamadaDto?> AddUpdateReporteria_Progamada(Reporteria_ProgamadaDto data)
+        {
+            try
+            {
+                if (data is null)
+                {
+                    throw new Exception("Debe de establecer los campos para el objeto ");
+                }
+                var param = _mapper.Map<Reporteria_Progamada>(data);
+
+                var dbObject = _unitOfWork.Set<Reporteria_Progamada>().FirstOrDefault(x => x.Id_Rep_Programada == param.Id_Rep_Programada);
+                if (dbObject != null)
+                {
+                    _unitOfWork.Set<Reporteria_Progamada>().Entry(dbObject).CurrentValues.SetValues(data);
+                    _unitOfWork.Set<Reporteria_Progamada>().Update(dbObject);
+                }
+                else
+                {
+                    await _unitOfWork.Set<Reporteria_Progamada>().AddAsync(param);
+                }
+                await _unitOfWork.SaveChangesAsync();
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return new Reporteria_ProgamadaDto();
+            }
+
+        }
+
+        public async Task<Reporteria_ProgamadaDto> GetOneReporteria_Progamada(Reporteria_ProgamadaDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto ");
+            }
+
+            var param = _mapper.Map<Reporteria_Progamada>(data);
+            var dbObject = await _unitOfWork.Set<Reporteria_Progamada>().FirstOrDefaultAsync(x => x.Id_Rep_Programada == param.Id_Rep_Programada);
+            if (dbObject != null)
+            {
+                var res = _mapper.Map<Reporteria_ProgamadaDto>(dbObject);
+                return res;
+            }
+            else
+            {
+                throw new Exception("No se encontro el Parámetro");
+            }
+
+        }
+
+        #endregion
+
 
         #endregion
 

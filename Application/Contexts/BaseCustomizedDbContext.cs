@@ -22,6 +22,7 @@ namespace Application.Contexts
         public DbSet<Restriccion_Profesor> Restriccion_Profesor { get; set; }
 
         public DbSet<Seguridad> Seguridad { get; set; }
+        public DbSet<Reporteria_Progamada> Reporteria_Progamada { get; set; }
 
 
 

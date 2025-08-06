@@ -79,7 +79,7 @@
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
-            var resGrupo = await api.Mantenimientos_GetAllGrupossAsync();
+            var resGrupo = await api.Mantenimientos_GetAllGruposAsync();
             dataGrupo = resGrupo.Where(x => x.Estado.Equals("A"));
             isLoading = false;
             StateHasChanged();
@@ -87,15 +87,12 @@
     }
 
     private async Task GenerarHorario()
-    {
-        if (string.IsNullOrEmpty(reportesModel.Grupo))
-            return;
-
+    {        
         isLoading = true;
 
         var materias = await api.Mantenimientos_GetAllMateriasAsync();
         var profesores = await api.Mantenimientos_GetAllProfesorAsync();
-        var horarioGen = await api.Horarios_GenHorarioAsync(Convert.ToInt32(reportesModel.Grupo));
+        var horarioGen = await api.Horarios_GenHorarioAsync(1);
         AsignarHorariosABloques(horarioGen, materias, profesores);
 
         isLoading = false;
@@ -121,10 +118,10 @@
         if (!string.IsNullOrEmpty(reportesModel.Grupo) && dataGrupo is not null)
         {
             var grupo = dataGrupo.FirstOrDefault(g => g.Id_Grupo.ToString() == reportesModel.Grupo);
-            if (grupo is not null && !string.IsNullOrEmpty(grupo.Id_Profesor_Guia))
+            if (grupo is not null && !string.IsNullOrEmpty(grupo.Id_Profesor_Guia.ToString()))
             {
                 var profesores = await api.Mantenimientos_GetAllProfesorAsync();
-                var profesor = profesores.FirstOrDefault(p => p.Id_Profesor.ToString() == grupo.Id_Profesor_Guia);
+                var profesor = profesores.FirstOrDefault(p => p.Id_Profesor == grupo.Id_Profesor_Guia);
                 if (profesor is not null)
                 {
                     nombreProfesorGuia = $"{profesor.Nombre} {profesor.Apellido}";

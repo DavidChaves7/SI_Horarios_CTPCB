@@ -1,7 +1,7 @@
 -- Crear la base de datos
 USE master
 GO
---Drop Database Sistema_Horarios;
+Drop Database Sistema_Horarios;
 CREATE DATABASE Sistema_Horarios;
 GO
 USE Sistema_Horarios;
@@ -69,7 +69,7 @@ CREATE TABLE Grupo (
     Nombre VARCHAR(100),
     Id_Nivel_Academico INT,
     Seccion VARCHAR(50),
-    Id_Profesor_Guia VARCHAR(20),
+    Id_Profesor_Guia INT,
 	Estado VARCHAR(1)
 );
 

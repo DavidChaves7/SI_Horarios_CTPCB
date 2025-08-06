@@ -13,7 +13,7 @@ namespace Infrastructure.DTOs.Horarios
         public string Nombre { get; set; } = string.Empty;
         public int Id_Nivel_Academico { get; set; }
         public string Seccion { get; set; } = string.Empty;
-        public string Id_Profesor_Guia { get; set; } = string.Empty;
+        public int Id_Profesor_Guia { get; set; }
         public string Estado { get; set; } = string.Empty;
 
     }

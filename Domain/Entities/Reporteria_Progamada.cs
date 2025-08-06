@@ -7,14 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
 {
-    public class Grupo
+    public class Reporteria_Progamada
     {
         [Key]
-        public int Id_Grupo { get; set; }
-        public string? Nombre { get; set; }
-        public int Id_Nivel_Academico { get; set; }
-        public string? Seccion { get; set; }
-        public int? Id_Profesor_Guia { get; set; }
+        public int Id_Rep_Programada { get; set; }
+        public string? Correos { get; set; }
+        public string? Frecuencia { get; set; }
+        public DateTime? Fecha_Hora_Envio { get; set; }
         public string? Estado { get; set; }
     }
 }
