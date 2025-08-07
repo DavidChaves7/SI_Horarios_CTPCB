@@ -161,7 +161,10 @@
 
         if (user.Identity?.IsAuthenticated == true)
         {
-            userName = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? "Usuario desconocido";
+            userName = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value ?? user.Claims.FirstOrDefault(c => c.Type == "name")?.Value ?? user.Identity?.Name
+
+          ?? "Usuario desconocido";
+
         }
         else
         {
