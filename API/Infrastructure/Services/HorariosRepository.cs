@@ -137,7 +137,7 @@ namespace API.Infrastructure.Services
                             var diaSeleccionado = diasDisponibles.First();
                             diasDisponibles.Remove(diaSeleccionado);
 
-                            var bloque = BuscarBloqueDisponible(restricciones, horariosGenerados, grupo.Id_Grupo, profe.Value, mat.Id_Materia ?? 0, 3, diaSeleccionado);
+                            var bloque = BuscarBloqueDisponible(restricciones, horariosGenerados, grupo.Id_Grupo, profe ?? -1, mat.Id_Materia ?? 0, 3, diaSeleccionado);
                             if (bloque != null)
                             {
                                 horariosGenerados.AddRange(bloque);
@@ -150,7 +150,7 @@ namespace API.Infrastructure.Services
                             var diaSeleccionado = diasDisponibles.First();
                             diasDisponibles.Remove(diaSeleccionado);
 
-                            var bloque = BuscarBloqueDisponible(restricciones, horariosGenerados, grupo.Id_Grupo, profe.Value, mat.Id_Materia ?? 0, 1, diaSeleccionado);
+                            var bloque = BuscarBloqueDisponible(restricciones, horariosGenerados, grupo.Id_Grupo, profe ?? -1, mat.Id_Materia ?? 0, 1, diaSeleccionado);
                             if (bloque != null)
                             {
                                 horariosGenerados.AddRange(bloque);
