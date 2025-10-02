@@ -276,3 +276,6 @@ VALUES
 (15, 'Trabajo en otra institución', 'L', '07:00', '16:20', 'A'),
 (15, 'Trabajo en otra institución', 'K', '07:00', '16:20', 'A');
 
+INSERT INTO Reporteria_Progamada(Frecuencia,Correos,Estado)
+VALUES ('T', 'dchavesd.07@gmail.com,camposcespedesd@gmail.com', 'A');
+
