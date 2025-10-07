@@ -2,5 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>https</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\campo\OneDrive - Universidad Fidélitas\SI-Horarios\Github\SI_Horarios_CTPCB\SI_Horarios_CTPCB\Properties\PublishProfiles\SIHorariosCTPCB20251001214427 - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

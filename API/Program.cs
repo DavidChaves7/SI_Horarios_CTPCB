@@ -23,13 +23,32 @@ builder.Services.AddControllers(opt =>
     opt.Filters.Add<ExceptionFilterHandler>();
 });
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    var connectionString = builder.Environment.IsProduction()
+        ? builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")
+        : builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseSqlServer(connectionString);
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins(
+            builder.Configuration.GetConnectionString("BaseFrontendURL") ?? "", // url Appservice frontend
+            builder.Configuration.GetConnectionString("LocalFrontendURL") ?? "" // desarrollo local
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApiDocument(
     opt =>
     {
@@ -48,7 +67,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowFrontend");
 app.UseAuthorization();
 
 app.MapControllers();

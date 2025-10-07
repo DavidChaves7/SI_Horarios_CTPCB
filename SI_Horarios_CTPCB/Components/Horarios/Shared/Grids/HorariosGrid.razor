@@ -49,8 +49,8 @@
                                     }
                                     else
                                     {
-                                        
-                                        <Button Disabled="@(reportesModel.Grupo is null || context.EsReceso)" Clicked="() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario)">
+
+                                    <Button Disabled="@(reportesModel.Grupo is null || string.IsNullOrEmpty(reportesModel.Grupo) || context.EsReceso)" Clicked="() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario)">
                                             <Span>Sin asignar</Span>
                                         </Button>
                                     }

@@ -27,7 +27,7 @@ using Microsoft.Identity.Web.UI;
 var builder = WebApplication.CreateBuilder(args);
 
 var conf = builder.Configuration;
-var baseApiURL = conf.GetSection("BaseApiURL").Value ?? "https://localhost:7199/";
+var baseApiURL = builder.Environment.IsProduction() ? conf.GetSection("BaseApiURL").Value : conf.GetSection("LocalApiURL").Value; //obtener la URL del API, en dev es local y en prod(azure) es el appservice
 
 // Add services to the container.
 builder.Services.AddRazorComponents(opt =>
@@ -110,7 +110,7 @@ app.Use(async (context, next) =>
     if(context.Request.Path == "/" || context.Request.Path == "")
     {
         if (app.Environment.IsProduction())
-            context.Response.Redirect("/WebMep/Login");
+            context.Response.Redirect("/Login");
         else
             context.Response.Redirect("/Login");
     }
@@ -118,7 +118,7 @@ app.Use(async (context, next) =>
     {
         if (app.Environment.IsProduction())
         {
-            context.Response.Redirect("/WebMep/NotFound");
+            context.Response.Redirect("/NotFound");
         }
         else
         {
@@ -136,7 +136,7 @@ app.UseMiddleware<UserServiceMiddleware>();
 app.MapControllers(); 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
-if (app.Environment.IsProduction())
-    app.UsePathBase("/WebMep");
+//if (app.Environment.IsProduction())
+//    app.UsePathBase("/");
 app.Run();
 
