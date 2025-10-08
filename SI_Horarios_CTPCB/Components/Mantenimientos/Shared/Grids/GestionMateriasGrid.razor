@@ -165,7 +165,7 @@
     {
         await api.Mantenimientos_DeleteMateriasAsync(item);
         data = await api.Mantenimientos_GetAllMateriasAsync();
-        data = data.Where(x => x.Id_Materia != item.Id_Materia);
+        //data = data.Where(x => x.Id_Materia != item.Id_Materia);
     }
 
     async Task RemovingRow(CancellableRowChange<MateriaDto> item)
