@@ -1480,9 +1480,17 @@
             "type": "integer",
             "format": "int32"
           },
+          "desc_Materia": {
+            "type": "string",
+            "nullable": true
+          },
           "id_Profesor": {
             "type": "integer",
             "format": "int32"
+          },
+          "desc_Profesor": {
+            "type": "string",
+            "nullable": true
           },
           "estado": {
             "type": "string"

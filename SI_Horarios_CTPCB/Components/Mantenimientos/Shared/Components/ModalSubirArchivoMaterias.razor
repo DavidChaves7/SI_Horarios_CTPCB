@@ -1,5 +1,5 @@
 ﻿<Modal @ref="modal">
-    <ModalContent Centered Size="ModalSize.Large">
+    <ModalContent Size="ModalSize.Large">
         <ModalHeader>
             <ModalTitle>Subir Archivo Materias</ModalTitle>
             <CloseButton></CloseButton>
@@ -9,15 +9,52 @@
                 <ChildContent>
                     <Row Class="justify-content-center">
                         <Column ColumnSize="ColumnSize.Is12" Class="justify-content-center">
+                            @* <label for="file-upload-mat" class="file-upload-button">Seleccionar Archivo de las Materias</label> *@
 
-                            <label for="file-upload" class="file-upload-button">Seleccionar Archivo de las Materias</label>
-                            <InputFile id="file-upload" OnChange="@SeleccionarExcel" Class="input-file-hidden" />
+                            <FilePicker id="file-upload-mat" Filter=".xlsx" Upload="@Cargar" Class="input-file-hidden">
+                                <FileTemplate>
+                                    <Div Flex="Flex.JustifyContent.Between">
+                                        <Div>
+                                            <Heading Size="HeadingSize.Is5">@context.File.Name</Heading>
+                                            <Paragraph>@FilePicker.GetFileSizeReadable(context.File)</Paragraph>
+                                        </Div>
+                                        <Div>
+                                            @if (context.File.Status == FileEntryStatus.Ready)
+                                            {
+                                                <Icon Name="IconName.FileUpload" />
+                                            }
+                                            else if (context.File.Status == FileEntryStatus.Uploading)
+                                            {
+                                                <Icon  Name="IconName.Bolt" />
+                                            }
+                                            else if (context.File.Status == FileEntryStatus.Uploaded)
+                                            {
+                                                <Icon  Name="IconName.CheckCircle" />
+                                            }
+                                            else if (context.File.Status == FileEntryStatus.Error)
+                                            {
+                                                <Icon Name="IconName.TimesCircle" />
+                                            }
+                                        </Div>
+                                    </Div>
+                                    <Divider Margin="Margin.Is0" />
+                                </FileTemplate>
+                                <ButtonsTemplate>
+                                    <Buttons>
+                                        <Button Clicked="@context.Clear" Class="btn-outline-danger"><Icon Name="IconName.Clear" /> Limpiar</Button>
+                                        <Button Clicked="@context.Upload" Class="file-upload-button"><Icon Name="IconName.FileUpload" /> Subir Archivo</Button>
+                                    </Buttons>
+                                </ButtonsTemplate>
+                            </FilePicker>
 
-                            @if (!string.IsNullOrEmpty(fileName))
+
+
+
+                            @* @if (!string.IsNullOrEmpty(fileNameMat))
                             {
-                                <span class="file-name">@fileName</span>
+                                <span class="file-name">@fileNameMat</span>
                                 <Button Clicked="@LimpiarArchivo" Class="clear-button">✕</Button>
-                            }
+                            } *@
                         </Column>
                     </Row>
                 </ChildContent>
@@ -25,11 +62,10 @@
         </ModalBody>
         <ModalFooter>
             <Button Class="btn-outline-danger" Clicked="@Hide">Cerrar</Button>
-            <Button Clicked="@Cargar" disabled="@isLoading" Class="file-upload-button">Subir Archivo</Button>
+            @* <Button Clicked="@Cargar" Disabled="@isLoading" Class="file-upload-button">Subir Archivo</Button> *@
         </ModalFooter>
     </ModalContent>
 </Modal>
-
 
 @code {
     Modal? modal;
@@ -39,40 +75,44 @@
     [Parameter]
     public EventCallback OnInsert { get; set; }
 
-    private IBrowserFile? _selectedFile;
-    public string? fileName;
-      
-    private void LimpiarArchivo()
-    {
-        _selectedFile = null;
-        fileName = string.Empty;
-        StateHasChanged();
-    }
+    private IFileEntry? _selectedFileMat;
+    public string? fileNameMat;
 
-    private async Task SeleccionarExcel(InputFileChangeEventArgs e)
-    {
-        try
-        {
-            _selectedFile = e.File;
-            fileName = e.File.Name;
-        }
-        catch (Exception ex)
-        {
-        }
-        finally
-        {
-        }
-    }
+    // private void LimpiarArchivo()
+    // {
+    //     _selectedFileMat = null;
+    //     fileNameMat = string.Empty;
+    //     // No llamar a StateHasChanged aquí para evitar perder la referencia del archivo
+    // }
 
-    private async Task Cargar()
+    // private async Task SeleccionarExcel(FileUploadEventArgs e)
+    // {
+    //     try
+    //     {
+    //         if (e.File != null)
+    //         {
+    //             _selectedFileMat = e.File;
+    //             fileNameMat = _selectedFileMat.Name;
+    //         }
+    //         else
+    //         {
+    //             _selectedFileMat = null;
+    //             fileNameMat = string.Empty;
+    //         }
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //     }
+    // }
+
+    private async Task Cargar(FileUploadEventArgs e)
     {
         try
         {
             isLoading = true;
-            if (_selectedFile != null)
+            if (e.File != null)
             {
-
-                using (var stream = _selectedFile.OpenReadStream())
+                using (var stream = e.File.OpenReadStream())
                 {
                     var buffer = new byte[stream.Length];
                     await stream.ReadAsync(buffer, 0, buffer.Length);
@@ -93,14 +133,14 @@
                                 // var color = worksheet.Cells[i, 3].Text;
                                 var color = "#FFFFFF";
 
-                                await api.Mantenimientos_AddUpdateMateriasDesdeExcelAsync(new MateriaDto() {
-                                    Id_Materia = 0, 
-                                    Nombre = nombre, 
-                                    Tipo = tipo, 
-                                    Color = color, 
+                                await api.Mantenimientos_AddUpdateMateriasDesdeExcelAsync(new MateriaDto()
+                                {
+                                    Id_Materia = 0,
+                                    Nombre = nombre,
+                                    Tipo = tipo,
+                                    Color = color,
                                     Estado = "A"
                                 });
-
                             }
                         }
                     }
@@ -108,22 +148,20 @@
                 await Hide();
                 await OnInsert.InvokeAsync();
             }
-
-
-
+            else
+            {
+                await Task.FromResult(MessageService.Info("Ocurrio un error al subir el archivo, el archivo no se subio correctamente", "Datos requeridos faltantes"));
+            }
         }
         catch (Exception ex)
         {
         }
         finally
         {
-            _selectedFile = null;
+            _selectedFileMat = null;
             isLoading = false;
         }
     }
-
-    
-
 
     public Task Hide()
     {
@@ -134,9 +172,5 @@
     public async Task Open()
     {
         modal?.Show();
-        
     }
-
-    
-
 }

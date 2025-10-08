@@ -6,7 +6,7 @@
                 <Div Class="col-md-6">
                     <label>Ver los horarios del Grupo:</label>
                     <Select Class="form-control" SelectedValue="@reportesModel.Grupo" SelectedValueChanged="@GrupoChanged" TValue="string">
-                        <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
+                        <SelectItem Value="@(string.Empty)">Seleccione una opción</SelectItem>
                         @foreach (var i in dataGrupo ?? new List<GrupoDto>())
                         {
                             <SelectItem Value="@(i.Id_Grupo)">@i.Nombre</SelectItem>
@@ -86,19 +86,20 @@
         }
     }
 
+
+
     private async Task GenerarHorario()
     {        
         isLoading = true;
 
-        var materias = await api.Mantenimientos_GetAllMateriasAsync();
-        var profesores = await api.Mantenimientos_GetAllProfesorAsync();
-        var horarioGen = await api.Horarios_GenHorarioAsync(1);
-        AsignarHorariosABloques(horarioGen, materias, profesores);
+        await api.Horarios_GenHorarioAsync(1);
+        //AsignarHorariosABloques(horarioGen, materias, profesores);
+        await Task.FromResult(MessageService.Info("Consulte cualquier grupo para visualizar el horario correspondiente", "Horarios Generados Correctamente!"));
 
         isLoading = false;
     }
 
-    private async Task GrupoChanged(string value)
+    private async Task GrupoChanged(string? value)
     {
         if(!string.IsNullOrEmpty(value))
         {
@@ -109,7 +110,11 @@
                 await ObtenerHorarios();
             }
         }
-        
+        else
+        {
+            LimpiarVistaHorarios();
+        }
+
     }
 
     private async Task ActualizarProfesorGuia()
@@ -189,6 +194,16 @@
                 }
             }
         }
+    }
+
+    private void LimpiarVistaHorarios()
+    {
+        reportesModel.Grupo = string.Empty;
+        nombreProfesorGuia = string.Empty;
+
+        LimpiarBloquesHorario();
+
+        StateHasChanged();
     }
 
     public class ReportesModel

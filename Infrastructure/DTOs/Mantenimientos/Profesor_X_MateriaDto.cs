@@ -10,7 +10,9 @@ namespace Infrastructure.DTOs.Mantenimientos
     {
         public int Id_Prof_Materia { get; set; }
         public int Id_Materia { get; set; }
+        public string? Desc_Materia { get; set; } = "";
         public int Id_Profesor { get; set; }
+        public string? Desc_Profesor { get; set; } = "";
         public string Estado { get; set; }
     }
 }

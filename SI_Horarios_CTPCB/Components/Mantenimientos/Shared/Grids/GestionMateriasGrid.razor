@@ -106,35 +106,6 @@
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
-
-            // #region Seguridad
-
-            // var httpContext = HttpContextAccessor.HttpContext;
-            // var userName = "";
-            // if (httpContext != null)
-            // {
-            //     var user = httpContext.User;
-            //     userName = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            // }
-
-
-            // string securityResult = await api.Seguridad_ValidateAccessAsync(new VerificaPermisoRequest
-            // {
-            //     PCodAccion = "BCCR_PARAM_GENERALES",
-            //     PCodCompania = "0001",
-            //     PCodModulo = "CPC",
-            //     PCodUsuario = userName
-            // });
-            // if (securityResult.ToUpper().Contains("ERROR"))
-            // {
-            //     await Task.FromResult(MessageService.Error(securityResult, "Error al validar acceso"));
-            // }
-            // else
-            // {
-            //     accessCategory = securityResult;
-            // }
-
-            // #endregion
             data = await api.Mantenimientos_GetAllMateriasAsync();
 
             StateHasChanged();
@@ -252,5 +223,6 @@
     {
         data = await api.Mantenimientos_GetAllMateriasAsync();
         StateHasChanged();
+        await Task.FromResult(MessageService.Success("Archivo de materias subido correctamente, refresque la pantalla", "Archivo Procesado Correctamente"));
     }
 }

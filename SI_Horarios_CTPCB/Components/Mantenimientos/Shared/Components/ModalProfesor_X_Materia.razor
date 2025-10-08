@@ -1,5 +1,5 @@
 ﻿<Modal @ref="modal">
-    <ModalContent Centered Size="ModalSize.Large">
+    <ModalContent  Size="ModalSize.Large">
         <ModalHeader>
             <ModalTitle>Profesores por Materia</ModalTitle>
             <CloseButton></CloseButton>
@@ -15,9 +15,9 @@
                               Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                               UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                         <DataGridColumns>
-                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Prof_Materia)" Caption="Id" />
-                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Profesor)" Editable Caption="Profesor" />
-                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Materia)" Editable Caption="Materia" />
+                            @* <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Prof_Materia)" Caption="Id" /> *@
+                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Desc_Profesor)" Editable Caption="Profesor" />
+                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Desc_Materia)" Editable Caption="Materia" />
                             <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Estado)" Editable Caption="Estado">
                                 <DisplayTemplate>
                                     <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">

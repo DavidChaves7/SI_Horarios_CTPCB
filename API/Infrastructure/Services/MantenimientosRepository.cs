@@ -544,7 +544,25 @@ namespace API.Infrastructure.Services
         public async Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_Materia()
         {
             var parameters = await _unitOfWork.Set<Profesor_X_Materia>()
-                         .Select(s => _mapper.Map<Profesor_X_MateriaDto>(s)).ToListAsync();
+                .Select(s => _mapper.Map<Profesor_X_MateriaDto>(s)).ToListAsync();
+
+            var profesores = await _unitOfWork.Set<Profesor>()
+                .Select(s => _mapper.Map<ProfesorDto>(s)).ToListAsync();
+
+            var materias = await _unitOfWork.Set<Materia>()
+                .Select(s => _mapper.Map<MateriaDto>(s)).ToListAsync();
+
+            foreach (var item in parameters)
+            {
+                var profesor = profesores.FirstOrDefault(p => p.Id_Profesor == item.Id_Profesor);
+                if (profesor != null)
+                    item.Desc_Profesor = $"{profesor.Nombre} {profesor.Apellido}";
+
+                var materia = materias.FirstOrDefault(m => m.Id_Materia == item.Id_Materia);
+                if (materia != null)
+                    item.Desc_Materia = materia.Nombre;
+            }
+
             return parameters;
         }
         public async Task<Profesor_X_MateriaDto> GetOneProfesor_X_Materias(Profesor_X_MateriaDto data)
@@ -559,6 +577,16 @@ namespace API.Infrastructure.Services
             if (dbObject != null)
             {
                 var res = _mapper.Map<Profesor_X_MateriaDto>(dbObject);
+
+                // Obtener descripciones
+                var profesor = await _unitOfWork.Set<Profesor>().FirstOrDefaultAsync(p => p.Id_Profesor == res.Id_Profesor);
+                if (profesor != null)
+                    res.Desc_Profesor = $"{profesor.Nombre} {profesor.Apellido}";
+
+                var materia = await _unitOfWork.Set<Materia>().FirstOrDefaultAsync(m => m.Id_Materia == res.Id_Materia);
+                if (materia != null)
+                    res.Desc_Materia = materia.Nombre;
+
                 return res;
             }
             else
@@ -778,7 +806,7 @@ namespace API.Infrastructure.Services
 
                 return data;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new GrupoDto();
             }
@@ -859,7 +887,7 @@ namespace API.Infrastructure.Services
 
                 return data;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return new Reporteria_ProgamadaDto();
             }

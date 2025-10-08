@@ -3570,8 +3570,14 @@ namespace SI_Horarios_CTPCB.Infrastructure.ApiClient
         [Newtonsoft.Json.JsonProperty("id_Materia", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Id_Materia { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("desc_Materia", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Desc_Materia { get; set; }
+
         [Newtonsoft.Json.JsonProperty("id_Profesor", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Id_Profesor { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("desc_Profesor", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Desc_Profesor { get; set; }
 
         [Newtonsoft.Json.JsonProperty("estado", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Estado { get; set; }
