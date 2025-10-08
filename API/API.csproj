@@ -20,8 +20,8 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="NSwag.AspNetCore" Version="14.4.0" />
-		<PackageReference Include="NSwag.MSBuild" Version="14.4.0">
+		<PackageReference Include="NSwag.AspNetCore" Version="14.6.1" />
+		<PackageReference Include="NSwag.MSBuild" Version="14.6.1">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -39,7 +39,5 @@
 		<ProjectReference Include="..\Application\Application.csproj" />
 		<ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
 	</ItemGroup>
-	<Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' ">
-		<Exec WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net80) aspnetcore2openapi /noBuild:true /documentName:v1 /output:swagger.json" />
-	</Target>
+	
 </Project>

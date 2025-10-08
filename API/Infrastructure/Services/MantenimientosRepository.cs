@@ -168,11 +168,12 @@ namespace API.Infrastructure.Services
             }
             var param = _mapper.Map<Materia>(data);
 
-            var dbObject = _unitOfWork.Set<Materia>().FirstOrDefault(x => x.Id_Materia == param.Id_Materia);
+            var dbObject = _unitOfWork.Set<Materia>().AsNoTracking().FirstOrDefault(x => x.Id_Materia == param.Id_Materia);
             if (dbObject != null)
             {
                 _unitOfWork.Set<Materia>().Entry(dbObject).CurrentValues.SetValues(data);
-                _unitOfWork.Set<Materia>().Remove(dbObject);
+                dbObject.Estado = "I";
+                _unitOfWork.Set<Materia>().Update(dbObject);
             }
             else
             {
@@ -180,12 +181,13 @@ namespace API.Infrastructure.Services
             }
             await _unitOfWork.SaveChangesAsync();
 
-            return data;
+            return data;           
         }
         public async Task<IEnumerable<MateriaDto>> GetAllMaterias()
         {
             var parameters = await _unitOfWork.Set<Materia>()
                          .Select(s => _mapper.Map<MateriaDto>(s)).ToListAsync();
+            parameters = parameters.OrderByDescending(x => x.Id_Materia).ToList();
             return parameters;
         }
         public async Task<MateriaDto> GetOneMaterias(MateriaDto data)
@@ -408,11 +410,11 @@ namespace API.Infrastructure.Services
                 }
                 var param = _mapper.Map<Profesor>(data);
 
-                var dbObject = _unitOfWork.Set<Profesor>().FirstOrDefault(x => x.Cedula == param.Cedula);
+                var dbObject = _unitOfWork.Set<Profesor>().AsNoTracking().FirstOrDefault(x => x.Cedula == param.Cedula);
                 if (dbObject != null)
                 {
-                    _unitOfWork.Set<Profesor>().Entry(dbObject).CurrentValues.SetValues(data);
-                    _unitOfWork.Set<Profesor>().Update(dbObject);
+                    param.Id_Profesor = dbObject.Id_Profesor;
+                    _unitOfWork.Set<Profesor>().Update(param);
                 }
                 else
                 {
@@ -457,6 +459,7 @@ namespace API.Infrastructure.Services
         {
             var parameters = await _unitOfWork.Set<Profesor>()
                          .Select(s => _mapper.Map<ProfesorDto>(s)).ToListAsync();
+            parameters = parameters.OrderByDescending(x => x.Id_Profesor).ToList();
             return parameters;
         }
 
@@ -747,6 +750,7 @@ namespace API.Infrastructure.Services
         {
             var parameters = await _unitOfWork.Set<Grupo>()
                          .Select(s => _mapper.Map<GrupoDto>(s)).ToListAsync();
+            parameters = parameters.OrderByDescending(x => x.Id_Grupo).ToList();
             return parameters;
         }
 

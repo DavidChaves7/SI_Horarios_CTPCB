@@ -15,7 +15,7 @@
                               Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                               UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                         <DataGridColumns>
-                            <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Id_Restriccion)" Caption="Id Restriccion" />
+                            @* <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Id_Restriccion)" Caption="Id Restriccion" /> *@
                             <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Id_Profesor)" Caption="Profesor">
                                 <DisplayTemplate>
                                     @Nombre_Profesor
@@ -24,7 +24,7 @@
                             <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Razon)" Editable Caption="Razon" />
                             <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Dia)" Editable Caption="Dia">
                                 <DisplayTemplate>
-                                    <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
+                                    <Select SelectedValue="@context.Dia" Disabled TValue="string" Style="min-width: 200px;">
                                         <SelectItem Value="@("L")">Lunes</SelectItem>
                                         <SelectItem Value="@("K")">Martes</SelectItem>
                                         <SelectItem Value="@("M")">Miércoles</SelectItem>
@@ -148,7 +148,7 @@
                         <ButtonRowTemplate>
                             <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
                             <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
-                            <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+                            <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Inactivar</Button>
                         </ButtonRowTemplate>
                         <NextPageButtonTemplate><Icon Name="IconName.AngleRight" /></NextPageButtonTemplate>
                         <PreviousPageButtonTemplate><Icon Name="IconName.AngleLeft" /></PreviousPageButtonTemplate>

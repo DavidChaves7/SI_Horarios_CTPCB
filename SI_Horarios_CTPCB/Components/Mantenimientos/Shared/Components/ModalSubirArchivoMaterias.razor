@@ -36,12 +36,12 @@
 
     public bool isLoading { get; set; } = false;
 
-    private IBrowserFile? _selectedFile;
-    public string? fileName;
-
     [Parameter]
     public EventCallback OnInsert { get; set; }
 
+    private IBrowserFile? _selectedFile;
+    public string? fileName;
+      
     private void LimpiarArchivo()
     {
         _selectedFile = null;
@@ -54,7 +54,7 @@
         try
         {
             _selectedFile = e.File;
-            fileName = e.File?.Name;
+            fileName = e.File.Name;
         }
         catch (Exception ex)
         {
@@ -89,9 +89,17 @@
                             {
                                 var nombre = worksheet.Cells[i, 1].Text;
                                 var tipo = worksheet.Cells[i, 2].Text;
-                                var color = worksheet.Cells[i, 3].Text;
+                                tipo = (tipo == "T" || tipo == "A") ? tipo : "A";
+                                // var color = worksheet.Cells[i, 3].Text;
+                                var color = "#FFFFFF";
 
-                                await api.Mantenimientos_AddUpdateMateriasDesdeExcelAsync(new MateriaDto() {Id_Materia = 0, Nombre = nombre, Tipo = tipo, Color = color, Estado = "A"});
+                                await api.Mantenimientos_AddUpdateMateriasDesdeExcelAsync(new MateriaDto() {
+                                    Id_Materia = 0, 
+                                    Nombre = nombre, 
+                                    Tipo = tipo, 
+                                    Color = color, 
+                                    Estado = "A"
+                                });
 
                             }
                         }
@@ -110,7 +118,6 @@
         finally
         {
             _selectedFile = null;
-            //inputFileId = Guid.NewGuid();
             isLoading = false;
         }
     }

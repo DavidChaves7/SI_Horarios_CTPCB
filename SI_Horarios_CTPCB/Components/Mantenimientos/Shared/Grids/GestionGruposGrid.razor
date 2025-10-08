@@ -13,7 +13,7 @@
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
-                    <DataGridColumn Field="@nameof(GrupoDto.Id_Grupo)" Caption="Id Grupo" />
+                    @* <DataGridColumn Field="@nameof(GrupoDto.Id_Grupo)" Caption="Id Grupo" /> *@
                     <DataGridColumn Field="@nameof(GrupoDto.Nombre)" Editable Caption="Nombre" />
                     <DataGridColumn Field="@nameof(GrupoDto.Id_Nivel_Academico)" Editable Displayable="false" Caption="Nivel Academico">
                         <EditTemplate>
@@ -27,11 +27,11 @@
                         </EditTemplate>
                     </DataGridColumn>
                     
-                    <DataGridColumn Field="@nameof(GrupoDto.Seccion)" Editable Caption="Sección" />
+                    <DataGridColumn Field="@nameof(GrupoDto.Seccion)" Editable Caption="# Grupo" />
                     <DataGridColumn Field="@nameof(GrupoDto.Id_Profesor_Guia)" Editable Displayable="false" Caption="Profesor Guia">
                         <EditTemplate>
                             <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
-                                <SelectItem Value="@((int?)-1)">Sin asignar</SelectItem>
+                                @* <SelectItem Value="@((int?)-1)">Sin asignar</SelectItem> *@
                                 @foreach (var i in dataProf ?? new List<ProfesorDto>())
                                 {
                                     <SelectItem Value="@(i.Id_Profesor)">@i.Nombre @i.Apellido</SelectItem>

@@ -22,20 +22,20 @@
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
-                    <DataGridColumn Field="@nameof(MateriaDto.Id_Materia)" Caption="Id" />
+                    @* <DataGridColumn Field="@nameof(MateriaDto.Id_Materia)" Caption="Id" /> *@
                     <DataGridColumn Field="@nameof(MateriaDto.Nombre)" Editable Caption="Materia" />
                     <DataGridColumn Field="@nameof(MateriaDto.Tipo)" Editable Caption="Tipo">
                         <DisplayTemplate>
                             <Select SelectedValue="@context.Tipo" Disabled TValue="string" Style="min-width: 200px;">
-                                <SelectItem Value="@("A")">Academico</SelectItem>
-                                <SelectItem Value="@("E")">Especialidad</SelectItem>
+                                <SelectItem Value="@("A")">Académica</SelectItem>
+                                <SelectItem Value="@("T")">Técnica</SelectItem>
                             </Select>
                         </DisplayTemplate>
                         <EditTemplate>
                             <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
                                 <SelectItem Value="@("")">Seleccione una opción</SelectItem>
-                                <SelectItem Value="@("A")">Academico</SelectItem>
-                                <SelectItem Value="@("E")">Especialidad</SelectItem>
+                                <SelectItem Value="@("A")">Académica</SelectItem>
+                                <SelectItem Value="@("T")">Técnica</SelectItem>
                             </Select>
                         </EditTemplate>
                     </DataGridColumn>
@@ -73,7 +73,7 @@
                 <ButtonRowTemplate>
                     <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
                     <Button Class="btn btn-edit" Disabled="(selecteddata is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
-                    <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Eliminar</Button>
+                    <Button Class="btn btn-delete" Disabled="(selecteddata is null)" Clicked="context.DeleteCommand.Clicked">Inactivar</Button>
                 </ButtonRowTemplate>
                 <NextPageButtonTemplate><Icon Name="IconName.AngleRight" /></NextPageButtonTemplate>
                 <PreviousPageButtonTemplate><Icon Name="IconName.AngleLeft" /></PreviousPageButtonTemplate>
@@ -199,7 +199,7 @@
 
     async Task RemovingRow(CancellableRowChange<MateriaDto> item)
     {
-        var delete = await MessageService.Confirm($"Está seguro de eliminar la Mataria {item.OldItem.Nombre}?", "Eliminar Materia", opt =>
+        var delete = await MessageService.Confirm($"Está seguro de inactivar la Mataria {item.OldItem.Nombre}?", "Eliminar Materia", opt =>
         {
             // opt.MessageIcon = Icon
         });
@@ -219,11 +219,10 @@
 
                 hoja.Columns().Width = 30;
                 hoja.Cell(1, 1).Value = "Nombre";
-                hoja.Cell(1, 2).Value = "Tipo";
-                hoja.Cell(1, 3).Value = "Color";
+                hoja.Cell(1, 2).Value = "Tipo (A/T)";
 
 
-                for (int col = 1; col <= 3; col++)
+                for (int col = 1; col <= 2; col++)
                 {
                     var celda = hoja.Cell(1, col);
                     celda.Style.Font.Bold = true;

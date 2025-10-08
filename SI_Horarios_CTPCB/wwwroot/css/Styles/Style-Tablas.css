@@ -21,6 +21,7 @@ td {
 }
 
 .pagination {
+    --bs-pagination-bg: var(--color-primario) !important;
     --bs-pagination-disabled-bg: var(--color-secundario) !important;
     --bs-pagination-disabled-color: white !important;
     --bs-pagination-border-width: 0px;

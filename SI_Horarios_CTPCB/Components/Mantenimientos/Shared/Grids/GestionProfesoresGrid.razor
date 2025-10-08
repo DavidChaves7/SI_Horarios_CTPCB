@@ -22,7 +22,7 @@
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
-                    <DataGridColumn Field="@nameof(ProfesorDto.Id_Profesor)" Caption="Id profesor" />
+                    @* <DataGridColumn Field="@nameof(ProfesorDto.Id_Profesor)" Caption="Id profesor" /> *@
                     <DataGridColumn Field="@nameof(ProfesorDto.Cedula)" Editable Caption="Cédula">
                         <EditTemplate>
                             <TextEdit Text="@((string)context.CellValue)" TextChanged="@(v => context.CellValue = v)" Disabled="@(!string.IsNullOrEmpty(context.Item.Cedula))">
