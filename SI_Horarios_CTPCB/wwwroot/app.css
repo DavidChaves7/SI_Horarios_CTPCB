@@ -13,6 +13,11 @@
     src: url('Font/Geomanist/Geomanist-Regular.otf');
 }
 
+.b-bar-link.active {
+    background: #c892c2 !important;
+    color: #fff
+}
+
 .AlegreyaSans-Bold {
     font-family: AlegreyaSans-Bold !important;
 }
