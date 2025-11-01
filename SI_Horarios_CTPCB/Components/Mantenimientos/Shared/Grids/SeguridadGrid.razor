@@ -8,8 +8,21 @@
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
-                    <DataGridColumn Field="@nameof(SeguridadDto.Cedula)" Editable Caption="Cedula" />
-                    <DataGridColumn Field="@nameof(SeguridadDto.Correo)" Editable Caption="Correo" />
+                    <DataGridColumn Field="@nameof(SeguridadDto.Cedula)" Editable Caption="Cedula">
+                        <EditTemplate>
+                            <TextEdit InputMode="TextInputMode.Numeric" MaxLength="9" MaskType="MaskType.RegEx" EditMask="^(\d+(.\d{0,2})?|.?\d{1,2})$" Text="@((string)context.CellValue)" TextChanged="@(v => context.CellValue = v)" />
+                        </EditTemplate>
+                    </DataGridColumn>
+                    <DataGridColumn Field="@nameof(SeguridadDto.Correo)" Editable Caption="Correo">
+
+                        <EditTemplate>
+                            <Validation Validator="ValidationRule.IsEmail">
+                                <TextEdit InputMode="TextInputMode.Email" Text="@((string)context.CellValue)" TextChanged="@(v => context.CellValue = v)" />
+
+                            </Validation>
+                        </EditTemplate>
+                    </DataGridColumn>
+
                     <DataGridColumn Field="@nameof(SeguridadDto.Estado)" Editable Caption="Estado">
                         <DisplayTemplate>
                             <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
@@ -25,7 +38,7 @@
                             </Select>
                         </EditTemplate>
                     </DataGridColumn>
-                    </DataGridColumns>
+                </DataGridColumns>
                 <ButtonRowTemplate>
                     <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
                     <Button Class="btn btn-delete" Disabled="(selectedData is null)" Clicked="context.DeleteCommand.Clicked">Cambiar Estado</Button>
@@ -44,7 +57,7 @@
 @code {
 
     private string accessCategory { get; set; } = "";
-    
+
 
     IEnumerable<SeguridadDto>? data { get; set; } = new List<SeguridadDto>();
 
@@ -107,8 +120,6 @@
     {
         try
         {
-
-
             var errors = item.NewItem.ValidateObjectFields();
             if (!string.IsNullOrEmpty(errors))
             {

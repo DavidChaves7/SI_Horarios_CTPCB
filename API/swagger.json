@@ -1,5 +1,5 @@
 {
-  "x-generator": "NSwag v14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))",
+  "x-generator": "NSwag v14.6.1.0 (NJsonSchema v11.5.1.0 (Newtonsoft.Json v13.0.0.0))",
   "openapi": "3.0.0",
   "info": {
     "title": "My Title",
@@ -1534,6 +1534,11 @@
       "SeguridadDto": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "cedula",
+          "correo",
+          "estado"
+        ],
         "properties": {
           "id_Usuario": {
             "type": "integer",
@@ -1541,15 +1546,17 @@
           },
           "cedula": {
             "type": "string",
-            "nullable": true
+            "maxLength": 9,
+            "minLength": 0
           },
           "correo": {
             "type": "string",
-            "nullable": true
+            "format": "email",
+            "minLength": 1
           },
           "estado": {
             "type": "string",
-            "nullable": true
+            "minLength": 1
           }
         }
       },

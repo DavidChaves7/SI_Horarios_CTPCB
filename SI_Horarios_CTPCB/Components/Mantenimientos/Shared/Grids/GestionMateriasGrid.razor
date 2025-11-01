@@ -4,10 +4,10 @@
     <LoadingIndicator Visible="@(data is null)">
         <ChildContent>
             <Row>
-                <Column ColumnSize="ColumnSize.Is2">
+                <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
                     <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="DescargarPlantillaMaterias">Plantilla Excel Materias</Button>
                 </Column>
-                <Column ColumnSize="ColumnSize.Is2">
+                <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
                     <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir!.Open">Importar Excel</Button>
                 </Column>
             </Row>
@@ -26,10 +26,7 @@
                     <DataGridColumn Field="@nameof(MateriaDto.Nombre)" Editable Caption="Materia" />
                     <DataGridColumn Field="@nameof(MateriaDto.Tipo)" Editable Caption="Tipo">
                         <DisplayTemplate>
-                            <Select SelectedValue="@context.Tipo" Disabled TValue="string" Style="min-width: 200px;">
-                                <SelectItem Value="@("A")">Académica</SelectItem>
-                                <SelectItem Value="@("T")">Técnica</SelectItem>
-                            </Select>
+                            @(context.Tipo.Equals("A") ? "Academica" : "Tecnica")
                         </DisplayTemplate>
                         <EditTemplate>
                             <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">

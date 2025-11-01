@@ -4,10 +4,10 @@
     <LoadingIndicator Visible="@(data is null)">
         <ChildContent>
             <Row>
-                <Column ColumnSize="ColumnSize.Is2">
+                <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
                     <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="DescargarPlantillaProfesores">Plantilla Excel Profesores</Button>
                 </Column>
-                <Column ColumnSize="ColumnSize.Is2">
+                <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
                     <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir!.Open">Importar Excel</Button>
                 </Column>
             </Row>
@@ -37,7 +37,17 @@
                     <DataGridColumn Field="@nameof(ProfesorDto.Apellido)" Editable Caption="Apellidos" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Correo)" Editable Caption="Correo" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Telefono)" Editable Caption="Telefono" />
-                    <DataGridColumn Field="@nameof(ProfesorDto.Carga_Horaria)" Editable Caption="Carga Horaria" />
+                    <DataGridColumn Field="@nameof(ProfesorDto.Carga_Horaria)" Editable Caption="Carga Horaria" >
+                        <EditTemplate>
+                            <NumericEdit TValue="int" Min="0" Max="99" Value="@((int)context.CellValue)" ValueChanged="@(v => context.CellValue = v)">
+                                <Feedback>
+                                    <ValidationError />
+                                    <ValidationNone />
+                                </Feedback>
+                            </NumericEdit>
+                        </EditTemplate>
+                    
+                    </DataGridColumn>
                     <DataGridColumn Field="@nameof(ProfesorDto.Estado)" Editable Caption="Estado">
                         <DisplayTemplate>
                             <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
@@ -217,8 +227,9 @@
 
     async Task CallbackInsertarExcel()
     {
+        
+        await Task.FromResult(MessageService.Success("Archivo de profesores subido correctamente, refresque la pantalla", "Archivo Procesado Correctamente"));
         data = await api.Mantenimientos_GetAllProfesorAsync();
         StateHasChanged();
-        await Task.FromResult(MessageService.Success("Archivo de profesores subido correctamente, refresque la pantalla", "Archivo Procesado Correctamente"));
     }
 }

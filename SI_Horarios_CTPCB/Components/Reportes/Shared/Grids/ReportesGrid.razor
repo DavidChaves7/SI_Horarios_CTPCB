@@ -3,16 +3,16 @@
 @using QuestPDF.Helpers;
 @using QuestPDF.Infrastructure;
 @using QuestPDF.Drawing;
+@using System.Text.RegularExpressions
 
 <Div Class="main-content">
-    <LoadingIndicator Visible="@(isLoading)">
-        <Div Class="d-flex">
-            <!-- Sección Izquierda: Formularios -->
-            <Div Class="col-md-6 p-3">
-                <h3>Reportes</h3>
+    <!-- Sección Izquierda: Formularios -->
+    <Column ColumnSize="ColumnSize.Is12" Padding="Padding.Is3">
+        <h3>Reportes</h3>
 
-                <EditForm Model="@reportesModel">
-
+        <EditForm Model="@reportesModel">
+            <Row>
+                <Column ColumnSize="ColumnSize.Is6">
                     <Div class="form-group mb-3">
                         <label for="frecuencia">Frecuencia</label>
                         <Select @bind-SelectedValue="reportesModel.Frecuencia" Class="form-control">
@@ -22,38 +22,50 @@
                             <SelectItem Value="@("T")">Trimestral</SelectItem>
                         </Select>
                     </Div>
-
+                </Column>
+                <Column ColumnSize="ColumnSize.Is6">
                     <Div Class="form-group mb-3">
                         <label for="correos">Correos</label>
-                        <InputText @bind-Value="reportesModel.Correos" class="form-control" placeholder="Correos separados por coma" />
+                        @* <InputText @bind-Value="reportesModel.Correos" class="form-control" placeholder="Correos separados por coma" /> *@
+                        <TextEdit @bind-Text="@NewEmail" Placeholder="Agregar correo y presiona Enter" @onkeydown="HandleKeyPress" Role="TextRole.Email" />
+                        @if (!(reportesModel?.Frecuencia ?? "").Equals(""))
+                        {
+                            @foreach (var email in listaCorreos)
+                            {
+                                <Badge TextSize="TextSize.ExtraSmall" Color="Blazorise.Color.Primary" Class="me-1 mb-1" CloseClicked="@(() => QuitarCorreo(email))">
+                                    @email
+                                </Badge>
+
+
+                            }
+                        }
+                        
                     </Div>
+                </Column>
+            </Row>
+            <Row>
+                 @* <Column ColumnSize="ColumnSize.Is4">
+                    <Button Class="btn btn-create" Clicked="() => modalReporte.Open()">Ver Reporte</Button>
+                </Column> *@
+                <Column ColumnSize="ColumnSize.Is4.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                    <Button Class="btn btn-edit"  Clicked="@DownloadReport">Descargar Horarios</Button>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                    <Button Class="btn btn-delete" Disabled="@((reportesModel?.Frecuencia ?? "").Equals(""))" Clicked="@SaveReport">Guardar Parámetros</Button>
+                </Column>
+            </Row>
+        </EditForm>
+    </Column>
+    <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+        <h3>Estadísticas</h3>
 
-                    <Div Class="row">
-                        @* <Div Class="col-4">
-                            <Button Class="btn btn-create" Clicked="() => modalReporte.Open()">Ver Reporte</Button>
-                        </Div> *@
-                        <Div Class="col-6">
-                            <Button Class="btn btn-edit" Clicked="@DownloadReport">Descargar Horarios</Button>
-                        </Div>
-                        <Div Class="col-6">
-                            <Button Class="btn btn-delete" Clicked="@SaveReport">Guardar Parámetros</Button>
-                        </Div>
-                    </Div>
-                </EditForm>
-            </Div>
-
-            <Div Class="vr" Style="height: 100vh;"></Div>
-
-
-            <Div Class="col-md-6 p-3">
-                <h3>Estadísticas</h3>
-
-                <Div Class="mb-4">
-                    <BarChart @ref="barChart" TItem="double" Options="@options" />
-                </Div>
-            </Div>
+        <Div Class="mb-4">
+            <BarChart @ref="barChart" TItem="double" Options="@options" />
         </Div>
-    </LoadingIndicator>
+    </Column>
+    @* <Div Class="col-md-6 p-3">
+                
+            </Div> *@
 </Div>
 
 <ModalVerReporte @ref="modalReporte"></ModalVerReporte>
@@ -62,15 +74,25 @@
     ModalVerReporte? modalReporte;
     private Reporteria_ProgamadaDto reportesModel = new Reporteria_ProgamadaDto();
     private bool isLoading = false;
+    private List<string> listaCorreos = new();
+    private string? NewEmail = "";
 
     private async Task DownloadReport()
     {
-        var zipBytes = await GenerarZipHorarios();
-        var base64Zip = Convert.ToBase64String(zipBytes);
-        var fileName = "HorariosGenerados.zip";
+        try
+        {
+            var zipBytes = await GenerarZipHorarios();
+            var base64Zip = Convert.ToBase64String(zipBytes);
+            var fileName = "HorariosGenerados.zip";
 
-        await JS.InvokeVoidAsync("saveAsFile", fileName, base64Zip);
+            await JS.InvokeVoidAsync("saveAsFile", fileName, base64Zip);
+            await Task.FromResult(MessageService.Info("Reportes", "Reportes generados exitosamente, pronto se descargaran!"));
 
+        }
+        catch (Exception e)
+        {
+            await Task.FromResult(MessageService.Info("Error Reportes", $"Ocurrio un error a la hora de generar reportes\n\nMensaje:{e.Message}\nOrigen:{e.Source}"));
+        }
     }
 
     private async Task<byte[]> GenerarZipHorarios()
@@ -83,14 +105,14 @@
         foreach (var grupo in grupos)
         {
             var horarios = await api.Horarios_GenHorarioAsync(grupo.Id_Grupo);
-            var pdfBytes = await GenerarPdfHorario(horarios.Where(x => x.Id_Grupo == grupo.Id_Grupo).ToList(), grupo.Nombre); 
+            var pdfBytes = await GenerarPdfHorario(horarios.Where(x => x.Id_Grupo == grupo.Id_Grupo).ToList(), grupo.Nombre);
 
             var entry = archive.CreateEntry($"{grupo.Nombre}_Horario.pdf");
             using var entryStream = entry.Open();
             entryStream.Write(pdfBytes, 0, pdfBytes.Length);
         }
 
-        archive.Dispose(); 
+        archive.Dispose();
         return zipStream.ToArray();
     }
 
@@ -231,7 +253,12 @@
     private async Task SaveReport()
     {
         if (reportesModel != null)
+        {
             await api.Mantenimientos_AddUpdateReporteria_ProgamadaAsync(reportesModel);
+            await Task.FromResult(MessageService.Success("Reportes", "Datos guardados correctamente!"));
+        }
+
+        
     }
 
     BarChart<double> barChart;
@@ -264,9 +291,52 @@
         if (firstRender)
         {
             //await HandleRedraw();
-            reportesModel = await api.Mantenimientos_GetOneReporteria_ProgamadaAsync(new Reporteria_ProgamadaDto(){Id_Rep_Programada = 1});
+            reportesModel = await api.Mantenimientos_GetOneReporteria_ProgamadaAsync(new Reporteria_ProgamadaDto() { Id_Rep_Programada = 1 });
+            listaCorreos = reportesModel.Correos.Split(",").ToList() ?? new List<string>();
         }
     }
+
+    private async Task QuitarCorreo(string correo)
+    {
+        listaCorreos.Remove(correo);
+        reportesModel.Correos = string.Join(",", listaCorreos);
+        if (reportesModel != null)
+            await api.Mantenimientos_AddUpdateReporteria_ProgamadaAsync(reportesModel);
+
+    }
+
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" || e.Key == "Tab")
+        {
+            var email = NewEmail.Trim().TrimEnd(',');
+            if (ValidateEmail(email))
+            {
+                if (!listaCorreos.Contains(email, StringComparer.OrdinalIgnoreCase))
+                {
+                    listaCorreos.Add(email);
+                    reportesModel.Correos = string.Join(",", listaCorreos);
+                    if (reportesModel != null)
+                        await api.Mantenimientos_AddUpdateReporteria_ProgamadaAsync(reportesModel);
+                }
+
+                NewEmail = string.Empty;
+            }
+            else
+            {
+                await Task.FromResult(MessageService.Warning("Reportes", "Ingrese un correo válido (ejemplo@dominio.com)"));
+            }
+        }
+    }
+    private bool ValidateEmail(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+            return false;
+
+        var pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+        return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
+    }
+
 
     async Task HandleRedraw()
     {
@@ -333,5 +403,5 @@
         await barChart.Update();
     }
 
-    
+
 }

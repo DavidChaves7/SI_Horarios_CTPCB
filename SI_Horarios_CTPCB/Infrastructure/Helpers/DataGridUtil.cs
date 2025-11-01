@@ -73,6 +73,7 @@ public class DataGridUtil
 
         using var document = new PdfDocument();
         var page = document.AddPage();
+        page.Orientation = PdfSharpCore.PageOrientation.Landscape;
         var gfx = XGraphics.FromPdfPage(page);
         var font = new XFont("Arial", 12, XFontStyle.Regular);
         var titleFont = new XFont("Arial", 16, XFontStyle.Bold);
@@ -112,6 +113,7 @@ public class DataGridUtil
             if (yPosition > page.Height - 40)
             {
                 page = document.AddPage();
+                page.Orientation = PdfSharpCore.PageOrientation.Landscape;
                 gfx = XGraphics.FromPdfPage(page);
                 yPosition = 40;
             }
