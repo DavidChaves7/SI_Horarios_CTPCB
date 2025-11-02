@@ -56,12 +56,19 @@
             </Row>
         </EditForm>
     </Column>
-    <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+    <Column ColumnSize="ColumnSize.Is12.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
         <h3>Estadísticas</h3>
-
-        <Div Class="mb-4">
-            <BarChart @ref="barChart" TItem="double" Options="@options" />
-        </Div>
+        <Row>
+            <Column ColumnSize="ColumnSize.Is3.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                <Button Class="btn btn-edit" Clicked="@HandleRedraw">Refrescar Gráfico</Button>
+            </Column>
+        </Row>
+        <LoadingIndicator Visible="@loadingChart">
+            <Div Class="mb-4">
+                <BarChart @ref="barChart" TItem="double" Options="@options" />
+            </Div>
+        </LoadingIndicator>
+        
     </Column>
     @* <Div Class="col-md-6 p-3">
                 
@@ -74,8 +81,19 @@
     ModalVerReporte? modalReporte;
     private Reporteria_ProgamadaDto reportesModel = new Reporteria_ProgamadaDto();
     private bool isLoading = false;
+    private bool loadingChart = false;
     private List<string> listaCorreos = new();
     private string? NewEmail = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await HandleRedraw();
+            reportesModel = await api.Mantenimientos_GetOneReporteria_ProgamadaAsync(new Reporteria_ProgamadaDto() { Id_Rep_Programada = 1 });
+            listaCorreos = reportesModel.Correos.Split(",").ToList() ?? new List<string>();
+        }
+    }
 
     private async Task DownloadReport()
     {
@@ -114,56 +132,6 @@
 
         archive.Dispose();
         return zipStream.ToArray();
-    }
-
-    private List<BloqueHorario> bloquesHorario = new()
-    {
-        new(new(7, 0, 0), new(7, 40, 0)),
-        new(new(7, 40, 0), new(8, 20, 0)),
-        new(new(8, 20, 0), new(9, 0, 0)),
-        new(new(9, 0, 0), new(9, 20, 0), true), // Receso
-        new(new(9, 20, 0), new(10, 0, 0)),
-        new(new(10, 0, 0), new(10, 40, 0)),
-        new(new(10, 40, 0), new(11, 20, 0)),
-        new(new(11, 20, 0), new(12, 0, 0), true), // Almuerzo
-        new(new(12, 0, 0), new(12, 40, 0)),
-        new(new(12, 40, 0), new(13, 20, 0)),
-        new(new(13, 20, 0), new(14, 0, 0)),
-        new(new(14, 0, 0), new(14, 20, 0), true), // Receso
-        new(new(14, 20, 0), new(15, 0, 0)),
-        new(new(15, 0, 0), new(15, 40, 0)),
-        new(new(15, 40, 0), new(16, 20, 0))
-    };
-
-    public class BloqueHorario
-    {
-        public int IdHorario { get; set; }
-        public TimeSpan HoraInicio { get; set; }
-        public TimeSpan HoraFin { get; set; }
-        public bool EsReceso { get; set; }
-        public string RangoHorario { get; private set; }
-        public Dictionary<string, DetalleBloque> DetallesPorDia { get; set; } = new();
-
-        public BloqueHorario(TimeSpan horaInicio, TimeSpan horaFin, bool esReceso = false)
-        {
-            HoraInicio = horaInicio;
-            HoraFin = horaFin;
-            EsReceso = esReceso;
-            RangoHorario = $"{DateTime.Today.Add(HoraInicio):hh\\:mm tt} - {DateTime.Today.Add(HoraFin):hh\\:mm tt}";
-        }
-
-        public DetalleBloque? GetDetalle(string dia)
-        {
-            DetallesPorDia.TryGetValue(dia, out var detalle);
-            return detalle;
-        }
-    }
-
-    public class DetalleBloque
-    {
-        public string Materia { get; set; } = "";
-        public string Profesor { get; set; } = "";
-        public string Color { get; set; } = "#6c757d";
     }
 
     private async Task<byte[]> GenerarPdfHorario(List<HorarioDto> horarios, string nombreGrupo)
@@ -249,7 +217,6 @@
         return pdf.GeneratePdf();
     }
 
-
     private async Task SaveReport()
     {
         if (reportesModel != null)
@@ -258,42 +225,7 @@
             await Task.FromResult(MessageService.Success("Reportes", "Datos guardados correctamente!"));
         }
 
-        
-    }
 
-    BarChart<double> barChart;
-
-    BarChartOptions options = new()
-    {
-        IndexAxis = "y",
-        Elements = new()
-        {
-            Bar = new()
-            {
-                BorderWidth = 1,
-            }
-        },
-        Responsive = true,
-        Plugins = new()
-        {
-            Legend = new() { Position = "right" },
-            Title = new() { Display = true, Text = "Distribución de Lecciones por Nivel y Materia" }
-        }
-    };
-
-    List<string> Labels = new(); // ← Niveles
-    List<string> MateriaLabels = new(); // ← Materias
-    List<string> backgroundColors = new();
-    List<string> borderColors = new();
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            //await HandleRedraw();
-            reportesModel = await api.Mantenimientos_GetOneReporteria_ProgamadaAsync(new Reporteria_ProgamadaDto() { Id_Rep_Programada = 1 });
-            listaCorreos = reportesModel.Correos.Split(",").ToList() ?? new List<string>();
-        }
     }
 
     private async Task QuitarCorreo(string correo)
@@ -328,6 +260,7 @@
             }
         }
     }
+
     private bool ValidateEmail(string email)
     {
         if (string.IsNullOrWhiteSpace(email))
@@ -337,9 +270,73 @@
         return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
     }
 
-
     async Task HandleRedraw()
     {
+        loadingChart = true;
+        await barChart.Clear();
+
+        Labels.Clear();
+        MateriaLabels.Clear();
+
+        var niveles = await api.Mantenimientos_GetAllNivelAcademicoAsync();
+        var grupos = await api.Mantenimientos_GetAllGruposAsync();
+
+        Labels = niveles.Where(x => x.Estado.Equals("A")).Select(n => n.Nombre).ToList(); // Eje Y
+
+        // Diccionario [nivel] => total lecciones
+        Dictionary<string, double> datos = new();
+
+        foreach (var nivel in Labels)
+        {
+            datos[nivel] = 0;
+        }
+
+        foreach (var grupo in grupos)
+        {
+            var nivel = niveles.FirstOrDefault(n => n.Id_Nivel_Academico == grupo.Id_Nivel_Academico)?.Nombre;
+            if (nivel is null) continue;
+
+            var horario = await api.Horarios_GenHorarioAsync(grupo.Id_Grupo);
+            horario = horario.Where(x => x.Id_Grupo == grupo.Id_Grupo).ToList();
+
+            // Sumar cantidad de bloques (lecciones) por grupo y nivel
+            datos[nivel] += horario.Count;
+        }
+
+        var random = new Random();
+        var backgroundColors = new List<string>();
+        var borderColors = new List<string>();
+
+        foreach (var _ in Labels)
+        {
+            byte r = (byte)random.Next(0, 255);
+            byte g = (byte)random.Next(0, 255);
+            byte b = (byte)random.Next(0, 255);
+
+            backgroundColors.Add(ChartColor.FromRgba(r, g, b, 0.6f));
+            borderColors.Add(ChartColor.FromRgba(r, g, b, 1f));
+        }
+
+        var dataset = new BarChartDataset<double>
+        {
+            Label = "Lecciones",
+            Data = Labels.Select(nivel => datos[nivel]).ToList(),
+            BackgroundColor = backgroundColors,
+            BorderColor = borderColors,
+            BorderWidth = 2
+        };
+
+        await barChart.AddLabelsDatasetsAndUpdate(Labels, new[] { dataset });
+        loadingChart = false;
+    }
+
+    async Task HandleRedrawCantLeccionesMateriasxNivel()
+    {
+        loadingChart = true;
+        await barChart.Clear();
+
+
+
         Labels.Clear();
         MateriaLabels.Clear();
 
@@ -347,8 +344,8 @@
         var materias = await api.Mantenimientos_GetAllMateriasAsync();
         var grupos = await api.Mantenimientos_GetAllGruposAsync();
 
-        Labels = niveles.Select(n => n.Nombre).ToList(); // Eje Y
-        MateriaLabels = materias.Select(m => m.Nombre).ToList();
+        Labels = niveles.Where(x => x.Estado.Equals("A")).Select(n => n.Nombre).ToList(); // Eje Y
+        MateriaLabels = materias.Where(x => x.Estado.Equals("A")).Select(m => m.Nombre).ToList();
 
         // Diccionario [nivel][materia] => total horas
         Dictionary<string, Dictionary<string, double>> datos = new();
@@ -360,6 +357,7 @@
                 datos[nivel][materia] = 0;
         }
 
+        //llenar datos
         foreach (var grupo in grupos)
         {
             var nivel = niveles.FirstOrDefault(n => n.Id_Nivel_Academico == grupo.Id_Nivel_Academico)?.Nombre;
@@ -367,41 +365,133 @@
 
             var horario = await api.Horarios_GenHorarioAsync(grupo.Id_Grupo);
             horario = horario.Where(x => x.Id_Grupo == grupo.Id_Grupo).ToList();
+
             foreach (var clase in horario)
             {
                 var materia = materias.FirstOrDefault(m => m.Id_Materia == clase.Id_Materia)?.Nombre;
                 if (materia is null) continue;
 
-                var duracion = (clase.Hora_Fin - clase.Hora_Inicio).TotalMinutes / 40.0; // Cada bloque 40min
+                // Cada bloque equivale a 40 minutos
+                var duracion = (clase.Hora_Fin - clase.Hora_Inicio).TotalMinutes / 40.0;
                 datos[nivel][materia] += duracion;
             }
         }
 
-        await barChart.Clear();
+        var random = new Random();
+        List<BarChartDataset<double>> datasets = new();
 
-        int colorIndex = 0;
         foreach (var materia in MateriaLabels)
         {
-            List<double> valores = new();
-            foreach (var nivel in Labels)
-                valores.Add(datos[nivel][materia]);
+            var valores = Labels.Select(nivel => datos[nivel][materia]).ToList();
+
+            // Generar color aleatorio por materia
+            var r = (byte)random.Next(0, 255);
+            var g = (byte)random.Next(0, 255);
+            var b = (byte)random.Next(0, 255);
 
             var dataset = new BarChartDataset<double>
             {
                 Label = materia,
                 Data = valores,
-                BackgroundColor = ChartColor.FromRgba(Convert.ToByte(100 + colorIndex * 30), 100, 200, 0.6f),
-                BorderColor = ChartColor.FromRgba(Convert.ToByte(100 + colorIndex * 30), 100, 200, 1f),
+                BackgroundColor = new List<string> { ChartColor.FromRgba(r, g, b, 0.6f) },
+                BorderColor = new List<string> { ChartColor.FromRgba(r, g, b, 1f) },
                 BorderWidth = 1
             };
 
-            await barChart.AddDataSet(dataset);
-            colorIndex++;
+            datasets.Add(dataset);
         }
 
-        await barChart.AddLabels(Labels);
-        await barChart.Update();
+        // Asignar etiquetas y datasets al gráfico
+        await barChart.AddLabelsDatasetsAndUpdate(Labels, datasets.ToArray());
+        loadingChart = false;
     }
+
+
+    public class DetalleBloque
+    {
+        public string Materia { get; set; } = "";
+        public string Profesor { get; set; } = "";
+        public string Color { get; set; } = "#6c757d";
+    }
+
+    BarChart<double> barChart;
+
+    BarChartOptions options = new()
+    {
+        IndexAxis = "y",
+        Elements = new()
+        {
+            Bar = new()
+            {
+                BorderWidth = 2,
+            }
+        },
+        Responsive = true,
+        Plugins = new()
+        {
+            Legend = new()
+            {
+                Position = "right"
+            },
+            Title = new()
+            {
+                Display = true,
+                Text = "Distribución de Lecciones por Nivel" // y Materia
+            }
+        }
+    };
+
+    List<string> Labels = new(); // ← Niveles
+    List<string> MateriaLabels = new(); // ← Materias
+    List<string> backgroundColors = new();
+    List<string> borderColors = new();
+
+    
+    private List<BloqueHorario> bloquesHorario = new()
+    {
+        new(new(7, 0, 0), new(7, 40, 0)),
+        new(new(7, 40, 0), new(8, 20, 0)),
+        new(new(8, 20, 0), new(9, 0, 0)),
+        new(new(9, 0, 0), new(9, 20, 0), true), // Receso
+        new(new(9, 20, 0), new(10, 0, 0)),
+        new(new(10, 0, 0), new(10, 40, 0)),
+        new(new(10, 40, 0), new(11, 20, 0)),
+        new(new(11, 20, 0), new(12, 0, 0), true), // Almuerzo
+        new(new(12, 0, 0), new(12, 40, 0)),
+        new(new(12, 40, 0), new(13, 20, 0)),
+        new(new(13, 20, 0), new(14, 0, 0)),
+        new(new(14, 0, 0), new(14, 20, 0), true), // Receso
+        new(new(14, 20, 0), new(15, 0, 0)),
+        new(new(15, 0, 0), new(15, 40, 0)),
+        new(new(15, 40, 0), new(16, 20, 0))
+    };
+
+    public class BloqueHorario
+    {
+        public int IdHorario { get; set; }
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraFin { get; set; }
+        public bool EsReceso { get; set; }
+        public string RangoHorario { get; private set; }
+        public Dictionary<string, DetalleBloque> DetallesPorDia { get; set; } = new();
+
+        public BloqueHorario(TimeSpan horaInicio, TimeSpan horaFin, bool esReceso = false)
+        {
+            HoraInicio = horaInicio;
+            HoraFin = horaFin;
+            EsReceso = esReceso;
+            RangoHorario = $"{DateTime.Today.Add(HoraInicio):hh\\:mm tt} - {DateTime.Today.Add(HoraFin):hh\\:mm tt}";
+        }
+
+        public DetalleBloque? GetDetalle(string dia)
+        {
+            DetallesPorDia.TryGetValue(dia, out var detalle);
+            return detalle;
+        }
+    }
+
+
+    
 
 
 }

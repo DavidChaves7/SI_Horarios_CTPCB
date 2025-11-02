@@ -1,12 +1,15 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using Microsoft.JSInterop;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Pdf;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using PdfSharpCore.Pdf;
-using PdfSharpCore.Drawing;
-using ClosedXML.Excel;
 using System.Text;
-using Microsoft.JSInterop;
 
 public class DataGridUtil
 {
@@ -66,7 +69,7 @@ public class DataGridUtil
         await _jsInterop.InvokeVoidAsync("saveAsFile", $"{title}.xlsx", Convert.ToBase64String(stream.ToArray()));
     }
 
-    public async Task GeneratePdf<T>(IEnumerable<T> data, string title)
+    public async Task GeneratePdfSharpCore<T>(IEnumerable<T> data, string title)
     {
         if (data == null || !data.Any())
             throw new ArgumentException("No data available to generate PDF.");
@@ -121,6 +124,97 @@ public class DataGridUtil
 
         using var stream = new MemoryStream();
         document.Save(stream, false);
+        await _jsInterop.InvokeVoidAsync("saveAsFile", $"{title}.pdf", Convert.ToBase64String(stream.ToArray()));
+    }
+
+    public async Task GeneratePdf<T>(IEnumerable<T> data, string title)
+    {
+        QuestPDF.Settings.License = LicenseType.Community;
+        if (data == null || !data.Any())
+            throw new ArgumentException("No hay datos para generar el PDF.");
+
+        var properties = typeof(T)
+            .GetProperties()
+            .Where(p => !p.Name.StartsWith("Id_", StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+
+        var document = Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Margin(30);
+                page.Size(PageSizes.A4.Landscape());
+                page.DefaultTextStyle(x => x.FontSize(10));
+
+                page.Header()
+                    .Text(title)
+                    .SemiBold().FontSize(18).AlignCenter();
+
+                page.Content()
+                    .Table(table =>
+                    {
+                        table.ColumnsDefinition(columns =>
+                        {
+                            foreach (var _ in properties)
+                                columns.RelativeColumn();
+                        });
+
+                        // Encabezados
+                        table.Header(header =>
+                        {
+                            foreach (var prop in properties)
+                            {
+
+                                header.Cell()
+                                    .Background(Colors.Grey.Lighten2)
+                                    .Padding(5)
+                                    .Text(prop.Name)
+                                    .SemiBold();
+                            }
+                        });
+
+                        // Filas
+                        foreach (var item in data)
+                        {
+                            foreach (var prop in properties)
+                            {
+                                var rawValue = prop.GetValue(item)?.ToString() ?? "";
+                                string value = rawValue?.ToString() ?? string.Empty;
+
+                                if (prop.Name.Equals("Estado", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    value = value switch
+                                    {
+                                        "A" => "Activo",
+                                        "I" => "Inactivo",
+                                        _ => value
+                                    };
+                                }
+
+                                table.Cell()
+                                    .BorderBottom(1)
+                                    .Padding(4)
+                                    .Text(value);
+                            }
+                        }
+                    });
+
+                page.Footer()
+                    .AlignRight()
+                    .Text(x =>
+                    {
+                        x.Span("Página ");
+                        x.CurrentPageNumber();
+                        x.Span(" de ");
+                        x.TotalPages();
+                    });
+            });
+        });
+
+        var stream = new MemoryStream();
+        document.GeneratePdf(stream);
+        stream.Position = 0;
+
         await _jsInterop.InvokeVoidAsync("saveAsFile", $"{title}.pdf", Convert.ToBase64String(stream.ToArray()));
     }
 
