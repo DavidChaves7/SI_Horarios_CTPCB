@@ -2,9 +2,9 @@
 
 <Div Class="d-flex justify-content-between mb-2">
     <Div>
-        <Button Class="btn btn-copy" Disabled="@(Data is null)" Clicked="@(() => Dg.GenerateCsv(Data))">Copiar</Button>
-        <Button Class="btn btn-excel ms-2" Disabled="@(Data is null)" Clicked="@(() => Dg.GenerateExcel(Data,Titulo))">Excel</Button>
-        <Button Class="btn btn-pdf ms-2" Disabled="@(Data is null)" Clicked="@(() =>  Dg.GeneratePdf(Data,Titulo))">PDF</Button>
+        <Button Class="btn btn-copy" Margin="Margin.Is1.FromBottom.Is2" Disabled="@(Data is null)" Clicked="@(() => Dg.GenerateCsv(Data))">Copiar</Button>
+        <Button Class="btn btn-excel" Margin="Margin.Is1.FromBottom.Is2" Disabled="@(Data is null)" Clicked="@(() => Dg.GenerateExcel(Data, Titulo))">Excel</Button>
+        <Button Class="btn btn-pdf" Margin="Margin.Is1.FromBottom.Is2" Disabled="@(Data is null)" Clicked="@(() => Dg.GeneratePdf(Data, Titulo))">PDF</Button>
     </Div>
 </Div>
 

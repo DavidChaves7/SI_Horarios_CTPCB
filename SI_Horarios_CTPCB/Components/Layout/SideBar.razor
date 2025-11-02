@@ -1,23 +1,22 @@
 ﻿<Bar Mode="BarMode.VerticalInline"
+     CollapseMode="BarCollapseMode.Small"
      Breakpoint="Breakpoint.Desktop"
-    CollapseMode="BarCollapseMode.Small"
-    ThemeContrast="ThemeContrast.Dark"
+     NavigationBreakpoint="Breakpoint.Tablet"
+     ThemeContrast="ThemeContrast.Dark"
+     MenuToggleBehavior=BarMenuToggleBehavior.AllowSingleMenu
      Style="background-color: var(--color-primario) !important; ">
-    @*min-width:100%*@
 
     <BarBrand Style="background-color: var(--primary-banpo) !important; height:auto; width 100%;">
-        <BarLink To="MenuPrincipal">
-            <Image Margin="Margin.Is2.FromEnd"
-            Source="Img/Logos/logo_ctp_plan.png"
-            Style="max-width: 100%; height: auto; display: block;" />
-        </BarLink>
-    </BarBrand>
+        <BarItem>
+            <BarLink To="MenuPrincipal">
+                 <Image Margin="Margin.Is2.FromEnd"
+                       Source="Img/Logos/logo_ctp_plan32x32.png" /> Menu Principal
+            </BarLink>
+        </BarItem>
+        @**@
 
-   @*  <Div Class="text-white text-center px-3 mb-3" style="font-weight: 500; padding-top: 10px;">
-        <Icon Name="IconName.User" Class="me-2" />
-        @userName
-    </Div> *@
-    <BarToggler Mode="BarTogglerMode.Popout"  Style="background-color: var(--color-terciario) !important; " />
+    </BarBrand>
+    <BarToggler Mode="BarTogglerMode.Popout" Style="background-color: var(--color-terciario) !important; " />
     <BarMenu TextColor="TextColor.White">
         <BarStart>
 
@@ -34,8 +33,8 @@
                         <BarIcon IconName="IconName.Wrench" />
                         <b>Parámetros</b>
                     </BarDropdownToggle>
-                    <BarDropdownMenu  Style="background-color: var(--color-primario) !important; "> 
-                       
+                    <BarDropdownMenu Style="background-color: var(--color-primario) !important; ">
+
                         @foreach (var option in optionsMantenimiento)
                         {
                             <BarDropdownItem>
@@ -58,9 +57,9 @@
                 <BarDropdown>
                     <BarDropdownToggle>
                         <Icon Name="IconName.File" /> <b>Reportes</b>
-                       
+
                     </BarDropdownToggle>
-                    <BarDropdownMenu Class="dropdown-expanded p-2" Style="background-color: var(--color-primario) !important; min-width: 240px;">
+                    <BarDropdownMenu Padding="Padding.Is2" Style="background-color: var(--color-primario) !important;">
                         @foreach (var option in optionsReportes)
                         {
                             <BarDropdownItem>
@@ -72,7 +71,7 @@
                 </BarDropdown>
             </BarItem>
             <BarItem>
-                <BarLink To="Mantenimientos/Seguridad"  Shadow="Shadow.None">
+                <BarLink To="Mantenimientos/Seguridad" Shadow="Shadow.None">
                     <Icon Name="IconName.Lock" />
                     <b>Seguridad</b>
                 </BarLink>
@@ -89,7 +88,7 @@
         public IconName? Icon { get; set; }
     }
     private bool IsCollapsed = false;
-      
+
     private List<Option> optionsMantenimiento = new List<Option>
     {
         new Option { Href = "Mantenimientos/GestionProf", Description = "Gestión de Profesores", Icon = IconName.UserPlus },
@@ -144,6 +143,6 @@
 
     private string GetMenuClass()
     {
-        return IsCollapsed ? "small" : ""; 
+        return IsCollapsed ? "small" : "";
     }
 }

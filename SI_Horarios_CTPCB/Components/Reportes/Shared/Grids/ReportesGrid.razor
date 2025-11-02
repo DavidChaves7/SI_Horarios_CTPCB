@@ -12,7 +12,7 @@
 
         <EditForm Model="@reportesModel">
             <Row>
-                <Column ColumnSize="ColumnSize.Is6">
+                <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnMobile">
                     <Div class="form-group mb-3">
                         <label for="frecuencia">Frecuencia</label>
                         <Select @bind-SelectedValue="reportesModel.Frecuencia" Class="form-control">
@@ -23,7 +23,7 @@
                         </Select>
                     </Div>
                 </Column>
-                <Column ColumnSize="ColumnSize.Is6">
+                <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnMobile">
                     <Div Class="form-group mb-3">
                         <label for="correos">Correos</label>
                         @* <InputText @bind-Value="reportesModel.Correos" class="form-control" placeholder="Correos separados por coma" /> *@

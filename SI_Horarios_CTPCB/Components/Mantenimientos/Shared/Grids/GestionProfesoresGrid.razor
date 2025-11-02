@@ -50,10 +50,7 @@
                     </DataGridColumn>
                     <DataGridColumn Field="@nameof(ProfesorDto.Estado)" Editable Caption="Estado">
                         <DisplayTemplate>
-                            <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
-                                <SelectItem Value="@("A")">Activo</SelectItem>
-                                <SelectItem Value="@("I")">Inactivo</SelectItem>
-                            </Select>
+                            @(context.Estado.Equals("A") ? "Activo" : "Inactivo")
                         </DisplayTemplate>
                         <EditTemplate>
                             <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@( v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
@@ -141,6 +138,7 @@
             {
                 await api.Mantenimientos_AddUpdateProfesorAsync(item.NewItem);
                 data = await api.Mantenimientos_GetAllProfesorAsync();
+                await Task.FromResult(MessageService.Success("Datos Guardados", "Profesor Guardado Correctamente!"));
             }
         }
         catch (Exception ex)
