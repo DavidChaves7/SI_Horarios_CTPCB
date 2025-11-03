@@ -49,7 +49,7 @@
                     <DataGridColumn Field="@nameof(MateriaXNivelDto.Desc_Nivel_Academico)" Caption="Nivel Academico" />
 
 
-                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Prioridad)" Editable Caption="Prioridad">
+                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Prioridad)" Displayable=false Editable Caption="Prioridad">
                         <DisplayTemplate>
                             <Select SelectedValue="@context.Prioridad" Disabled TValue="int?" Style="min-width: 200px;">
                                 <SelectItem Value="@(1)">Alta</SelectItem>
@@ -77,12 +77,9 @@
                     </DataGridColumn>
 
 
-                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Estado)" Editable Caption="Estado">
+                    <DataGridSelectColumn TItem="MateriaXNivelDto" Field="@nameof(MateriaXNivelDto.Estado)" Caption="Estado" Editable Data="@(EstadoHelper.listaActivoInactivo)" ValueField="(x) => ((EstadoHelper.Estados)x).Value" TextField="(x) => ((EstadoHelper.Estados)x).Desc">
                         <DisplayTemplate>
-                            <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
-                                <SelectItem Value="@("A")">Activo</SelectItem>
-                                <SelectItem Value="@("I")">Inactivo</SelectItem>
-                            </Select>
+                            @(context.Estado.Equals("A") ? "Activo" : "Inactivo")
                         </DisplayTemplate>
                         <EditTemplate>
                             <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
@@ -91,7 +88,8 @@
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
                             </Select>
                         </EditTemplate>
-                    </DataGridColumn>
+
+                    </DataGridSelectColumn>
 
                 </DataGridColumns>
                 <ButtonRowTemplate>

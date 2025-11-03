@@ -1,68 +1,83 @@
 ﻿<Div Class="main-content">
 
     @* <LoadingIndicator Visible="@(isLoading)"> *@
-        <ChildContent>
-            <Div Class="row mb-4 align-items-end">
-                <Div Class="col-md-6">
-                    <label>Ver los horarios del Grupo:</label>
-                    <Select Class="form-control" SelectedValue="@reportesModel.Grupo" SelectedValueChanged="@GrupoChanged" TValue="string">
-                        <SelectItem Value="@(string.Empty)">Seleccione una opción</SelectItem>
-                        @foreach (var i in dataGrupo ?? new List<GrupoDto>())
-                        {
-                            <SelectItem Value="@(i.Id_Grupo)">@i.Nombre</SelectItem>
-                        }
-                    </Select>
-                </Div>
-                <Div Class="col-md-6 text-end" Padding="Padding.Is4.FromEnd">
-                    <Button Class="btn btn-create" Clicked="@GenerarHorario">Generar automáticamente</Button>
-                </Div>
-                <Div Class="col-md-6" style="display:flex; align-items:baseline; gap:8px; ">
-
-                    <h2 style="font-size: 30px">Profesor Guia: </h2>
-                        <label>@nombreProfesorGuia</label>
-                </Div>
-            </Div>
-            <Div Class="row mb-4">
-                <DataGrid TItem="BloqueHorario" Data="@bloquesHorario" PageSize="16" ShowPager="false" ShowPageSizes="false" ShowCaptions="true" Editable="false" Responsive="true"
-                          Class="table-bordered text-center w-100 no-padding ">
-
-                    <DataGridColumn TItem="BloqueHorario" Field="@nameof(BloqueHorario.RangoHorario)" Caption="Hora" />
-
-                    @foreach (var dia in diasSemana)
+    <ChildContent>
+        <Div Class="row mb-4 align-items-end">
+            <Div Class="col-md-6">
+                <label>Ver los horarios del Grupo:</label>
+                <Select Class="form-control" SelectedValue="@reportesModel.Grupo" SelectedValueChanged="@GrupoChanged" TValue="string">
+                    <SelectItem Value="@(string.Empty)">Seleccione una opción</SelectItem>
+                    @foreach (var i in dataGrupo ?? new List<GrupoDto>())
                     {
-                        <DataGridColumn TItem="BloqueHorario" Caption="@dia">
-                            <DisplayTemplate>
-                                @{
-                                    var detalle = context.GetDetalle(dia);
+                        <SelectItem Value="@(i.Id_Grupo)">@i.Nombre</SelectItem>
+                    }
+                </Select>
+            </Div>
+            <Div Class="col-md-6 text-end" Padding="Padding.Is4.FromEnd">
+                <Button Class="btn btn-create" Clicked="@GenerarHorario">Generar automáticamente</Button>
+            </Div>
+            <Div Class="col-md-6" style="display:flex; align-items:baseline; gap:8px; ">
+
+                <h2 style="font-size: 30px">Profesor Guia: </h2>
+                <label>@nombreProfesorGuia</label>
+            </Div>
+        </Div>
+        <Div Class="row mb-4">
+            <DataGrid TItem="BloqueHorario" Data="@bloquesHorario" PageSize="16" ShowPager="false" ShowPageSizes="false" ShowCaptions="true" Editable="false" Responsive="true" Class="table-bordered text-center w-100 no-padding ">
+
+                <DataGridColumn TItem="BloqueHorario" Field="@nameof(BloqueHorario.RangoHorario)" Caption="Hora" />
+
+                @foreach (var dia in diasSemana)
+                {
+                    <DataGridColumn TItem="BloqueHorario" Caption="@dia">
+                        <DisplayTemplate>
+                            @{
+                                
+                                var detalle = context.GetDetalle(dia);
+                                var estadoLocal = detalle?.Estado ?? "A";
+                                var idProfLocal = detalle?.IdProfesor;
+                                var idMatLocal = detalle?.IdMateria;
+                            }
+                            <div style="background-color:@(context.EsReceso ? "#bbbec2" : (detalle?.Color ?? "#6c757d")); width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; font-size: 18px; padding:5px; border-radius: 12px;">
+                                @if (context.EsReceso)
+                                {
+                                    <Span>Receso</Span>
                                 }
-                                <div style="background-color:@(context.EsReceso ? "#bbbec2" : (detalle?.Color ?? "#6c757d")); width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; font-size: 18px; padding:5px; border-radius: 12px;">
-                                    @if (context.EsReceso)
+                                else if (detalle is not null)
+                                {
+                                    if (context.EsBloqueado)
                                     {
-                                        <Span>Receso</Span>
-                                    }
-                                    else if (detalle is not null)
-                                    {
-                                        <Button Disabled="@(reportesModel.Grupo is null || context.EsReceso)" Clicked="() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario)">
-                                            <Span style="color: #fafafa  ; display: block;"><b style="color: black;">Materia:</b> @detalle.Materia </Span>
-                                            <Span style="color: #fafafa  ; display: block;"><b style="color: black;">Profesor:</b> @detalle.Profesor</Span>
+                                        <Button Disabled="@(reportesModel.Grupo is null || context.EsReceso)" Clicked="@(() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario, estadoLocal, idProfLocal, idMatLocal))">
+                                            <Badge Color="Color.Danger"> BLOQUEADA </Badge>
+                                            <Span style="color: #fafafa  ; display: block;"><b style="color: black;">Materia:</b> @(detalle?.Materia ?? "") </Span>
+                                            <Span style="color: #fafafa  ; display: block;"><b style="color: black;">Profesor:</b> @(detalle?.Profesor ?? "")</Span>
                                         </Button>
                                     }
                                     else
                                     {
-
-                                    <Button Disabled="@(reportesModel.Grupo is null || string.IsNullOrEmpty(reportesModel.Grupo) || context.EsReceso)" Clicked="() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario)">
-                                            <Span>Sin asignar</Span>
+                                        <Button Disabled="@(reportesModel.Grupo is null || context.EsReceso)" Clicked="@(() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario, estadoLocal, idProfLocal, idMatLocal))">
+                                            <Span style="color: #fafafa  ; display: block;"><b style="color: black;">Materia:</b> @(detalle.Materia)</Span>
+                                            <Span style="color: #fafafa  ; display: block;"><b style="color: black;">Profesor:</b> @(detalle.Profesor)</Span>
                                         </Button>
                                     }
-                                </div>
-                            </DisplayTemplate>
-                        </DataGridColumn>
-                    }
+                                   
+                                }
+                                else
+                                {
 
-                </DataGrid>
+                                    <Button Disabled="@(reportesModel.Grupo is null || string.IsNullOrEmpty(reportesModel.Grupo) || context.EsReceso)" Clicked="@(() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario, estadoLocal, idProfLocal, idMatLocal, "SA"))">
+                                        <Span>Sin asignar</Span>
+                                    </Button>
+                                }
+                            </div>
+                        </DisplayTemplate>
+                    </DataGridColumn>
+                }
 
-            </Div>
-        </ChildContent>
+            </DataGrid>
+
+        </Div>
+    </ChildContent>
     @* </LoadingIndicator> *@
 </Div>
 <ModalAsigMateria @ref="modalAsigMateria" OnInsert="CallbackUpdateHorario"></ModalAsigMateria>
@@ -89,7 +104,7 @@
 
 
     private async Task GenerarHorario()
-    {        
+    {
         isLoading = true;
 
         await api.Horarios_GenHorarioAsync(1);
@@ -101,7 +116,7 @@
 
     private async Task GrupoChanged(string? value)
     {
-        if(!string.IsNullOrEmpty(value))
+        if (!string.IsNullOrEmpty(value))
         {
             reportesModel.Grupo = value;
             await ActualizarProfesorGuia();
@@ -144,7 +159,7 @@
 
         var materias = await api.Mantenimientos_GetAllMateriasAsync();
         var profesores = await api.Mantenimientos_GetAllProfesorAsync();
-        AsignarHorariosABloques(horarios, materias, profesores);
+        AsignarHorariosABbloques(horarios, materias, profesores);
 
         isLoading = false;
     }
@@ -162,10 +177,12 @@
         foreach (var bloque in bloquesHorario)
         {
             bloque.DetallesPorDia.Clear();
+            bloque.EsBloqueado = false; // reset blocked flag
+            bloque.IdHorario = 0;
         }
     }
 
-    private void AsignarHorariosABloques(ICollection<HorarioDto> horarios, ICollection<MateriaDto> materias, ICollection<ProfesorDto> profesores)
+    private void AsignarHorariosABbloques(ICollection<HorarioDto> horarios, ICollection<MateriaDto> materias, ICollection<ProfesorDto> profesores)
     {
         foreach (var horario in horarios)
         {
@@ -185,11 +202,17 @@
                 {
                     var materia = materias.FirstOrDefault(m => m.Id_Materia == horario.Id_Materia);
                     var profesor = profesores.FirstOrDefault(p => p.Id_Profesor.ToString() == horario.Id_Profesor);
+                    // set id and blocked flag based on HorarioDto.Estado
+                    bloque.IdHorario = horario.Id_Horario;
+                    bloque.EsBloqueado = string.Equals(horario.Estado, "I", StringComparison.OrdinalIgnoreCase);
                     bloque.DetallesPorDia[dia] = new DetalleBloque
                     {
                         Materia = materia?.Nombre ?? "Sin asignar",
                         Profesor = profesor is not null ? $"{profesor.Nombre} {profesor.Apellido}" : "Sin asignar",
-                        Color = materia?.Color ?? "#6c757d"
+                        Color = materia?.Color ?? "#6c757d",
+                        Estado = horario.Estado ?? "A",
+                        IdMateria = horario.Id_Materia,
+                        IdProfesor = string.IsNullOrEmpty(horario.Id_Profesor) ? (int?)null : int.TryParse(horario.Id_Profesor, out var pid) ? pid : (int?)null
                     };
                 }
             }
@@ -238,14 +261,16 @@
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
         public bool EsReceso { get; set; }
+        public bool EsBloqueado { get; set; }
         public string RangoHorario { get; private set; }
         public Dictionary<string, DetalleBloque> DetallesPorDia { get; set; } = new();
 
-        public BloqueHorario(TimeSpan horaInicio, TimeSpan horaFin, bool esReceso = false)
+        public BloqueHorario(TimeSpan horaInicio, TimeSpan horaFin, bool esReceso = false, bool esBloqueado = false)
         {
             HoraInicio = horaInicio;
             HoraFin = horaFin;
             EsReceso = esReceso;
+            EsBloqueado = esBloqueado;
             RangoHorario = $"{DateTime.Today.Add(HoraInicio):hh\\:mm tt} - {DateTime.Today.Add(HoraFin):hh\\:mm tt}";
         }
 
@@ -261,5 +286,8 @@
         public string Materia { get; set; } = "";
         public string Profesor { get; set; } = "";
         public string Color { get; set; } = "#6c757d";
+        public string Estado { get; set; } = "A";
+        public int? IdMateria { get; set; }
+        public int? IdProfesor { get; set; }
     }
 }

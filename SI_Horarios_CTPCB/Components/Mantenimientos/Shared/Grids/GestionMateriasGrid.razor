@@ -5,7 +5,7 @@
         <ChildContent>
             <Row>
                 <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
-                    <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="DescargarPlantillaMaterias">Plantilla Excel Materias</Button>
+                    <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="@(async () => { await DescargarPlantillaMaterias(); snackbarStack?.PushAsync("Se estará descargando la plantilla en breves momentos", SnackbarColor.Info, options => { options.IntervalBeforeClose = 4000; });} )">Plantilla Excel Materias</Button>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
                     <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir!.Open">Importar Excel</Button>
@@ -24,7 +24,7 @@
                 <DataGridColumns>
                     @* <DataGridColumn Field="@nameof(MateriaDto.Id_Materia)" Caption="Id" /> *@
                     <DataGridColumn Field="@nameof(MateriaDto.Nombre)" Editable Caption="Materia" />
-                    <DataGridColumn Field="@nameof(MateriaDto.Tipo)" Editable Caption="Tipo">
+                    <DataGridSelectColumn TItem="MateriaDto" Field="@nameof(MateriaDto.Tipo)" Caption="Tipo" Editable Data="@(EstadoHelper.listaTipoMateria)" ValueField="(x) => ((EstadoHelper.Estados)x).Value" TextField="(x) => ((EstadoHelper.Estados)x).Desc">
                         <DisplayTemplate>
                             @(context.Tipo.Equals("A") ? "Academica" : "Tecnica")
                         </DisplayTemplate>
@@ -35,8 +35,9 @@
                                 <SelectItem Value="@("T")">Técnica</SelectItem>
                             </Select>
                         </EditTemplate>
-                    </DataGridColumn>
-                    <DataGridColumn Field="@nameof(MateriaDto.Color)" Editable Caption="Color">
+
+                    </DataGridSelectColumn>
+                    <DataGridColumn Field="@nameof(MateriaDto.Color)" Editable Caption="Color" Sortable=false Filterable=false>
                         <DisplayTemplate >
                             <Div style="display: flex; align-items: center; gap: 10px; ">
                                 <ColorEdit Color="@context.Color" Style="width: 100%; height:70px;" Disabled />
@@ -50,12 +51,9 @@
 
                         </EditTemplate>
                     </DataGridColumn>
-                    <DataGridColumn Field="@nameof(MateriaDto.Estado)" Editable Caption="Estado">
+                    <DataGridSelectColumn TItem="MateriaDto" Field="@nameof(MateriaDto.Estado)" Caption="Estado" Editable Data="@(EstadoHelper.listaActivoInactivo)" ValueField="(x) => ((EstadoHelper.Estados)x).Value" TextField="(x) => ((EstadoHelper.Estados)x).Desc">
                         <DisplayTemplate>
-                            <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
-                                <SelectItem Value="@("A")">Activo</SelectItem>
-                                <SelectItem Value="@("I")">Inactivo</SelectItem>
-                            </Select>
+                            @(context.Estado.Equals("A") ? "Activo" : "Inactivo")
                         </DisplayTemplate>
                         <EditTemplate>
                             <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
@@ -64,7 +62,8 @@
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
                             </Select>
                         </EditTemplate>
-                    </DataGridColumn>
+
+                    </DataGridSelectColumn>
 
                 </DataGridColumns>
                 <ButtonRowTemplate>
@@ -84,12 +83,13 @@
 </Div>
 <ModalSubirArchivoMaterias OnInsert="CallbackInsertarExcel" @ref="modalSubir"></ModalSubirArchivoMaterias>
 <ModalSubirArchivoMaterias @ref="modalSubir"></ModalSubirArchivoMaterias>
-
+<SnackbarStack @ref="snackbarStack" Location="SnackbarStackLocation.Top" />
 
 @code {
 
 
     private string accessCategory { get; set; } = "";
+    SnackbarStack? snackbarStack;
 
 
     IEnumerable<MateriaDto>? data { get; set; } = new List<MateriaDto>();
@@ -133,6 +133,8 @@
             }
             else
             {
+                //asignar un color forzado antes de agregarlo
+                //item.NewItem.Color = Random()
                 await api.Mantenimientos_AddUpdateMateriasAsync(item.NewItem);
                 data = await api.Mantenimientos_GetAllMateriasAsync();
             }
@@ -167,7 +169,7 @@
 
     async Task RemovingRow(CancellableRowChange<MateriaDto> item)
     {
-        var delete = await MessageService.Confirm($"Está seguro de inactivar la Mataria {item.OldItem.Nombre}?", "Eliminar Materia", opt =>
+        var delete = await MessageService.Confirm($"Está seguro de inactivar la Materia {item.OldItem.Nombre}?", "Eliminar Materia", opt =>
         {
             // opt.MessageIcon = Icon
         });
@@ -181,6 +183,7 @@
     {
         try
         {
+            
             using (var libro = new XLWorkbook())
             {
                 IXLWorksheet hoja = libro.Worksheets.Add("Resumen (Masivo)");

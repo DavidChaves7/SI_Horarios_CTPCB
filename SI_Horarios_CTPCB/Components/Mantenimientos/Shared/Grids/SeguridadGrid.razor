@@ -23,12 +23,9 @@
                         </EditTemplate>
                     </DataGridColumn>
 
-                    <DataGridColumn Field="@nameof(SeguridadDto.Estado)" Editable Caption="Estado">
+                    <DataGridSelectColumn TItem="SeguridadDto" Field="@nameof(SeguridadDto.Estado)" Caption="Estado" Editable Data="@(EstadoHelper.listaActivoInactivo)" ValueField="(x) => ((EstadoHelper.Estados)x).Value" TextField="(x) => ((EstadoHelper.Estados)x).Desc">
                         <DisplayTemplate>
-                            <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
-                                <SelectItem Value="@("A")">Activo</SelectItem>
-                                <SelectItem Value="@("I")">Inactivo</SelectItem>
-                            </Select>
+                            @(context.Estado.Equals("A") ? "Activo" : "Inactivo")
                         </DisplayTemplate>
                         <EditTemplate>
                             <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
@@ -37,7 +34,8 @@
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
                             </Select>
                         </EditTemplate>
-                    </DataGridColumn>
+
+                    </DataGridSelectColumn>
                 </DataGridColumns>
                 <ButtonRowTemplate>
                     <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>

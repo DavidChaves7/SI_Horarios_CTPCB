@@ -739,6 +739,41 @@
         }
       }
     },
+    "/api/Mantenimientos/GetAllProfesor_X_MateriaFiltrado": {
+      "get": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_GetAllProfesor_X_MateriaFiltrado",
+        "parameters": [
+          {
+            "name": "profesor",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "nullable": true,
+                  "items": {
+                    "$ref": "#/components/schemas/Profesor_X_MateriaDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Mantenimientos/GetOneProfesor_X_Materia": {
       "get": {
         "tags": [

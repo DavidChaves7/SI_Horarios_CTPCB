@@ -55,23 +55,23 @@ namespace API.Infrastructure.Services
                 var delete = await _unitOfWork.Set<Horario>().ExecuteDeleteAsync();
 
                 var materiasXNivel = await _unitOfWork.Set<Materia_X_Nivel>()
-                    .Where(s => s.Estado == "A")
+                    .Where(s => (s.Estado ?? "I").Equals("A"))
                     .Select(s => _mapper.Map<MateriaXNivelDto>(s))
                     .ToListAsync();
                 var profesores = await _unitOfWork.Set<Profesor>()
-                    .Where(s => s.Estado == "A")
+                    .Where(s => (s.Estado ?? "I").Equals("A"))
                     .Select(s => _mapper.Map<ProfesorDto>(s))
                     .ToListAsync();
                 var grupos = await _unitOfWork.Set<Grupo>()
-                    .Where(s => s.Estado == "A")
+                    .Where(s => (s.Estado ?? "I").Equals("A"))
                     .Select(s => _mapper.Map<GrupoDto>(s))
                     .ToListAsync();
                 var profXMateria = await _unitOfWork.Set<Profesor_X_Materia>()
-                    .Where(s => s.Estado == "A")
+                    .Where(s => (s.Estado ?? "I").Equals("A"))
                     .Select(s => _mapper.Map<Profesor_X_MateriaDto>(s))
                     .ToListAsync();
                 var restricciones = await _unitOfWork.Set<Restriccion_Profesor>()
-                    .Where(s => s.Estado == "A")
+                    .Where(s => (s.Estado ?? "I").Equals("A"))
                     .Select(s => _mapper.Map<Restriccion_ProfesorDto>(s))
                     .ToListAsync();
 

@@ -414,6 +414,15 @@ namespace API.Infrastructure.Services
                 if (dbObject != null)
                 {
                     param.Id_Profesor = dbObject.Id_Profesor;
+                    if ((param.Estado ?? "I").Equals("I"))
+                    {
+                        var profesorMaterias = _unitOfWork.Set<Profesor_X_Materia>().Where(x => x.Id_Profesor == dbObject.Id_Profesor).ToList();
+                        foreach(var item in profesorMaterias)
+                        {
+                            item.Estado = "I";
+                            _unitOfWork.Set<Profesor_X_Materia>().Update(item);
+                        }
+                    }
                     _unitOfWork.Set<Profesor>().Update(param);
                 }
                 else
@@ -505,7 +514,6 @@ namespace API.Infrastructure.Services
                 }
                 else
                 {
-                    param.Id_Materia = 0;
                     var test1 = await _unitOfWork.Set<Profesor_X_Materia>().AddAsync(param);
                 }
                 var test2 = await _unitOfWork.SaveChangesAsync();
@@ -541,9 +549,34 @@ namespace API.Infrastructure.Services
 
             return data;
         }
-        public async Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_Materia()
+        public async Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_Materia( )
         {
             var parameters = await _unitOfWork.Set<Profesor_X_Materia>()
+                .Select(s => _mapper.Map<Profesor_X_MateriaDto>(s)).ToListAsync();
+
+            var profesores = await _unitOfWork.Set<Profesor>()
+                .Select(s => _mapper.Map<ProfesorDto>(s)).ToListAsync();
+
+            var materias = await _unitOfWork.Set<Materia>()
+                .Select(s => _mapper.Map<MateriaDto>(s)).ToListAsync();
+
+            foreach (var item in parameters)
+            {
+                var profesor = profesores.FirstOrDefault(p => p.Id_Profesor == item.Id_Profesor);
+                if (profesor != null)
+                    item.Desc_Profesor = $"{profesor.Nombre} {profesor.Apellido}";
+
+                var materia = materias.FirstOrDefault(m => m.Id_Materia == item.Id_Materia);
+                if (materia != null)
+                    item.Desc_Materia = materia.Nombre;
+            }
+
+            return parameters;
+        }
+
+        public async Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_MateriaFiltrado(int idProfesor)
+        {
+            var parameters = await _unitOfWork.Set<Profesor_X_Materia>().Where(x => x.Id_Profesor == idProfesor)
                 .Select(s => _mapper.Map<Profesor_X_MateriaDto>(s)).ToListAsync();
 
             var profesores = await _unitOfWork.Set<Profesor>()

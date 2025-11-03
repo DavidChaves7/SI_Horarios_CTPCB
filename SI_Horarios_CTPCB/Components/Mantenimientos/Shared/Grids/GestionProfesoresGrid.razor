@@ -1,11 +1,10 @@
-﻿
-@inject SIHAPI api
+﻿@inject SIHAPI api
 <Div Class="main-content">
     <LoadingIndicator Visible="@(data is null)">
         <ChildContent>
             <Row>
                 <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
-                    <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="DescargarPlantillaProfesores">Plantilla Excel Profesores</Button>
+                    <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="@(async ()=> { await DescargarPlantillaProfesores(); snackbarStack?.PushAsync("Se estará descargando la plantilla en breves momentos", SnackbarColor.Info, options => { options.IntervalBeforeClose = 4000; });} )">Plantilla Excel Profesores</Button>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
                     <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir!.Open">Importar Excel</Button>
@@ -18,7 +17,7 @@
             </Row>
 
             @* PageSizes="[10, 20, 30]" ShowPageSizes *@
-            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="ProfesorDto" Data="data" PageSize="10" 
+            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="ProfesorDto" Data="data" PageSize="10"
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
@@ -37,7 +36,7 @@
                     <DataGridColumn Field="@nameof(ProfesorDto.Apellido)" Editable Caption="Apellidos" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Correo)" Editable Caption="Correo" />
                     <DataGridColumn Field="@nameof(ProfesorDto.Telefono)" Editable Caption="Telefono" />
-                    <DataGridColumn Field="@nameof(ProfesorDto.Carga_Horaria)" Editable Caption="Carga Horaria" >
+                    <DataGridColumn Field="@nameof(ProfesorDto.Carga_Horaria)" Editable Caption="Carga Horaria">
                         <EditTemplate>
                             <NumericEdit TValue="int" Min="0" Max="99" Value="@((int)context.CellValue)" ValueChanged="@(v => context.CellValue = v)">
                                 <Feedback>
@@ -46,28 +45,30 @@
                                 </Feedback>
                             </NumericEdit>
                         </EditTemplate>
-                    
+
                     </DataGridColumn>
-                    <DataGridColumn Field="@nameof(ProfesorDto.Estado)" Editable Caption="Estado">
+                    <DataGridSelectColumn TItem="ProfesorDto" Field="@nameof(ProfesorDto.Estado)" Caption="Estado" Editable Data="@(EstadoHelper.listaActivoInactivo)" ValueField="(x) => ((EstadoHelper.Estados)x).Value" TextField="(x) => ((EstadoHelper.Estados)x).Desc">
                         <DisplayTemplate>
                             @(context.Estado.Equals("A") ? "Activo" : "Inactivo")
                         </DisplayTemplate>
                         <EditTemplate>
-                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@( v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
+                            <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
                                 <SelectItem Value="@("")">Seleccione una opción</SelectItem>
                                 <SelectItem Value="@("A")">Activo</SelectItem>
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
                             </Select>
                         </EditTemplate>
-                    </DataGridColumn>
-                    <DataGridColumn Caption="Restricciones">
+
+                    </DataGridSelectColumn>
+
+                    <DataGridColumn Caption="Restricciones" Filterable=false Sortable=false>
                         <DisplayTemplate>
                             <Button Class="btn btn-create" Clicked="() => modalRestric!.Open(context.Id_Profesor, context.Nombre + ' ' + context.Apellido)">Restricciones</Button>
                         </DisplayTemplate>
                     </DataGridColumn>
-                    <DataGridColumn Caption="Materias">
+                    <DataGridColumn Caption="Materias" Filterable=false Sortable=false>
                         <DisplayTemplate>
-                            <Button Class="btn btn-edit" Clicked="() => modalProfesor_X_Materia!.Open()">Materias</Button>
+                            <Button Class="btn btn-edit" Clicked="() => modalProfesor_X_Materia!.Open(context.Id_Profesor)">Materias</Button>
                         </DisplayTemplate>
                     </DataGridColumn>
                 </DataGridColumns>
@@ -86,20 +87,21 @@
 </Div>
 <ModalSubirArchivoProfesores OnInsert="CallbackInsertarExcel" @ref="modalSubir"></ModalSubirArchivoProfesores>
 <ModalProfesor_X_Materia @ref="modalProfesor_X_Materia"></ModalProfesor_X_Materia>
-<ModalRestriccionHorariaProfesores @ref="modalRestric"></ModalRestriccionHorariaProfesores>
+<ModalRestriccionHorariaProfesores @ref="modalRestric" ></ModalRestriccionHorariaProfesores>
+<SnackbarStack @ref="snackbarStack" Location="SnackbarStackLocation.Top" />
 @code {
-
+    SnackbarStack? snackbarStack;
     ModalSubirArchivoProfesores? modalSubir;
     ModalRestriccionHorariaProfesores? modalRestric;
     ModalProfesor_X_Materia? modalProfesor_X_Materia;
     private string accessCategory { get; set; } = "";
-    
+
     IEnumerable<ProfesorDto>? data { get; set; } = new List<ProfesorDto>();
 
     private ProfesorDto? selectedData;
 
     private Snackbar? snackbarPrimary;
-    
+
 
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -109,7 +111,7 @@
         {
 
             data = await api.Mantenimientos_GetAllProfesorAsync();
-            
+
             StateHasChanged();
         }
     }
@@ -225,7 +227,7 @@
 
     async Task CallbackInsertarExcel()
     {
-        
+
         await Task.FromResult(MessageService.Success("Archivo de profesores subido correctamente, refresque la pantalla", "Archivo Procesado Correctamente"));
         data = await api.Mantenimientos_GetAllProfesorAsync();
         StateHasChanged();

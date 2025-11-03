@@ -11,19 +11,27 @@
                         <ButtonsExportComponent T="Profesor_X_MateriaDto" Data="data" Titulo="Profesor por Materia" />
                     </Row>
 
-                    <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="Profesor_X_MateriaDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+                    <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="Profesor_X_MateriaDto" Data="data" PageSize="3" PageSizes="[3, 5, 7]" ShowPageSizes
                               Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                               UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                         <DataGridColumns>
                             @* <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Prof_Materia)" Caption="Id" /> *@
-                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Desc_Profesor)" Editable Caption="Profesor" />
-                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Desc_Materia)" Editable Caption="Materia" />
-                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Estado)" Editable Caption="Estado">
-                                <DisplayTemplate>
-                                    <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
-                                        <SelectItem Value="@("A")">Activo</SelectItem>
-                                        <SelectItem Value="@("I")">Inactivo</SelectItem>
+                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Desc_Profesor)"  Caption="Profesor" />
+                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Id_Materia)" Displayable=false Editable Caption="Materia" >
+                                <EditTemplate>
+                                    <Select SelectedValue="@(context.CellValue?.ToString())" SelectedValueChanged="@(v => context.CellValue = int.TryParse(v, out var val) ? val : 0)" TValue="string" Style="min-width: 200px;">
+                                        <SelectItem Value="@("")">Seleccione una opción</SelectItem>
+                                        @foreach (var item in dataMateria ?? new List<MateriaDto>())
+                                        {
+                                            <SelectItem Value="@item.Id_Materia.ToString()">@item.Nombre</SelectItem>
+                                        }
                                     </Select>
+                                </EditTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn Field="@nameof(Profesor_X_MateriaDto.Desc_Materia)" Caption="Materia" />
+                            <DataGridSelectColumn TItem="Profesor_X_MateriaDto" Field="@nameof(Profesor_X_MateriaDto.Estado)" Caption="Estado" Editable Data="@(EstadoHelper.listaActivoInactivo)" ValueField="(x) => ((EstadoHelper.Estados)x).Value" TextField="(x) => ((EstadoHelper.Estados)x).Desc">
+                                <DisplayTemplate>
+                                    @(context.Estado.Equals("A") ? "Activo" : "Inactivo")
                                 </DisplayTemplate>
                                 <EditTemplate>
                                     <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
@@ -32,7 +40,8 @@
                                         <SelectItem Value="@("I")">Inactivo</SelectItem>
                                     </Select>
                                 </EditTemplate>
-                            </DataGridColumn>
+
+                            </DataGridSelectColumn>
                         </DataGridColumns>
                         <ButtonRowTemplate>
                             <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
@@ -53,12 +62,13 @@
     </ModalContent>
 </Modal>
 
-@code {
+    @code {
     Modal? modal;
 
 
     public bool isLoading { get; set; } = false;
-
+    public int Id_Profesor { get; set; }
+    IEnumerable<MateriaDto>? dataMateria { get; set; } = new List<MateriaDto>();
     IEnumerable<Profesor_X_MateriaDto>? data { get; set; } = new List<Profesor_X_MateriaDto>();
     private Profesor_X_MateriaDto? selecteddata;
 
@@ -69,22 +79,18 @@
         return Task.CompletedTask;
     }
 
-    public async Task Open()
+    public async Task Open(int pId)
     {
+
+        dataMateria = await api.Mantenimientos_GetAllMateriasAsync();
+        Id_Profesor = pId;
+        data = await api.Mantenimientos_GetAllProfesor_X_MateriaFiltradoAsync(Id_Profesor);
+       
+        StateHasChanged();
+
+
         modal?.Show();
 
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender)
-        {
-
-            data = await api.Mantenimientos_GetAllProfesor_X_MateriaAsync();
-           
-            StateHasChanged();
-        }
     }
 
     RenderFragment SetModalTitle(PopupTitleContext<Profesor_X_MateriaDto> context)
@@ -103,7 +109,7 @@
         try
         {
 
-
+            item.NewItem.Id_Profesor = Id_Profesor;
             var errors = item.NewItem.ValidateObjectFields();
             if (!string.IsNullOrEmpty(errors))
             {
@@ -112,7 +118,7 @@
             else
             {
                 await api.Mantenimientos_AddUpdateProfesor_X_MateriaAsync(item.NewItem);
-                data = await api.Mantenimientos_GetAllProfesor_X_MateriaAsync();
+                data = await api.Mantenimientos_GetAllProfesor_X_MateriaFiltradoAsync(Id_Profesor);
             }
         }
         catch (Exception ex)
@@ -139,13 +145,13 @@
     async Task DeleteItem(Profesor_X_MateriaDto item)
     {
         await api.Mantenimientos_DeleteProfesor_X_MateriaAsync(item);
-        data = await api.Mantenimientos_GetAllProfesor_X_MateriaAsync();
+        data = await api.Mantenimientos_GetAllProfesor_X_MateriaFiltradoAsync(Id_Profesor);
        
     }
 
     async Task RemovingRow(CancellableRowChange<Profesor_X_MateriaDto> item)
     {
-        var delete = await MessageService.Confirm($"Está seguro de eliminar el Parámetro {item.OldItem.Id_Prof_Materia}?", "Eliminar Parámetro", opt =>
+        var delete = await MessageService.Confirm($"Está seguro de Eliminar la Materia {item.OldItem.Desc_Materia} asignada al Profesor {item.OldItem.Desc_Profesor}?", "Eliminar Profesor por Materia", opt =>
         {
             // opt.MessageIcon = Icon
         });

@@ -11,7 +11,7 @@
                         <ButtonsExportComponent T="Restriccion_ProfesorDto" Data="data" Titulo="Restricciones Horarias" />
                     </Row>
 
-                    <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="Restriccion_ProfesorDto" Data="data" PageSize="10" PageSizes="[10, 20, 30]" ShowPageSizes
+                    <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selecteddata" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="Restriccion_ProfesorDto" Data="data" PageSize="3" PageSizes="[3, 5, 7]" ShowPageSizes
                               Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                               UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                         <DataGridColumns>
@@ -22,7 +22,8 @@
                                 </DisplayTemplate>
                             </DataGridColumn>
                             <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Razon)" Editable Caption="Razon" />
-                            <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Dia)" Editable Caption="Dia">
+
+                            <DataGridSelectColumn TItem="Restriccion_ProfesorDto" Field="@nameof(Restriccion_ProfesorDto.Dia)" Caption="Dia" Editable Data="@(EstadoHelper.listaDiasSemana)" ValueField="(x) => ((EstadoHelper.Estados)x).Value" TextField="(x) => ((EstadoHelper.Estados)x).Desc">
                                 <DisplayTemplate>
                                     <Select SelectedValue="@context.Dia" Disabled TValue="string" Style="min-width: 200px;">
                                         <SelectItem Value="@("L")">Lunes</SelectItem>
@@ -42,7 +43,8 @@
                                         <SelectItem Value="@("V")">Viernes</SelectItem>
                                     </Select>
                                 </EditTemplate>
-                            </DataGridColumn>
+
+                            </DataGridSelectColumn>
                             <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Hora_Inicio)" Editable Caption="Hora Inicio">
                                 <DisplayTemplate>
                                     <Select SelectedValue="@context.Hora_Inicio" Disabled TValue="string" Style="min-width: 200px;">
@@ -129,12 +131,9 @@
                                     </Select>
                                 </EditTemplate>
                             </DataGridColumn>
-                            <DataGridColumn Field="@nameof(Restriccion_ProfesorDto.Estado)" Editable Caption="Estado">
+                            <DataGridSelectColumn TItem="Restriccion_ProfesorDto" Field="@nameof(Restriccion_ProfesorDto.Estado)" Caption="Estado" Editable Data="@(EstadoHelper.listaActivoInactivo)" ValueField="(x) => ((EstadoHelper.Estados)x).Value" TextField="(x) => ((EstadoHelper.Estados)x).Desc">
                                 <DisplayTemplate>
-                                    <Select SelectedValue="@context.Estado" Disabled TValue="string" Style="min-width: 200px;">
-                                        <SelectItem Value="@("A")">Activo</SelectItem>
-                                        <SelectItem Value="@("I")">Inactivo</SelectItem>
-                                    </Select>
+                                    @(context.Estado.Equals("A") ? "Activo" : "Inactivo")
                                 </DisplayTemplate>
                                 <EditTemplate>
                                     <Select SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="object" Style="min-width: 200px;">
@@ -143,7 +142,8 @@
                                         <SelectItem Value="@("I")">Inactivo</SelectItem>
                                     </Select>
                                 </EditTemplate>
-                            </DataGridColumn>
+
+                            </DataGridSelectColumn>
                         </DataGridColumns>
                         <ButtonRowTemplate>
                             <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
@@ -254,7 +254,7 @@
 
     async Task RemovingRow(CancellableRowChange<Restriccion_ProfesorDto> item)
     {
-        var delete = await MessageService.Confirm($"Está seguro de eliminar el Parámetro {item.OldItem.Id_Restriccion}?", "Eliminar Parámetro", opt =>
+        var delete = await MessageService.Confirm($"Está seguro de inactivar la Restriccion {item.OldItem.Razon}?", "Eliminar Restricción", opt =>
         {
             // opt.MessageIcon = Icon
         });

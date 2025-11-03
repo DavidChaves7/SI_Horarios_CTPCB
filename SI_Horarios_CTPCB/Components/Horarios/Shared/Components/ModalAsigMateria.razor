@@ -10,25 +10,26 @@
                     <Div Class="col-md-6">
                         <label>Profesor</label>
 
-                        <Select @bind-SelectedValue="IdProfesor" Class="form-control" @onchange="OnProfesorChanged">
+                        <Select @bind-SelectedValue="IdProfesor" Class="form-control" @onchange="OnProfesorChanged" Disabled="@(EstadoHorario == "I")">
                             <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
                             @foreach (var i in dataProfesor ?? new List<ProfesorDto>())
                             {
-                                <SelectItem Value="@(i.Id_Profesor)">@i.Nombre @i.Apellido</SelectItem>
+                                <SelectItem Value="@(i.Id_Profesor)" Selected="@(IdProfesor == i.Id_Profesor)">@i.Nombre @i.Apellido</SelectItem>
                             }
                         </Select>
 
                     </Div>
+
                     <Div Class="form-group mb-3">
                         <label>Materia</label>
 
-                        <Select @bind-SelectedValue="IdMateria" Class="form-control">
+                        <Select @bind-SelectedValue="IdMateria" Class="form-control" Disabled="@(EstadoHorario == "I")">
                             <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
                             @if (IdProfesor != null)
                             {
                                 foreach (var materia in GetMateriasFiltradas())
                                 {
-                                    <SelectItem Value="@(materia.Id_Materia)">@materia.Nombre</SelectItem>
+                                    <SelectItem Value="@(materia.Id_Materia)" Selected="@(IdMateria == materia.Id_Materia)">@materia.Nombre</SelectItem>
                                 }
                             }
                         </Select>
@@ -36,12 +37,22 @@
 
                     </Div>
 
+
+
                 </ChildContent>
             </LoadingIndicator>
         </ModalBody>
         <ModalFooter>
-            <Button Class="btn btn-create" Clicked="@Guardar">Guardar</Button>
-            <Button Class="btn btn-edit" Clicked="@Bloquear">Bloquear</Button>
+            @if (EstadoHorario == "I")
+            {
+                <Button Class="btn btn-create" Clicked="@Activar">Activar</Button>
+            }
+            else
+            {
+                <Button Class="btn btn-create" Clicked="@Guardar">Guardar</Button>
+                <Button Class="btn btn-edit" Disabled="@(EstadoBloqueado.Equals("SA") || EstadoBloqueado.Equals("SP"))" Clicked="@Bloquear">Bloquear</Button>
+            }
+
             <Button Class="btn btn-delete" Clicked="@Hide">Cerrar</Button>
         </ModalFooter>
     </ModalContent>
@@ -59,109 +70,19 @@
     public int? IdProfesor { get; set; }
     public int? IdMateria { get; set; }
     public bool isLoading { get; set; } = false;
+    public string EstadoBloqueado { get; set; } = "N";
     public string? selectedMateria;
     public string? leccFaltantes;
     public int Id_Horario { get; set; }
+    public string EstadoHorario { get; set; } = "A";
     public TimeSpan? Hora_Inicio { get; set; }
     public TimeSpan? Hora_Fin { get; set; }
 
     [Parameter]
     public string? Dia { get; set; }
 
-
-
     [Parameter]
     public EventCallback OnInsert { get; set; }
-
-    public Task Hide()
-    {
-        modal?.Close(CloseReason.UserClosing);
-        return Task.CompletedTask;
-    }
-
-    public  Task Open(int idGrupo, string dia, TimeSpan horaInicio, TimeSpan horaFin, int IdHorario)
-    {
-        Id_Horario = IdHorario;
-        Dia = TransformarDia(dia);
-        Hora_Inicio = horaInicio;
-        Hora_Fin = horaFin;
-        IdGrupo = idGrupo;
-        isLoading = false;
-        modal?.Show();
-        return Task.CompletedTask;
-    }
-    private string TransformarDia(string? dia)
-    {
-        return dia switch
-        {
-            "Lunes" => "L",
-            "Martes" => "K",
-            "Miércoles" => "M",
-            "Jueves" => "J",
-            "Viernes" => "V",
-            "Sábado" => "S",
-            "Domingo" => "D",
-            _ => string.Empty
-        };
-    }
-    public async Task Guardar()
-    {
-        var horarioDto = new HorarioDto
-        {
-            Id_Horario = Id_Horario,
-            Dia = this.Dia,
-            Id_Grupo = this.IdGrupo,
-            Id_Profesor = IdProfesor?.ToString(),
-            Id_Materia = IdMateria ?? 0,
-            Hora_Inicio = Hora_Inicio ?? TimeSpan.Zero,
-            Hora_Fin = Hora_Fin ?? TimeSpan.Zero,
-            Estado = "A"
-        };
-
-        await api.Horarios_UpdateHorarioAsync(horarioDto);
-        await OnInsert.InvokeAsync();
-        modal?.Close(CloseReason.UserClosing);
-    }
-
-    public Task Bloquear()
-    {
-
-        modal?.Close(CloseReason.UserClosing);
-        return Task.CompletedTask;
-    }
-
-    private void SelectedChange(ChangeEventArgs e)
-    {
-        selectedMateria = e.Value?.ToString() ?? "0";
-        if (selectedMateria == "1")
-            leccFaltantes = "15";
-        else
-            leccFaltantes = "3";
-    }
-    private IEnumerable<MateriaDto> GetMateriasFiltradas()
-    {
-        var materiasFiltradas = from pxm in dataProfesor_X_Materia
-                                where pxm.Id_Profesor == IdProfesor
-                                join m in dataMateria on pxm.Id_Materia equals m.Id_Materia
-                                select m;
-
-        return materiasFiltradas;
-    }
-    private void OnProfesorChanged(ChangeEventArgs e)
-    {
-
-        if (int.TryParse(e.Value?.ToString(), out int profesorId))
-        {
-            IdProfesor = profesorId;
-        }
-        else
-        {
-            IdProfesor = null;
-        }
-
-        // Reiniciar la materia seleccionada
-        IdMateria = null;
-    }
 
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -183,4 +104,130 @@
 
     }
 
+
+    public Task Hide()
+    {
+        modal?.Close(CloseReason.UserClosing);
+        return Task.CompletedTask;
+    }
+
+    public Task Open(int idGrupo, string? dia, TimeSpan horaInicio, TimeSpan horaFin, int IdHorario, string estado = "A", int? idProfesor = null, int? idMateria = null, string estadoBloqueado = "N")
+    {
+        Id_Horario = IdHorario;
+        Dia = TransformarDia(dia);
+        Hora_Inicio = horaInicio;
+        Hora_Fin = horaFin;
+        IdGrupo = idGrupo;
+        EstadoHorario = estado ?? "A";
+        // set existing profesor/materia if provided
+        IdProfesor = idProfesor;
+        IdMateria = idMateria;
+        isLoading = false;
+        if (IdProfesor == -1)
+        {
+            EstadoBloqueado = "SP";
+
+            var profesoresFiltrados = dataProfesor_X_Materia?.Where(x => x.Id_Materia == idMateria).Select(x => x.Id_Profesor).Distinct().ToList() ?? new();
+            dataProfesor = dataProfesor?.Where(p => profesoresFiltrados != null && profesoresFiltrados.Contains(p.Id_Profesor)).ToList();
+        }
+        else
+            EstadoBloqueado = estadoBloqueado;
+
+        modal?.Show();
+        return Task.CompletedTask;
+    }
+    
+    public async Task Guardar()
+    {
+        var horarioDto = new HorarioDto
+        {
+            Id_Horario = Id_Horario,
+            Dia = this.Dia,
+            Id_Grupo = this.IdGrupo,
+            Id_Profesor = IdProfesor?.ToString(),
+            Id_Materia = IdMateria ?? 0,
+            Hora_Inicio = Hora_Inicio ?? TimeSpan.Zero,
+            Hora_Fin = Hora_Fin ?? TimeSpan.Zero,
+            Estado = "A"
+        };
+
+        await api.Horarios_UpdateHorarioAsync(horarioDto);
+        await OnInsert.InvokeAsync();
+        modal?.Close(CloseReason.UserClosing);
+    }
+
+    public async Task Bloquear()
+    {
+        var horarioDto = new HorarioDto
+        {
+            Id_Horario = Id_Horario,
+            Dia = this.Dia,
+            Id_Grupo = this.IdGrupo,
+            Id_Profesor = IdProfesor?.ToString(),
+            Id_Materia = IdMateria ?? 0,
+            Hora_Inicio = Hora_Inicio ?? TimeSpan.Zero,
+            Hora_Fin = Hora_Fin ?? TimeSpan.Zero,
+            Estado = "I"
+        };
+
+        await api.Horarios_UpdateHorarioAsync(horarioDto);
+        await OnInsert.InvokeAsync();
+        modal?.Close(CloseReason.UserClosing);
+    }
+
+    public async Task Activar()
+    {
+        var horarioDto = new HorarioDto
+        {
+            Id_Horario = Id_Horario,
+            Dia = this.Dia,
+            Id_Grupo = this.IdGrupo,
+            Id_Profesor = IdProfesor?.ToString(),
+            Id_Materia = IdMateria ?? 0,
+            Hora_Inicio = Hora_Inicio ?? TimeSpan.Zero,
+            Hora_Fin = Hora_Fin ?? TimeSpan.Zero,
+            Estado = "A"
+        };
+
+        await api.Horarios_UpdateHorarioAsync(horarioDto);
+        await OnInsert.InvokeAsync();
+        modal?.Close(CloseReason.UserClosing);
+    }
+
+
+    private IEnumerable<MateriaDto> GetMateriasFiltradas()
+    {
+        var materiasFiltradas = from pxm in dataProfesor_X_Materia
+                                where pxm.Id_Profesor == IdProfesor
+                                join m in dataMateria on pxm.Id_Materia equals m.Id_Materia
+                                select m;
+
+        return materiasFiltradas;
+    }
+    
+    private void OnProfesorChanged(ChangeEventArgs e)
+    {
+
+        if (int.TryParse(e.Value?.ToString(), out int profesorId))
+            IdProfesor = profesorId;
+        else
+            IdProfesor = null;
+
+        // Reiniciar la materia seleccionada
+        IdMateria = null;
+    }
+
+    private string TransformarDia(string? dia)
+    {
+        return dia switch
+        {
+            "Lunes" => "L",
+            "Martes" => "K",
+            "Miercoles" => "M",
+            "Jueves" => "J",
+            "Viernes" => "V",
+            _ => string.Empty
+        };
+    }
+    
 }

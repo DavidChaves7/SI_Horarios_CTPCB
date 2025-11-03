@@ -12,27 +12,27 @@ VALUES
 
 INSERT INTO Materia (Nombre, Area, Tipo, Color, Estado)
 VALUES 
-('Matemáticas', 'Académica', 'N/A', '#FFB3B3', 'A'),            -- Rosa pastel
-('Ciencias', 'Académica', 'N/A', '#7FB3D5', 'A'),               -- Azul pastel
-('Español', 'Académica', 'N/A', '#81C784', 'A'),                -- Verde pastel
-('Cocina', 'Tecnica', 'N/A', '#FFAB91', 'A'),                   -- Naranja pastel
-('Mantenimiento', 'Tecnica', 'N/A', '#A1887F', 'A'),            -- Marrón pastel
-('Tecnologia', 'Académica', 'N/A', '#9575CD', 'A'),             -- Morado pastel
-('Informatica', 'Académica', 'N/A', '#90A4AE', 'A'),            -- Gris pastel
-('Orientación', 'Académica', 'N/A', '#A3D9A5', 'A'),            -- Verde menta pastel
-('Musica', 'Académica', 'N/A', '#FF8A80', 'A'),                 -- Coral pastel
-('Educación Religiosa', 'Académica', 'N/A', '#B39DDB', 'A'),    -- Lila pastel
-('Hogar', 'Académica', 'N/A', '#A1887F', 'A'),                  -- Marrón pastel
-('Estudios Sociales', 'Académica', 'N/A', '#7FB3D5', 'A'),      -- Azul pastel
-('Habilidades', 'Académica', 'N/A', '#FFAB91', 'A'),            -- Naranja pastel
-('Artes Industriales', 'Académica', 'N/A', '#FFB3B3', 'A'),     -- Rosa pastel
-('Artesanias', 'Tecnica', 'N/A', '#A1887F', 'A'),               -- Marrón pastel
-('Artes Plasticas', 'Académica', 'N/A', '#B39DDB', 'A'),        -- Lila pastel
-('Educación Fisica', 'Académica', 'N/A', '#81C784', 'A'),       -- Verde pastel
-('Ingles', 'Académica', 'N/A', '#A3D9A5', 'A'),                 -- Verde menta pastel
-('Afectividad y Sexualidad', 'Académica', 'N/A', '#FF8A80', 'A'), -- Coral pastel
-('GUIA', 'Académica', 'N/A', '#9575CD', 'A'),                   -- Morado pastel
-('Maderas', 'Tecnica', 'N/A', '#A1887F', 'A');                  -- Marrón pastel
+('Matemáticas', 'Académica', 'A', '#FFB3B3', 'A'),            -- Rosa pastel
+('Ciencias', 'Académica', 'A', '#7FB3D5', 'A'),               -- Azul pastel
+('Español', 'Académica', 'A', '#81C784', 'A'),                -- Verde pastel
+('Cocina', 'Tecnica', 'T', '#FFAB91', 'A'),                   -- Naranja pastel
+('Mantenimiento', 'Tecnica', 'T', '#A1887F', 'A'),            -- Marrón pastel
+('Tecnologia', 'Académica', 'A', '#9575CD', 'A'),             -- Morado pastel
+('Informatica', 'Académica', 'A', '#90A4AE', 'A'),            -- Gris pastel
+('Orientación', 'Académica', 'A', '#A3D9A5', 'A'),            -- Verde menta pastel
+('Musica', 'Académica', 'A', '#FF8A80', 'A'),                 -- Coral pastel
+('Educación Religiosa', 'Académica', 'A', '#B39DDB', 'A'),    -- Lila pastel
+('Hogar', 'Académica', 'A', '#A1887F', 'A'),                  -- Marrón pastel
+('Estudios Sociales', 'Académica', 'A', '#7FB3D5', 'A'),      -- Azul pastel
+('Habilidades', 'Académica', 'A', '#FFAB91', 'A'),            -- Naranja pastel
+('Artes Industriales', 'Académica', 'A', '#FFB3B3', 'A'),     -- Rosa pastel
+('Artesanias', 'Tecnica', 'T', '#A1887F', 'A'),               -- Marrón pastel
+('Artes Plasticas', 'Académica', 'A', '#B39DDB', 'A'),        -- Lila pastel
+('Educación Fisica', 'Académica', 'A', '#81C784', 'A'),       -- Verde pastel
+('Ingles', 'Académica', 'A', '#A3D9A5', 'A'),                 -- Verde menta pastel
+('Afectividad y Sexualidad', 'Académica', 'A', '#FF8A80', 'A'), -- Coral pastel
+('GUIA', 'Académica', 'A', '#9575CD', 'A'),                   -- Morado pastel
+('Maderas', 'Tecnica', 'T', '#A1887F', 'A');                  -- Marrón pastel
 
  
  

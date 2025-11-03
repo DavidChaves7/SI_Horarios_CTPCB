@@ -59,7 +59,8 @@ namespace Infrastructure.Interfaces
         #region Profersor_X_Materia
         Task<Profesor_X_MateriaDto> AddUpdateProfesor_X_Materia(Profesor_X_MateriaDto data);
         Task<Profesor_X_MateriaDto> DeleteProfesor_X_Materia(Profesor_X_MateriaDto data);
-        Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_Materia();
+        Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_Materia( );
+        Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_MateriaFiltrado(int profesor);
         Task<Profesor_X_MateriaDto> GetOneProfesor_X_Materias(Profesor_X_MateriaDto data);
         #endregion
 

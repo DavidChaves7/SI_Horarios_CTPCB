@@ -94,6 +94,9 @@ namespace API.Controllers.CPC
 
         [HttpGet("GetAllProfesor_X_Materia")]
         public async Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_MateriaAsync() => await _mantenimientosRepository.GetAllProfesor_X_Materia();
+        [HttpGet("GetAllProfesor_X_MateriaFiltrado")]
+        public async Task<IEnumerable<Profesor_X_MateriaDto>> GetAllProfesor_X_MateriaFiltradoAsync(int profesor) => await _mantenimientosRepository.GetAllProfesor_X_MateriaFiltrado(profesor);
+
         [HttpGet("GetOneProfesor_X_Materia")]
         public async Task<Profesor_X_MateriaDto> GetOneProfesor_X_MateriaAsync(Profesor_X_MateriaDto param) => await _mantenimientosRepository.GetOneProfesor_X_Materias(param);
 

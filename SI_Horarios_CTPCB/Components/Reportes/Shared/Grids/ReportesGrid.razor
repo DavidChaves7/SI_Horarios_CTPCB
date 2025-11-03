@@ -104,12 +104,12 @@
             var fileName = "HorariosGenerados.zip";
 
             await JS.InvokeVoidAsync("saveAsFile", fileName, base64Zip);
-            await Task.FromResult(MessageService.Info("Reportes", "Reportes generados exitosamente, pronto se descargaran!"));
+            await Task.FromResult(MessageService.Info("Reportes  generados exitosamente, pronto se descargaran!", "Reportes"));
 
         }
         catch (Exception e)
         {
-            await Task.FromResult(MessageService.Info("Error Reportes", $"Ocurrio un error a la hora de generar reportes\n\nMensaje:{e.Message}\nOrigen:{e.Source}"));
+            await Task.FromResult(MessageService.Info($"Ocurrio un error a la hora de generar reportes\n\nMensaje:{e.Message}\nOrigen:{e.Source}", "Error Reportes "));
         }
     }
 
@@ -222,7 +222,7 @@
         if (reportesModel != null)
         {
             await api.Mantenimientos_AddUpdateReporteria_ProgamadaAsync(reportesModel);
-            await Task.FromResult(MessageService.Success("Reportes", "Datos guardados correctamente!"));
+            await Task.FromResult(MessageService.Success("Datos guardados correctamente!", "Reportes"));
         }
 
 
@@ -256,7 +256,7 @@
             }
             else
             {
-                await Task.FromResult(MessageService.Warning("Reportes", "Ingrese un correo válido (ejemplo@dominio.com)"));
+                await Task.FromResult(MessageService.Warning("Ingrese un correo válido (ejemplo@dominio.com)", "Reportes"));
             }
         }
     }
