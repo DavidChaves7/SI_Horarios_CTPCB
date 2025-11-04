@@ -5,10 +5,10 @@
         <ChildContent>
             <Row>
                 <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
-                    <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="@(async () => { await DescargarPlantillaMaterias(); snackbarStack?.PushAsync("Se estará descargando la plantilla en breves momentos", SnackbarColor.Info, options => { options.IntervalBeforeClose = 4000; });} )">Plantilla Excel Materias</Button>
+                    <Button Class="btn btn-plantilla" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="@(async () => { await DescargarPlantillaMaterias(); snackbarStack?.PushAsync("Se estará descargando la plantilla en breves momentos", SnackbarColor.Info, options => { options.IntervalBeforeClose = 4000; }); })">Plantilla Excel Materias</Button>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
-                    <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir!.Open">Importar Excel</Button>
+                    <Button Class="btn btn-importar" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir!.Open">Importar Excel</Button>
                 </Column>
             </Row>
             <br />

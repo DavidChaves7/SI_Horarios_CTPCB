@@ -1,4 +1,5 @@
-﻿<Div Class="main-content">
+﻿
+<Div Class="main-content">
 
     @* <LoadingIndicator Visible="@(isLoading)"> *@
     <ChildContent>
@@ -14,7 +15,7 @@
                 </Select>
             </Div>
             <Div Class="col-md-6 text-end" Padding="Padding.Is4.FromEnd">
-                <Button Class="btn btn-create" Clicked="@GenerarHorario">Generar automáticamente</Button>
+                <Button Class="btn btn-base" Clicked="@GenerarHorario">Generar automáticamente</Button>
             </Div>
             <Div Class="col-md-6" style="display:flex; align-items:baseline; gap:8px; ">
 
@@ -23,14 +24,14 @@
             </Div>
         </Div>
         <Div Class="row mb-4">
-            <DataGrid TItem="BloqueHorario" Data="@bloquesHorario" PageSize="16" ShowPager="false" ShowPageSizes="false" ShowCaptions="true" Editable="false" Responsive="true" Class="table-bordered text-center w-100 no-padding ">
+            <DataGrid TItem="BloqueHorario" Data="@bloquesHorario" PageSize="16" ShowPager="false" ShowPageSizes="false" ShowCaptions="true" Editable="false" Responsive="true" Class="table-bordered text-center w-100 no-padding  ">
 
-                <DataGridColumn TItem="BloqueHorario" Field="@nameof(BloqueHorario.RangoHorario)" Caption="Hora" />
+                <DataGridColumn  TItem="BloqueHorario" Field="@nameof(BloqueHorario.RangoHorario)" Caption="Hora" />
 
                 @foreach (var dia in diasSemana)
                 {
                     <DataGridColumn TItem="BloqueHorario" Caption="@dia">
-                        <DisplayTemplate>
+                        <DisplayTemplate >
                             @{
                                 
                                 var detalle = context.GetDetalle(dia);
@@ -38,7 +39,8 @@
                                 var idProfLocal = detalle?.IdProfesor;
                                 var idMatLocal = detalle?.IdMateria;
                             }
-                            <div style="background-color:@(context.EsReceso ? "#bbbec2" : (detalle?.Color ?? "#6c757d")); width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; font-size: 18px; padding:5px; border-radius: 12px;">
+                            <div style="background-color:@(context.EsReceso ? "#bbbec240" : (detalle?.Color + "40") ?? "#6c757d40");
+                                border: 2mm solid  @(context.EsReceso ? "#bbbec2" : (detalle?.Color ?? "#6c757d")); width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; font-size: 18px; padding:5px; border-radius: 12px;">
                                 @if (context.EsReceso)
                                 {
                                     <Span>Receso</Span>
@@ -49,15 +51,15 @@
                                     {
                                         <Button Disabled="@(reportesModel.Grupo is null || context.EsReceso)" Clicked="@(() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario, estadoLocal, idProfLocal, idMatLocal))">
                                             <Badge Color="Color.Danger"> BLOQUEADA </Badge>
-                                            <Span style="color: #fafafa  ; display: block;"><b style="color: black;">Materia:</b> @(detalle?.Materia ?? "") </Span>
-                                            <Span style="color: #fafafa  ; display: block;"><b style="color: black;">Profesor:</b> @(detalle?.Profesor ?? "")</Span>
+                                            <Span style="color: black ; display: block;"><b style="color: black;">Materia:</b> @(detalle?.Materia ?? "") </Span>
+                                            <Span style="color: black ; display: block;"><b style="color: black;">Profesor:</b> @(detalle?.Profesor ?? "")</Span>
                                         </Button>
                                     }
                                     else
                                     {
                                         <Button Disabled="@(reportesModel.Grupo is null || context.EsReceso)" Clicked="@(() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario, estadoLocal, idProfLocal, idMatLocal))">
-                                            <Span style="color: #fafafa  ; display: block;"><b style="color: black;">Materia:</b> @(detalle.Materia)</Span>
-                                            <Span style="color: #fafafa  ; display: block;"><b style="color: black;">Profesor:</b> @(detalle.Profesor)</Span>
+                                            <Span style="color: black  ; display: block;"><b style="color: black;">Materia:</b> @(detalle.Materia)</Span>
+                                            <Span style="color: black  ; display: block;"><b style="color: black;">Profesor:</b> @(detalle.Profesor)</Span>
                                         </Button>
                                     }
                                    
@@ -66,7 +68,7 @@
                                 {
 
                                     <Button Disabled="@(reportesModel.Grupo is null || string.IsNullOrEmpty(reportesModel.Grupo) || context.EsReceso)" Clicked="@(() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario, estadoLocal, idProfLocal, idMatLocal, "SA"))">
-                                        <Span>Sin asignar</Span>
+                                        <Span Style="color: black">Sin asignar</Span>
                                     </Button>
                                 }
                             </div>
@@ -81,6 +83,7 @@
     @* </LoadingIndicator> *@
 </Div>
 <ModalAsigMateria @ref="modalAsigMateria" OnInsert="CallbackUpdateHorario"></ModalAsigMateria>
+
 
 @code {
     private bool isLoading = true;

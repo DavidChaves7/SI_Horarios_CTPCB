@@ -4,10 +4,10 @@
         <ChildContent>
             <Row>
                 <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
-                    <Button Class="btn btn-create" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="@(async ()=> { await DescargarPlantillaProfesores(); snackbarStack?.PushAsync("Se estará descargando la plantilla en breves momentos", SnackbarColor.Info, options => { options.IntervalBeforeClose = 4000; });} )">Plantilla Excel Profesores</Button>
+                    <Button Class="btn btn-plantilla" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="@(async ()=> { await DescargarPlantillaProfesores(); snackbarStack?.PushAsync("Se estará descargando la plantilla en breves momentos", SnackbarColor.Info, options => { options.IntervalBeforeClose = 4000; });} )">Plantilla Excel Profesores</Button>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is2.OnDesktop.Is12.OnMobile">
-                    <Button Class="btn btn-edit" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir!.Open">Importar Excel</Button>
+                    <Button Class="btn btn-importar" Margin="Margin.Is3.FromTop.Is3.FromTop" Clicked="modalSubir!.Open">Importar Excel</Button>
                 </Column>
             </Row>
             <br />
@@ -63,19 +63,19 @@
 
                     <DataGridColumn Caption="Restricciones" Filterable=false Sortable=false>
                         <DisplayTemplate>
-                            <Button Class="btn btn-create" Clicked="() => modalRestric!.Open(context.Id_Profesor, context.Nombre + ' ' + context.Apellido)">Restricciones</Button>
+                            <Button Class="btn btn-base" Clicked="() => modalRestric!.Open(context.Id_Profesor, context.Nombre + ' ' + context.Apellido)">Restricciones</Button>
                         </DisplayTemplate>
                     </DataGridColumn>
                     <DataGridColumn Caption="Materias" Filterable=false Sortable=false>
                         <DisplayTemplate>
-                            <Button Class="btn btn-edit" Clicked="() => modalProfesor_X_Materia!.Open(context.Id_Profesor)">Materias</Button>
+                            <Button Class="btn btn-base2" Clicked="() => modalProfesor_X_Materia!.Open(context.Id_Profesor)">Materias</Button>
                         </DisplayTemplate>
                     </DataGridColumn>
                 </DataGridColumns>
                 <ButtonRowTemplate>
                     <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
                     <Button Class="btn btn-edit" Disabled="(selectedData is null)" Clicked="context.EditCommand.Clicked">Editar</Button>
-                    <Button Class="btn btn-delete" Disabled="(selectedData is null)" Clicked="context.DeleteCommand.Clicked">Inactivar</Button>
+                    <Button Class="btn btn-inactivar" Disabled="(selectedData is null)" Clicked="context.DeleteCommand.Clicked">Inactivar</Button>
                 </ButtonRowTemplate>
                 <NextPageButtonTemplate><Icon Name="IconName.AngleRight" /></NextPageButtonTemplate>
                 <PreviousPageButtonTemplate><Icon Name="IconName.AngleLeft" /></PreviousPageButtonTemplate>

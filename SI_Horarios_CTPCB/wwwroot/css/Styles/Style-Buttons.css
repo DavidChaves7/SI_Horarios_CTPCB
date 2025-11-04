@@ -1,6 +1,27 @@
 ﻿.btn-excel {
     color: white !important;
-    background: var(--color-cuarto) !important;
+    background: #215D41 !important;
+    border: 0px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    font-family: AlegreyaSans-Bold !important;
+}
+.btn-importar {
+    color: white !important;
+    background: #0056B3 !important;
+    border: 0px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    font-family: AlegreyaSans-Bold !important;
+}
+
+.btn-plantilla {
+    color: white !important;
+    background: #728FA7 !important;
     border: 0px !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
@@ -11,7 +32,7 @@
 
 .btn-pdf {
     color: white !important;
-    background: var(--color-primario) !important;
+    background: #B14852 !important;
     border: 0px !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
@@ -22,7 +43,7 @@
 
 .btn-copy {
     color: white !important;
-    background: var(--color-secundario) !important;
+    background: #E6792C !important;
     border: 0px !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
@@ -95,6 +116,19 @@
     }
 
 .btn-create {
+    background-color: #28A745 !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding-left: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 8px;
+    font-family: AlegreyaSans-Bold !important;
+    transition-duration: 1s !important;
+}
+    
+
+.btn-base {
     background-color: var(--color-secundario) !important;
     color: white !important;
     border-radius: 8px !important;
@@ -105,12 +139,8 @@
     font-family: AlegreyaSans-Bold !important;
     transition-duration: 1s !important;
 }
-    .btn-create:hover {
-        transform: scale(1.05);
-    }
 
-
-.btn-edit {
+   .btn-base2 {
     background-color: var(--color-cuarto) !important;
     color: white !important;
     border-radius: 8px !important;
@@ -122,11 +152,42 @@
     transition-duration: 1s !important;
 }
 
-    .btn-edit:hover {
-        transform: scale(1.05);
-    }
+.btn-edit {
+    background-color: #007BFF !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding-left: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 8px;
+    font-family: AlegreyaSans-Bold !important;
+    transition-duration: 1s !important;
+}
+
+.btn-inactivar {
+    background-color: #6C757D !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding-left: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 8px;
+    font-family: AlegreyaSans-Bold !important;
+    transition-duration: 1s !important;
+}
 
 .btn-delete {
+    background-color: #DC3545  !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding-left: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 8px;
+    font-family: AlegreyaSans-Bold !important;
+    transition-duration: 1s !important;
+}
+.btn-base3 {
     background-color: var(--color-primario) !important;
     color: white !important;
     border-radius: 8px !important;
@@ -138,9 +199,7 @@
     transition-duration: 1s !important;
 }
 
-    .btn-delete:hover {
-        transform: scale(1.05);
-    }
+   
 
 .disabled{
     color: white !important;

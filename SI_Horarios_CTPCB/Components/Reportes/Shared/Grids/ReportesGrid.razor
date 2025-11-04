@@ -5,6 +5,8 @@
 @using QuestPDF.Drawing;
 @using System.Text.RegularExpressions
 
+
+
 <Div Class="main-content">
     <!-- Sección Izquierda: Formularios -->
     <Column ColumnSize="ColumnSize.Is12" Padding="Padding.Is3">
@@ -193,7 +195,7 @@
                                 var profesor = listaProfesores.FirstOrDefault(p => p.Id_Profesor.ToString() == clase.Id_Profesor);
                                 var color = materia?.Color ?? "#6c757d";
 
-                                table.Cell().Background(color).Padding(5).Text(text =>
+                                table.Cell().Background(ApplyTransparency(color, 0.25)).Padding(5).Text(text =>
                                 {
                                     text.DefaultTextStyle(x => x.FontSize(8));
 
@@ -490,6 +492,22 @@
         }
     }
 
+
+    string ApplyTransparency(string hexColor, double transparency = 0.25)
+    {
+        hexColor = hexColor.Replace("#", "");
+
+        int r = Convert.ToInt32(hexColor.Substring(0, 2), 16);
+        int g = Convert.ToInt32(hexColor.Substring(2, 2), 16);
+        int b = Convert.ToInt32(hexColor.Substring(4, 2), 16);
+
+        // Mezclamos el color con blanco (simula transparencia sobre fondo blanco)
+        r = (int)(r + (255 - r) * (1 - transparency));
+        g = (int)(g + (255 - g) * (1 - transparency));
+        b = (int)(b + (255 - b) * (1 - transparency));
+
+        return $"#{r:X2}{g:X2}{b:X2}";
+    }
 
     
 
