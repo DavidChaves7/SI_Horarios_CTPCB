@@ -1,6 +1,9 @@
 ﻿@page "/"
 @page "/Login"
 @layout CleanLayout
+@using Microsoft.AspNetCore.Authorization
+@attribute [AllowAnonymous]
+
 
 <HeadContent>
     <link rel="stylesheet" href="css/Styles/Style-Login.css" />
