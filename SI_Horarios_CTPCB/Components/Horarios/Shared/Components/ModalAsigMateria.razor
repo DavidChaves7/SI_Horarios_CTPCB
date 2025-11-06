@@ -50,7 +50,7 @@
             else
             {
                 <Button Class="btn btn-create" Clicked="@Guardar">Guardar</Button>
-                <Button Class="btn btn-edit" Disabled="@(EstadoBloqueado.Equals("SA") || EstadoBloqueado.Equals("SP"))" Clicked="@Bloquear">Bloquear</Button>
+                <Button Class="btn btn-inactivar " Disabled="@(EstadoBloqueado.Equals("SA") || EstadoBloqueado.Equals("SP"))" Clicked="@Bloquear">Bloquear</Button>
             }
 
             <Button Class="btn btn-delete" Clicked="@Hide">Cerrar</Button>

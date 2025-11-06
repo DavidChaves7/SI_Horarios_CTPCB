@@ -57,10 +57,10 @@
                                 <SelectItem Value="@("A")">Activo</SelectItem>
                                 <SelectItem Value="@("I")">Inactivo</SelectItem>
                             </Select>
-                        </EditTemplate>
+                        </EditTemplate> 
 
                     </DataGridSelectColumn>
-
+ 
                     <DataGridColumn Caption="Restricciones" Filterable=false Sortable=false>
                         <DisplayTemplate>
                             <Button Class="btn btn-base" Clicked="() => modalRestric!.Open(context.Id_Profesor, context.Nombre + ' ' + context.Apellido)">Restricciones</Button>
