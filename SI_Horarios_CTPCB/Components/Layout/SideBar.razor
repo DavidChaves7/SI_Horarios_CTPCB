@@ -1,4 +1,8 @@
-﻿<Bar Mode="BarMode.VerticalInline"
+﻿
+
+
+
+<Bar Mode="BarMode.VerticalInline"
      CollapseMode="BarCollapseMode.Small"
      Breakpoint="Breakpoint.Desktop"
      NavigationBreakpoint="Breakpoint.Tablet"
@@ -16,8 +20,8 @@
         @**@
 
     </BarBrand>
-    <BarToggler Mode="BarTogglerMode.Popout" Style="background-color: var(--color-terciario) !important; " />
-    <BarMenu TextColor="TextColor.White">
+    <BarToggler Mode="BarTogglerMode.Popout" Style="background-color: var(--color-terciario) !important; "   />
+    <BarMenu TextColor="TextColor.White" >
         <BarStart>
 
             <BarItem>
@@ -33,13 +37,13 @@
                         <BarIcon IconName="IconName.Wrench" />
                         <b>Parámetros</b>
                     </BarDropdownToggle>
-                    <BarDropdownMenu Style="background-color: var(--color-primario) !important; ">
+                    <BarDropdownMenu Style="background-color: #AD68AB !important;  ">
 
                         @foreach (var option in optionsMantenimiento)
                         {
                             <BarDropdownItem>
-                                <BarIcon IconName="@option.Icon" />
-                                <a class="text-white text-decoration-none" href="@option.Href">@option.Description</a>
+                                @* <BarIcon IconName="@option.Icon" /> *@
+                                <a class="text-white text-decoration-none" style="font-size: 20px;" href="@option.Href">@option.Description</a>
                             </BarDropdownItem>
                         }
                     </BarDropdownMenu>
@@ -54,22 +58,13 @@
             </BarItem>
 
             <BarItem>
-                <BarDropdown>
-                    <BarDropdownToggle>
-                        <Icon Name="IconName.File" /> <b>Reportes</b>
-
-                    </BarDropdownToggle>
-                    <BarDropdownMenu Padding="Padding.Is2" Style="background-color: var(--color-primario) !important;">
-                        @foreach (var option in optionsReportes)
-                        {
-                            <BarDropdownItem>
-                                <BarIcon IconName="@option.Icon" />
-                                <a class="text-white text-decoration-none" href="@option.Href">@option.Description</a>
-                            </BarDropdownItem>
-                        }
-                    </BarDropdownMenu>
-                </BarDropdown>
+                <BarLink To="Reportes/ReportesHorarios">
+                    <BarIcon IconName="IconName.File" />
+                    <b>Reportes</b>
+                </BarLink>
             </BarItem>
+
+            
             <BarItem>
                 <BarLink To="Mantenimientos/Seguridad" Shadow="Shadow.None">
                     <Icon Name="IconName.Lock" />
@@ -91,11 +86,11 @@
 
     private List<Option> optionsMantenimiento = new List<Option>
     {
-        new Option { Href = "Mantenimientos/GestionProf", Description = "Gestión de Profesores", Icon = IconName.UserPlus },
-        new Option { Href = "Mantenimientos/GestionGrupos", Description = "Gestión de Grupos", Icon = IconName.Users },
-        new Option { Href = "Mantenimientos/GestionMaterias", Description = "Gestión Materias", Icon = IconName.Book },
-        new Option { Href = "Mantenimientos/GestionNivelAcademico", Description = "Gestión Nivel Academico", Icon = IconName.Book },
-        new Option { Href = "Mantenimientos/GestionMateriaXNivel", Description = "Gestión Materias X Nivel Academico", Icon = IconName.Book },
+        new Option { Href = "Mantenimientos/GestionProf", Description = "Profesores" },
+        new Option { Href = "Mantenimientos/GestionGrupos", Description = "Grupos"},
+        new Option { Href = "Mantenimientos/GestionMaterias", Description = "Materias"},
+        new Option { Href = "Mantenimientos/GestionNivelAcademico", Description = "Nivel Academico" },
+        new Option { Href = "Mantenimientos/GestionMateriaXNivel", Description = "Materia X Nivel"},
     };
 
     private List<Option> optionsSeguridad = new List<Option>

@@ -1,4 +1,6 @@
-﻿.btn-excel {
+﻿
+
+.btn-excel {
     color: white !important;
     background: #215D41 !important;
     border: 0px !important;
@@ -140,8 +142,8 @@
     transition-duration: 1s !important;
 }
 
-   .btn-base2 {
-    background-color: var(--color-cuarto) !important;
+.btn-base2 {
+    background-color: #5E3A5A !important;
     color: white !important;
     border-radius: 8px !important;
     padding-left: 8px;
