@@ -1,4 +1,6 @@
 ﻿@inject IHostEnvironment Env
+@using Microsoft.AspNetCore.Components.Authorization
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -31,7 +33,9 @@
 </head>
 
 <body>
+    <CascadingAuthenticationState>
     <Routes @rendermode="RenderModeForPage" />
+    </CascadingAuthenticationState>
     <script src="_framework/blazor.web.js"></script>
     <script src="js/site.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>

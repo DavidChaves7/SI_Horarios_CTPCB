@@ -1,0 +1,60 @@
+﻿@using System.Security.Claims
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager Nav
+@inject SI_Horarios_CTPCB.Infrastructure.Services.TabSessionRegistry Registry
+
+@code {
+    private string? _userId;
+    private string? _myStamp;
+    private PeriodicTimer? _timer;
+    private bool _checking;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Solo aplica a usuarios autenticados
+        var state = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = state.User;
+        if (!(user?.Identity?.IsAuthenticated ?? false)) return;
+
+        _userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(_userId)) return;
+
+        // Esta pestaña se vuelve "la activa" para este usuario
+        _myStamp = Registry.RegisterNewStamp(_userId);
+
+        // Chequeo liviano cada 3 segundos
+        _timer = new PeriodicTimer(TimeSpan.FromSeconds(3));
+        _ = Task.Run(CheckLoop);
+    }
+
+    private async Task CheckLoop()
+    {
+        while (_timer != null && await _timer.WaitForNextTickAsync())
+        {
+            if (_checking || string.IsNullOrEmpty(_userId) || string.IsNullOrEmpty(_myStamp))
+                continue;
+
+            try
+            {
+                _checking = true;
+                var stillMine = Registry.IsCurrent(_userId!, _myStamp!);
+
+                if (!stillMine)
+                {
+                    // Otra pestaña del mismo usuario tomó control.
+                    // Si tienes Microsoft.Identity.Web UI, esta ruta existe:
+                    Nav.NavigateTo("MicrosoftIdentity/Account/SignOut", true);
+
+
+                    return;
+                }
+            }
+            finally { _checking = false; }
+        }
+    }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+}

@@ -2,13 +2,6 @@
 using Blazorise;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
-using SI_Horarios_CTPCB.Components;
-using SI_Horarios_CTPCB.Infrastructure.ApiClient;
-using SI_Horarios_CTPCB.Infrastructure.Authentication;
-using SI_Horarios_CTPCB.Infrastructure.Handlers;
-using SI_Horarios_CTPCB.Infrastructure.Interfaces;
-using SI_Horarios_CTPCB.Infrastructure.Middleware;
-using SI_Horarios_CTPCB.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -17,10 +10,20 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.Circuits;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using Microsoft.IdentityModel.Tokens;
+using SI_Horarios_CTPCB.Components;
+using SI_Horarios_CTPCB.Infrastructure.ApiClient;
+using SI_Horarios_CTPCB.Infrastructure.Authentication;
+using SI_Horarios_CTPCB.Infrastructure.Handlers;
+using SI_Horarios_CTPCB.Infrastructure.Interfaces;
+using SI_Horarios_CTPCB.Infrastructure.Middleware;
+using SI_Horarios_CTPCB.Infrastructure.Services;
+
+using Microsoft.AspNetCore.Authentication;
+
+
 
 
 
@@ -51,6 +54,31 @@ builder.Services.AddRazorComponents(opt =>
 builder.Services
     .AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
+    
+
+
+
+builder.Services.Configure<OpenIdConnectOptions>(
+    OpenIdConnectDefaults.AuthenticationScheme,
+    options =>
+    {
+        options.Prompt = "select_account";
+
+        // Donde el IdP (Microsoft) te devuelve tras el sign-out
+        options.SignedOutCallbackPath = "/signout-callback-oidc";
+
+        options.Events = new OpenIdConnectEvents
+        {
+            OnSignedOutCallbackRedirect = context =>
+            {
+                // Al volver del IdP, re-dirige a nuestro endpoint de login
+                context.Response.Redirect("/Login");
+                context.HandleResponse();
+                return Task.CompletedTask;
+            }
+        };
+    });
+
 
 builder.Services
     .AddControllersWithViews()
@@ -94,6 +122,10 @@ builder.Services
     .AddBootstrap5Providers()
     .AddFontAwesomeIcons();
 
+builder.Services.AddSingleton<SI_Horarios_CTPCB.Infrastructure.Services.TabSessionRegistry>();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -104,29 +136,29 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.Use(async (context, next) =>
-{
+//app.Use(async (context, next) =>
+//{
     
-    if(context.Request.Path == "/" || context.Request.Path == "")
-    {
-        if (app.Environment.IsProduction())
-            context.Response.Redirect("/Login");
-        else
-            context.Response.Redirect("/Login");
-    }
-    if (context.Response.StatusCode == 404)
-    {
-        if (app.Environment.IsProduction())
-        {
-            context.Response.Redirect("/NotFound");
-        }
-        else
-        {
-            context.Response.Redirect("/NotFound");
-        }
-    }
-    await next(context);
-});
+    //if(context.Request.Path == "/" || context.Request.Path == "")
+    //{
+    //    if (app.Environment.IsProduction())
+    //        context.Response.Redirect("/Login");
+    //   else
+    //        context.Response.Redirect("/Login");
+   //}
+   // if (context.Response.StatusCode == 404)
+   // {
+   //     if (app.Environment.IsProduction())
+  //      {
+   //         context.Response.Redirect("/NotFound");
+   //     }
+    //    else
+    //    {
+    //        context.Response.Redirect("/NotFound");
+    //    }
+   // }
+   // await next(context);
+//});
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();
@@ -135,8 +167,23 @@ app.UseAntiforgery();
 app.UseMiddleware<UserServiceMiddleware>();
 app.MapControllers(); 
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+    .AddInteractiveServerRenderMode()
+    .RequireAuthorization();
 //if (app.Environment.IsProduction())
 //    app.UsePathBase("/");
+app.MapGet("/Login", async (HttpContext ctx) =>
+{
+    var props = new AuthenticationProperties { RedirectUri = "/MenuPrincipal" }; // o "/"
+    await ctx.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, props);
+    return Results.Empty;
+});
+
+app.MapGet("/Logout", async (HttpContext ctx) =>
+{
+    await ctx.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+    await ctx.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+    return Results.Empty;
+});
+
 app.Run();
 
