@@ -111,7 +111,7 @@
         return Task.CompletedTask;
     }
 
-    public Task Open(int idGrupo, string? dia, TimeSpan horaInicio, TimeSpan horaFin, int IdHorario, string estado = "A", int? idProfesor = null, int? idMateria = null, string estadoBloqueado = "N")
+    public async Task Open(int idGrupo, string? dia, TimeSpan horaInicio, TimeSpan horaFin, int IdHorario, string estado = "A", int? idProfesor = null, int? idMateria = null, string estadoBloqueado = "N")
     {
         Id_Horario = IdHorario;
         Dia = TransformarDia(dia);
@@ -131,10 +131,13 @@
             dataProfesor = dataProfesor?.Where(p => profesoresFiltrados != null && profesoresFiltrados.Contains(p.Id_Profesor)).ToList();
         }
         else
+        {
             EstadoBloqueado = estadoBloqueado;
+            var resProfesor = await api.Mantenimientos_GetAllProfesorAsync();
+            dataProfesor = resProfesor.Where(x => x.Estado.Equals("A"));
+        }
 
         modal?.Show();
-        return Task.CompletedTask;
     }
     
     public async Task Guardar()
