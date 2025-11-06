@@ -49,8 +49,12 @@
                                 {
                                     if (context.EsBloqueado)
                                     {
+                                        
                                         <Button Disabled="@(reportesModel.Grupo is null || context.EsReceso)" Clicked="@(() => modalAsigMateria!.Open(Convert.ToInt32(reportesModel.Grupo), dia, context.HoraInicio, context.HoraFin, context.IdHorario, estadoLocal, idProfLocal, idMatLocal))">
-                                            <Badge Color="Color.Danger"> BLOQUEADA </Badge>
+                                            @if((detalle.Estado ?? "A").Equals("I"))
+                                            {
+                                                <Badge Color="Color.Danger"> BLOQUEADA </Badge>
+                                            }
                                             <Span style="color: black ; display: block;"><b style="color: black;">Materia:</b> @(detalle?.Materia ?? "") </Span>
                                             <Span style="color: black ; display: block;"><b style="color: black;">Profesor:</b> @(detalle?.Profesor ?? "")</Span>
                                         </Button>
