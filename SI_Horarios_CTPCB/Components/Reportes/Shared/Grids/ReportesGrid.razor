@@ -46,14 +46,36 @@
                 </Column>
             </Row>
             <Row>
-                 @* <Column ColumnSize="ColumnSize.Is4">
-                    <Button Class="btn btn-create" Clicked="() => modalReporte.Open()">Ver Reporte</Button>
-                </Column> *@
-                <Column ColumnSize="ColumnSize.Is4.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
-                    <Button Class="btn btn-base"  Clicked="@DownloadReport">Descargar Horarios</Button>
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                <Column ColumnSize="ColumnSize.Is12.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
                     <Button Class="btn btn-base2" Disabled="@((reportesModel?.Frecuencia ?? "").Equals(""))" Clicked="@SaveReport">Guardar Parámetros</Button>
+                </Column>
+            </Row>
+            <Row>
+                <Column ColumnSize="ColumnSize.Is1.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                    <Dropdown>
+
+                        <DropdownToggle Class="btn-pdf">
+                            PDF
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem Clicked="@DownloadReportPDFSeccion">Horario por sección</DropdownItem>
+                            <DropdownDivider />
+                            <DropdownItem>Horario por profesor</DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                </Column>
+
+                <Column ColumnSize="ColumnSize.Is1.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                    <Dropdown>
+                        <DropdownToggle Class="btn-excel">
+                            Excel
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem Clicked="@DownloadReportPDFSeccion">Horario por sección</DropdownItem>
+                            <DropdownDivider />
+                            <DropdownItem>Horario por profesor</DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
                 </Column>
             </Row>
         </EditForm>
@@ -96,17 +118,18 @@
             listaCorreos = reportesModel.Correos.Split(",").ToList() ?? new List<string>();
         }
     }
-
-    private async Task DownloadReport()
+    
+    private async Task DownloadReportPDFSeccion()
     {
         try
         {
-            var zipBytes = await GenerarZipHorarios();
+
+            await Task.FromResult(MessageService.Info("Reportes  generados exitosamente, pronto se descargaran!", "Reportes"));
+            var zipBytes = await GenerarZipHorariosPDFseccion();
             var base64Zip = Convert.ToBase64String(zipBytes);
             var fileName = "HorariosGenerados.zip";
 
             await JS.InvokeVoidAsync("saveAsFile", fileName, base64Zip);
-            await Task.FromResult(MessageService.Info("Reportes  generados exitosamente, pronto se descargaran!", "Reportes"));
 
         }
         catch (Exception e)
@@ -115,7 +138,7 @@
         }
     }
 
-    private async Task<byte[]> GenerarZipHorarios()
+    private async Task<byte[]> GenerarZipHorariosPDFseccion()
     {
         using var zipStream = new MemoryStream();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, leaveOpen: true);
