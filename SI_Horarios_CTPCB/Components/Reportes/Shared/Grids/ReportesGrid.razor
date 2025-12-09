@@ -4,6 +4,7 @@
 @using QuestPDF.Infrastructure;
 @using QuestPDF.Drawing;
 @using System.Text.RegularExpressions
+@using ClosedXML.Excel
 
 
 
@@ -46,15 +47,37 @@
                 </Column>
             </Row>
             <Row>
-                 @* <Column ColumnSize="ColumnSize.Is4">
-                    <Button Class="btn btn-create" Clicked="() => modalReporte.Open()">Ver Reporte</Button>
-                </Column> *@
-                <Column ColumnSize="ColumnSize.Is4.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
-                    <Button Class="btn btn-base"  Clicked="@DownloadReport">Descargar Horarios</Button>
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                <Column ColumnSize="ColumnSize.Is12.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
                     <Button Class="btn btn-base2" Disabled="@((reportesModel?.Frecuencia ?? "").Equals(""))" Clicked="@SaveReport">Guardar Parámetros</Button>
                 </Column>               
+            </Row>
+            <Row>
+                <Column ColumnSize="ColumnSize.Is1.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                    <Dropdown>
+
+                        <DropdownToggle Class="btn-pdf">
+                            PDF
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem Clicked="@DownloadReportPDFSeccion">Horario por sección</DropdownItem>
+                            <DropdownDivider />
+                            <DropdownItem Clicked="@DownloadReportPDFProfesor">Horario por profesor</DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                </Column>
+
+                <Column ColumnSize="ColumnSize.Is1.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                    <Dropdown>
+                        <DropdownToggle Class="btn-excel">
+                            Excel
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem Clicked="@DownloadReportExcelSeccion">Horario por sección</DropdownItem>
+                            <DropdownDivider />
+                            <DropdownItem Clicked="@DownloadReportExcelProfesor" >Horario por profesor</DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                </Column>
             </Row>
         </EditForm>
     </Column>
@@ -97,16 +120,18 @@
         }
     }
 
-    private async Task DownloadReport()
+    //Reportes PDF Seccion
+    private async Task DownloadReportPDFSeccion()
     {
         try
         {
-            var zipBytes = await GenerarZipHorarios();
+
+            await Task.FromResult(MessageService.Info("Reportes  generados exitosamente, pronto se descargaran!", "Reportes"));
+            var zipBytes = await GenerarZipHorariosPDFseccion();
             var base64Zip = Convert.ToBase64String(zipBytes);
             var fileName = "HorariosGenerados.zip";
 
             await JS.InvokeVoidAsync("saveAsFile", fileName, base64Zip);
-            await Task.FromResult(MessageService.Info("Reportes  generados exitosamente, pronto se descargaran!", "Reportes"));
 
         }
         catch (Exception e)
@@ -115,7 +140,7 @@
         }
     }
 
-    private async Task<byte[]> GenerarZipHorarios()
+    private async Task<byte[]> GenerarZipHorariosPDFseccion()
     {
         using var zipStream = new MemoryStream();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, leaveOpen: true);
@@ -124,7 +149,7 @@
 
         foreach (var grupo in grupos)
         {
-            var horarios = await api.Horarios_GenHorarioAsync(grupo.Id_Grupo);
+            var horarios = await api.Horarios_GetOneHorarioAsync(new HorarioDto { Id_Grupo = grupo.Id_Grupo });
             var pdfBytes = await GenerarPdfHorario(horarios.Where(x => x.Id_Grupo == grupo.Id_Grupo).ToList(), grupo.Nombre);
 
             var entry = archive.CreateEntry($"{grupo.Nombre}_Horario.pdf");
@@ -217,6 +242,365 @@
         });
 
         return pdf.GeneratePdf();
+    }
+
+    //Reportes PDF Profesores 
+    private async Task DownloadReportPDFProfesor()
+    {
+        try
+        {
+            await Task.FromResult(MessageService.Info("Reportes  generados exitosamente, pronto se descargaran!", "Reportes"));
+
+            var zipBytes = await GenerarZipHorariosPDFprofesor();
+            var base64Zip = Convert.ToBase64String(zipBytes);
+            var fileName = "HorariosPorProfesor.zip";
+
+            await JS.InvokeVoidAsync("saveAsFile", fileName, base64Zip);
+        }
+        catch (Exception e)
+        {
+            await Task.FromResult(MessageService.Info(
+                $"Ocurrió un error a la hora de generar reportes\n\nMensaje:{e.Message}\nOrigen:{e.Source}",
+                "Error Reportes "));
+        }
+    }
+    private async Task<byte[]> GenerarZipHorariosPDFprofesor()
+    {
+        using var zipStream = new MemoryStream();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, leaveOpen: true);
+
+        var profesores = await api.Mantenimientos_GetAllProfesorAsync();
+        var grupos = await api.Mantenimientos_GetAllGruposAsync();
+
+        foreach (var profesor in profesores)
+        {
+            List<HorarioDto> horarioProfesor = new();
+
+            // Recorrer grupos y recoger las clases donde el profesor aparezca
+            foreach (var grupo in grupos)
+            {
+                var horarioGrupo = await api.Horarios_GetOneHorarioAsync(new HorarioDto {Id_Grupo = grupo.Id_Grupo });
+
+            var clasesProfesor = horarioGrupo
+                .Where(x => x.Id_Profesor == profesor.Id_Profesor.ToString())
+                .ToList();
+
+            horarioProfesor.AddRange(clasesProfesor);
+        }
+
+        // Si el profesor NO tiene clases, no crear PDF
+        if (!horarioProfesor.Any())
+            continue;
+
+        var pdfBytes = await GenerarPdfHorarioProfesor(horarioProfesor, $"{profesor.Nombre} {profesor.Apellido}");
+
+        var entry = archive.CreateEntry($"{profesor.Nombre}_{profesor.Apellido}_Horario.pdf");
+        using var entryStream = entry.Open();
+        entryStream.Write(pdfBytes, 0, pdfBytes.Length);
+    }
+
+    archive.Dispose();
+    return zipStream.ToArray();
+}
+
+    private async Task<byte[]> GenerarPdfHorarioProfesor(List<HorarioDto> horarios, string nombreProfesor)
+    {
+        QuestPDF.Settings.License = LicenseType.Community;
+        var listaSeccion = await api.Mantenimientos_GetAllGruposAsync();
+        var listaMaterias = await api.Mantenimientos_GetAllMateriasAsync();
+        var listaProfesores = await api.Mantenimientos_GetAllProfesorAsync();
+        var diasSemana = new[] { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
+        var diasSemanaCode = new[] { "L", "K", "M", "J", "V" };
+
+        var pdf = Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A4.Landscape());
+                page.Margin(20);
+                page.DefaultTextStyle(x => x.FontSize(10));
+
+                page.Header().Text($"Horario - Profesor {nombreProfesor}")
+                    .Bold().FontSize(16).AlignCenter();
+
+                page.Content().Table(table =>
+                {
+                    table.ColumnsDefinition(columns =>
+                    {
+                        columns.ConstantColumn(100);
+                        foreach (var _ in diasSemana)
+                            columns.RelativeColumn();
+                    });
+
+                    table.Header(header =>
+                    {
+                        header.Cell().Text("Hora").Bold();
+                        foreach (var dia in diasSemana)
+                            header.Cell().Text(dia).Bold().AlignCenter();
+                    });
+
+                    foreach (var bloque in bloquesHorario)
+                    {
+                        table.Cell().Text($"{bloque.HoraInicio:hh\\:mm} - {bloque.HoraFin:hh\\:mm}");
+
+                        foreach (var dia in diasSemanaCode)
+                        {
+                            if (bloque.EsReceso)
+                            {
+                                table.Cell().Background("#bbbec2")
+                                    .AlignCenter().AlignMiddle()
+                                    .Text("Receso");
+                                continue;
+                            }
+
+                            var clase = horarios.FirstOrDefault(h =>
+                                h.Dia.Equals(dia, StringComparison.OrdinalIgnoreCase)
+                                && h.Hora_Inicio == bloque.HoraInicio
+                                && h.Hora_Fin == bloque.HoraFin
+                            );
+
+                            if (clase != null)
+                            {
+                                var materia = listaMaterias.FirstOrDefault(m => m.Id_Materia == clase.Id_Materia);
+                                var seccion = listaSeccion.FirstOrDefault(m => m.Id_Grupo == clase.Id_Grupo);
+
+                                var color = materia?.Color ?? "#6c757d";
+
+                                table.Cell().Background(ApplyTransparency(color, 0.25))
+                                .Padding(5).Text(txt =>
+                                {
+                                    txt.DefaultTextStyle(x => x.FontSize(8));
+
+                                    txt.Span("Materia: ").SemiBold();
+                                    txt.Span($"{materia?.Nombre ?? "N/A"}\n");
+                                    txt.Span("Sección: ").SemiBold();
+                                    txt.Span($"{seccion?.Nombre ?? "N/A"}\n");
+                                });
+                            }
+                            else
+                            {
+                                table.Cell().Background("#bbbec2")
+                                    .AlignCenter().AlignMiddle()
+                                    .Text("Sin asignar");
+                            }
+                        }
+                    }
+                });
+            });
+        });
+
+        return pdf.GeneratePdf();
+    }
+
+    //Reportes Excel Seccion
+    private async Task DownloadReportExcelSeccion()
+    {
+        try
+        {
+            await Task.FromResult(MessageService.Info("Reportes generados exitosamente, pronto se descargarán!", "Reportes"));
+            var zipBytes = await GenerarZipHorariosExcelSeccion();
+            var base64Zip = Convert.ToBase64String(zipBytes);
+            var fileName = "HorariosGeneradosExcel.zip";
+            await JS.InvokeVoidAsync("saveAsFile", fileName, base64Zip);
+        }
+        catch (Exception e)
+        {
+            await Task.FromResult(MessageService.Info($"Ocurrió un error al generar reportes\n\nMensaje:{e.Message}\nOrigen:{e.Source}", "Error Reportes"));
+        }
+    }
+
+    private async Task<byte[]> GenerarZipHorariosExcelSeccion()
+    {
+        using var zipStream = new MemoryStream();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, leaveOpen: true);
+
+        var grupos = await api.Mantenimientos_GetAllGruposAsync();
+
+        foreach (var grupo in grupos)
+        {
+            var horarios = await api.Horarios_GetOneHorarioAsync(new HorarioDto { Id_Grupo = grupo.Id_Grupo });
+            var excelBytes = await GenerarExcelHorario(horarios.Where(x => x.Id_Grupo == grupo.Id_Grupo).ToList(), grupo.Nombre);
+
+            var entry = archive.CreateEntry($"{grupo.Nombre}_Horario.xlsx");
+            using var entryStream = entry.Open();
+            entryStream.Write(excelBytes, 0, excelBytes.Length);
+        }
+
+        archive.Dispose();
+        return zipStream.ToArray();
+    }
+
+    //Reportes Excel Profesores
+    private async Task DownloadReportExcelProfesor()
+    {
+        try
+        {
+            await Task.FromResult(MessageService.Info("Reportes generados exitosamente, pronto se descargarán!", "Reportes"));
+            var zipBytes = await GenerarZipHorariosExcelProfesor();
+            var base64Zip = Convert.ToBase64String(zipBytes);
+            var fileName = "HorariosPorProfesorExcel.zip";
+            await JS.InvokeVoidAsync("saveAsFile", fileName, base64Zip);
+        }
+        catch (Exception e)
+        {
+            await Task.FromResult(MessageService.Info($"Ocurrió un error al generar reportes\n\nMensaje:{e.Message}\nOrigen:{e.Source}", "Error Reportes"));
+        }
+    }
+
+    private async Task<byte[]> GenerarZipHorariosExcelProfesor()
+    {
+        using var zipStream = new MemoryStream();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, leaveOpen: true);
+
+        var profesores = await api.Mantenimientos_GetAllProfesorAsync();
+        var grupos = await api.Mantenimientos_GetAllGruposAsync();
+
+        foreach (var profesor in profesores)
+        {
+            List<HorarioDto> horarioProfesor = new();
+
+            foreach (var grupo in grupos)
+            {
+                var horarioGrupo = await api.Horarios_GetOneHorarioAsync(new HorarioDto { Id_Grupo = grupo.Id_Grupo });
+                var clasesProfesor = horarioGrupo
+                    .Where(x => x.Id_Profesor == profesor.Id_Profesor.ToString())
+                    .ToList();
+                horarioProfesor.AddRange(clasesProfesor);
+            }
+
+            if (!horarioProfesor.Any())
+                continue;
+
+            var excelBytes = await GenerarExcelHorarioProfesor(horarioProfesor, $"{profesor.Nombre} {profesor.Apellido}");
+
+            var entry = archive.CreateEntry($"{profesor.Nombre}_{profesor.Apellido}_Horario.xlsx");
+            using var entryStream = entry.Open();
+            entryStream.Write(excelBytes, 0, excelBytes.Length);
+        }
+
+        archive.Dispose();
+        return zipStream.ToArray();
+    }
+
+    private async Task<byte[]> GenerarExcelHorario(List<HorarioDto> horarios, string nombreGrupo)
+    {
+        var listaMaterias = await api.Mantenimientos_GetAllMateriasAsync();
+        var listaProfesores = await api.Mantenimientos_GetAllProfesorAsync();
+        var diasSemana = new[] { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
+        var diasSemanaCode = new[] { "L", "K", "M", "J", "V" };
+
+        using var workbook = new XLWorkbook();
+        var worksheet = workbook.Worksheets.Add("Horario");
+
+        // Encabezados
+        worksheet.Cell(1, 1).Value = $"Horario - Grupo {nombreGrupo}";
+        worksheet.Range(1, 1, 1, diasSemana.Length + 1).Merge().Style.Font.SetBold().Font.FontSize = 16;
+        worksheet.Row(1).Height = 20;
+
+        worksheet.Cell(2, 1).Value = "Hora";
+        for (int i = 0; i < diasSemana.Length; i++)
+            worksheet.Cell(2, i + 2).Value = diasSemana[i];
+
+        int row = 3;
+        foreach (var bloque in bloquesHorario)
+        {
+            worksheet.Cell(row, 1).Value = $"{bloque.HoraInicio:hh\\:mm} - {bloque.HoraFin:hh\\:mm}";
+            for (int col = 0; col < diasSemanaCode.Length; col++)
+            {
+                var dia = diasSemanaCode[col];
+                if (bloque.EsReceso)
+                {
+                    worksheet.Cell(row, col + 2).Value = "Receso";
+                    worksheet.Cell(row, col + 2).Style.Fill.BackgroundColor = XLColor.LightGray;
+                    continue;
+                }
+
+                var clase = horarios.FirstOrDefault(h =>
+                    h.Dia.Equals(dia, StringComparison.OrdinalIgnoreCase)
+                    && h.Hora_Inicio == bloque.HoraInicio
+                    && h.Hora_Fin == bloque.HoraFin
+                );
+
+                if (clase != null)
+                {
+                    var materia = listaMaterias.FirstOrDefault(m => m.Id_Materia == clase.Id_Materia);
+                    var profesor = listaProfesores.FirstOrDefault(p => p.Id_Profesor.ToString() == clase.Id_Profesor);
+
+                    worksheet.Cell(row, col + 2).Value =
+                        $"Materia: {materia?.Nombre ?? "N/A"}\nProfesor: {profesor?.Nombre} {profesor?.Apellido}";
+                }
+                else
+                {
+                    worksheet.Cell(row, col + 2).Value = "Sin asignar";
+                    worksheet.Cell(row, col + 2).Style.Fill.BackgroundColor = XLColor.LightGray;
+                }
+            }
+            row++;
+        }
+
+        using var stream = new MemoryStream();
+        workbook.SaveAs(stream);
+        return stream.ToArray();
+    }
+
+    private async Task<byte[]> GenerarExcelHorarioProfesor(List<HorarioDto> horarios, string nombreProfesor)
+    {
+        var listaSeccion = await api.Mantenimientos_GetAllGruposAsync();
+        var listaMaterias = await api.Mantenimientos_GetAllMateriasAsync();
+        var diasSemana = new[] { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
+        var diasSemanaCode = new[] { "L", "K", "M", "J", "V" };
+
+        using var workbook = new XLWorkbook();
+        var worksheet = workbook.Worksheets.Add("Horario");
+
+        worksheet.Cell(1, 1).Value = $"Horario - Profesor {nombreProfesor}";
+        worksheet.Range(1, 1, 1, diasSemana.Length + 1).Merge().Style.Font.SetBold().Font.FontSize = 16;
+        worksheet.Row(1).Height = 20;
+
+        worksheet.Cell(2, 1).Value = "Hora";
+        for (int i = 0; i < diasSemana.Length; i++)
+            worksheet.Cell(2, i + 2).Value = diasSemana[i];
+
+        int row = 3;
+        foreach (var bloque in bloquesHorario)
+        {
+            worksheet.Cell(row, 1).Value = $"{bloque.HoraInicio:hh\\:mm} - {bloque.HoraFin:hh\\:mm}";
+            for (int col = 0; col < diasSemanaCode.Length; col++)
+            {
+                var dia = diasSemanaCode[col];
+                if (bloque.EsReceso)
+                {
+                    worksheet.Cell(row, col + 2).Value = "Receso";
+                    worksheet.Cell(row, col + 2).Style.Fill.BackgroundColor = XLColor.LightGray;
+                    continue;
+                }
+
+                var clase = horarios.FirstOrDefault(h =>
+                    h.Dia.Equals(dia, StringComparison.OrdinalIgnoreCase)
+                    && h.Hora_Inicio == bloque.HoraInicio
+                    && h.Hora_Fin == bloque.HoraFin
+                );
+
+                if (clase != null)
+                {
+                    var materia = listaMaterias.FirstOrDefault(m => m.Id_Materia == clase.Id_Materia);
+                    var seccion = listaSeccion.FirstOrDefault(m => m.Id_Grupo == clase.Id_Grupo);
+
+                    worksheet.Cell(row, col + 2).Value =
+                        $"Materia: {materia?.Nombre ?? "N/A"}\nSección: {seccion?.Nombre ?? "N/A"}";
+                }
+                else
+                {
+                    worksheet.Cell(row, col + 2).Value = "Sin asignar";
+                    worksheet.Cell(row, col + 2).Style.Fill.BackgroundColor = XLColor.LightGray;
+                }
+            }
+            row++;
+        }
+
+        using var stream = new MemoryStream();
+        workbook.SaveAs(stream);
+        return stream.ToArray();
     }
 
     private async Task SaveReport()
