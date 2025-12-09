@@ -2,6 +2,7 @@
 using Infrastructure.DTOs;
 using Infrastructure.DTOs.Horarios;
 using Infrastructure.DTOs.Mantenimientos;
+using Infrastructure.Response.Email;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,7 +94,7 @@ namespace Infrastructure.Interfaces
 
         Task<Reporteria_ProgamadaDto> GetOneReporteria_Progamada(Reporteria_ProgamadaDto data);
 
-        Task<EnviarEmailDto?> EnviarEmail(EnviarEmailDto data);
+        Task<EnviarEmailResponse?> EnviarEmail(EnviarEmailDto data);
 
         #endregion
 

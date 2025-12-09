@@ -1,9 +1,12 @@
 ﻿using Azure.Communication.Email;
-using Azure; // Necesario para WaitUntil
+using Azure;
+using Infrastructure.Interfaces;
+using Infrastructure.Response.Email;
+using Infrastructure.DTOs;
 
 namespace API.Infrastructure.Services
 {
-    public class EmailService
+    public class EmailService : IEmailService
     {
         private readonly EmailClient _client;
 
@@ -12,32 +15,54 @@ namespace API.Infrastructure.Services
             _client = new EmailClient(Environment.GetEnvironmentVariable("COMMUNICATION_SERVICES_CONNECTION_STRING") ?? "");
         }
 
-        public async Task SendEmailAsync(List<string> toEmails, string subject, string body)
+        public async Task<EnviarEmailResponse?> SendEmail(EnviarEmailDto data)
         {
-            foreach(var profe in toEmails)
+            var response = new EnviarEmailResponse();
+            try
             {
-                var emailMessage = new EmailMessage(
-                    senderAddress: "DoNotReply@3a06e497-4933-4489-b3ea-1360c12e937a.azurecomm.net",
-                    content: new EmailContent($"Horarios Generados {profe.Split("@")[0]}")
-                    {
-                        PlainText = @"Adjunto tendrá el horario generado.",
-                        Html = @"
-		                <html>
-			                <body>
-				                <h1>
-					                Adjunto tendrá el horario generado.
-				                </h1>
-			                </body>
-		                </html>"
-                    },
-                    recipients: new EmailRecipients(new List<EmailAddress>{
-                        new EmailAddress(profe)
-                    })
-                );
-                await _client.SendAsync(WaitUntil.Completed, emailMessage);
+                foreach (var profe in data.correos)
+                {
+                    string attachmentType = data.FileType == "pdf" ? "application/pdf" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
+                    var attachment = data.base64file != null ? new EmailAttachment(
+                        name: string.IsNullOrWhiteSpace(data.FileName) ? (attachmentType == "application/pdf" ? "horario.pdf" : "horario.xlsx") : data.FileName,
+                        contentType: attachmentType,
+                        content: BinaryData.FromString(data.base64file)
+                    ) : null;
+
+                    var emailMessage = new EmailMessage(
+                        senderAddress: "DoNotReply@3a06e497-4933-4489-b3ea-1360c12e937a.azurecomm.net",
+                        content: new EmailContent(data.subject)
+                        {
+                            PlainText = @"Adjunto tendrá el horario generado.",
+                            Html = @"
+                                <html>
+                                    <body>
+                                        <h1>
+                                            Adjunto tendrá el horario generado.
+                                        </h1>
+                                    </body>
+                                </html>"
+                        },
+                        recipients: new EmailRecipients(new List<EmailAddress>{
+                        new EmailAddress(profe)
+                        })
+                    );
+
+                    if (attachment != null)
+                    {
+                        emailMessage.Attachments.Add(attachment);
+                    }
+
+                    await _client.SendAsync(WaitUntil.Completed, emailMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                response.p_error = "Ocurrio un error en el envío del correo: " + ex.Message;
             }
 
+            return response;
         }
     }
 }

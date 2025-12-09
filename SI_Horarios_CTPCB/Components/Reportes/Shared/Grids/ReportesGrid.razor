@@ -42,14 +42,14 @@
 
                             }
                         }
-                        
+
                     </Div>
                 </Column>
             </Row>
             <Row>
                 <Column ColumnSize="ColumnSize.Is12.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
                     <Button Class="btn btn-base2" Disabled="@((reportesModel?.Frecuencia ?? "").Equals(""))" Clicked="@SaveReport">Guardar Parámetros</Button>
-                </Column>               
+                </Column>
             </Row>
             <Row>
                 <Column ColumnSize="ColumnSize.Is1.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
@@ -74,7 +74,7 @@
                         <DropdownMenu>
                             <DropdownItem Clicked="@DownloadReportExcelSeccion">Horario por sección</DropdownItem>
                             <DropdownDivider />
-                            <DropdownItem Clicked="@DownloadReportExcelProfesor" >Horario por profesor</DropdownItem>
+                            <DropdownItem Clicked="@DownloadReportExcelProfesor">Horario por profesor</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
                 </Column>
@@ -93,7 +93,7 @@
                 <BarChart @ref="barChart" TItem="double" Options="@options" />
             </Div>
         </LoadingIndicator>
-        
+
     </Column>
     @* <Div Class="col-md-6 p-3">
                 
@@ -120,7 +120,7 @@
         }
     }
 
-    //Reportes PDF Seccion
+    #region Reportes PDF Seccion
     private async Task DownloadReportPDFSeccion()
     {
         try
@@ -243,8 +243,9 @@
 
         return pdf.GeneratePdf();
     }
-
-    //Reportes PDF Profesores 
+    #endregion
+    
+    #region Reportes PDF Profesores
     private async Task DownloadReportPDFProfesor()
     {
         try
@@ -279,29 +280,29 @@
             // Recorrer grupos y recoger las clases donde el profesor aparezca
             foreach (var grupo in grupos)
             {
-                var horarioGrupo = await api.Horarios_GetOneHorarioAsync(new HorarioDto {Id_Grupo = grupo.Id_Grupo });
+                var horarioGrupo = await api.Horarios_GetOneHorarioAsync(new HorarioDto { Id_Grupo = grupo.Id_Grupo });
 
-            var clasesProfesor = horarioGrupo
-                .Where(x => x.Id_Profesor == profesor.Id_Profesor.ToString())
-                .ToList();
+                var clasesProfesor = horarioGrupo
+                    .Where(x => x.Id_Profesor == profesor.Id_Profesor.ToString())
+                    .ToList();
 
-            horarioProfesor.AddRange(clasesProfesor);
+                horarioProfesor.AddRange(clasesProfesor);
+            }
+
+            // Si el profesor NO tiene clases, no crear PDF
+            if (!horarioProfesor.Any())
+                continue;
+
+            var pdfBytes = await GenerarPdfHorarioProfesor(horarioProfesor, $"{profesor.Nombre} {profesor.Apellido}");
+
+            var entry = archive.CreateEntry($"{profesor.Nombre}_{profesor.Apellido}_Horario.pdf");
+            using var entryStream = entry.Open();
+            entryStream.Write(pdfBytes, 0, pdfBytes.Length);
         }
 
-        // Si el profesor NO tiene clases, no crear PDF
-        if (!horarioProfesor.Any())
-            continue;
-
-        var pdfBytes = await GenerarPdfHorarioProfesor(horarioProfesor, $"{profesor.Nombre} {profesor.Apellido}");
-
-        var entry = archive.CreateEntry($"{profesor.Nombre}_{profesor.Apellido}_Horario.pdf");
-        using var entryStream = entry.Open();
-        entryStream.Write(pdfBytes, 0, pdfBytes.Length);
+        archive.Dispose();
+        return zipStream.ToArray();
     }
-
-    archive.Dispose();
-    return zipStream.ToArray();
-}
 
     private async Task<byte[]> GenerarPdfHorarioProfesor(List<HorarioDto> horarios, string nombreProfesor)
     {
@@ -391,8 +392,9 @@
 
         return pdf.GeneratePdf();
     }
-
-    //Reportes Excel Seccion
+    #endregion
+    
+    #region Reportes Excel Seccion
     private async Task DownloadReportExcelSeccion()
     {
         try
@@ -542,7 +544,9 @@
         workbook.SaveAs(stream);
         return stream.ToArray();
     }
+    #endregion
 
+    #region Reportes Excel Horario Profesor
     private async Task<byte[]> GenerarExcelHorarioProfesor(List<HorarioDto> horarios, string nombreProfesor)
     {
         var listaSeccion = await api.Mantenimientos_GetAllGruposAsync();
@@ -602,7 +606,8 @@
         workbook.SaveAs(stream);
         return stream.ToArray();
     }
-
+    #endregion
+    
     private async Task SaveReport()
     {
         if (reportesModel != null)
@@ -610,10 +615,9 @@
             await api.Mantenimientos_AddUpdateReporteria_ProgamadaAsync(reportesModel);
             await Task.FromResult(MessageService.Success("Datos guardados correctamente!", "Reportes"));
         }
-
-
     }
 
+    #region lista de Correos
     private async Task QuitarCorreo(string correo)
     {
         listaCorreos.Remove(correo);
@@ -655,6 +659,9 @@
         var pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
         return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
     }
+    #endregion
+
+    #region Grafico
 
     async Task HandleRedraw()
     {
@@ -832,7 +839,7 @@
     List<string> backgroundColors = new();
     List<string> borderColors = new();
 
-    
+
     private List<BloqueHorario> bloquesHorario = new()
     {
         new(new(7, 0, 0), new(7, 40, 0)),
@@ -893,7 +900,7 @@
         return $"#{r:X2}{g:X2}{b:X2}";
     }
 
-    
+    #endregion
 
 
 }

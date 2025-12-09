@@ -6,6 +6,7 @@ using Infrastructure.DTOs;
 using Infrastructure.DTOs.Mantenimientos;
 using Infrastructure.DTOs.Horarios;
 using Infrastructure.Interfaces;
+using Infrastructure.Response.Email;
 using Microsoft.EntityFrameworkCore;
 using Azure.Communication.Email;
 using System.Threading;
@@ -18,12 +19,14 @@ namespace API.Infrastructure.Services
     {
         public readonly AppDbContext _unitOfWork;
         public readonly IMapper _mapper;
+        public readonly EmailService _emailService;
 
 
-        public MantenimientosRepository(IMapper mapper, AppDbContext unitOfWork)
+        public MantenimientosRepository(IMapper mapper, AppDbContext unitOfWork, EmailService emailService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _emailService = emailService;
         }
 
         #region Mantenimientos
@@ -951,14 +954,15 @@ namespace API.Infrastructure.Services
 
         }
 
-        public async Task<EnviarEmailDto?> EnviarEmail(EnviarEmailDto data)
+        public async Task<EnviarEmailResponse?> EnviarEmail(EnviarEmailDto data)
         {
             if (data is null)
             {
                 throw new Exception("Debe de establecer los campos para el objeto");
             }
 
-            return new EnviarEmailDto();
+            var res = await _emailService.SendEmail(data);
+            return res;
 
         }
 
