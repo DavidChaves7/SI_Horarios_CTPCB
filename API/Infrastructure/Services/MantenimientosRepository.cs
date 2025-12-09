@@ -7,8 +7,10 @@ using Infrastructure.DTOs.Mantenimientos;
 using Infrastructure.DTOs.Horarios;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Azure.Communication.Email;
 using System.Threading;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace API.Infrastructure.Services
 {
@@ -16,6 +18,7 @@ namespace API.Infrastructure.Services
     {
         public readonly AppDbContext _unitOfWork;
         public readonly IMapper _mapper;
+
 
         public MantenimientosRepository(IMapper mapper, AppDbContext unitOfWork)
         {
@@ -945,6 +948,17 @@ namespace API.Infrastructure.Services
             {
                 throw new Exception("No se encontro el Parámetro");
             }
+
+        }
+
+        public async Task<EnviarEmailDto?> EnviarEmail(EnviarEmailDto data)
+        {
+            if (data is null)
+            {
+                throw new Exception("Debe de establecer los campos para el objeto");
+            }
+
+            return new EnviarEmailDto();
 
         }
 
