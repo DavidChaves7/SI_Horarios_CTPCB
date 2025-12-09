@@ -93,6 +93,8 @@ namespace Infrastructure.Interfaces
 
         Task<Reporteria_ProgamadaDto> GetOneReporteria_Progamada(Reporteria_ProgamadaDto data);
 
+        Task<EnviarEmailDto?> EnviarEmail(EnviarEmailDto data);
+
         #endregion
 
         #endregion

@@ -160,6 +160,9 @@ namespace API.Controllers.CPC
         [HttpPost("AddUpdateReporteria_Progamada")]
         public async Task<Reporteria_ProgamadaDto?> AddUpdateReporteria_ProgamadaAsync(Reporteria_ProgamadaDto param) => await _mantenimientosRepository.AddUpdateReporteria_Progamada(param);
 
+        [HttpPost("EnviarEmail")]
+        public async Task<EnviarEmailDto?> EnviarEmailAsync(EnviarEmailDto param) => await _mantenimientosRepository.EnviarEmail(param);
+
         #endregion
 
         #endregion
