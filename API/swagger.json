@@ -24,30 +24,6 @@
         }
       }
     },
-    "/api/Horarios/GetAllEjemploMant": {
-      "get": {
-        "tags": [
-          "Horarios"
-        ],
-        "operationId": "Horarios_GetAllEjemploMant",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "nullable": true,
-                  "items": {
-                    "$ref": "#/components/schemas/EjemploMantDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/Horarios/GenHorario": {
       "post": {
         "tags": [
@@ -152,30 +128,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HorarioDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Mantenimientos/GetAllEjemploMant": {
-      "get": {
-        "tags": [
-          "Mantenimientos"
-        ],
-        "operationId": "Mantenimientos_GetAllEjemploMant",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "nullable": true,
-                  "items": {
-                    "$ref": "#/components/schemas/EjemploMantDto"
-                  }
                 }
               }
             }
@@ -1318,29 +1270,42 @@
           }
         }
       }
+    },
+    "/api/Mantenimientos/EnviarEmail": {
+      "post": {
+        "tags": [
+          "Mantenimientos"
+        ],
+        "operationId": "Mantenimientos_EnviarEmail",
+        "requestBody": {
+          "x-name": "param",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnviarEmailDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnviarEmailResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "EjemploMantDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "descripcion": {
-            "type": "string",
-            "nullable": true
-          },
-          "test": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      },
       "HorarioDto": {
         "type": "object",
         "additionalProperties": false,
@@ -1644,6 +1609,36 @@
             "nullable": true
           },
           "estado": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "EnviarEmailResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "p_error": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "EnviarEmailDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "correo": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "base64file": {
+            "type": "string",
+            "nullable": true
+          },
+          "fileName": {
             "type": "string",
             "nullable": true
           }

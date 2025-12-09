@@ -961,8 +961,16 @@ namespace API.Infrastructure.Services
                 throw new Exception("Debe de establecer los campos para el objeto");
             }
 
-            var res = await _emailService.SendEmail(data);
-            return res;
+            try
+            {
+                var res = await _emailService.SendEmail(data);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                return new EnviarEmailResponse { p_error = "Error al enviar el correo.\n" + ex.Message };
+            }
+
 
         }
 

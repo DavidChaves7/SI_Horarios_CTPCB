@@ -12,12 +12,11 @@ namespace Infrastructure.DTOs
 {
     public class EnviarEmailDto
     {
-        public List<string> correos{ get; set; } = new List<string>();
+        public string correo{ get; set; } = string.Empty;
         public string subject { get; set; } = string.Empty;
 
         public string? base64file { get; set; }
 
         public string? FileName { get; set; }
-        public string FileType { get; set; } = "pdf"; // "pdf" o "excel"
     }
 }

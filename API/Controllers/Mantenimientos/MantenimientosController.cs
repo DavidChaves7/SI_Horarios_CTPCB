@@ -3,6 +3,7 @@ using Infrastructure.DTOs.Mantenimientos;
 using Infrastructure.DTOs.Horarios;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
+using Infrastructure.Response.Email;
 
 namespace API.Controllers.CPC
 {
@@ -12,28 +13,9 @@ namespace API.Controllers.CPC
     {
         #region Mantenimientos 
 
-        #region Ejemplo
-        [HttpGet("GetAllEjemploMant")]
-        public async Task<IEnumerable<EjemploMantDto>> GetAllEjemploMantAsync() => await _mantenimientosRepository.GetAllEjemploMant();
-        #endregion
-
-        #region Ejemplo 2
-        //[HttpGet("GetAllPuntajeCapacidad")]
-        //public async Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidadAsync() => await _mantenimientosRepository.GetAllPuntajeCapacidad();
-        //[HttpGet("GetOnePuntajeCapacidad")]
-        //public async Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.GetOnePuntajeCapacidad(param);
-
-        //[HttpPost("AddUpdatePuntajeCapacidad")]
-        //public async Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.AddUpdatePuntajeCapacidad(param);
-
-        //[HttpPost("DeletePuntajeCapacidad")]
-        //public async Task<QueryPuntajeCapacidadDto?> DeletePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.DeletePuntajeCapacidad(param);
-        #endregion
-
         #region Materias
 
         [HttpPost("AddUpdateMateriasDesdeExcel")]
-
         public async Task<MateriaDto?> AddUpdateMateriasDesdeExcel(MateriaDto param) => await _mantenimientosRepository.AddUpdateMaterias(param);
         [HttpGet("GetAllMaterias")]
         public async Task<IEnumerable<MateriaDto>> GetAllMateriasAsync() => await _mantenimientosRepository.GetAllMaterias();
@@ -161,7 +143,7 @@ namespace API.Controllers.CPC
         public async Task<Reporteria_ProgamadaDto?> AddUpdateReporteria_ProgamadaAsync(Reporteria_ProgamadaDto param) => await _mantenimientosRepository.AddUpdateReporteria_Progamada(param);
 
         [HttpPost("EnviarEmail")]
-        public async Task<EnviarEmailDto?> EnviarEmailAsync(EnviarEmailDto param) => await _mantenimientosRepository.EnviarEmail(param);
+        public async Task<EnviarEmailResponse?> EnviarEmailAsync(EnviarEmailDto param) => await _mantenimientosRepository.EnviarEmail(param);
 
         #endregion
 

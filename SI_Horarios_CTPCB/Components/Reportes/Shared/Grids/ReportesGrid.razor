@@ -12,74 +12,49 @@
     <!-- Sección Izquierda: Formularios -->
     <Column ColumnSize="ColumnSize.Is12" Padding="Padding.Is3">
         <h3>Reportes</h3>
+        <Row>
+             <Column ColumnSize="ColumnSize.Is12.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                <h5>Enviar Correos a todos los Profesores Activos con su Horario</h5>
+            </Column>
+        </Row>
+        <Row>
+            <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                <Button Class="btn btn-base3" Clicked="@EnviarCorreos">Enviar Correos</Button>
+            </Column>
+        </Row>
+        <Row>
+            <Column ColumnSize="ColumnSize.Is12.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                <h5>Descargar Reportes</h5>
+            </Column>
+        </Row>
+        <Row>
+            <Column ColumnSize="ColumnSize.Is1.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                <Dropdown>
+                    <DropdownToggle Class="btn-pdf">
+                        PDF
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem Clicked="@DownloadReportPDFSeccion">Horario por sección</DropdownItem>
+                        <DropdownDivider />
+                        <DropdownItem Clicked="@DownloadReportPDFProfesor">Horario por profesor</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+            </Column>
 
-        <EditForm Model="@reportesModel">
-            <Row>
-                <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnMobile">
-                    <Div class="form-group mb-3">
-                        <label for="frecuencia">Frecuencia</label>
-                        <Select @bind-SelectedValue="reportesModel.Frecuencia" Class="form-control">
-                            <SelectItem Value="@("")">Seleccione una opción</SelectItem>
-                            <SelectItem Value="@("Q")">Quincenal</SelectItem>
-                            <SelectItem Value="@("M")">Mensual</SelectItem>
-                            <SelectItem Value="@("T")">Trimestral</SelectItem>
-                        </Select>
-                    </Div>
-                </Column>
-                <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnMobile">
-                    <Div Class="form-group mb-3">
-                        <label for="correos">Correos</label>
-                        @* <InputText @bind-Value="reportesModel.Correos" class="form-control" placeholder="Correos separados por coma" /> *@
-                        <TextEdit @bind-Text="@NewEmail" Placeholder="Agregar correo y presiona Enter" @onkeydown="HandleKeyPress" Role="TextRole.Email" />
-                        @if (!(reportesModel?.Frecuencia ?? "").Equals(""))
-                        {
-                            @foreach (var email in listaCorreos)
-                            {
-                                <Badge TextSize="TextSize.ExtraSmall" Color="Blazorise.Color.Primary" Class="me-1 mb-1" CloseClicked="@(() => QuitarCorreo(email))">
-                                    @email
-                                </Badge>
+            <Column ColumnSize="ColumnSize.Is1.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
+                <Dropdown>
+                    <DropdownToggle Class="btn-excel">
+                        Excel
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem Clicked="@DownloadReportExcelSeccion">Horario por sección</DropdownItem>
+                        <DropdownDivider />
+                        <DropdownItem Clicked="@DownloadReportExcelProfesor">Horario por profesor</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+            </Column>
+        </Row>
 
-
-                            }
-                        }
-
-                    </Div>
-                </Column>
-            </Row>
-            <Row>
-                <Column ColumnSize="ColumnSize.Is12.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
-                    <Button Class="btn btn-base2" Disabled="@((reportesModel?.Frecuencia ?? "").Equals(""))" Clicked="@SaveReport">Guardar Parámetros</Button>
-                </Column>
-            </Row>
-            <Row>
-                <Column ColumnSize="ColumnSize.Is1.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
-                    <Dropdown>
-
-                        <DropdownToggle Class="btn-pdf">
-                            PDF
-                        </DropdownToggle>
-                        <DropdownMenu>
-                            <DropdownItem Clicked="@DownloadReportPDFSeccion">Horario por sección</DropdownItem>
-                            <DropdownDivider />
-                            <DropdownItem Clicked="@DownloadReportPDFProfesor">Horario por profesor</DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-                </Column>
-
-                <Column ColumnSize="ColumnSize.Is1.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
-                    <Dropdown>
-                        <DropdownToggle Class="btn-excel">
-                            Excel
-                        </DropdownToggle>
-                        <DropdownMenu>
-                            <DropdownItem Clicked="@DownloadReportExcelSeccion">Horario por sección</DropdownItem>
-                            <DropdownDivider />
-                            <DropdownItem Clicked="@DownloadReportExcelProfesor">Horario por profesor</DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
-                </Column>
-            </Row>
-        </EditForm>
     </Column>
     <Column ColumnSize="ColumnSize.Is12.OnDesktop.Is12.OnMobile" Padding="Padding.Is3">
         <h3>Estadísticas</h3>
@@ -101,22 +76,97 @@
 </Div>
 
 <ModalVerReporte @ref="modalReporte"></ModalVerReporte>
-
+<SnackbarStack @ref="snackbarStack" Location="SnackbarStackLocation.Top" />
 @code {
+    SnackbarStack? snackbarStack;
     ModalVerReporte? modalReporte;
-    private Reporteria_ProgamadaDto reportesModel = new Reporteria_ProgamadaDto();
     private bool isLoading = false;
     private bool loadingChart = false;
     private List<string> listaCorreos = new();
     private string? NewEmail = "";
+    
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             await HandleRedraw();
-            reportesModel = await api.Mantenimientos_GetOneReporteria_ProgamadaAsync(new Reporteria_ProgamadaDto() { Id_Rep_Programada = 1 });
-            listaCorreos = reportesModel.Correos.Split(",").ToList() ?? new List<string>();
+        }
+    }
+
+    private async Task EnviarCorreos()
+    {
+        await Task.FromResult(MessageService.Info("Los correos se enviarán automáticamente a cada Profesor, se le indicará por notificaciones si ocurre algún error", "Reportes"));
+        using var zipStream = new MemoryStream();
+        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, leaveOpen: true);
+
+        var profesores = await api.Mantenimientos_GetAllProfesorAsync();
+        var grupos = await api.Mantenimientos_GetAllGruposAsync();
+
+        foreach (var profesor in profesores)
+        {
+            List<HorarioDto> horarioProfesor = new();
+
+            // Recorrer grupos y recoger las clases donde el profesor aparezca
+            foreach (var grupo in grupos)
+            {
+                var horarioGrupo = await api.Horarios_GetOneHorarioAsync(new HorarioDto { Id_Grupo = grupo.Id_Grupo });
+
+                var clasesProfesor = horarioGrupo
+                    .Where(x => x.Id_Profesor == profesor.Id_Profesor.ToString())
+                    .ToList();
+
+                horarioProfesor.AddRange(clasesProfesor);
+            }
+
+            // Si el profesor NO tiene clases, no crear PDF
+            if (!horarioProfesor.Any())
+                continue;
+            // Cambia el nombre de la variable interna para evitar conflicto
+            using var profesorZipStream = new MemoryStream();
+            using (var profesorArchive = new ZipArchive(profesorZipStream, ZipArchiveMode.Create, leaveOpen: true))
+            {
+                var pdfBytes = await GenerarPdfHorarioProfesor(horarioProfesor, $"{profesor.Nombre} {profesor.Apellido}");
+                var entryPdf = profesorArchive.CreateEntry($"{profesor.Cedula}_{profesor.Nombre}_{profesor.Apellido}_Horario.pdf");
+                using (var entryStream = entryPdf.Open())
+                {
+                    entryStream.Write(pdfBytes, 0, pdfBytes.Length);
+                }
+
+                var excelBytes = await GenerarExcelHorarioProfesor(horarioProfesor, $"{profesor.Nombre} {profesor.Apellido}");
+                var entryExcel = profesorArchive.CreateEntry($"{profesor.Nombre}_{profesor.Apellido}_Horario.xlsx");
+                using (var entryStreamExcel = entryExcel.Open())
+                {
+                    entryStreamExcel.Write(excelBytes, 0, excelBytes.Length);
+                }
+            }
+
+            var base64Zip = Convert.ToBase64String(profesorZipStream.ToArray());
+
+            try
+            {
+                var res = await api.Mantenimientos_EnviarEmailAsync(new EnviarEmailDto
+                {
+                    Correo = profesor.Correo,
+                    Base64file = base64Zip,
+                    FileName = $"{profesor.Cedula}_{profesor.Nombre}_{profesor.Apellido}_Horario_ExcelPdf.zip",
+                    Subject = $"Horarios en Excel y PDF Profesor {profesor.Cedula} {profesor.Nombre} {profesor.Apellido}"
+                });
+
+                if (string.IsNullOrEmpty(res.P_error))
+                {
+                    snackbarStack?.PushAsync($"Correo enviado para {profesor.Nombre} {profesor.Apellido} exitosamente", SnackbarColor.Info, options => { options.IntervalBeforeClose = 4000; });
+                }
+                else
+                {
+                    await Task.FromResult(MessageService.Info($"Ocurrió un error al enviar los correos: {res.P_error}", "Error"));
+                }
+            }
+            catch (Exception ex)
+            {
+                await Task.FromResult(MessageService.Info($"Excepción al enviar correo a {profesor.Nombre} {profesor.Apellido}: {ex.Message}", "Error"));
+            }
+
         }
     }
 
@@ -247,7 +297,7 @@
         return pdf.GeneratePdf();
     }
     #endregion
-    
+
     #region Reportes PDF Profesores
     private async Task DownloadReportPDFProfesor()
     {
@@ -298,7 +348,7 @@
 
             var pdfBytes = await GenerarPdfHorarioProfesor(horarioProfesor, $"{profesor.Nombre} {profesor.Apellido}");
 
-            var entry = archive.CreateEntry($"{profesor.Nombre}_{profesor.Apellido}_Horario.pdf");
+            var entry = archive.CreateEntry($"{profesor.Cedula}_{profesor.Nombre}_{profesor.Apellido}_Horario.pdf");
             using var entryStream = entry.Open();
             entryStream.Write(pdfBytes, 0, pdfBytes.Length);
         }
@@ -396,7 +446,7 @@
         return pdf.GeneratePdf();
     }
     #endregion
-    
+
     #region Reportes Excel Seccion
     private async Task DownloadReportExcelSeccion()
     {
@@ -533,7 +583,7 @@
                 {
                     var materia = listaMaterias.FirstOrDefault(m => m.Id_Materia == clase.Id_Materia);
                     var profesor = listaProfesores.FirstOrDefault(p => p.Id_Profesor.ToString() == clase.Id_Profesor);
-                    var color = materia?.Color ?? "#FFFFFF"; 
+                    var color = materia?.Color ?? "#FFFFFF";
                     var transparentColor = ApplyTransparencyEX(color, 0.25);
 
 
@@ -635,49 +685,42 @@
         return stream.ToArray();
     }
     #endregion
+
     
-    private async Task SaveReport()
-    {
-        if (reportesModel != null)
-        {
-            await api.Mantenimientos_AddUpdateReporteria_ProgamadaAsync(reportesModel);
-            await Task.FromResult(MessageService.Success("Datos guardados correctamente!", "Reportes"));
-        }
-    }
 
     #region lista de Correos
-    private async Task QuitarCorreo(string correo)
-    {
-        listaCorreos.Remove(correo);
-        reportesModel.Correos = string.Join(",", listaCorreos);
-        if (reportesModel != null)
-            await api.Mantenimientos_AddUpdateReporteria_ProgamadaAsync(reportesModel);
+    // private async Task QuitarCorreo(string correo)
+    // {
+    //     listaCorreos.Remove(correo);
+    //     reportesModel.Correos = string.Join(",", listaCorreos);
+    //     if (reportesModel != null)
+    //         await api.Mantenimientos_AddUpdateReporteria_ProgamadaAsync(reportesModel);
 
-    }
+    // }
 
-    private async Task HandleKeyPress(KeyboardEventArgs e)
-    {
-        if (e.Key == "Enter" || e.Key == "Tab")
-        {
-            var email = NewEmail.Trim().TrimEnd(',');
-            if (ValidateEmail(email))
-            {
-                if (!listaCorreos.Contains(email, StringComparer.OrdinalIgnoreCase))
-                {
-                    listaCorreos.Add(email);
-                    reportesModel.Correos = string.Join(",", listaCorreos);
-                    if (reportesModel != null)
-                        await api.Mantenimientos_AddUpdateReporteria_ProgamadaAsync(reportesModel);
-                }
+    // private async Task HandleKeyPress(KeyboardEventArgs e)
+    // {
+    //     if (e.Key == "Enter" || e.Key == "Tab")
+    //     {
+    //         var email = NewEmail.Trim().TrimEnd(',');
+    //         if (ValidateEmail(email))
+    //         {
+    //             if (!listaCorreos.Contains(email, StringComparer.OrdinalIgnoreCase))
+    //             {
+    //                 listaCorreos.Add(email);
+    //                 reportesModel.Correos = string.Join(",", listaCorreos);
+    //                 if (reportesModel != null)
+    //                     await api.Mantenimientos_AddUpdateReporteria_ProgamadaAsync(reportesModel);
+    //             }
 
-                NewEmail = string.Empty;
-            }
-            else
-            {
-                await Task.FromResult(MessageService.Warning("Ingrese un correo válido (ejemplo@dominio.com)", "Reportes"));
-            }
-        }
-    }
+    //             NewEmail = string.Empty;
+    //         }
+    //         else
+    //         {
+    //             await Task.FromResult(MessageService.Warning("Ingrese un correo válido (ejemplo@dominio.com)", "Reportes"));
+    //         }
+    //     }
+    // }
 
     private bool ValidateEmail(string email)
     {

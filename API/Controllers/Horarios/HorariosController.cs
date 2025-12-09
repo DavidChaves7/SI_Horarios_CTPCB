@@ -13,24 +13,6 @@ namespace API.Controllers.CPC
     public class HorariosController : ApiControllerBase
     {
 
-        #region Ejemplo
-        [HttpGet("GetAllEjemploMant")]
-        public async Task<IEnumerable<EjemploMantDto>> GetAllEjemploMantAsync() => await _mantenimientosRepository.GetAllEjemploMant();
-        #endregion
-
-        #region Ejemplo 2
-        //[HttpGet("GetAllPuntajeCapacidad")]
-        //public async Task<IEnumerable<QueryPuntajeCapacidadDto>> GetAllPuntajeCapacidadAsync() => await _mantenimientosRepository.GetAllPuntajeCapacidad();
-        //[HttpGet("GetOnePuntajeCapacidad")]
-        //public async Task<QueryPuntajeCapacidadDto> GetOnePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.GetOnePuntajeCapacidad(param);
-
-        //[HttpPost("AddUpdatePuntajeCapacidad")]
-        //public async Task<QueryPuntajeCapacidadDto?> AddUpdatePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.AddUpdatePuntajeCapacidad(param);
-
-        //[HttpPost("DeletePuntajeCapacidad")]
-        //public async Task<QueryPuntajeCapacidadDto?> DeletePuntajeCapacidadAsync(QueryPuntajeCapacidadDto param) => await _mantenimientosRepository.DeletePuntajeCapacidad(param);
-        #endregion
-
         #region Horarios
 
         [HttpPost("GenHorario")]
