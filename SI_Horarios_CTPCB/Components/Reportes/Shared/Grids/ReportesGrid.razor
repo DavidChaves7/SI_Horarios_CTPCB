@@ -145,7 +145,10 @@
         using var zipStream = new MemoryStream();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, leaveOpen: true);
 
-        var grupos = await api.Mantenimientos_GetAllGruposAsync();
+        // Filtrar solo grupos activos
+        var grupos = (await api.Mantenimientos_GetAllGruposAsync())
+            .Where(grupo => grupo.Estado.Equals("A"))
+            .ToList();
 
         foreach (var grupo in grupos)
         {
@@ -416,7 +419,10 @@
         using var zipStream = new MemoryStream();
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, leaveOpen: true);
 
-        var grupos = await api.Mantenimientos_GetAllGruposAsync();
+        // Filtrar solo grupos activos
+        var grupos = (await api.Mantenimientos_GetAllGruposAsync())
+            .Where(grupo => grupo.Estado.Equals("A"))
+            .ToList();
 
         foreach (var grupo in grupos)
         {
@@ -527,18 +533,31 @@
                 {
                     var materia = listaMaterias.FirstOrDefault(m => m.Id_Materia == clase.Id_Materia);
                     var profesor = listaProfesores.FirstOrDefault(p => p.Id_Profesor.ToString() == clase.Id_Profesor);
+                    var color = materia?.Color ?? "#FFFFFF"; 
+                    var transparentColor = ApplyTransparencyEX(color, 0.25);
+
+
 
                     worksheet.Cell(row, col + 2).Value =
-                        $"Materia: {materia?.Nombre ?? "N/A"}\nProfesor: {profesor?.Nombre} {profesor?.Apellido}";
+                       worksheet.Cell(row, col + 2).Value = $"Materia: {materia?.Nombre ?? "N/A"}{Environment.NewLine}Profesor: {profesor?.Nombre} {profesor?.Apellido}";
+                    worksheet.Cell(row, col + 2).Style.Fill.BackgroundColor = transparentColor;
+
+                    // Aplicar borde blanco de 2px
+                    worksheet.Cell(row, col + 2).Style.Border.OutsideBorder = XLBorderStyleValues.Thick;
+                    worksheet.Cell(row, col + 2).Style.Border.OutsideBorderColor = XLColor.White;
+
+
                 }
                 else
                 {
                     worksheet.Cell(row, col + 2).Value = "Sin asignar";
-                    worksheet.Cell(row, col + 2).Style.Fill.BackgroundColor = XLColor.LightGray;
+                    worksheet.Cell(row, col + 2).Style.Fill.BackgroundColor = XLColor.FromHtml("#F2F2F2");
                 }
             }
             row++;
         }
+
+        worksheet.Columns().AdjustToContents();
 
         using var stream = new MemoryStream();
         workbook.SaveAs(stream);
@@ -589,18 +608,27 @@
                 {
                     var materia = listaMaterias.FirstOrDefault(m => m.Id_Materia == clase.Id_Materia);
                     var seccion = listaSeccion.FirstOrDefault(m => m.Id_Grupo == clase.Id_Grupo);
+                    var color = materia?.Color ?? "#FFFFFF";
+                    var transparentColor = ApplyTransparencyEX(color, 0.25);
 
                     worksheet.Cell(row, col + 2).Value =
-                        $"Materia: {materia?.Nombre ?? "N/A"}\nSección: {seccion?.Nombre ?? "N/A"}";
+                        worksheet.Cell(row, col + 2).Value = $"Materia: {materia?.Nombre ?? "N/A"}{Environment.NewLine}Sección: {seccion?.Nombre ?? "N/A"}";
+                    worksheet.Cell(row, col + 2).Style.Fill.BackgroundColor = transparentColor;
+
+                    worksheet.Cell(row, col + 2).Style.Border.OutsideBorder = XLBorderStyleValues.Thick;
+                    worksheet.Cell(row, col + 2).Style.Border.OutsideBorderColor = XLColor.White;
+
                 }
                 else
                 {
                     worksheet.Cell(row, col + 2).Value = "Sin asignar";
-                    worksheet.Cell(row, col + 2).Style.Fill.BackgroundColor = XLColor.LightGray;
+                    worksheet.Cell(row, col + 2).Style.Fill.BackgroundColor = XLColor.FromHtml("#F2F2F2");
                 }
             }
             row++;
         }
+
+        worksheet.Columns().AdjustToContents();
 
         using var stream = new MemoryStream();
         workbook.SaveAs(stream);
@@ -901,6 +929,19 @@
     }
 
     #endregion
+    private XLColor ApplyTransparencyEX(string hexColor, double transparency = 0.25)
+    {
+        hexColor = hexColor.Replace("#", "");
 
+        int r = Convert.ToInt32(hexColor.Substring(0, 2), 16);
+        int g = Convert.ToInt32(hexColor.Substring(2, 2), 16);
+        int b = Convert.ToInt32(hexColor.Substring(4, 2), 16);
 
+        // Mezclar el color con blanco (simula transparencia sobre fondo blanco)
+        r = (int)(r + (255 - r) * (1 - transparency));
+        g = (int)(g + (255 - g) * (1 - transparency));
+        b = (int)(b + (255 - b) * (1 - transparency));
+
+        return XLColor.FromArgb(r, g, b);
+    }
 }
