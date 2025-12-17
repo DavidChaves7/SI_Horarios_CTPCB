@@ -1,6 +1,4 @@
-﻿
-
-
+﻿@inject NavigationManager Nav
 
 <Bar Mode="BarMode.VerticalInline"
      CollapseMode="BarCollapseMode.Small"
@@ -63,6 +61,14 @@
                     <b>Reportes</b>
                 </BarLink>
             </BarItem>
+
+            <BarItem>
+                <BarLink To="#" @onclick="DoLogout">
+                    <BarIcon IconName="IconName.Eject" />
+                    <b>Cerrar sesión</b>
+                </BarLink>
+            </BarItem>
+
 
             
             @* <BarItem>
@@ -139,5 +145,13 @@
     private string GetMenuClass()
     {
         return IsCollapsed ? "small" : "";
+
     }
+
+    private void DoLogout()
+    {
+        var home = Uri.EscapeDataString("https://www.ctpcbpnacional.com/");
+        Nav.NavigateTo($"/MicrosoftIdentity/Account/SignOut?postLogoutRedirectUri={home}", forceLoad: true);
+    }
+
 }

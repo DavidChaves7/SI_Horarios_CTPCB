@@ -171,18 +171,25 @@ app.MapRazorComponents<App>()
     .RequireAuthorization();
 //if (app.Environment.IsProduction())
 //    app.UsePathBase("/");
-app.MapGet("/Login", async (HttpContext ctx) =>
-{
-    var props = new AuthenticationProperties { RedirectUri = "/MenuPrincipal" }; // o "/"
-    await ctx.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, props);
-    return Results.Empty;
-});
+//app.MapGet("/Login", async (HttpContext ctx) =>
+//{
+//    var props = new AuthenticationProperties { RedirectUri = "/MenuPrincipal" }; // o "/"
+//    await ctx.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, props);
+//    return Results.Empty;
+//});
 
-app.MapGet("/Logout", async (HttpContext ctx) =>
+app.MapGet("/Logout", (HttpContext ctx) =>
 {
-    await ctx.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-    await ctx.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
-    return Results.Empty;
+    return Results.SignOut(
+        authenticationSchemes: new[]
+        {
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            OpenIdConnectDefaults.AuthenticationScheme
+        },
+        properties: new AuthenticationProperties
+        {
+            RedirectUri = "/Home"
+        });
 });
 
 app.Run();
