@@ -30,17 +30,6 @@
           "Horarios"
         ],
         "operationId": "Horarios_GenHorario",
-        "parameters": [
-          {
-            "name": "grupoId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 1
-          }
-        ],
         "responses": {
           "200": {
             "description": "",

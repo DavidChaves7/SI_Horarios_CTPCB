@@ -760,7 +760,7 @@
             var nivel = niveles.FirstOrDefault(n => n.Id_Nivel_Academico == grupo.Id_Nivel_Academico)?.Nombre;
             if (nivel is null) continue;
 
-            var horario = await api.Horarios_GenHorarioAsync(grupo.Id_Grupo);
+            var horario = await api.Horarios_GetOneHorarioAsync(new HorarioDto { Id_Grupo = grupo.Id_Grupo });
             horario = horario.Where(x => x.Id_Grupo == grupo.Id_Grupo).ToList();
 
             // Sumar cantidad de bloques (lecciones) por grupo y nivel
@@ -827,7 +827,7 @@
             var nivel = niveles.FirstOrDefault(n => n.Id_Nivel_Academico == grupo.Id_Nivel_Academico)?.Nombre;
             if (nivel is null) continue;
 
-            var horario = await api.Horarios_GenHorarioAsync(grupo.Id_Grupo);
+            var horario = await api.Horarios_GetOneHorarioAsync(new HorarioDto { Id_Grupo = grupo.Id_Grupo });
             horario = horario.Where(x => x.Id_Grupo == grupo.Id_Grupo).ToList();
 
             foreach (var clase in horario)

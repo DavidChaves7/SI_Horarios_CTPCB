@@ -138,14 +138,14 @@ namespace SI_Horarios_CTPCB.Infrastructure.ApiClient
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<HorarioDto>> Horarios_GenHorarioAsync(int? grupoId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<HorarioDto>> Horarios_GenHorarioAsync()
         {
-            return Horarios_GenHorarioAsync(grupoId, System.Threading.CancellationToken.None);
+            return Horarios_GenHorarioAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<HorarioDto>> Horarios_GenHorarioAsync(int? grupoId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<HorarioDto>> Horarios_GenHorarioAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -161,12 +161,6 @@ namespace SI_Horarios_CTPCB.Infrastructure.ApiClient
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
                     // Operation Path: "api/Horarios/GenHorario"
                     urlBuilder_.Append("api/Horarios/GenHorario");
-                    urlBuilder_.Append('?');
-                    if (grupoId != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("grupoId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(grupoId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    urlBuilder_.Length--;
 
                     PrepareRequest(client_, request_, urlBuilder_);
 

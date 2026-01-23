@@ -11,6 +11,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
 using System.Threading;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using API.Infrastructure.Services.HorarioGeneration;
 
 namespace API.Infrastructure.Services
 {
@@ -45,38 +46,59 @@ namespace API.Infrastructure.Services
             (new(15, 40, 0), new(16, 20, 0)),
         ];
 
-        //validar que MAXIMO haya 6 lecciones del mismo profe PERO que maximo sean bloques de 3 lecciones de la misma materia
 
-
-        public async Task<List<HorarioDto>?> GenHorario(int grupoId)
+        /// <summary>
+        /// Genera horarios optimizados para todos los grupos utilizando el nuevo motor de generación
+        /// </summary>
+        public async Task<List<HorarioDto>?> GenHorario()
         {
             try
             {
+                // Eliminar horarios existentes
                 var delete = await _unitOfWork.Set<Horario>().ExecuteDeleteAsync();
 
-                var materiasXNivel = await _unitOfWork.Set<Materia_X_Nivel>()
-                    .Where(s => (s.Estado ?? "I").Equals("A"))
-                    .Select(s => _mapper.Map<MateriaXNivelDto>(s))
-                    .ToListAsync();
+                // Cargar datos necesarios con joins explícitos
+                var materiasXNivel = await (
+                    from mxn in _unitOfWork.Set<Materia_X_Nivel>()
+                    join m in _unitOfWork.Set<Materia>() on mxn.Id_Materia equals m.Id_Materia into materiaJoin
+                    from materia in materiaJoin.DefaultIfEmpty()
+                    join n in _unitOfWork.Set<Nivel_Academico>() on mxn.Id_Nivel_Academico equals n.Id_Nivel_Academico into nivelJoin
+                    from nivel in nivelJoin.DefaultIfEmpty()
+                    where (mxn.Estado ?? "I").Equals("A")
+                    select new MateriaXNivelDto
+                    {
+                        Id_Mat_X_Nivel = mxn.Id_Mat_X_Nivel,
+                        Id_Materia = mxn.Id_Materia,
+                        Desc_Materia = materia != null ? materia.Nombre : null,
+                        Id_Nivel_Academico = mxn.Id_Nivel_Academico,
+                        Desc_Nivel_Academico = nivel != null ? nivel.Nombre : null,
+                        Prioridad = mxn.Prioridad,
+                        Carga_Horaria = mxn.Carga_Horaria,
+                        Estado = mxn.Estado
+                    }
+                ).ToListAsync();
+
                 var profesores = await _unitOfWork.Set<Profesor>()
                     .Where(s => (s.Estado ?? "I").Equals("A"))
                     .Select(s => _mapper.Map<ProfesorDto>(s))
                     .ToListAsync();
+
                 var grupos = await _unitOfWork.Set<Grupo>()
                     .Where(s => (s.Estado ?? "I").Equals("A"))
                     .Select(s => _mapper.Map<GrupoDto>(s))
                     .ToListAsync();
+
                 var profXMateria = await _unitOfWork.Set<Profesor_X_Materia>()
                     .Where(s => (s.Estado ?? "I").Equals("A"))
                     .Select(s => _mapper.Map<Profesor_X_MateriaDto>(s))
                     .ToListAsync();
+
                 var restricciones = await _unitOfWork.Set<Restriccion_Profesor>()
                     .Where(s => (s.Estado ?? "I").Equals("A"))
                     .Select(s => _mapper.Map<Restriccion_ProfesorDto>(s))
                     .ToListAsync();
 
-                var horariosGenerados = new List<HorarioDto>();
-
+                // Validaciones iniciales
                 if (grupos is null || grupos.Count == 0)
                 {
                     throw new Exception("No hay grupos disponibles para generar horarios.");
@@ -97,141 +119,73 @@ namespace API.Infrastructure.Services
                     throw new Exception("No hay asignaciones de profesores a materias disponibles.");
                 }
 
-                // Obtener el ID de la materia "GUIA" dinámicamente
-                var materiaGuia = await _unitOfWork.Set<Materia>().FirstOrDefaultAsync(m => (m.Nombre ?? "").Contains("GUIA") && m.Estado == "A");
+                // Obtener ID de materia GUIA
+                var materiaGuia = await _unitOfWork.Set<Materia>()
+                    .FirstOrDefaultAsync(m => (m.Nombre ?? "").Contains("GUIA") && m.Estado == "A");
                 int idMateriaGuia = materiaGuia?.Id_Materia ?? 0;
 
-                foreach (var grupo in grupos)
+                // Crear generador de horarios con el nuevo algoritmo
+                var generator = new HorarioGenerator(
+                    restricciones,
+                    profesores,
+                    grupos,
+                    materiasXNivel,
+                    profXMateria,
+                    idMateriaGuia
+                );
+
+                // Generar horarios optimizados
+                var horariosGenerados = generator.GenerarHorarios();
+
+                if (horariosGenerados is null || horariosGenerados.Count == 0)
                 {
-                    var nivel = grupo.Id_Nivel_Academico;
-                    var materiasDelNivel = materiasXNivel.Where(m => m.Id_Nivel_Academico == nivel).ToList();
-
-                    // Obtener el profesor guía para este grupo
-                    var profesorGuiaGrupo = !string.IsNullOrEmpty(grupo.Id_Profesor_Guia.ToString()) && grupo.Id_Profesor_Guia != -1
-                        ? Convert.ToInt32(grupo.Id_Profesor_Guia)
-                        : (int?)null;
-
-                    foreach (var mat in materiasDelNivel)
-                    {
-                        int? profe;
-                        // Si la materia es GUIA, asignar el profesor guía del grupo
-                        if (mat.Id_Materia == idMateriaGuia && profesorGuiaGrupo.HasValue)
-                        {
-                            profe = profesorGuiaGrupo.Value;
-                        }
-                        else
-                        {
-                            profe = profXMateria.FirstOrDefault(x => x.Id_Materia == mat.Id_Materia)?.Id_Profesor;
-                            if (profe == null)
-                            {
-                                // Asignar "Sin Asignar" si no hay profesor disponible
-                                profe = profesores.FirstOrDefault(p => p.Cedula == "000000000" || (p.Nombre ?? "").Contains("Sin Asignar"))?.Id_Profesor;
-                            }
-                        }
-
-                        var leccionesRestantes = mat.Carga_Horaria;
-                        var diasDisponibles = Dias.ToList();
-
-                        while (leccionesRestantes >= 3 && diasDisponibles.Any())
-                        {
-                            var diaSeleccionado = diasDisponibles.First();
-                            diasDisponibles.Remove(diaSeleccionado);
-
-                            var bloque = BuscarBloqueDisponible(restricciones, horariosGenerados, grupo.Id_Grupo, profe ?? -1, mat.Id_Materia ?? 0, 3, diaSeleccionado);
-                            if (bloque != null)
-                            {
-                                horariosGenerados.AddRange(bloque);
-                                leccionesRestantes -= 3;
-                            }
-                        }
-
-                        while (leccionesRestantes > 0 && diasDisponibles.Any())
-                        {
-                            var diaSeleccionado = diasDisponibles.First();
-                            diasDisponibles.Remove(diaSeleccionado);
-
-                            var bloque = BuscarBloqueDisponible(restricciones, horariosGenerados, grupo.Id_Grupo, profe ?? -1, mat.Id_Materia ?? 0, 1, diaSeleccionado);
-                            if (bloque != null)
-                            {
-                                horariosGenerados.AddRange(bloque);
-                                leccionesRestantes -= 1;
-                            }
-                        }
-                    }
-
-
-                    // Asignar lección de "GUIA" para el profesor guía del grupo SOLO si no existe ya
-                    if (profesorGuiaGrupo.HasValue)
-                    {
-                        bool yaTieneGuia = horariosGenerados.Any(h =>
-                            h.Id_Grupo == grupo.Id_Grupo &&
-                            h.Id_Profesor == profesorGuiaGrupo.Value.ToString() &&
-                            h.Id_Materia == idMateriaGuia
-                        );
-                        if (!yaTieneGuia)
-                        {
-                            var diaGuia = Dias.FirstOrDefault(d => !horariosGenerados.Any(h => h.Id_Profesor == profesorGuiaGrupo.Value.ToString() && h.Dia == d));
-                            if (diaGuia != null)
-                            {
-                                var bloqueGuia = BuscarBloqueDisponible(restricciones, horariosGenerados, grupo.Id_Grupo, profesorGuiaGrupo.Value, idMateriaGuia, 1, diaGuia);
-                                if (bloqueGuia != null)
-                                {
-                                    horariosGenerados.AddRange(bloqueGuia);
-                                }
-                            }
-                        }
-                    }
-
+                    throw new Exception("No se pudieron generar horarios con los parámetros actuales.");
                 }
 
-                if (horariosGenerados is null)
+                // Analizar calidad de los horarios generados
+                var metricas = HorarioMetrics.AnalizarHorarios(
+                    horariosGenerados,
+                    grupos,
+                    profesores,
+                    materiasXNivel
+                );
+
+                // Registrar advertencias y errores en consola/logs
+                if (metricas.Advertencias.Any())
                 {
-                    throw new Exception("Debe de establecer los campos para el objeto");
+                    Console.WriteLine("=== ADVERTENCIAS EN GENERACIÓN DE HORARIOS ===");
+                    foreach (var advertencia in metricas.Advertencias)
+                    {
+                        Console.WriteLine($"⚠️  {advertencia}");
+                    }
                 }
 
-                // Ajustar los bloques para que sean consecutivos antes de guardar
-                AjustarBloquesConsecutivosPorDia(horariosGenerados);
+                if (metricas.Errores.Any())
+                {
+                    Console.WriteLine("=== ERRORES EN GENERACIÓN DE HORARIOS ===");
+                    foreach (var error in metricas.Errores)
+                    {
+                        Console.WriteLine($"❌ {error}");
+                    }
+                }
 
+                Console.WriteLine("\n=== MÉTRICAS DE HORARIOS GENERADOS ===");
+                foreach (var metrica in metricas.Metricas)
+                {
+                    Console.WriteLine($"📊 {metrica.Key}: {metrica.Value}");
+                }
+
+                // Guardar en base de datos
                 var horariosDB = _mapper.Map<List<Horario>>(horariosGenerados);
-
                 await _unitOfWork.Set<Horario>().AddRangeAsync(horariosDB);
-                var test = await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.SaveChangesAsync();
 
                 return horariosGenerados;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al generar el horario", ex);
+                throw new Exception("Error al generar el horario: " + ex.Message, ex);
             }
-        }
-        private static List<HorarioDto>? BuscarBloqueDisponible(List<Restriccion_ProfesorDto> restricciones, List<HorarioDto> existentes, int idGrupo, int idProfesor, int idMateria, int cantidad, string dia)
-        {
-            for (int i = 0; i <= Bloques.Count - cantidad; i++)
-            {
-                var rango = Bloques.Skip(i).Take(cantidad).ToList();
-                var colisionGrupo = existentes.Any(x => x.Id_Grupo == idGrupo && x.Dia == dia && rango.Any(b => b.inicio == x.Hora_Inicio));
-                var colisionProfe = existentes.Any(x => x.Id_Profesor == idProfesor.ToString() && x.Dia == dia && rango.Any(b => b.inicio == x.Hora_Inicio));
-
-                var restriccion = restricciones.Any(r => r.Id_Profesor == idProfesor
-                                                        && r.Dia == dia
-                                                        && rango.Any(b => b.inicio >= TimeSpan.Parse(r.Hora_Inicio ?? "")
-                                                        && b.fin <= TimeSpan.Parse(r.Hora_Fin ?? "")));
-
-                if (!colisionGrupo && !colisionProfe && !restriccion)
-                {
-                    return rango.Select(b => new HorarioDto
-                    {
-                        Dia = dia,
-                        Id_Grupo = idGrupo,
-                        Id_Profesor = idProfesor.ToString(),
-                        Id_Materia = idMateria,
-                        Hora_Inicio = b.inicio,
-                        Hora_Fin = b.fin,
-                        Estado = "A"
-                    }).ToList();
-                }
-            }
-            return null;
         }
 
         public async Task<List<HorarioDto>?> GetOneHorario(HorarioDto data)
@@ -248,7 +202,6 @@ namespace API.Infrastructure.Services
                 throw new Exception("No se encontro el Parámetro");
             }
         }
-
 
         public async Task<HorarioDto?> UpdateHorario(HorarioDto data)
         {
@@ -279,35 +232,6 @@ namespace API.Infrastructure.Services
             {
                 return new HorarioDto();
             }
-
         }
-
-        // Ajusta los bloques para que sean consecutivos por día y grupo, moviendo las lecciones a los primeros bloques disponibles del día
-        private static void AjustarBloquesConsecutivosPorDia(List<HorarioDto> horariosGenerados)
-        {
-            var dias = Dias;
-            var bloques = Bloques;
-            var grupos = horariosGenerados.Select(h => h.Id_Grupo).Distinct();
-            foreach (var grupoId in grupos)
-            {
-                foreach (var dia in dias)
-                {
-                    var bloquesDia = horariosGenerados
-                        .Where(h => h.Id_Grupo == grupoId && h.Dia == dia)
-                        .OrderBy(h => h.Hora_Inicio)
-                        .ToList();
-                    if (bloquesDia.Count == 0)
-                        continue;
-                    // Reasignar los bloques a los primeros disponibles del día
-                    for (int i = 0; i < bloquesDia.Count; i++)
-                    {
-                        var bloque = bloques[i];
-                        bloquesDia[i].Hora_Inicio = bloque.inicio;
-                        bloquesDia[i].Hora_Fin = bloque.fin;
-                    }
-                }
-            }
-        }
-
     }
 }

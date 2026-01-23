@@ -5,11 +5,11 @@
     <ChildContent>
         <Div Class="row mb-4 align-items-end">
             <Div Class="col-md-6">
-                <label>Ver los horarios del Grupo:</label>
+                <label>Ver los horarios del Grupo:</label>   
                 <Select Class="form-control" SelectedValue="@reportesModel.Grupo" SelectedValueChanged="@GrupoChanged" TValue="string">
                     <SelectItem Value="@(string.Empty)">Seleccione una opción</SelectItem>
                     @foreach (var i in dataGrupo ?? new List<GrupoDto>())
-                    {
+                    {   
                         <SelectItem Value="@(i.Id_Grupo)">@i.Nombre</SelectItem>
                     }
                 </Select>
@@ -102,7 +102,7 @@
         if (firstRender)
         {
             var resGrupo = await api.Mantenimientos_GetAllGruposAsync();
-            dataGrupo = resGrupo.Where(x => x.Estado.Equals("A"));
+            dataGrupo = resGrupo.Where(x => x.Estado.Equals("A")).OrderByDescending(x => x.Nombre);
             isLoading = false;
             StateHasChanged();
         }
@@ -114,7 +114,7 @@
     {
         isLoading = true;
 
-        await api.Horarios_GenHorarioAsync(1);
+        await api.Horarios_GenHorarioAsync();
         //AsignarHorariosABloques(horarioGen, materias, profesores);
         await Task.FromResult(MessageService.Info("Consulte cualquier grupo para visualizar el horario correspondiente", "Horarios Generados Correctamente!"));
 
@@ -163,7 +163,6 @@
 
         var horarios = await api.Horarios_GetOneHorarioAsync(new HorarioDto { Id_Grupo = Convert.ToInt32(reportesModel.Grupo) });
         LimpiarBloquesHorario();
-
         var materias = await api.Mantenimientos_GetAllMateriasAsync();
         var profesores = await api.Mantenimientos_GetAllProfesorAsync();
         AsignarHorariosABbloques(horarios, materias, profesores);

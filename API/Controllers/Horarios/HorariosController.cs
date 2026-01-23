@@ -17,7 +17,7 @@ namespace API.Controllers.CPC
 
         [HttpPost("GenHorario")]
 
-        public async Task<List<HorarioDto>?> GenHorarioAsync(int grupoId) => await _horariosRepository.GenHorario(grupoId);
+        public async Task<List<HorarioDto>?> GenHorarioAsync() => await _horariosRepository.GenHorario();
 
         [HttpGet("GetOneHorario")]
 
