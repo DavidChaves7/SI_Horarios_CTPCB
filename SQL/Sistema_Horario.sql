@@ -70,6 +70,7 @@ CREATE TABLE Grupo (
     Id_Nivel_Academico INT,
     Seccion VARCHAR(50),
     Id_Profesor_Guia VARCHAR(20),
+    especialidad VARCHAR(20),
 	Estado VARCHAR(1)
 );
 

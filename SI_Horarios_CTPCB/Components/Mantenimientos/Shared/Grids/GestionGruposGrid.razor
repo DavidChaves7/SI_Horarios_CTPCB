@@ -1,5 +1,4 @@
-﻿
-@inject SIHAPI api
+﻿@inject SIHAPI api
 <Div Class="main-content">
     <LoadingIndicator Visible="@(data is null)">
         <ChildContent>
@@ -7,15 +6,16 @@
             <Row>
                 <ButtonsExportComponent T="GrupoDto" Data="data" Titulo="Grupos" />
             </Row>
-
+           
             @* PageSizes="[10, 20, 30]" ShowPageSizes *@
-            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="@selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="GrupoDto" Data="data" PageSize="10" 
+            <DataGrid UseInternalEditing="false" Hoverable @bind-SelectedRow="selectedData" CommandMode="DataGridCommandMode.ButtonRow" Editable Striped TItem="GrupoDto" Data="data" PageSize="10" 
                       Responsive Filterable Sortable SortMode="DataGridSortMode.Multiple" EditMode="DataGridEditMode.Popup" ShowPager PopupTitleTemplate="SetModalTitle" PopupSize="ModalSize.Large"
                       UseValidation RowInserted="InsertNewItem" RowInserting="ValidateEditFields" RowUpdating="ValidateEditFields" RowUpdated="InsertNewItem" RowRemoving="RemovingRow" RowRemoved="DeleteItem">
                 <DataGridColumns>
                     @* <DataGridColumn Field="@nameof(GrupoDto.Id_Grupo)" Caption="Id Grupo" /> *@
                     <DataGridColumn Field="@nameof(GrupoDto.Nombre)" Editable Caption="Nombre" />
-                    <DataGridColumn Field="@nameof(GrupoDto.Id_Nivel_Academico)" Editable Displayable="false" Caption="Nivel Academico">
+
+                    @* <DataGridColumn Field="@nameof(GrupoDto.Id_Nivel_Academico)" Editable Displayable="false" Caption="Nivel Academico">
                         <EditTemplate>
                             <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
                                 <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
@@ -25,7 +25,25 @@
                                 }
                             </Select>
                         </EditTemplate>
+                    </DataGridColumn> *@
+
+                    <DataGridColumn Field="@nameof(GrupoDto.Id_Nivel_Academico)" Editable Displayable="false" Caption="Nivel Academico">
+                        <EditTemplate>
+                            <Select SelectedValue="@((int?)context.CellValue)"
+                                    SelectedValueChanged="@(v => OnNivelAcademicoChanged(v, context))"
+                                    TValue="int?"
+                                    Style="min-width: 200px;">
+
+                                <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
+
+                                @foreach (var i in dataNivelAcad ?? new List<NivelAcademicoDto>())
+                                {
+                                    <SelectItem Value="@(i.Id_Nivel_Academico)">@i.Nombre</SelectItem>
+                                }
+                            </Select>
+                        </EditTemplate>
                     </DataGridColumn>
+
                     
                     <DataGridColumn Field="@nameof(GrupoDto.Seccion)" Editable Caption="# Grupo" />
                     <DataGridColumn Field="@nameof(GrupoDto.Id_Profesor_Guia)" Editable Displayable="false" Caption="Profesor Guia">
@@ -52,6 +70,31 @@
                         </EditTemplate>
 
                     </DataGridSelectColumn>
+
+                    <DataGridColumn Field="@nameof(GrupoDto.Especialidad)" Editable  Caption="Especialidad">
+                        
+                        <EditTemplate  >
+                            @if (ShowEspecialidadColumn){
+                                <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
+                                <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
+                                @foreach (var i in (dataMaterias ?? new List<MateriaDto>()).Where(m => m.Tipo == "T"))
+                                {
+                                    <SelectItem Value="@(i.Id_Materia)">@i.Nombre</SelectItem>
+                                }
+                                </Select>
+                            }
+                            else
+                            {
+                                <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;" disabled>
+                                    <SelectItem Value="@((""))">No Aplica</SelectItem>
+                                   
+                                </Select>
+                            }
+                            
+                        </EditTemplate>
+                       
+                    </DataGridColumn>
+
                 </DataGridColumns>
                 <ButtonRowTemplate>
                     <Button Class="btn btn-create" Clicked="context.NewCommand.Clicked">Nuevo</Button>
@@ -74,11 +117,32 @@
     IEnumerable<GrupoDto>? data { get; set; } = new List<GrupoDto>();
     IEnumerable<NivelAcademicoDto>? dataNivelAcad { get; set; } = new List<NivelAcademicoDto>();
     IEnumerable<ProfesorDto>? dataProf { get; set; } = new List<ProfesorDto>();
-
+    IEnumerable<MateriaDto>? dataMaterias { get; set; } = new List<MateriaDto>();
     private GrupoDto? selectedData;
 
     private Snackbar? snackbarPrimary;
 
+    // Propiedad calculada para determinar si se debe mostrar la columna
+    bool ShowEspecialidadColumn = false;
+
+    private void OnNivelAcademicoChanged(int? newValue, dynamic context)
+    {
+        // Actualiza el valor real de la celda
+        context.CellValue = newValue;
+
+        // Actualiza el nivel académico seleccionado
+        if (selectedData != null)
+        {
+            selectedData.Id_Nivel_Academico = newValue ?? 0;
+        }
+        var test = dataNivelAcad?.FirstOrDefault(n => n.Id_Nivel_Academico == newValue) ?? new NivelAcademicoDto();
+        ShowEspecialidadColumn = test.Nombre?.Equals("Décimo", StringComparison.OrdinalIgnoreCase) == true ||
+                         test.Nombre?.Equals("Undécimo", StringComparison.OrdinalIgnoreCase) == true ||
+                         test.Nombre?.Equals("Duodécimo", StringComparison.OrdinalIgnoreCase) == true;
+
+        // Fuerza la actualización de la interfaz
+        StateHasChanged();
+    }
 
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -86,10 +150,10 @@
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
-
             data = await api.Mantenimientos_GetAllGruposAsync();
             dataNivelAcad = await api.Mantenimientos_GetAllNivelAcademicoAsync();
             dataProf = await api.Mantenimientos_GetAllProfesorAsync();
+            dataMaterias = await api.Mantenimientos_GetAllMateriasAsync();
             StateHasChanged();
         }
     }
