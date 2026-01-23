@@ -15,17 +15,6 @@
                     @* <DataGridColumn Field="@nameof(GrupoDto.Id_Grupo)" Caption="Id Grupo" /> *@
                     <DataGridColumn Field="@nameof(GrupoDto.Nombre)" Editable Caption="Nombre" />
 
-                    @* <DataGridColumn Field="@nameof(GrupoDto.Id_Nivel_Academico)" Editable Displayable="false" Caption="Nivel Academico">
-                        <EditTemplate>
-                            <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
-                                <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
-                                @foreach (var i in dataNivelAcad ?? new List<NivelAcademicoDto>())
-                                {
-                                    <SelectItem Value="@(i.Id_Nivel_Academico)">@i.Nombre</SelectItem>
-                                }
-                            </Select>
-                        </EditTemplate>
-                    </DataGridColumn> *@
 
                     <DataGridColumn Field="@nameof(GrupoDto.Id_Nivel_Academico)" Editable Displayable="false" Caption="Nivel Academico">
                         <EditTemplate>
@@ -46,17 +35,28 @@
 
                     
                     <DataGridColumn Field="@nameof(GrupoDto.Seccion)" Editable Caption="# Grupo" />
-                    <DataGridColumn Field="@nameof(GrupoDto.Id_Profesor_Guia)" Editable Displayable="false" Caption="Profesor Guia">
+
+                    <DataGridColumn Field="@nameof(GrupoDto.Id_Profesor_Guia)" Editable Displayable="false" Caption="Profesor Guía">
                         <EditTemplate>
-                            <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
-                                @* <SelectItem Value="@((int?)-1)">Sin asignar</SelectItem> *@
+                            <Select TValue="int"SelectedValue="@((int)(context.CellValue ?? 0))"
+                                    SelectedValueChanged="@(v => context.CellValue = v)"
+                                    Style="min-width: 200px;">
+                                <SelectItem Value="0">Vacante</SelectItem>
                                 @foreach (var i in dataProf ?? new List<ProfesorDto>())
                                 {
-                                    <SelectItem Value="@(i.Id_Profesor)">@i.Nombre @i.Apellido</SelectItem>
+                                    <SelectItem Value="@(i.Id_Profesor)">
+                                        @i.Nombre @i.Apellido
+                                    </SelectItem>
                                 }
+
                             </Select>
                         </EditTemplate>
+
                     </DataGridColumn>
+
+
+                    
+
                     <DataGridSelectColumn TItem="GrupoDto" Field="@nameof(GrupoDto.Estado)" Caption="Estado" Editable Data="@(EstadoHelper.listaActivoInactivo)" ValueField="(x) => ((EstadoHelper.Estados)x).Value" TextField="(x) => ((EstadoHelper.Estados)x).Desc">
                         <DisplayTemplate>
                             @(context.Estado.Equals("A") ? "Activo" : "Inactivo")
