@@ -49,8 +49,9 @@ namespace API.Infrastructure.Services
 
         /// <summary>
         /// Genera horarios optimizados para todos los grupos utilizando el nuevo motor de generación
+        /// Devuelve métricas, errores y advertencias
         /// </summary>
-        public async Task<List<HorarioDto>?> GenHorario()
+        public async Task<ResultadoGeneracionDto> GenHorario()
         {
             try
             {
@@ -77,6 +78,11 @@ namespace API.Infrastructure.Services
                         Estado = mxn.Estado
                     }
                 ).ToListAsync();
+
+                // Cargar diccionario de tipos de materias (Id_Materia -> Tipo)
+                var tiposMaterias = await _unitOfWork.Set<Materia>()
+                    .Where(m => m.Estado == "A")
+                    .ToDictionaryAsync(m => m.Id_Materia, m => m.Tipo ?? "A");
 
                 var profesores = await _unitOfWork.Set<Profesor>()
                     .Where(s => (s.Estado ?? "I").Equals("A"))
@@ -131,7 +137,8 @@ namespace API.Infrastructure.Services
                     grupos,
                     materiasXNivel,
                     profXMateria,
-                    idMateriaGuia
+                    idMateriaGuia,
+                    tiposMaterias
                 );
 
                 // Generar horarios optimizados
@@ -180,11 +187,31 @@ namespace API.Infrastructure.Services
                 await _unitOfWork.Set<Horario>().AddRangeAsync(horariosDB);
                 await _unitOfWork.SaveChangesAsync();
 
-                return horariosGenerados;
+                // Crear resultado con métricas
+                var resultado = new ResultadoGeneracionDto
+                {
+                    Exitoso = metricas.Exitoso,
+                    Errores = metricas.Errores,
+                    Advertencias = metricas.Advertencias,
+                    Metricas = metricas.Metricas.ToDictionary(
+                        kvp => kvp.Key, 
+                        kvp => kvp.Value?.ToString() ?? "0"
+                    ),
+                    Horarios = horariosGenerados
+                };
+
+                return resultado;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al generar el horario: " + ex.Message, ex);
+                return new ResultadoGeneracionDto
+                {
+                    Exitoso = false,
+                    Errores = new List<string> { "Error al generar el horario: " + ex.Message },
+                    Advertencias = new List<string>(),
+                    Metricas = new Dictionary<string, string>(),
+                    Horarios = null
+                };
             }
         }
 

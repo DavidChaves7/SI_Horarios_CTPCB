@@ -14,7 +14,14 @@
                     }
                 </Select>
             </Div>
-            <Div Class="col-md-6 text-end" Padding="Padding.Is4.FromEnd">
+            <Div Class="col-md-6 text-end" Padding="Padding.Is4.FromEnd" style="display: flex; gap: 10px; justify-content: flex-end;">
+                @if (ultimoResultado is not null)
+                {
+                    <Button Color="Color.Info" Clicked="@MostrarUltimoResultado">
+                        <Icon Name="IconName.InfoCircle" Margin="Margin.Is2.FromEnd" />
+                        Ver Resultados
+                    </Button>
+                }
                 <Button Class="btn btn-base" Clicked="@GenerarHorario">Generar automáticamente</Button>
             </Div>
             <Div Class="col-md-6" style="display:flex; align-items:baseline; gap:8px; ">
@@ -87,14 +94,17 @@
     @* </LoadingIndicator> *@
 </Div>
 <ModalAsigMateria @ref="modalAsigMateria" OnInsert="CallbackUpdateHorario"></ModalAsigMateria>
+<ModalResultadoGeneracion @ref="modalResultado" OnAceptar="OnResultadoAceptado"></ModalResultadoGeneracion>
 
 
 @code {
-    private bool isLoading = true;
-    private ReportesModel reportesModel = new();
-    ModalAsigMateria? modalAsigMateria;
-    IEnumerable<GrupoDto>? dataGrupo { get; set; } = new List<GrupoDto>();
-    private string nombreProfesorGuia = string.Empty;
+private bool isLoading = true;
+private ReportesModel reportesModel = new();
+ModalAsigMateria? modalAsigMateria;
+ModalResultadoGeneracion? modalResultado;
+IEnumerable<GrupoDto>? dataGrupo { get; set; } = new List<GrupoDto>();
+private string nombreProfesorGuia = string.Empty;
+private ResultadoGeneracionDto? ultimoResultado;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -113,12 +123,48 @@
     private async Task GenerarHorario()
     {
         isLoading = true;
+        StateHasChanged();
 
-        await api.Horarios_GenHorarioAsync();
-        //AsignarHorariosABloques(horarioGen, materias, profesores);
-        await Task.FromResult(MessageService.Info("Consulte cualquier grupo para visualizar el horario correspondiente", "Horarios Generados Correctamente!"));
+        try
+        {
+            var resultado = await api.Horarios_GenHorarioAsync();
+            
+            if (resultado is not null)
+            {
+                ultimoResultado = resultado;
+                modalResultado?.Open(resultado);
+            }
+            else
+            {
+                await Task.FromResult(MessageService.Error("No se recibió respuesta del servidor", "Error"));
+            }
+        }
+        catch (Exception ex)
+        {
+            await Task.FromResult(MessageService.Error($"Error al generar horarios: {ex.Message}", "Error"));
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
 
-        isLoading = false;
+    private void MostrarUltimoResultado()
+    {
+        if (ultimoResultado is not null)
+        {
+            modalResultado?.Open(ultimoResultado);
+        }
+    }
+
+    private async Task OnResultadoAceptado()
+    {
+        if (!string.IsNullOrEmpty(reportesModel.Grupo))
+        {
+            await ObtenerHorarios();
+        }
+        StateHasChanged();
     }
 
     private async Task GrupoChanged(string? value)

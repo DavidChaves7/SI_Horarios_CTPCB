@@ -1,0 +1,144 @@
+@using SI_Horarios_CTPCB.Infrastructure.ApiClient
+@inject IMessageService MessageService
+
+<Modal @ref="modal" Closed="OnModalClosed">
+    <ModalContent Size="ModalSize.ExtraLarge" Centered>
+        <ModalHeader>
+            <ModalTitle>
+                <Icon Name="@(resultado?.Exitoso == true ? IconName.CheckCircle : IconName.ExclamationTriangle)" 
+                      IconStyle="@(resultado?.Exitoso == true ? IconStyle.Solid : IconStyle.Solid)" 
+                      Style="@(resultado?.Exitoso == true ? "color: #28a745;" : "color: #ffc107;")" />
+                Resultado de Generación de Horarios
+            </ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            @if (resultado is not null)
+            {
+                @if (!resultado.Exitoso)
+                {
+                    <Alert Color="Color.Danger" Visible>
+                        <AlertDescription>
+                            <strong>La generación de horarios completó con errores críticos</strong>
+                        </AlertDescription>
+                    </Alert>
+                }
+                else if (resultado.Advertencias.Any())
+                {
+                    <Alert Color="Color.Warning" Visible>
+                        <AlertDescription>
+                            <strong>La generación de horarios completó con advertencias</strong>
+                        </AlertDescription>
+                    </Alert>
+                }
+                else
+                {
+                    <Alert Color="Color.Success" Visible>
+                        <AlertDescription>
+                            <strong>La generación de horarios completó exitosamente</strong>
+                        </AlertDescription>
+                    </Alert>
+                }
+
+                <!-- Métricas -->
+                @if (resultado.Metricas.Any())
+                {
+                    <Card Margin="Margin.Is3.FromTop">
+                        <CardHeader>
+                            <CardTitle>Métricas Generales</CardTitle>
+                        </CardHeader>
+                        <CardBody>
+                            <Row>
+                                @foreach (var metrica in resultado.Metricas)
+                                {
+                                    <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnMobile" Margin="Margin.Is2.FromBottom">
+                                        <Div Style="padding: 10px; background-color: #f8f9fa; border-left: 4px solid #007bff; border-radius: 4px;">
+                                            <strong>@metrica.Key:</strong> @metrica.Value
+                                        </Div>
+                                    </Column>
+                                }
+                            </Row>
+                        </CardBody>
+                    </Card>
+                }
+
+                <!-- Errores -->
+                @if (resultado.Errores.Any())
+                {
+                    <Card Margin="Margin.Is3.FromTop" Border="Border.Is3.Danger">
+                        <CardHeader Background="Background.Danger" TextColor="TextColor.White">
+                            <CardTitle>Errores Críticos (@resultado.Errores.Count)</CardTitle>
+                        </CardHeader>
+                        <CardBody>
+                            <ListGroup Style="max-height: 300px; overflow-y: auto;">
+                                @foreach (var error in resultado.Errores)
+                                {
+                                    <ListGroupItem>
+                                        <Icon Name="IconName.Times" Style="color: #dc3545; margin-right: 8px;" />
+                                        @error
+                                    </ListGroupItem>
+                                }
+                            </ListGroup>
+                        </CardBody>
+                    </Card>
+                }
+
+                <!-- Advertencias -->
+                @if (resultado.Advertencias.Any())
+                {
+                    <Card Margin="Margin.Is3.FromTop" Border="Border.Is3.Warning">
+                        <CardHeader Background="Background.Warning">
+                            <CardTitle>Advertencias (@resultado.Advertencias.Count)</CardTitle>
+                        </CardHeader>
+                        <CardBody>
+                            <ListGroup Style="max-height: 300px; overflow-y: auto;">
+                                @foreach (var advertencia in resultado.Advertencias)
+                                {
+                                    <ListGroupItem>
+                                        <Icon Name="IconName.ExclamationTriangle" Style="color: #ffc107; margin-right: 8px;" />
+                                        @advertencia
+                                    </ListGroupItem>
+                                }
+                            </ListGroup>
+                        </CardBody>
+                    </Card>
+                }
+            }
+            else
+            {
+                <LoadingIndicator Visible />
+            }
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="CloseModal">Cerrar</Button>
+            @if (resultado?.Horarios != null && resultado.Horarios.Any())
+            {
+                <Button Color="Color.Primary" Clicked="@(() => InvokeAsync(() => OnAceptar.InvokeAsync()))">Ver Horarios Generados</Button>
+            }
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    private Modal? modal;
+    private ResultadoGeneracionDto? resultado;
+
+    [Parameter]
+    public EventCallback OnAceptar { get; set; }
+
+    public void Open(ResultadoGeneracionDto resultadoGeneracion)
+    {
+        resultado = resultadoGeneracion;
+        modal?.Show();
+    }
+
+    private void CloseModal()
+    {
+        modal?.Hide();
+    }
+
+    private void OnModalClosed()
+    {
+        resultado = null;
+    }
+}

@@ -36,15 +36,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "nullable": true,
-                    "oneOf": [
-                      {
-                        "$ref": "#/components/schemas/HorarioDto"
-                      }
-                    ]
-                  }
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ResultadoGeneracionDto"
+                    }
+                  ]
                 }
               }
             }
@@ -1295,6 +1292,40 @@
   },
   "components": {
     "schemas": {
+      "ResultadoGeneracionDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "exitoso": {
+            "type": "boolean"
+          },
+          "errores": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "advertencias": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "metricas": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "horarios": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/HorarioDto"
+            }
+          }
+        }
+      },
       "HorarioDto": {
         "type": "object",
         "additionalProperties": false,

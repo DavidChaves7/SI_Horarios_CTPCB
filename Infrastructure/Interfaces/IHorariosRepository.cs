@@ -15,7 +15,7 @@ namespace Infrastructure.Interfaces
 
 
         #region Horarios
-        Task<List<HorarioDto>?> GenHorario();
+        Task<ResultadoGeneracionDto> GenHorario();
         Task<List<HorarioDto>?> GetOneHorario(HorarioDto data);
         #endregion
         Task<HorarioDto?> UpdateHorario(HorarioDto data);

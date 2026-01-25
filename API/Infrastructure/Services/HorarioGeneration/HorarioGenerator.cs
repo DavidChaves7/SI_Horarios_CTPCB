@@ -33,6 +33,7 @@ namespace API.Infrastructure.Services.HorarioGeneration
         private readonly List<MateriaXNivelDto> _materiasXNivel;
         private readonly List<Profesor_X_MateriaDto> _profXMateria;
         private readonly int _idMateriaGuia;
+        private readonly Dictionary<int, string> _tiposMaterias;
 
         public HorarioGenerator(
             List<Restriccion_ProfesorDto> restricciones,
@@ -40,7 +41,8 @@ namespace API.Infrastructure.Services.HorarioGeneration
             List<GrupoDto> grupos,
             List<MateriaXNivelDto> materiasXNivel,
             List<Profesor_X_MateriaDto> profXMateria,
-            int idMateriaGuia)
+            int idMateriaGuia,
+            Dictionary<int, string> tiposMaterias)
         {
             _restricciones = restricciones;
             _profesores = profesores;
@@ -48,6 +50,7 @@ namespace API.Infrastructure.Services.HorarioGeneration
             _materiasXNivel = materiasXNivel;
             _profXMateria = profXMateria;
             _idMateriaGuia = idMateriaGuia;
+            _tiposMaterias = tiposMaterias;
             _validator = new HorarioValidator(restricciones, profesores);
         }
 
@@ -110,7 +113,8 @@ namespace API.Infrastructure.Services.HorarioGeneration
             }
             
             // Redistribuir materias solo si no afecta la continuidad de grupos
-            HorarioOptimizer.RedistribuirMaterias(horarios, _grupos, _validator, _restricciones);
+            // DESHABILITADO: Esta funcionalidad está causando colisiones y huecos
+            // HorarioOptimizer.RedistribuirMaterias(horarios, _grupos, _validator, _restricciones);
             
             // Compactar profesores es MENOS prioritario (pueden tener huecos)
             // HorarioOptimizer.CompactarHorariosProfesores(horarios, _profesores, _restricciones, _validator);
@@ -123,6 +127,7 @@ namespace API.Infrastructure.Services.HorarioGeneration
 
         /// <summary>
         /// Prepara la lista de asignaciones (sin prioridades, solo por carga horaria)
+        /// FILTRA materias técnicas según la especialidad del grupo
         /// </summary>
         private List<AsignacionMateria> PrepararAsignaciones()
         {
@@ -137,6 +142,35 @@ namespace API.Infrastructure.Services.HorarioGeneration
 
                 foreach (var materia in materiasDelNivel)
                 {
+                    // FILTRO IMPORTANTE: Saltar materia GUIA aquí - se asignará en TerceraFase_AsignarGuia
+                    if (materia.Id_Materia == _idMateriaGuia)
+                    {
+                        Console.WriteLine($"⏭️  Grupo {grupo.Nombre} - GUIA se asignará en fase específica");
+                        continue;
+                    }
+                    
+                    // FILTRO CRÍTICO: Si es materia técnica (Tipo = "T"), solo asignarla si coincide con la especialidad del grupo
+                    var tipoMateria = _tiposMaterias.GetValueOrDefault(materia.Id_Materia ?? 0, "A");
+                    
+                    if (tipoMateria.Equals("T", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Si el grupo NO tiene especialidad definida, saltar esta materia técnica
+                        if (!grupo.Especialidad.HasValue || grupo.Especialidad.Value <= 0)
+                        {
+                            Console.WriteLine($"⚠️  Grupo {grupo.Nombre} no tiene especialidad definida - se omite materia técnica {materia.Desc_Materia}");
+                            continue;
+                        }
+
+                        // Si la materia técnica NO coincide con la especialidad del grupo, saltarla
+                        if (materia.Id_Materia != grupo.Especialidad.Value)
+                        {
+                            Console.WriteLine($"⏭️  Grupo {grupo.Nombre} (Especialidad: {grupo.Especialidad}) - se omite materia técnica {materia.Desc_Materia} (ID: {materia.Id_Materia})");
+                            continue;
+                        }
+
+                        Console.WriteLine($"✅ Grupo {grupo.Nombre} - asignando materia técnica {materia.Desc_Materia}");
+                    }
+
                     // Obtener profesor asignado
                     int? idProfesor = null;
 
@@ -194,6 +228,19 @@ namespace API.Infrastructure.Services.HorarioGeneration
 
                 while (asignacion.LeccionesRestantes >= 3 && intentos < maxIntentos)
                 {
+                    // Obtener carga horaria requerida para esta materia
+                    var materiaXNivel = _materiasXNivel.FirstOrDefault(m => 
+                        m.Id_Materia == asignacion.IdMateria && 
+                        m.Id_Nivel_Academico == _grupos.First(g => g.Id_Grupo == asignacion.IdGrupo).Id_Nivel_Academico);
+                    
+                    int cargaRequerida = materiaXNivel?.Carga_Horaria ?? 0;
+                    
+                    // VALIDACIÓN CRÍTICA: Verificar que no exceda la carga horaria de la materia
+                    if (_validator.ExcedeCargaHorariaMateria(horarios, asignacion.IdGrupo, asignacion.IdMateria, cargaRequerida, 3))
+                    {
+                        break;
+                    }
+
                     var bloque = BuscarMejorBloqueDisponible(
                         horarios,
                         asignacion.IdGrupo,
@@ -235,8 +282,21 @@ namespace API.Infrastructure.Services.HorarioGeneration
 
                 while (asignacion.LeccionesRestantes > 0 && intentos < maxIntentos)
                 {
+                    // Obtener carga horaria requerida para esta materia
+                    var materiaXNivel = _materiasXNivel.FirstOrDefault(m => 
+                        m.Id_Materia == asignacion.IdMateria && 
+                        m.Id_Nivel_Academico == _grupos.First(g => g.Id_Grupo == asignacion.IdGrupo).Id_Nivel_Academico);
+                    
+                    int cargaRequerida = materiaXNivel?.Carga_Horaria ?? 0;
+                    
                     // Intentar asignar bloques de 2 si es posible
                     int tamañoBloque = asignacion.LeccionesRestantes >= 2 ? 2 : 1;
+                    
+                    // VALIDACIÓN CRÍTICA: Verificar que no exceda la carga horaria de la materia
+                    if (_validator.ExcedeCargaHorariaMateria(horarios, asignacion.IdGrupo, asignacion.IdMateria, cargaRequerida, tamañoBloque))
+                    {
+                        break;
+                    }
 
                     var bloque = BuscarMejorBloqueDisponible(
                         horarios,
@@ -252,6 +312,12 @@ namespace API.Infrastructure.Services.HorarioGeneration
                     }
                     else if (tamañoBloque == 2)
                     {
+                        // VALIDACIÓN antes de intentar con 1
+                        if (_validator.ExcedeCargaHorariaMateria(horarios, asignacion.IdGrupo, asignacion.IdMateria, cargaRequerida, 1))
+                        {
+                            break;
+                        }
+                        
                         // Si no se pudo asignar bloque de 2, intentar con 1
                         bloque = BuscarMejorBloqueDisponible(
                             horarios,
@@ -296,12 +362,25 @@ namespace API.Infrastructure.Services.HorarioGeneration
 
             foreach (var asignacion in asignacionesGuia)
             {
-                // Verificar si ya tiene lección de GUIA asignada
-                bool yaAsignada = horarios.Any(h =>
+                // VALIDACIÓN CRÍTICA: Verificar cuántas lecciones de GUIA ya tiene este grupo
+                var leccionesGuiaAsignadas = horarios.Count(h =>
                     h.Id_Grupo == asignacion.Grupo.Id_Grupo &&
-                    h.Id_Materia == _idMateriaGuia);
+                    h.Id_Materia == _idMateriaGuia &&
+                    h.Estado == "A");
 
-                if (yaAsignada) continue;
+                // Obtener carga horaria requerida de GUIA para este nivel
+                var materiaGuiaXNivel = _materiasXNivel.FirstOrDefault(m => 
+                    m.Id_Materia == _idMateriaGuia && 
+                    m.Id_Nivel_Academico == asignacion.Grupo.Id_Nivel_Academico);
+                
+                int cargaGuiaRequerida = materiaGuiaXNivel?.Carga_Horaria ?? 1;
+
+                // Si ya tiene la cantidad correcta o más, no asignar
+                if (leccionesGuiaAsignadas >= cargaGuiaRequerida)
+                {
+                    Console.WriteLine($"Grupo {asignacion.Grupo.Nombre} ya tiene {leccionesGuiaAsignadas} lecciones de GUIA (Requerido: {cargaGuiaRequerida})");
+                    continue;
+                }
 
                 // Buscar un bloque disponible para GUIA
                 var bloque = BuscarMejorBloqueDisponible(
@@ -314,6 +393,11 @@ namespace API.Infrastructure.Services.HorarioGeneration
                 if (bloque != null && bloque.Any())
                 {
                     horarios.AddRange(bloque);
+                    Console.WriteLine($"Asignada lección de GUIA al grupo {asignacion.Grupo.Nombre}");
+                }
+                else
+                {
+                    Console.WriteLine($"⚠️  No se pudo asignar GUIA al grupo {asignacion.Grupo.Nombre}");
                 }
             }
         }
@@ -406,6 +490,13 @@ namespace API.Infrastructure.Services.HorarioGeneration
                 {
                     if (leccionesAgregadas >= leccionesFaltantes) break;
 
+                    // VALIDACIÓN CRÍTICA: Verificar que asignar esta lección NO exceda la carga del profesor
+                    if (!_validator.PuedeAceptarMasLecciones(horarios, profesor.Id_Profesor, 1))
+                    {
+                        Console.WriteLine($"  ⚠️  Profesor {profesor.Nombre} {profesor.Apellido} ya alcanzó su carga máxima");
+                        break;
+                    }
+
                     // Verificar que el profesor pueda tomar esta lección (sin restricciones ni colisiones)
                     if (!_validator.TieneRestriccion(profesor.Id_Profesor, leccion.Dia ?? "", leccion.Hora_Inicio, leccion.Hora_Fin) &&
                         !_validator.TieneColisionProfesor(
@@ -477,7 +568,9 @@ namespace API.Infrastructure.Services.HorarioGeneration
                     {
                         var bloquesConsecutivos = Bloques.Skip(indiceUltimaHora).Take(cantidadPermitida).ToList();
 
-                        if (_validator.PuedeAsignarBloque(horariosExistentes, idGrupo, idProfesor, dia, bloquesConsecutivos) &&
+                        // VALIDACIÓN CRÍTICA: Verificar que los bloques están en orden cronológico
+                        if (bloquesConsecutivos.First().inicio >= ultimaHora &&
+                            _validator.PuedeAsignarBloque(horariosExistentes, idGrupo, idProfesor, dia, bloquesConsecutivos) &&
                             !_validator.ExcedeBloquesConsecutivos(horariosExistentes, idGrupo, idMateria, dia, bloquesConsecutivos.First().inicio, 6))
                         {
                             var horariosTemporal = bloquesConsecutivos.Select(b => new HorarioDto
@@ -491,7 +584,7 @@ namespace API.Infrastructure.Services.HorarioGeneration
                                 Estado = "A"
                             }).ToList();
 
-                            return horariosTemporal; // Retornar inmediatamente - mejor opción
+                            return horariosTemporal;
                         }
                     }
 
@@ -503,7 +596,9 @@ namespace API.Infrastructure.Services.HorarioGeneration
                     {
                         var bloquesAnteriores = Bloques.Skip(indicePrimeraHora - cantidadPermitida + 1).Take(cantidadPermitida).ToList();
 
-                        if (_validator.PuedeAsignarBloque(horariosExistentes, idGrupo, idProfesor, dia, bloquesAnteriores) &&
+                        // VALIDACIÓN CRÍTICA: Verificar que los bloques están ANTES cronológicamente
+                        if (bloquesAnteriores.Any() && bloquesAnteriores.Last().fin <= primeraHora &&
+                            _validator.PuedeAsignarBloque(horariosExistentes, idGrupo, idProfesor, dia, bloquesAnteriores) &&
                             !_validator.ExcedeBloquesConsecutivos(horariosExistentes, idGrupo, idMateria, dia, bloquesAnteriores.First().inicio, 6))
                         {
                             var horariosTemporal = bloquesAnteriores.Select(b => new HorarioDto
@@ -517,7 +612,7 @@ namespace API.Infrastructure.Services.HorarioGeneration
                                 Estado = "A"
                             }).ToList();
 
-                            return horariosTemporal; // Retornar inmediatamente - segunda mejor opción
+                            return horariosTemporal;
                         }
                     }
                 }
@@ -616,28 +711,36 @@ namespace API.Infrastructure.Services.HorarioGeneration
                     {
                         var bloquesConsecutivos = Bloques.Skip(indiceUltimaHora).Take(cantidadPermitida).ToList();
                         
-                        bool disponible = true;
-                        foreach (var bloque in bloquesConsecutivos)
+                        // VALIDACIÓN CRÍTICA: Verificar orden cronológico
+                        if (bloquesConsecutivos.First().inicio < ultimaHora)
                         {
-                            if (_validator.TieneColisionGrupo(horariosExistentes, idGrupo, dia, bloque.inicio, bloque.fin))
-                            {
-                                disponible = false;
-                                break;
-                            }
+                            // Los bloques no están en orden correcto, saltar
                         }
-
-                        if (disponible && !_validator.ExcedeBloquesConsecutivos(horariosExistentes, idGrupo, idMateria, dia, bloquesConsecutivos.First().inicio, 6))
+                        else
                         {
-                            return bloquesConsecutivos.Select(b => new HorarioDto
+                            bool disponible = true;
+                            foreach (var bloque in bloquesConsecutivos)
                             {
-                                Dia = dia,
-                                Id_Grupo = idGrupo,
-                                Id_Profesor = null,
-                                Id_Materia = idMateria,
-                                Hora_Inicio = b.inicio,
-                                Hora_Fin = b.fin,
-                                Estado = "A"
-                            }).ToList();
+                                if (_validator.TieneColisionGrupo(horariosExistentes, idGrupo, dia, bloque.inicio, bloque.fin))
+                                {
+                                    disponible = false;
+                                    break;
+                                }
+                            }
+
+                            if (disponible && !_validator.ExcedeBloquesConsecutivos(horariosExistentes, idGrupo, idMateria, dia, bloquesConsecutivos.First().inicio, 6))
+                            {
+                                return bloquesConsecutivos.Select(b => new HorarioDto
+                                {
+                                    Dia = dia,
+                                    Id_Grupo = idGrupo,
+                                    Id_Profesor = null,
+                                    Id_Materia = idMateria,
+                                    Hora_Inicio = b.inicio,
+                                    Hora_Fin = b.fin,
+                                    Estado = "A"
+                                }).ToList();
+                            }
                         }
                     }
 
@@ -649,28 +752,36 @@ namespace API.Infrastructure.Services.HorarioGeneration
                     {
                         var bloquesAnteriores = Bloques.Skip(indicePrimeraHora - cantidadPermitida + 1).Take(cantidadPermitida).ToList();
                         
-                        bool disponible = true;
-                        foreach (var bloque in bloquesAnteriores)
+                        // VALIDACIÓN CRÍTICA: Verificar que los bloques están ANTES cronológicamente
+                        if (bloquesAnteriores.Any() && bloquesAnteriores.Last().fin > primeraHora)
                         {
-                            if (_validator.TieneColisionGrupo(horariosExistentes, idGrupo, dia, bloque.inicio, bloque.fin))
-                            {
-                                disponible = false;
-                                break;
-                            }
+                            // Los bloques no están en orden correcto, saltar
                         }
-
-                        if (disponible && !_validator.ExcedeBloquesConsecutivos(horariosExistentes, idGrupo, idMateria, dia, bloquesAnteriores.First().inicio, 6))
+                        else if (bloquesAnteriores.Any())
                         {
-                            return bloquesAnteriores.Select(b => new HorarioDto
+                            bool disponible = true;
+                            foreach (var bloque in bloquesAnteriores)
                             {
-                                Dia = dia,
-                                Id_Grupo = idGrupo,
-                                Id_Profesor = null,
-                                Id_Materia = idMateria,
-                                Hora_Inicio = b.inicio,
-                                Hora_Fin = b.fin,
-                                Estado = "A"
-                            }).ToList();
+                                if (_validator.TieneColisionGrupo(horariosExistentes, idGrupo, dia, bloque.inicio, bloque.fin))
+                                {
+                                    disponible = false;
+                                    break;
+                                }
+                            }
+
+                            if (disponible && !_validator.ExcedeBloquesConsecutivos(horariosExistentes, idGrupo, idMateria, dia, bloquesAnteriores.First().inicio, 6))
+                            {
+                                return bloquesAnteriores.Select(b => new HorarioDto
+                                {
+                                    Dia = dia,
+                                    Id_Grupo = idGrupo,
+                                    Id_Profesor = null,
+                                    Id_Materia = idMateria,
+                                    Hora_Inicio = b.inicio,
+                                    Hora_Fin = b.fin,
+                                    Estado = "A"
+                                }).ToList();
+                            }
                         }
                     }
                 }

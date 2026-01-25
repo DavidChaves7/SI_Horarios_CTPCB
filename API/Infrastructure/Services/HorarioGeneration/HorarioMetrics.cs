@@ -41,6 +41,9 @@ namespace API.Infrastructure.Services.HorarioGeneration
 
             // Verificar bloques consecutivos excesivos
             VerificarBloquesConsecutivos(horarios, resultado);
+            
+            // Verificar distribución de lecciones por día
+            VerificarDistribucionPorDia(horarios, grupos, resultado);
 
             return resultado;
         }
@@ -157,6 +160,15 @@ namespace API.Infrastructure.Services.HorarioGeneration
             ResultadoGeneracion resultado)
         {
             var diasSemana = new[] { "L", "K", "M", "J", "V" };
+            
+            // Definir períodos de recreo que NO son huecos problemáticos
+            var periodosRecreo = new List<(TimeSpan inicio, TimeSpan fin)>
+            {
+                (new TimeSpan(9, 0, 0), new TimeSpan(9, 20, 0)),   // 1er Recreo 
+                (new TimeSpan(11, 20, 0), new TimeSpan(12, 0, 0)), // Almuerzo
+                (new TimeSpan(14, 0, 0), new TimeSpan(14, 20, 0))  // 2ndo Recreo 
+            };
+            
             int totalHuecos = 0;
             int gruposConHuecos = 0;
             var detalleHuecos = new Dictionary<string, int>();
@@ -179,16 +191,32 @@ namespace API.Infrastructure.Services.HorarioGeneration
                         var actual = horariosDelDia[i];
                         var siguiente = horariosDelDia[i + 1];
 
+                        // DEBUG: Mostrar información detallada
+                        Console.WriteLine($"🔍 DEBUG Grupo {grupo.Nombre} ({dia}) [{i}→{i+1}]: " +
+                            $"Actual={actual.Hora_Inicio:hh\\:mm}-{actual.Hora_Fin:hh\\:mm} (Materia:{actual.Id_Materia}), " +
+                            $"Siguiente={siguiente.Hora_Inicio:hh\\:mm}-{siguiente.Hora_Fin:hh\\:mm} (Materia:{siguiente.Id_Materia})");
+
                         if (actual.Hora_Fin != siguiente.Hora_Inicio)
                         {
-                            huecosGrupo++;
-                            totalHuecos++;
+                            // Verificar si el hueco corresponde a un período de recreo
+                            bool esRecreo = periodosRecreo.Any(recreo => 
+                                actual.Hora_Fin == recreo.inicio && siguiente.Hora_Inicio == recreo.fin);
                             
-                            // ESTO ES UN ERROR CRÍTICO - Los estudiantes NUNCA deben tener huecos
-                            resultado.Errores.Add(
-                                $"❌ CRÍTICO - Grupo {grupo.Nombre} ({dia}): Hueco entre " +
-                                $"{actual.Hora_Fin:hh\\:mm} y {siguiente.Hora_Inicio:hh\\:mm}");
-                            resultado.Exitoso = false;
+                            if (!esRecreo)
+                            {
+                                // Solo contar como hueco si NO es un período de recreo
+                                huecosGrupo++;
+                                totalHuecos++;
+                                
+                                resultado.Errores.Add(
+                                    $"HUECO - Grupo {grupo.Nombre} ({dia}): Entre " +
+                                    $"{actual.Hora_Fin:hh\\:mm} y {siguiente.Hora_Inicio:hh\\:mm}");
+                                resultado.Exitoso = false;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Recreo detectado correctamente: {actual.Hora_Fin:hh\\:mm} → {siguiente.Hora_Inicio:hh\\:mm}");
+                            }
                         }
                     }
                 }
@@ -206,12 +234,12 @@ namespace API.Infrastructure.Services.HorarioGeneration
 
             if (totalHuecos > 0)
             {
-                Console.WriteLine($"❌ CRÍTICO: {totalHuecos} huecos detectados en horarios de estudiantes (ESTO NO DEBE OCURRIR)");
+                Console.WriteLine($"CRÍTICO: {totalHuecos} huecos detectados en horarios de estudiantes (ESTO NO DEBE OCURRIR)");
                 Console.WriteLine($"   Grupos afectados: {string.Join(", ", detalleHuecos.Keys)}");
             }
             else
             {
-                Console.WriteLine($"✅ Todos los grupos tienen horarios compactos sin huecos");
+                Console.WriteLine($"Todos los grupos tienen horarios compactos sin huecos");
             }
         }
 
@@ -342,6 +370,47 @@ namespace API.Infrastructure.Services.HorarioGeneration
                 resultado.Advertencias.Add(
                     $"{bloquesExcesivos} materias tienen más de 3 lecciones consecutivas");
             }
+        }
+        
+        private static void VerificarDistribucionPorDia(
+            List<HorarioDto> horarios,
+            List<GrupoDto> grupos,
+            ResultadoGeneracion resultado)
+        {
+            var diasSemana = new[] { "L", "K", "M", "J", "V" };
+            int gruposConDiasDesbalanceados = 0;
+            
+            foreach (var grupo in grupos.Where(g => g.Estado == "A"))
+            {
+                var leccionesPorDia = diasSemana
+                    .Select(d => new 
+                    { 
+                        Dia = d, 
+                        Cantidad = horarios.Count(h => h.Id_Grupo == grupo.Id_Grupo && h.Dia == d) 
+                    })
+                    .Where(x => x.Cantidad > 0)
+                    .ToList();
+                
+                // Verificar si hay días con muy pocas lecciones (menos de 4)
+                var diasConPocasLecciones = leccionesPorDia.Where(x => x.Cantidad < 4).ToList();
+                
+                if (diasConPocasLecciones.Any())
+                {
+                    gruposConDiasDesbalanceados++;
+                    foreach (var dia in diasConPocasLecciones)
+                    {
+                        resultado.Advertencias.Add(
+                            $"Grupo {grupo.Nombre} tiene solo {dia.Cantidad} lecciones el día {dia.Dia} " +
+                            $"(podría no valer la pena asistir - considere redistribuir)");
+                    }
+                }
+                
+                // Mostrar distribución completa
+                var distribucion = string.Join(", ", leccionesPorDia.Select(x => $"{x.Dia}:{x.Cantidad}"));
+                Console.WriteLine($"Grupo {grupo.Nombre} - Distribución: {distribucion}");
+            }
+            
+            resultado.Metricas["GruposConDiasDesbalanceados"] = gruposConDiasDesbalanceados;
         }
     }
 }

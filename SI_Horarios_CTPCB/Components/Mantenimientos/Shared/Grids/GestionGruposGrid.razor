@@ -36,7 +36,20 @@
                     
                     <DataGridColumn Field="@nameof(GrupoDto.Seccion)" Editable Caption="# Grupo" />
 
-                    <DataGridColumn Field="@nameof(GrupoDto.Id_Profesor_Guia)" Editable Displayable="false" Caption="Profesor Guía">
+                    <DataGridColumn Field="@nameof(GrupoDto.Id_Profesor_Guia)" Editable Caption="Profesor Guía">
+                        <DisplayTemplate Context="grupo">
+                            @{
+                                var profesor = dataProf?.FirstOrDefault(p => p.Id_Profesor == grupo.Id_Profesor_Guia);
+                            }
+                            @if (grupo.Id_Profesor_Guia == 0 || profesor == null)
+                            {
+                                <span>Sin Asignar</span>
+                            }
+                            else
+                            {
+                                <span>@profesor.Nombre @profesor.Apellido</span>
+                            }
+                        </DisplayTemplate>
                         <EditTemplate>
                             <Select TValue="int"SelectedValue="@((int)(context.CellValue ?? 0))"
                                     SelectedValueChanged="@(v => context.CellValue = v)"
@@ -71,7 +84,20 @@
 
                     </DataGridSelectColumn>
 
-                    <DataGridColumn Field="@nameof(GrupoDto.NombreEspecialidad)" Editable Caption="Especialidad">
+                    <DataGridColumn Field="@nameof(GrupoDto.Especialidad)" Editable Caption="Especialidad">
+                        <DisplayTemplate Context="grupo">
+                            @{
+                                var nomEspecialidad = dataMaterias?.FirstOrDefault(p => p.Id_Materia == grupo.Especialidad);
+                            }
+                            @if (grupo.Especialidad == 0 || nomEspecialidad == null)
+                            {
+                                <span>Sin Asignar</span>
+                            }
+                            else
+                            {
+                                <span>@nomEspecialidad.Nombre</span>
+                            }
+                        </DisplayTemplate>
                         <EditTemplate>
                             @if (ShowEspecialidadColumn)
                             {
@@ -93,21 +119,7 @@
                         </EditTemplate>
                     </DataGridColumn>
 
-                    <DataGridColumn Field="@nameof(GrupoDto.Id_Profesor_Guia)" Caption="Profesor Guía">
-                        <DisplayTemplate Context="grupo">
-                            @{
-                                var profesor = dataProf?.FirstOrDefault(p => p.Id_Profesor == grupo.Id_Profesor_Guia);
-                            }
-                            @if (grupo.Id_Profesor_Guia == 0 || profesor == null)
-                            {
-                                <span>Sin Asignar</span>
-                            }
-                            else
-                            {
-                                <span>@profesor.Nombre @profesor.Apellido</span>
-                            }
-                        </DisplayTemplate>
-                    </DataGridColumn>
+                   
 
                 </DataGridColumns>
                 <ButtonRowTemplate>

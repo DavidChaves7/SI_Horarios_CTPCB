@@ -78,13 +78,13 @@ namespace API.Infrastructure.Services.HorarioGeneration
         /// <summary>
         /// Verifica si el profesor puede asumir más lecciones según su carga horaria
         /// </summary>
-        public bool PuedeAceptarMasLecciones(List<HorarioDto> horariosExistentes, int idProfesor)
+        public bool PuedeAceptarMasLecciones(List<HorarioDto> horariosExistentes, int idProfesor, int cantidadAAgregar = 1)
         {
             var profesor = _profesores.FirstOrDefault(p => p.Id_Profesor == idProfesor);
             if (profesor == null) return false;
 
             var leccionesActuales = ObtenerLeccionesAsignadas(horariosExistentes, idProfesor);
-            return leccionesActuales < profesor.Carga_Horaria;
+            return (leccionesActuales + cantidadAAgregar) <= profesor.Carga_Horaria;
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace API.Infrastructure.Services.HorarioGeneration
                 }
             }
 
-            return PuedeAceptarMasLecciones(horariosExistentes, idProfesor);
+            return PuedeAceptarMasLecciones(horariosExistentes, idProfesor, bloques.Count);
         }
 
         /// <summary>
@@ -208,6 +208,24 @@ namespace API.Infrastructure.Services.HorarioGeneration
                 h.Estado == "A");
 
             return Math.Max(0, cargaHorariaRequerida - leccionesAsignadas);
+        }
+
+        /// <summary>
+        /// Verifica si agregar lecciones excedería la carga horaria de la materia para el grupo
+        /// </summary>
+        public bool ExcedeCargaHorariaMateria(
+            List<HorarioDto> horarios,
+            int idGrupo,
+            int idMateria,
+            int cargaHorariaRequerida,
+            int cantidadAAgregar)
+        {
+            var leccionesAsignadas = horarios.Count(h =>
+                h.Id_Grupo == idGrupo &&
+                h.Id_Materia == idMateria &&
+                h.Estado == "A");
+
+            return (leccionesAsignadas + cantidadAAgregar) > cargaHorariaRequerida;
         }
 
         /// <summary>
