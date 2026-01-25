@@ -36,6 +36,7 @@
                     <DataGridColumn Field="@nameof(MateriaXNivelDto.Desc_Materia)" Caption="Materia" />
 
                     <DataGridColumn Field="@nameof(MateriaXNivelDto.Id_Nivel_Academico)" Editable Displayable="false" Caption="ID Nivel Academico">
+                        
                         <EditTemplate>
                             <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
                                 <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
@@ -49,7 +50,7 @@
                     <DataGridColumn Field="@nameof(MateriaXNivelDto.Desc_Nivel_Academico)" Caption="Nivel Academico" />
 
 
-                    <DataGridColumn Field="@nameof(MateriaXNivelDto.Prioridad)" Displayable=false Editable Caption="Prioridad">
+                  @*   <DataGridColumn Field="@nameof(MateriaXNivelDto.Prioridad)" Displayable=false Editable Caption="Prioridad">
                         <DisplayTemplate>
                             <Select SelectedValue="@context.Prioridad" Disabled TValue="int?" Style="min-width: 200px;">
                                 <SelectItem Value="@(1)">Alta</SelectItem>
@@ -67,7 +68,7 @@
                         </EditTemplate>
                        
                     
-                    </DataGridColumn>
+                    </DataGridColumn> *@
 
 
                     <DataGridColumn Field="@nameof(MateriaXNivelDto.Carga_Horaria)" Editable Caption="Carga Horaria">
