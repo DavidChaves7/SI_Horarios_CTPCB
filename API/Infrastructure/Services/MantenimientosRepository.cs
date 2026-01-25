@@ -815,10 +815,24 @@ namespace API.Infrastructure.Services
         #region Grupos
         public async Task<IEnumerable<GrupoDto>> GetAllGrupos()
         {
-            var parameters = await _unitOfWork.Set<Grupo>()
-                         .Select(s => _mapper.Map<GrupoDto>(s)).ToListAsync();
-            parameters = parameters.OrderByDescending(x => x.Id_Grupo).ToList();
-            return parameters;
+            var grupos = await _unitOfWork.Set<Grupo>()
+                .Select(g => new GrupoDto
+                {
+                    Id_Grupo = g.Id_Grupo,
+                    Nombre = g.Nombre,
+                    Id_Nivel_Academico = g.Id_Nivel_Academico,
+                    Seccion = g.Seccion,
+                    Id_Profesor_Guia = g.Id_Profesor_Guia ?? 0,
+                    Estado = g.Estado,
+                    Especialidad = g.Especialidad,
+                    NombreEspecialidad = _unitOfWork.Set<Materia>()
+                        .Where(m => m.Id_Materia == g.Especialidad)
+                        .Select(m => m.Nombre)
+                        .FirstOrDefault() // Obtén el nombre de la materia
+                })
+                .ToListAsync();
+
+            return grupos;
         }
 
         public async Task<GrupoDto?> AddUpdateGrupo(GrupoDto data)

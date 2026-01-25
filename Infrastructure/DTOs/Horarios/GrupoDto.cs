@@ -15,8 +15,7 @@ namespace Infrastructure.DTOs.Horarios
         public string Seccion { get; set; } = string.Empty;
         public int Id_Profesor_Guia { get; set; }
         public string Estado { get; set; } = string.Empty;
-        public string? especialidad { get; set; }
-
+        public int? Especialidad { get; set; }
+        public string? NombreEspecialidad { get; set; } // Nueva propiedad para el nombre de la materia
     }
-    
 }

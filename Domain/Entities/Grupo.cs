@@ -16,6 +16,6 @@ namespace Domain.Entities
         public string? Seccion { get; set; }
         public int? Id_Profesor_Guia { get; set; }
         public string? Estado { get; set; }
-        public string? especialidad { get; set; }
+        public int? Especialidad { get; set; }
     }
 }

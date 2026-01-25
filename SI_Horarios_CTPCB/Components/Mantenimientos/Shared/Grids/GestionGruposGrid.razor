@@ -71,28 +71,42 @@
 
                     </DataGridSelectColumn>
 
-                    <DataGridColumn Field="@nameof(GrupoDto.Especialidad)" Editable  Caption="Especialidad">
-                        
-                        <EditTemplate  >
-                            @if (ShowEspecialidadColumn){
+                    <DataGridColumn Field="@nameof(GrupoDto.NombreEspecialidad)" Editable Caption="Especialidad">
+                        <EditTemplate>
+                            @if (ShowEspecialidadColumn)
+                            {
                                 <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;">
-                                <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
-                                @foreach (var i in (dataMaterias ?? new List<MateriaDto>()).Where(m => m.Tipo == "T"))
-                                {
-                                    <SelectItem Value="@(i.Id_Materia)">@i.Nombre</SelectItem>
-                                }
+                                    <SelectItem Value="@((int?)null)">Seleccione una opción</SelectItem>
+                                    <SelectItem Value="@(0)">Sin asignación</SelectItem>
+                                    @foreach (var i in (dataMaterias ?? new List<MateriaDto>()).Where(m => m.Tipo == "T"))
+                                    {
+                                        <SelectItem Value="@(i.Id_Materia)">@i.Nombre</SelectItem>
+                                    }
                                 </Select>
                             }
                             else
                             {
                                 <Select SelectedValue="@((int?)context.CellValue)" SelectedValueChanged="@(v => context.CellValue = v)" TValue="int?" Style="min-width: 200px;" disabled>
-                                    <SelectItem Value="@((""))">No Aplica</SelectItem>
-                                   
+                                    <SelectItem Value="@((int?)null)">No Aplica</SelectItem>
                                 </Select>
                             }
-                            
                         </EditTemplate>
-                       
+                    </DataGridColumn>
+
+                    <DataGridColumn Field="@nameof(GrupoDto.Id_Profesor_Guia)" Caption="Profesor Guía">
+                        <DisplayTemplate Context="grupo">
+                            @{
+                                var profesor = dataProf?.FirstOrDefault(p => p.Id_Profesor == grupo.Id_Profesor_Guia);
+                            }
+                            @if (grupo.Id_Profesor_Guia == 0 || profesor == null)
+                            {
+                                <span>Sin Asignar</span>
+                            }
+                            else
+                            {
+                                <span>@profesor.Nombre @profesor.Apellido</span>
+                            }
+                        </DisplayTemplate>
                     </DataGridColumn>
 
                 </DataGridColumns>

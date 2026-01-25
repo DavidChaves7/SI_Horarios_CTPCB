@@ -3650,7 +3650,10 @@ namespace SI_Horarios_CTPCB.Infrastructure.ApiClient
         public string Estado { get; set; }
 
         [Newtonsoft.Json.JsonProperty("especialidad", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Especialidad { get; set; }
+        public int? Especialidad { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("nombreEspecialidad", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string NombreEspecialidad { get; set; }
 
     }
 
